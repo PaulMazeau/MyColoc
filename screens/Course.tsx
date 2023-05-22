@@ -1,10 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import CourseCard from '../components/CourseCard';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParams } from '../App';
 
-export default function Course() {
+type Props = NativeStackScreenProps<RootStackParams, 'CourseStack'>
+
+const CourseScreen = ({navigation}: Props) => {
   return (
     <View style={styles.container}>
-      <Text>Ecran Course!</Text>
+      <CourseCard name="Course de vendredi" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard>
+      <CourseCard name="Course de dimanche" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard>
       <StatusBar style="auto" />
     </View>
   );
@@ -18,3 +24,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default CourseScreen
