@@ -5,7 +5,8 @@ import { RootStackParams } from '../App';
 import BackButton from '../components/BackButton';
 import CourseCard from '../components/CourseCard';
 
-type Props = NativeStackScreenProps<RootStackParams, "ListeDeCourse">
+// Définition du type des propriétés pour le composant ListeDeCourseScreen
+type Props = NativeStackScreenProps<RootStackParams, 'ListeDeCourse'>;
 
 const ListeDeCourseScreen = ({route, navigation}: Props) => {
   return (

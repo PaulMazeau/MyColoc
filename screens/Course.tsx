@@ -4,7 +4,8 @@ import CourseCard from '../components/CourseCard';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 
-type Props = NativeStackScreenProps<RootStackParams, 'CourseStack'>
+// Définition du type des propriétés pour la page CourseScreen
+type Props = NativeStackScreenProps<RootStackParams, 'CourseStack'>;
 
 const CourseScreen = ({navigation}: Props) => {
   return (
