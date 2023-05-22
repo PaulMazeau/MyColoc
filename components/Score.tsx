@@ -1,10 +1,12 @@
 
 import { View, Text, StyleSheet } from 'react-native';
+import Trophy from '../assets/icons/Trophy.svg';
 
 
 const Score = () => {
     return(
         <View style = {styles.container}>
+            <Trophy/>
             <Text style = {styles.text}> 1800</Text>
         </View>
     );
