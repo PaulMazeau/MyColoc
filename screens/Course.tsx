@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import CourseCard from '../components/CourseCard';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { CourseStackParams, RootStackParams } from '../App';
+import { main } from '../constants/Colors';
 
 // Définition du type des propriétés pour la page CourseScreen
 type Props = NativeStackScreenProps<CourseStackParams, 'Course'>;
@@ -20,7 +21,7 @@ const CourseScreen = ({navigation}: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: main.BgColor,
     alignItems: 'center',
     justifyContent: 'center',
   },

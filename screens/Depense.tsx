@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { main } from '../constants/Colors';
 
 export default function DepenseScreen() {
   return (
@@ -13,7 +14,7 @@ export default function DepenseScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: main.BgColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
