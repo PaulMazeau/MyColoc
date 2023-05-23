@@ -16,7 +16,7 @@ const GameCard = () => {
 
     return(
         <View>
-            <LinearGradient colors={[MiniJeu.BgGradientColor1, MiniJeu.BgGradientColor2]} style={styles.global}>
+            <LinearGradient colors={[MiniJeu.VioletGradientColor1, MiniJeu.VioletGradientColor2]} style={styles.global}>
                 
             <View style = {styles.container}>
 
@@ -41,9 +41,8 @@ const GameCard = () => {
 
 const styles = StyleSheet.create({
     global:{
-        backgroundColor: MiniJeu.BgGradientColor1,
         borderRadius: 10,
-        width : windowWidth*0.8
+        width : windowWidth*0.9
     },
 
     container:{

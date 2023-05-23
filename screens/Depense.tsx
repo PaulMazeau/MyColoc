@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { main } from '../constants/Colors';
 import Header from '../components/Reusable/Header';
 import GameCard from '../components/MiniJeu/GameCard';
+import SalonCard from '../components/MiniJeu/SalonCard';
 
 export default function DepenseScreen() {
   return (
@@ -13,6 +14,10 @@ export default function DepenseScreen() {
       
       <View style={{alignItems:'center', height:"35%"}}>
         <GameCard/>
+
+        <Text>Salons ouverts</Text>
+
+        <SalonCard/>
       </View>
       
       
