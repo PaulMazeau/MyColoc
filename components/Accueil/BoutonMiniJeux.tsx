@@ -26,7 +26,7 @@ const BoutonMiniJeu = () => {
 
 const styles = StyleSheet.create({
   global: {
-    width: '42.5%',
+    width: '41%',
     borderRadius: 10,
   },
   container: {

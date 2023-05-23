@@ -1,71 +1,64 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Suggestions from '../../assets/icons/Suggestions.svg'
+import { Shadows } from '../../constants/Shadow';
 
 const SelectionImg = require('../../assets/Images/Selection.png')
 
 const Suggestion  = () => {
   return (
-    <View style={styles.global}>
-        <View style={styles.container}>
-            <Text style={styles.text}>
-                Découvrez une selection de recettes, {'\n'}sorties, jeux et restaurants à faire {'\n'}entre colocataires.
-            </Text>
+    <View style={[styles.container, Shadows.shadow]}>
+        <Text style={styles.text}>
+            Découvrez une selection de recettes, {'\n'}sorties, jeux et restaurants à faire {'\n'}entre colocataires.
+        </Text>
 
-            <View style={styles.bottomContainer}>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Bientôt disponible</Text>
-                    <Suggestions/>
-                </TouchableOpacity>
-                <Image source={SelectionImg} style={styles.image}/>
-            </View>
+        <View style={styles.bottomContainer}>
+            <TouchableOpacity style={styles.bouton}>
+                <Text style={styles.boutonText}>Bientôt disponible</Text>
+                <Suggestions/>
+            </TouchableOpacity>
+            <Image source={SelectionImg} style={styles.image}/>
         </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  global: {
-    shadowColor: 'black',
-    shadowOffset: {width: -2, height: 1},
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-  },
-
   container: {
-    elevation: 2,
-    backgroundColor: "white",
-    padding: 15,
     borderRadius: 10,
     height: 142,
     justifyContent: 'space-between',
     marginLeft: 16,
-    marginRight: 16
+    marginRight: 16,
+    padding: 15,
+    marginBottom: 12,
   },
-  
+
   text: {
     fontSize: 14,
   },
 
   bottomContainer: {
-    flexDirection: 'row',
     alignItems: 'flex-end',
-    justifyContent:'space-between'
+    flexDirection: 'row',
+    justifyContent:'space-between',
   },
 
-  buttonText: {
-    fontSize: 14,
-    fontWeight: '700',
-    marginRight: 10,
-    color:'white',
-  },
-
-  button: {
+  bouton: {
     backgroundColor: '#B1C1FF',
     borderRadius: 5,
     height: 35,
+    flexDirection: 'row', 
+    alignItems: 'center', 
     justifyContent: 'center',
     width: '55%'
+  },
+
+  boutonText: {
+    color:'white',
+    fontSize: 14,
+    fontWeight: '700',
+    marginRight: 10,
   },
 
   image: {

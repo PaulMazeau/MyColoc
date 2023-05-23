@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../../assets/icons/Settings.svg';
 import { useNavigation } from '@react-navigation/native';
-import { main } from '../../constants/Colors';
 
 const Header = () => {
     const navigation = useNavigation();
@@ -44,7 +43,6 @@ const styles = StyleSheet.create({
         paddingBottom: Platform.OS === 'android' ? 25 : -25
     },
     header: {
-        zIndex: 2,
         flexDirection: 'row',
         alignItems: 'center',
         paddingTop: 16,

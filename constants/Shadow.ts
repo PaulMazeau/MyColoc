@@ -7,5 +7,6 @@ export const Shadows = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 2,
+    backgroundColor: 'white',
   },
 });
