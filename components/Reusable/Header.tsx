@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Settings from '../assets/icons/Settings.svg';
+import Settings from '../../assets/icons/Settings.svg';
 import { useNavigation } from '@react-navigation/native';
+import { main } from '../../constants/Colors';
 
 const Header = () => {
     const navigation = useNavigation();
@@ -22,7 +23,7 @@ const Header = () => {
             <View style={styles.header}>
                 <TouchableOpacity onPress={handleSettingsPress} style={styles.globalLeft}>
                     <View style={styles.imageContainer}>
-                        <Image source={require('../assets/icon.png')} style={styles.image}/>
+                        <Image source={require('../../assets/icon.png')} style={styles.image}/>
                     </View>
                     <View style={styles.title}>
                         <Text style={styles.bigTitle}>Paul</Text>
@@ -39,10 +40,11 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     safeArea: {
-        backgroundColor: '#EDF0FA', 
+        backgroundColor: '#00000000', 
         paddingBottom: Platform.OS === 'android' ? 25 : -25
     },
     header: {
+        zIndex: 2,
         flexDirection: 'row',
         alignItems: 'center',
         paddingTop: 16,

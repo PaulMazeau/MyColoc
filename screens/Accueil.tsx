@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Header from '../components/Header';
+import BlueGradient from '../components/Reusable/BlueGradient';
+import Header from '../components/Reusable/Header';
 import { main } from '../constants/Colors';
 
 const AccueilScreen = () => {
   return (
     <View style={styles.container}>
       <Header/>
+      <BlueGradient/>
       <StatusBar style="auto" />
     </View>
   );

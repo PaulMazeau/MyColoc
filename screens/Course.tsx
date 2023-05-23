@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import CourseCard from '../components/CourseCard';
+import CourseCard from '../components/Course/CourseCard';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { CourseStackParams, RootStackParams } from '../App';
 import { main } from '../constants/Colors';
-import Header from '../components/Header';
+import Header from '../components/Reusable/Header';
 
 // Définition du type des propriétés pour la page CourseScreen
 type Props = NativeStackScreenProps<CourseStackParams, 'Course'>;

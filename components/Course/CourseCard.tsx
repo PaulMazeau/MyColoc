@@ -12,7 +12,7 @@ const CourseCard: React.FC<Props> = ({ name, onPress }) => {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <TouchableOpacity onPress={() => onPress(name)}>
-      <Text>Ceci est une liste de course {name}</Text>
+        <Text>Ceci est une liste de course {name}</Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { TouchableHighlight } from 'react-native-gesture-handler'
-import BackIcon from '../assets/icons/BackIcon'
+import BackIcon from '../../assets/icons/BackIcon'
 import { useNavigation } from '@react-navigation/core'
 
 const BackButton = () => {

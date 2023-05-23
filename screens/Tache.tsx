@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { main } from '../constants/Colors';
-import Header from '../components/Header';
+import Header from '../components/Reusable/Header';
 
 export default function TacheScreen() {
   return (

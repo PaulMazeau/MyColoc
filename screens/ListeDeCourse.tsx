@@ -2,9 +2,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { RootStackParams } from '../App';
-import BackButton from '../components/BackButton';
-import CourseCard from '../components/CourseCard';
-import Header from '../components/Header';
+import BackButton from '../components/Reusable/BackButton';
+import CourseCard from '../components/Course/CourseCard';
+import Header from '../components/Reusable/Header';
 
 // Définition du type des propriétés pour le composant ListeDeCourseScreen
 type Props = NativeStackScreenProps<RootStackParams, 'ListeDeCourse'>;
