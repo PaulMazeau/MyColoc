@@ -22,7 +22,7 @@ const Header = () => {
             <View style={styles.header}>
                 <TouchableOpacity onPress={handleSettingsPress} style={styles.globalLeft}>
                     <View style={styles.imageContainer}>
-                        <Image source={require('../../assets/icon.png')} style={styles.image}/>
+                        <Image source={require('../../assets/images/icon.png')} style={styles.image}/>
                     </View>
                     <View style={styles.title}>
                         <Text style={styles.bigTitle}>Paul</Text>
