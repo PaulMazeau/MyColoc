@@ -7,7 +7,7 @@ import MonSolde from '../components/Accueil/MonSolde';
 import TacheCardAccueil from '../components/Accueil/TacheCardAccueil';
 import Suggestion from '../components/Accueil/Suggestions';
 
-const Appartement = require('../assets/Images/Appartement.png');
+const Appartement = require('../assets/images/Appartement.png');
 
 
 const AccueilScreen = () => {

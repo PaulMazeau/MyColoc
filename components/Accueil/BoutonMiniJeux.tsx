@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
 
-const ImgBg = require('../../assets/Images/MiniJeu.png');
+const ImgBg = require('../../assets/images/MiniJeu.png');
 
 
 //props est le solde de l'utilisateur obtenu après connexion a la db
