@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useMemo} from 'react';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -23,6 +23,9 @@ import DepenseIcon from './assets/icons/DepenseIcon';
 import { NavBarStyle } from './constants/NavBar';
 import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
 
+//Import du contexte
+import { useGlobalContext, GlobalContext, user} from "./UserContext";
+import { User } from 'firebase/auth';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -97,6 +100,7 @@ const AuthScreenStack = () => {
 // Fonction principale de l'application
 export default function App() {
   const isLoggedIn = true; 
+  const [user, setUser] = useState<user>(null)
 
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
   const renderContent = () => {
@@ -123,8 +127,10 @@ export default function App() {
   }
 
   return (
+    <GlobalContext.Provider value={{user, setUser}}>
     <NavigationContainer>
       {renderContent()}
     </NavigationContainer>
+    </GlobalContext.Provider>
   );
 }
