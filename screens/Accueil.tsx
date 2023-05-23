@@ -9,6 +9,7 @@ import Suggestion from '../components/Accueil/Suggestions';
 
 const Appartement = require('../assets/Images/Appartement.png');
 
+
 const AccueilScreen = () => {
   return (
     <View style={styles.container}>
@@ -27,6 +28,7 @@ const AccueilScreen = () => {
       </View>
       <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
       <TacheCardAccueil/>
+
     </View>
   );
 }
