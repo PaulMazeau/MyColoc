@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import BlueGradient from '../components/Reusable/BlueGradient';
 import Header from '../components/Reusable/Header';
 import { main } from '../constants/Colors';
+import GameCard from '../components/GameCard'
 
 const AccueilScreen = () => {
   return (
@@ -10,6 +11,9 @@ const AccueilScreen = () => {
       <Header/>
       <BlueGradient/>
       <StatusBar style="auto" />
+<<<<<<< main
+      <Text>Bienvenue sur Notre App</Text>
+>>>>>>> Ariel
     </View>
   );
 }

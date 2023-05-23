@@ -1,3 +1,6 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import GameCard from './components/GameCard';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CourseScreen from './screens/Course';
