@@ -3,14 +3,20 @@ import { StyleSheet, Text, View, Dimensions, ImageBackground} from 'react-native
 import { main } from '../constants/Colors';
 import Header from '../components/Reusable/Header';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import BlueGradient from '../components/Reusable/BlueGradient';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AuthStackParams } from '../App';
 
 const windowHeight = Dimensions.get('window').height
-const image = require('../img/homepage_bg.png')
-export default function LoginSignupScreen() {
+
+
+export default function SignUpScreen() {
+  const navigation = useNavigation<NativeStackScreenProps<AuthStackParams>>()
   return (
 
     <View style={styles.container}>
-         <ImageBackground source={image} resizeMode="cover" style={styles.bluebg} imageStyle={{borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}></ImageBackground>
+         <BlueGradient />
          <View style={styles.buttonContainer}>
          <TouchableOpacity
         //   onPress={handleLogin}

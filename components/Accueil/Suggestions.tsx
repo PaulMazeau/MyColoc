@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Suggestions from '../../assets/icons/Suggestions.svg'
 import { Shadows } from '../../constants/Shadow';
 
-const SelectionImg = require('../../assets/Images/Selection.png')
+const SelectionImg = require('../../assets/images/Selection.png')
 
 const Suggestion  = () => {
   return (

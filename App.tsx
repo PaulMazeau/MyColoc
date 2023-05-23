@@ -1,36 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import GameCard from './components/MiniJeu/GameCard';
+import React from 'react';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// Import des écrans
+import AccueilScreen from './screens/Accueil';
 import CourseScreen from './screens/Course';
 import TacheScreen from './screens/Tache';
 import DepenseScreen from './screens/Depense';
-import AccueilScreen from './screens/Accueil';
 import ListeDeCourseScreen from './screens/ListeDeCourse';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
-import { NavBarStyle } from './constants/NavBar';
+import LoginScreen from './screens/LogIn';
+import SignUpScreen from './screens/SignUp';
+import MiniJeu from './screens/MiniJeu';
+
+// Import des icônes
 import AccueilIcon from './assets/icons/AccueilIcon';
 import TacheIcon from './assets/icons/TacheIcon';
 import CourseIcon from './assets/icons/CourseIcon';
 import DepenseIcon from './assets/icons/DepenseIcon';
 
-//pile racine de l'application
+// Import du style de la barre de navigation
+import { NavBarStyle } from './constants/NavBar';
+import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
+
+
+// Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
+  AuthStack: undefined;
   Accueil: undefined; 
-  CourseStack: NavigatorScreenParams<CourseStackParams>; // Pile de navigation associée à la gestion des courses
+  AccueilStack: undefined;
+  CourseStack: NavigatorScreenParams<CourseStackParams>; 
   Tache: undefined; 
   Depense: undefined;
   ListeDeCourse: {
     name: string;
   };
+  MiniJeu: undefined;
 };
 
-// Crée une navigation par onglets en utilisant les paramètres de la pile racine
-const MainNavigation = createBottomTabNavigator<RootStackParams>(); 
-
-// Définition des types de paramètres pour la pile de navigation CourseStack
 export type CourseStackParams = {
   Course: undefined;
   ListeDeCourse: {
@@ -38,40 +45,86 @@ export type CourseStackParams = {
   };
 };
 
+export type AuthStackParams = {
+  Login: undefined;
+  SignUp: undefined;
+};
 
-// Crée une pile de navigation native en utilisant les paramètres de la pile CourseStack
+export type AccueilStackParams = {
+  Accueil: undefined;
+  MiniJeu: undefined;
+  BoutonMiniJeu: undefined;
+};
+
+// Création des piles de navigation
+const MainNavigation = createBottomTabNavigator<RootStackParams>();
 const CourseStack = createNativeStackNavigator<CourseStackParams>(); 
+const AuthStack = createNativeStackNavigator<AuthStackParams>();
+const AccueilStack = createNativeStackNavigator<AccueilStackParams>();
 
-// Stack de navigation pour l'écran ListeDeCourseScreen
+// Pile de navigation pour l'écran Accueil  
+const AccueilScreenStack = () => {
+  return (
+    <AccueilStack.Navigator screenOptions={{headerShown: false}}>
+      <AccueilStack.Screen name="Accueil" component={AccueilScreen} />
+      <AccueilStack.Screen name="MiniJeu" component={MiniJeu} />
+      <AccueilStack.Screen name="BoutonMiniJeu" component={BoutonMiniJeu} />
+    </AccueilStack.Navigator>
+  );
+}
+
+
+// Pile de navigation pour l'écran ListeDeCourseScreen
 const ListeDeCourseScreenStack = () => {
   return (
     <CourseStack.Navigator initialRouteName="Course" screenOptions={{ headerShown: false }}>
-      <CourseStack.Screen name="Course" component={CourseScreen} /> 
-      <CourseStack.Screen name="ListeDeCourse" component={ListeDeCourseScreen} /> 
+      <CourseStack.Screen name="Course" component={CourseScreen} />
+      <CourseStack.Screen name="ListeDeCourse" component={ListeDeCourseScreen} />
     </CourseStack.Navigator>
   );
 }
 
- 
+// Pile de navigation pour l'écran AuthScreen
+const AuthScreenStack = () => {
+  return (
+    <AuthStack.Navigator screenOptions={{headerShown: false}}>
+      <AuthStack.Screen name="Login" component={LoginScreen} />
+      <AuthStack.Screen name="SignUp" component={SignUpScreen} />
+    </AuthStack.Navigator>
+  )
+}
 
+// Fonction principale de l'application
 export default function App() {
+  const isLoggedIn = true; 
+
+  // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
+  const renderContent = () => {
+    if (isLoggedIn) {
+      return (
+        <MainNavigation.Navigator
+          initialRouteName="Accueil"
+          screenOptions={{ 
+            headerShown: false,
+            tabBarStyle: NavBarStyle,
+            tabBarActiveTintColor: "#172ACE",
+            tabBarInactiveTintColor: "grey",
+            tabBarLabel: () => null,
+          }}
+        >
+          <MainNavigation.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: ({color}) => <AccueilIcon color={color}/>}} />
+          <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} options={{tabBarIcon: ({color}) => <CourseIcon color={color} />}} />
+          <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: ({color}) => <TacheIcon color={color} />}}/>
+          <MainNavigation.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
+        </MainNavigation.Navigator>
+      );
+    }
+    return <AuthScreenStack />;
+  }
+
   return (
     <NavigationContainer>
-      <MainNavigation.Navigator
-        initialRouteName="Accueil"
-        screenOptions={{ 
-          headerShown: false,
-          tabBarStyle: NavBarStyle,
-          tabBarActiveTintColor: "#172ACE",
-          tabBarInactiveTintColor: "grey",
-          tabBarLabel: () => null,
-        }}
-      >
-        <MainNavigation.Screen name="Accueil" component={AccueilScreen} options={{tabBarIcon: (({color}) => <AccueilIcon color={color}/>)}} />
-        <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} options={{tabBarIcon: (({color}) => <CourseIcon color={color} />)}} />
-        <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: (({color,}) => <TacheIcon color={color} />)}}/>
-        <MainNavigation.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color}) => <DepenseIcon color={color} />)}}/>
-      </MainNavigation.Navigator>
+      {renderContent()}
     </NavigationContainer>
   );
 }
