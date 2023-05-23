@@ -8,6 +8,14 @@ export default function DepenseScreen() {
     <View style={styles.container}>
       <Header/>
       <Text>Ecran Depense!</Text>
+      
+      
+      <View style={{alignItems:'center', height:"35%"}}>
+        
+      </View>
+      
+      
+      
       <StatusBar style="auto" />
     </View>
   );

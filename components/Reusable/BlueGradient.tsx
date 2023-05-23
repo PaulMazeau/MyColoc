@@ -11,12 +11,11 @@ function BlueGradient() {
       start={{x: 1, y: 1}} 
       end={{x: 0.8, y: 0}} 
       style={{ 
-        height: windowHeight * 0.45, 
+        height: windowHeight * 0.42, 
         justifyContent: 'center', 
         alignItems: 'center',
         borderBottomLeftRadius: 40,   
         borderBottomRightRadius: 40,
-        zIndex: 1,
       }}
     />
   );
