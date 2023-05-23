@@ -11,7 +11,7 @@ import { AuthStackParams } from '../App';
 const windowHeight = Dimensions.get('window').height
 
 export default function LoginScreen() {
-  const navigation = useNavigation<NativeStackScreenProps<AuthStackParams>>()
+  const navigation = useNavigation()
   return (
 
     <View style={styles.container}>

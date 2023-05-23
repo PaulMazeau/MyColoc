@@ -11,6 +11,7 @@ const Appartement = require('../assets/images/Appartement.png');
 
 
 const AccueilScreen = () => {
+
   return (
     <View style={styles.container}>
       <BlueGradient/>

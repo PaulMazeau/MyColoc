@@ -11,6 +11,7 @@ import DepenseScreen from './screens/Depense';
 import ListeDeCourseScreen from './screens/ListeDeCourse';
 import LoginScreen from './screens/LogIn';
 import SignUpScreen from './screens/SignUp';
+import MiniJeu from './screens/MiniJeu';
 
 // Import des icônes
 import AccueilIcon from './assets/icons/AccueilIcon';
@@ -20,17 +21,21 @@ import DepenseIcon from './assets/icons/DepenseIcon';
 
 // Import du style de la barre de navigation
 import { NavBarStyle } from './constants/NavBar';
+import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
+
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
   AuthStack: undefined;
   Accueil: undefined; 
+  AccueilStack: undefined;
   CourseStack: NavigatorScreenParams<CourseStackParams>; 
   Tache: undefined; 
   Depense: undefined;
   ListeDeCourse: {
     name: string;
   };
+  MiniJeu: undefined;
 };
 
 export type CourseStackParams = {
@@ -45,10 +50,29 @@ export type AuthStackParams = {
   SignUp: undefined;
 };
 
+export type AccueilStackParams = {
+  Accueil: undefined;
+  MiniJeu: undefined;
+  BoutonMiniJeu: undefined;
+};
+
 // Création des piles de navigation
 const MainNavigation = createBottomTabNavigator<RootStackParams>();
 const CourseStack = createNativeStackNavigator<CourseStackParams>(); 
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
+const AccueilStack = createNativeStackNavigator<AccueilStackParams>();
+
+// Pile de navigation pour l'écran Accueil  
+const AccueilScreenStack = () => {
+  return (
+    <AccueilStack.Navigator screenOptions={{headerShown: false}}>
+      <AccueilStack.Screen name="Accueil" component={AccueilScreen} />
+      <AccueilStack.Screen name="MiniJeu" component={MiniJeu} />
+      <AccueilStack.Screen name="BoutonMiniJeu" component={BoutonMiniJeu} />
+    </AccueilStack.Navigator>
+  );
+}
+
 
 // Pile de navigation pour l'écran ListeDeCourseScreen
 const ListeDeCourseScreenStack = () => {
@@ -63,7 +87,7 @@ const ListeDeCourseScreenStack = () => {
 // Pile de navigation pour l'écran AuthScreen
 const AuthScreenStack = () => {
   return (
-    <AuthStack.Navigator>
+    <AuthStack.Navigator screenOptions={{headerShown: false}}>
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="SignUp" component={SignUpScreen} />
     </AuthStack.Navigator>
@@ -72,7 +96,7 @@ const AuthScreenStack = () => {
 
 // Fonction principale de l'application
 export default function App() {
-  const isLoggedIn = false; 
+  const isLoggedIn = true; 
 
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
   const renderContent = () => {
@@ -88,7 +112,7 @@ export default function App() {
             tabBarLabel: () => null,
           }}
         >
-          <MainNavigation.Screen name="Accueil" component={AccueilScreen} options={{tabBarIcon: ({color}) => <AccueilIcon color={color}/>}} />
+          <MainNavigation.Screen name="Accueil" component={AccueilScreenStack} options={{tabBarIcon: ({color}) => <AccueilIcon color={color}/>}} />
           <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} options={{tabBarIcon: ({color}) => <CourseIcon color={color} />}} />
           <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: ({color}) => <TacheIcon color={color} />}}/>
           <MainNavigation.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
