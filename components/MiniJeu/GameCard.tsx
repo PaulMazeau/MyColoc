@@ -1,13 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet,ImageBackground } from 'react-native';
+import { View, Text, StyleSheet,ImageBackground, useWindowDimensions } from 'react-native';
 import PlayButton from "./PlayButton";
 import Score from './Score';
 import { MiniJeu } from '../../constants/Colors';
 
 
-const BasketBall_Background=require('../../images/BasketBall_Background.png');
+const BasketBall_Background=require('../../assets/images/BasketBall_Background.png');
+
 
 const GameCard = () => {
+
 
     return(
         <View style = {styles.global} >
@@ -15,7 +17,7 @@ const GameCard = () => {
             <View style = {styles.container}>
 
                 <View style = {{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style= {styles.text}>BasketBall</Text>
+                    <Text style = {styles.text}>BasketBall</Text>
                     <Score/>
                 </View>
 
@@ -34,9 +36,8 @@ const GameCard = () => {
 const styles = StyleSheet.create({
     global:{
         backgroundColor: MiniJeu.BgColor1,
-        width: '80%',
-        height: '30%',
         borderRadius: 10,
+        width : '80%'
     },
 
     container:{
