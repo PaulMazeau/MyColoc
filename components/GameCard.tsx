@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet,ImageBackground } from 'react-native';
+import PlayButton from "./PlayButton";
 import Score from './Score'
 
 
@@ -13,8 +14,9 @@ const GameCard = () => {
             <View style = {styles.container}>
                 <View style = {{flexDirection:'row', justifyContent:'space-between'}}>
                     <Text style= {styles.text}>BasketBall</Text>
-                    <Score></Score>
+                    <Score/>
                 </View>
+                <PlayButton/>
             </View>
             </ImageBackground>
         </View>
