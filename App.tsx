@@ -12,7 +12,6 @@ import AccueilIcon from './assets/icons/AccueilIcon';
 import TacheIcon from './assets/icons/TacheIcon';
 import CourseIcon from './assets/icons/CourseIcon';
 import DepenseIcon from './assets/icons/DepenseIcon';
-import { View } from 'react-native';
 
 //pile racine de l'application
 export type RootStackParams = {
@@ -51,8 +50,6 @@ const ListeDeCourseScreenStack = () => {
 }
 
  
-
-
 
 export default function App() {
   return (
