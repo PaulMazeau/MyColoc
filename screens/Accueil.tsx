@@ -3,7 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import BlueGradient from '../components/Reusable/BlueGradient';
 import Header from '../components/Reusable/Header';
 import { main } from '../constants/Colors';
-import GameCard from '../components/GameCard'
+import BoutonMiniJeu from '../components/Accueil/BoutonMiniJeux';
+import MonSolde from '../components/Accueil/MonSolde';
+import TacheCardAccueil from '../components/Accueil/TacheCardAccueil';
+import Suggestion from '../components/Accueil/Suggestions';
 
 const AccueilScreen = () => {
   return (
@@ -11,9 +14,9 @@ const AccueilScreen = () => {
       <Header/>
       <BlueGradient/>
       <StatusBar style="auto" />
-<<<<<<< main
-      <Text>Bienvenue sur Notre App</Text>
->>>>>>> Ariel
+      <BoutonMiniJeu/>
+      <MonSolde/>
+      <TacheCardAccueil/>
     </View>
   );
 }

@@ -1,32 +1,22 @@
 import React from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { Shadows } from '../../constants/Shadow';
 
-const ImgBg = require('../Img/MiniJeu.png');
+const ImgBg = require('../../assets/Images/MiniJeu.png');
 
-// Variables de style réutilisées
-const SHADOW = {
-  shadowColor: 'black',
-  shadowOffset: { width: -2, height: 1 },
-  shadowOpacity: 0.1,
-  shadowRadius: 3,
-  elevation: 2,
-};
-
-const BORDER_RADIUS = 10;
 
 //props est le solde de l'utilisateur obtenu après connexion a la db
-const MiniJeu = () => {
+const BoutonMiniJeu = () => {
   return (
-    <View style={styles.global}>
+    <View style={[styles.global, Shadows.shadow]}>
       <ImageBackground 
         source={ImgBg} 
         resizeMode="cover" 
-        imageStyle={{ borderRadius: BORDER_RADIUS }}
+        imageStyle={{ borderRadius: 10 }}
       >
         <View style={styles.container}>
           <View>
             <Text style={styles.titre}> Mini jeu</Text>
-            <Text style={styles.texte}>Bientôt disponible</Text>
           </View>
         </View>
       </ImageBackground>
@@ -36,21 +26,19 @@ const MiniJeu = () => {
 
 const styles = StyleSheet.create({
   global: {
-    ...SHADOW,
-    marginTop: 12,
     width: '42.5%',
-    borderRadius: BORDER_RADIUS,
+    borderRadius: 10,
   },
   container: {
     padding: 10,
-    borderRadius: BORDER_RADIUS,
+    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
     height: 70,
   },
   titre: {
     fontWeight: '600',
-    fontSize: 19,
+    fontSize: 22,
     color: 'white',
   },
   texte: {
@@ -61,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MiniJeu;
+export default BoutonMiniJeu;
