@@ -8,7 +8,7 @@ const MonSolde = () => {
       <TouchableOpacity onPress={() => console.log('DepenseStack')}>
         <View style={styles.innerContainer}>
           <View style={styles.ImageContainer}>
-            <Image source={require('../../assets/icon.png')} style={styles.Image}/>
+            <Image source={require('../../assets/images/icon.png')} style={styles.Image}/>
           </View>
           <View>
             <Text style={styles.titre}>22 EUR</Text>
