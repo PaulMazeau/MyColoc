@@ -1,48 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Dimensions, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import BlueGradient from '../components/Reusable/BlueGradient';
+import CustomButton from '../components/Reusable/Button';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AuthStackParams } from '../App';
 
-const windowHeight = Dimensions.get('window').height;
+type Props = NativeStackScreenProps<AuthStackParams, 'Login'>;
 
-export default function LoginScreen() {
-  const navigation = useNavigation();
+export default function LoginScreen({navigation}: Props) {
+  const handleButtonPress = (message: string) => {
+    console.log(message);
+  };
 
   return (
     <View style={styles.container}>
       <BlueGradient height={0.6}/>
       <View style={styles.inputContainer}>
-        <TouchableOpacity onPress={() => console.log('prout')}>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.PasdeCompte}>S'inscrire</Text>
         </TouchableOpacity>
         <View style={styles.Title}>
-          <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => console.log('prout')}>
+          <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => handleButtonPress('prout')}>
             <Text style={styles.screenTitle}>Se Connecter</Text>
           </TouchableOpacity>
         </View>
-        
-          <TextInput
-            placeholder="Adresse Email"
-            onChangeText={text => console.log('true')}
-            style={styles.input}
-            placeholderTextColor="rgba(255, 255, 255, 0.8)"
-            autoCapitalize='none'
-            keyboardType='email-address'
-            autoCorrect={false}
-          />
-          <TextInput
-            placeholder="Mot de passe"
-            onChangeText={text => console.log('true')}
-            style={styles.input}
-            secureTextEntry
-            placeholderTextColor="rgba(255, 255, 255, 0.8)"
-            autoCapitalize='none'
-          />
-       
-        <TouchableOpacity onPress={() => console.log('true')}>
+        <TextInput
+          placeholder="Adresse Email"
+          style={styles.input}
+          placeholderTextColor="rgba(255, 255, 255, 0.8)"
+          autoCapitalize='none'
+          keyboardType='email-address'
+          autoCorrect={false}
+        />
+        <TextInput
+          placeholder="Mot de passe"
+          style={styles.input}
+          secureTextEntry
+          placeholderTextColor="rgba(255, 255, 255, 0.8)"
+          autoCapitalize='none'
+        />
+        <TouchableOpacity onPress={() => handleButtonPress('true')}>
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
-        </View>
+      </View>
+      <CustomButton title="Se connecter" onPress={() => handleButtonPress('Button prout!')} />
     </View>
   );
 }
@@ -52,14 +52,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  safeAreaView: {
-    flex: 1,
-  },
   inputContainer: {
     position: "absolute",
-    width: "100%",
-    top: 0,
+    width: "90%",
+    top: 50,
     zIndex: 1,
+    marginHorizontal: '5%'
   },
   input: {
     paddingHorizontal: 10,
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
   Title: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: '10%'
+    marginVertical: '10%',
   },
   mdpOublie: {
     color: 'white',

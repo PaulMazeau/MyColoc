@@ -99,7 +99,7 @@ const AuthScreenStack = () => {
 
 // Fonction principale de l'application
 export default function App() {
-  const isLoggedIn = true; 
+  const isLoggedIn = false; 
   const [user, setUser] = useState<user>(null)
 
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
