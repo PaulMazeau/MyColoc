@@ -2,8 +2,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { RootStackParams } from '../App';
-import BackButton from '../components/BackButton';
-import CourseCard from '../components/CourseCard';
+import BackButton from '../components/Reusable/BackButton';
+import CourseCard from '../components/Course/CourseCard';
+import Header from '../components/Reusable/Header';
 
 // Définition du type des propriétés pour le composant ListeDeCourseScreen
 type Props = NativeStackScreenProps<RootStackParams, 'ListeDeCourse'>;
@@ -12,9 +13,9 @@ const ListeDeCourseScreen = ({route, navigation}: Props) => {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
+      <Header/>
       <BackButton/>
       <Text>Ceci est la liste de course {route.params.name}</Text>
-
       <Text>Exemple de navigation imbriqué</Text>
       <CourseCard name="Course de Paul" onPress={ () => navigation.push('ListeDeCourse', {name: "Course de Paul"})}/>
       <CourseCard name="Course de WIlk" onPress={ () => navigation.push('ListeDeCourse', {name: "Course de Wilk"})}/>
@@ -27,8 +28,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 

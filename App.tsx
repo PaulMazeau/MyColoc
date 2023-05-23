@@ -9,6 +9,13 @@ import DepenseScreen from './screens/Depense';
 import AccueilScreen from './screens/Accueil';
 import ListeDeCourseScreen from './screens/ListeDeCourse';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { NavBarStyle } from './constants/NavBar';
+import AccueilIcon from './assets/icons/AccueilIcon';
+import TacheIcon from './assets/icons/TacheIcon';
+import CourseIcon from './assets/icons/CourseIcon';
+import DepenseIcon from './assets/icons/DepenseIcon';
+import { View } from 'react-native';
 
 //pile racine de l'application
 export type RootStackParams = {
@@ -47,14 +54,26 @@ const ListeDeCourseScreenStack = () => {
 }
 
  
+
+
+
 export default function App() {
   return (
     <NavigationContainer>
-      <MainNavigation.Navigator initialRouteName="Accueil" screenOptions={{ headerShown: false }}>
-        <MainNavigation.Screen name="Accueil" component={AccueilScreen} />
-        <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} />
-        <MainNavigation.Screen name="Tache" component={TacheScreen} />
-        <MainNavigation.Screen name="Depense" component={DepenseScreen} /> 
+      <MainNavigation.Navigator
+        initialRouteName="Accueil"
+        screenOptions={{ 
+          headerShown: false,
+          tabBarStyle: NavBarStyle,
+          tabBarActiveTintColor: "#172ACE",
+          tabBarInactiveTintColor: "grey",
+          tabBarLabel: () => null,
+        }}
+      >
+        <MainNavigation.Screen name="Accueil" component={AccueilScreen} options={{tabBarIcon: (({color}) => <AccueilIcon color={color}/>)}} />
+        <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} options={{tabBarIcon: (({color}) => <CourseIcon color={color} />)}} />
+        <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: (({color,}) => <TacheIcon color={color} />)}}/>
+        <MainNavigation.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color}) => <DepenseIcon color={color} />)}}/>
       </MainNavigation.Navigator>
     </NavigationContainer>
   );

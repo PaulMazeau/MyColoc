@@ -12,7 +12,7 @@ const CourseCard: React.FC<Props> = ({ name, onPress }) => {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <TouchableOpacity onPress={() => onPress(name)}>
-      <Text>Ceci est une liste de course {name}</Text>
+        <Text>Ceci est une liste de course {name}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -20,7 +20,8 @@ const CourseCard: React.FC<Props> = ({ name, onPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: 100,
+    margin: 20,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
