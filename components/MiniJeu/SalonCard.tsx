@@ -29,10 +29,10 @@ const SalonCard = () => {
 
                 <View style = {styles.secondRow}>
                     <View style={styles.ImageContainer}>
-                        <Image source={require('../../assets/icon.png')} />
+                        <Image source={require('../../assets/images/icon.png')} />
                     </View>
                     <View style={styles.ImageContainer}>
-                        <Image source={require('../../assets/icon.png')} />
+                        <Image source={require('../../assets/images/icon.png')} />
                     </View>
                 </View>
                 
