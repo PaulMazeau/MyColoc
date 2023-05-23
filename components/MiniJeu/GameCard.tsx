@@ -9,6 +9,7 @@ import { LinearGradient }  from 'expo-linear-gradient';
 const BasketBall_Background=require('../../assets/images/BasketBall_Background.png');
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 
 const GameCard = () => {
@@ -42,7 +43,8 @@ const GameCard = () => {
 const styles = StyleSheet.create({
     global:{
         borderRadius: 10,
-        width : windowWidth*0.9
+        width: windowWidth*0.9,
+        height: windowHeight*0.3
     },
 
     container:{
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     },
 
     imageBackgrond:{
-        height : '93.5%',
+        height : '93%',
         justifyContent :'flex-end'
     }
 })

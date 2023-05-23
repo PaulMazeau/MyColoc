@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import { MiniJeu } from '../../constants/Colors';
 import Score from './Score';
+import MedailleOr from '../../assets/icons/MedailleOr.svg';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -11,9 +12,9 @@ const ScoreLigne = () => {
     return(
         <View style={styles.global}>
             <View style={styles.firstColumn}>
-                <Text> A </Text>
+                <MedailleOr/>
                 <View style={styles.ImageContainer}>
-                    <Image source={require('../../assets/icon.png')} />
+                    <Image source={require('../../assets/images/icon.png')} />
                 </View>
                 <Text style={styles.text1}> Julie </Text>
             </View>
@@ -36,7 +37,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
-        
     },
 
     text1:{
@@ -56,5 +56,7 @@ const styles = StyleSheet.create({
 
 
 })
+
+
 
 export default ScoreLigne;

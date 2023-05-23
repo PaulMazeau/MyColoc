@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Dimensions, ImageBackground} from 'react-native';
-import { main } from '../constants/Colors';
-import Header from '../components/Reusable/Header';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import BlueGradient from '../components/Reusable/BlueGradient';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AccueilStackParams } from '../App';
+import GameCard from '../components/MiniJeu/GameCard';
+import SalonCard from '../components/MiniJeu/SalonCard';
+import ScoreBoard from '../components/MiniJeu/ScoreBoard1';
 
-const windowHeight = Dimensions.get('window').height
+
+const Space_Background=require('../assets/images/Space_Background.png');
+
 
 export default function MiniJeu() {
   return (
 
     <View style={styles.container}>
-        <Text>Bienvenue sur la page mini jeu</Text>
+        <ImageBackground source ={Space_Background} resizeMode="cover">
+          <View style = {styles.imageBackgrond}>
+            <GameCard/>
+            <Text style={styles.text1}>Salons ouverts</Text>
+            <SalonCard/>
+            <Text style={styles.text1}>Classement</Text>
+            <ScoreBoard/>
+          </View>
+
+        </ImageBackground>
+        
+        {/* <Text style={styles.text1}>Salons ouverts</Text>
+        <SalonCard/>
+        <Text style={styles.text1}>Classement</Text>
+        <ScoreBoard/> */}
+    
     </View>
   );
 }
@@ -22,8 +34,16 @@ export default function MiniJeu() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: main.BgColor,
     justifyContent: 'center',
     alignItems:'center'
   },
+
+  text1:{
+    color : "white",
+    fontWeight: '600',
+    fontSize: 16,
+  },
+
+  imageBackgrond:{
+  }
 });
