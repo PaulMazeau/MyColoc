@@ -54,8 +54,6 @@ const ListeDeCourseScreenStack = () => {
 
  
 
-
-
 export default function App() {
   return (
     <NavigationContainer>
