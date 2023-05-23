@@ -14,7 +14,7 @@ const TacheCardAccueil = () => {
             <Text style={styles.date}>Ven. 26</Text>
           </View>
         </View>
-        <Image style={styles.avatar} source={require('../../assets/icon.png')}/>
+        <Image style={styles.avatar} source={require('../../assets/images/icon.png')}/>
       </View>
     </TouchableOpacity>
   );
