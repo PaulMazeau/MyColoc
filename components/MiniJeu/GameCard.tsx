@@ -1,19 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet,ImageBackground, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet,ImageBackground, useWindowDimensions, Dimensions } from 'react-native';
 import PlayButton from "./PlayButton";
 import Score from './Score';
 import { MiniJeu } from '../../constants/Colors';
+import { LinearGradient }  from 'expo-linear-gradient';
 
 
 const BasketBall_Background=require('../../assets/images/BasketBall_Background.png');
+
+const windowWidth = Dimensions.get('window').width;
 
 
 const GameCard = () => {
 
 
     return(
-        <View style = {styles.global} >
-            
+        <View>
+            <LinearGradient colors={[MiniJeu.VioletGradientColor1, MiniJeu.VioletGradientColor2]} style={styles.global}>
+                
             <View style = {styles.container}>
 
                 <View style = {{flexDirection:'row', justifyContent:'space-between'}}>
@@ -28,6 +32,8 @@ const GameCard = () => {
                 </ImageBackground>
 
             </View>
+
+            </LinearGradient>
         </View>
 
     );
@@ -35,9 +41,8 @@ const GameCard = () => {
 
 const styles = StyleSheet.create({
     global:{
-        backgroundColor: MiniJeu.BgColor1,
         borderRadius: 10,
-        width : '80%'
+        width : windowWidth*0.9
     },
 
     container:{
