@@ -4,6 +4,7 @@ import { main } from '../constants/Colors';
 import Header from '../components/Reusable/Header';
 import GameCard from '../components/MiniJeu/GameCard';
 import SalonCard from '../components/MiniJeu/SalonCard';
+import ScoreBoard from '../components/MiniJeu/ScoreBoard1';
 
 export default function DepenseScreen() {
   return (
@@ -18,6 +19,10 @@ export default function DepenseScreen() {
         <Text>Salons ouverts</Text>
 
         <SalonCard/>
+
+        <Text>Classement</Text>
+
+        <ScoreBoard/>
       </View>
       
       
