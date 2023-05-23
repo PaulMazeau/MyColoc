@@ -6,5 +6,6 @@ export const main = {
 
 export const MiniJeu = {
   TextColor1: "#978AF1",
-  BgColor1:'#8E80EA',
+  BgGradientColor1:'#8E80EA',
+  BgGradientColor2:'#8E80EA'
 }
