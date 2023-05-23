@@ -1,6 +1,6 @@
-
 import { View, Text, StyleSheet } from 'react-native';
-import Trophy from '../assets/icons/Trophy.svg';
+import Trophy from '../../assets/icons/Trophy.svg';
+import { MiniJeu } from '../../constants/Colors';
 
 
 const Score = () => {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     },
 
     text : {
-        color : "#978AF1",
+        color : MiniJeu.TextColor1,
         fontWeight : '600',
         fontSize : 15,
     }

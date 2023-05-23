@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import GameCard from './components/GameCard';
+import GameCard from './components/MiniJeu/GameCard';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CourseScreen from './screens/Course';
@@ -15,7 +15,6 @@ import AccueilIcon from './assets/icons/AccueilIcon';
 import TacheIcon from './assets/icons/TacheIcon';
 import CourseIcon from './assets/icons/CourseIcon';
 import DepenseIcon from './assets/icons/DepenseIcon';
-import { View } from 'react-native';
 
 //pile racine de l'application
 export type RootStackParams = {

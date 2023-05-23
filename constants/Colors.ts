@@ -4,5 +4,6 @@ export const main = {
 };
 
 export const MiniJeu = {
-
+  TextColor1: "#978AF1",
+  BgColor1:'#8E80EA',
 }
