@@ -4,14 +4,20 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const windowHeight = Dimensions.get('window').height;
 
-function BlueGradient() {
+interface BlueGradientProps {
+  height?: number;  // Cette prop est optionnelle, donc elle peut être undefined
+}
+
+const BlueGradient: React.FC<BlueGradientProps> = ({ height }) => {
+  const gradientHeight = height ? windowHeight * height : windowHeight * 0.42;
+  
   return (
     <LinearGradient
       colors={['#7700FF', '#1672FF']}
       start={{x: 1, y: 1}} 
       end={{x: 0.8, y: 0}} 
       style={{ 
-        height: windowHeight * 0.42, 
+        height: gradientHeight, 
         justifyContent: 'center', 
         alignItems: 'center',
         borderBottomLeftRadius: 40,   

@@ -14,7 +14,7 @@ const AccueilScreen = () => {
 
   return (
     <View style={styles.container}>
-      <BlueGradient/>
+      <BlueGradient />
       <View style={styles.appartementContainer}>
         <Image source={Appartement} style={styles.AppartementImage}/>
       </View>

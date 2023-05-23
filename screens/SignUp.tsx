@@ -16,7 +16,7 @@ export default function SignUpScreen() {
   return (
 
     <View style={styles.container}>
-         <BlueGradient />
+          <BlueGradient height={0.5} />
          <View style={styles.buttonContainer}>
          <TouchableOpacity
         //   onPress={handleLogin}

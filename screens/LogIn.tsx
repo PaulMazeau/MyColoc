@@ -1,35 +1,47 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Dimensions, ImageBackground} from 'react-native';
-import { main } from '../constants/Colors';
-import Header from '../components/Reusable/Header';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import BlueGradient from '../components/Reusable/BlueGradient';
+import { StyleSheet, Text, View, Dimensions, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AuthStackParams } from '../App';
+import BlueGradient from '../components/Reusable/BlueGradient';
 
-const windowHeight = Dimensions.get('window').height
+const windowHeight = Dimensions.get('window').height;
 
 export default function LoginScreen() {
-  const navigation = useNavigation()
-  return (
+  const navigation = useNavigation();
 
+  return (
     <View style={styles.container}>
-         <BlueGradient />
-         <View style={styles.buttonContainer}>
-         <TouchableOpacity
-        //   onPress={handleLogin}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Se connecter</Text>
+      <BlueGradient height={0.6}/>
+      <View style={styles.inputContainer}>
+        <TouchableOpacity onPress={() => console.log('prout')}>
+          <Text style={styles.PasdeCompte}>S'inscrire</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-        //   onPress={handleSignup}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>S'inscrire</Text>
+        <View style={styles.Title}>
+          <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => console.log('prout')}>
+            <Text style={styles.screenTitle}>Se Connecter</Text>
+          </TouchableOpacity>
+        </View>
+        
+          <TextInput
+            placeholder="Adresse Email"
+            onChangeText={text => console.log('true')}
+            style={styles.input}
+            placeholderTextColor="rgba(255, 255, 255, 0.8)"
+            autoCapitalize='none'
+            keyboardType='email-address'
+            autoCorrect={false}
+          />
+          <TextInput
+            placeholder="Mot de passe"
+            onChangeText={text => console.log('true')}
+            style={styles.input}
+            secureTextEntry
+            placeholderTextColor="rgba(255, 255, 255, 0.8)"
+            autoCapitalize='none'
+          />
+       
+        <TouchableOpacity onPress={() => console.log('true')}>
+          <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
-      
         </View>
     </View>
   );
@@ -38,53 +50,51 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: main.BgColor,
-  },
-  buttonContainer: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    marginTop: windowHeight*0.1,
-    flexDirection: 'row',
-  },
-  button: {
-    backgroundColor: '#172ace',
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginLeft: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: '#172ace',
-    fontWeight: '700',
-    fontSize: 16,
-  },
-  buttonOutline: {
     backgroundColor: 'white',
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginRight: 10,
   },
-  bluebg: {
-    width: 'auto',
-    backgroundColor: '#172ACE',
-    height: windowHeight * 0.7 ,
-    paddingLeft: 16,
-    paddingRight: 16,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-},
+  safeAreaView: {
+    flex: 1,
+  },
+  inputContainer: {
+    position: "absolute",
+    width: "100%",
+    top: 0,
+    zIndex: 1,
+  },
+  input: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 10,
+    marginTop: 10,
+    borderBottomColor: 'white',
+    borderBottomWidth: 2,
+    fontSize: 19,
+    fontWeight: '600',
+    color: 'white',
+    marginBottom: 15,
+  },
+  PasdeCompte: {
+    color: 'white',
+    textAlign: 'right',
+    fontSize: 15,
+    fontWeight: '500',
+    marginTop: 10
+  },
+  screenTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  Title: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '10%'
+  },
+  mdpOublie: {
+    color: 'white',
+    textDecorationLine: 'underline',
+    fontWeight: '500',
+    fontSize: 14,
+    paddingLeft: 10
+  },
 });
