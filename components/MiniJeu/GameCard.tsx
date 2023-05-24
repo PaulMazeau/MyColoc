@@ -16,7 +16,7 @@ interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource }) => {
   return (
     <View>
-      <LinearGradient colors={[MiniJeu.VioletGradientColor1, MiniJeu.VioletGradientColor2]} style={styles.global}>
+      <LinearGradient colors={[MiniJeu.VioletGradientColor1, MiniJeu.VioletGradientColor2]} style={styles.linearGradient}>
         <View style={styles.container}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.text}>{gameTitle}</Text>
@@ -34,10 +34,10 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource })
 };
 
 const styles = StyleSheet.create({
-  global: {
+    
+  linearGradient: {
     borderRadius: 10,
     width: windowWidth * 0.9,
-    height: windowHeight * 0.3,
   },
   container: {
     width: '100%',
