@@ -2,12 +2,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { RootStackParams } from '../App';
-import BackButton from '../components/Reusable/BackButton';
 import Header from '../components/Reusable/Header';
 import DraggableFlatList, { RenderItemParams } from 'react-native-draggable-flatlist';
 import { CheckBox } from 'react-native-elements';
 import React, { useState } from 'react';
 import { main } from '../constants/Colors';
+import ScreenTitle from '../components/Reusable/ScreenTitle';
 
 type Props = NativeStackScreenProps<RootStackParams, 'ListeDeCourse'>;
 
@@ -75,20 +75,11 @@ const ListeDeCourseScreen = ({route, navigation}: Props) => {
     );
   };
 
-  const handleGoBack = () => {
-    navigation.goBack();
-  }
-
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Header/>
-      <View style={styles.titleView}>
-        <TouchableOpacity style={styles.titleTouch} onPress={handleGoBack}>
-          <BackButton/>
-          <Text style={styles.screenTitle}>{route.params.name}</Text>
-        </TouchableOpacity>
-      </View>
+      <ScreenTitle title={route.params.name} handleGoBack={() => navigation.goBack()} />
       <DraggableFlatList
         data={data}
         renderItem={renderItem}
@@ -104,20 +95,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: main.BgColor,
-  },
-  screenTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginLeft: 10,
-  },
-  titleView: {
-    flexDirection: 'row', 
-    marginBottom: 15,
-    marginTop: 10
-  },
-  titleTouch: {
-    flexDirection: 'row', 
-    alignItems: 'center'
   },
   itemContainer: {
     flexDirection: 'row',
