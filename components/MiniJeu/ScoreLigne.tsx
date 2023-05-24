@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
-import { MiniJeu } from '../../constants/Colors';
+import { MiniJeuColor } from '../../constants/Colors';
 import Score from './Score';
 import MedailleOr from '../../assets/icons/MedailleOr.svg';
 

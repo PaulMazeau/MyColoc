@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground, useWindowDimensions, Dimensions } from 'react-native';
 import PlayButton from "./PlayButton";
 import Score from './Score';
-import { MiniJeu } from '../../constants/Colors';
 import { LinearGradient }  from 'expo-linear-gradient';
 
 const windowWidth = Dimensions.get('window').width;
@@ -10,12 +9,14 @@ const windowWidth = Dimensions.get('window').width;
 interface GameCardProps {
   gameTitle: string;
   backgroundImageSource: any;
+  colorGradient1: string;
+  colorGradient2: string;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource }) => {
+const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, colorGradient1, colorGradient2 }) => {
   return (
     <View>
-      <LinearGradient colors={[MiniJeu.VioletGradientColor1, MiniJeu.VioletGradientColor2]} style={styles.linearGradient}>
+      <LinearGradient colors={[colorGradient1, colorGradient2]} style={styles.linearGradient}>
         <View style={styles.container}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.text}>{gameTitle}</Text>

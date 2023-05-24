@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, } from "react-native";
-import { MiniJeu } from '../../constants/Colors';
+import { MiniJeuColor } from '../../constants/Colors';
 
 
 const PlayButton = () => {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
     text:{
         fontWeight: '600',
-        color : MiniJeu.TextColor1
+        color : MiniJeuColor.TextColor1
     }
 
 })
