@@ -3,6 +3,7 @@ import BlueGradient from '../components/Reusable/BlueGradient';
 import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
+import { StatusBar } from 'expo-status-bar';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'Login'>;
 
@@ -13,6 +14,7 @@ export default function LoginScreen({navigation}: Props) {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light"/>
       <BlueGradient height={0.6}/>
       <View style={styles.inputContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>

@@ -2,6 +2,7 @@ import React, {useState, useMemo} from 'react';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 // Import des écrans
 import AccueilScreen from './screens/Accueil';
@@ -99,7 +100,16 @@ const AuthScreenStack = () => {
 
 // Fonction principale de l'application
 export default function App() {
-  const isLoggedIn = false; 
+
+  //Gestion à la racine des BottomSheet indispensable
+  const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
+
+  const handlePresentPress = () => {
+    bottomSheetModalRef.current?.present();
+  };
+
+  //Verification de si l'utilisateur est connecté ou non
+  const isLoggedIn = true; 
   const [user, setUser] = useState<user>(null)
 
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
@@ -128,9 +138,11 @@ export default function App() {
 
   return (
     <GlobalContext.Provider value={{user, setUser}}>
-    <NavigationContainer>
-      {renderContent()}
-    </NavigationContainer>
+      <BottomSheetModalProvider>
+        <NavigationContainer>
+          {renderContent()}
+        </NavigationContainer>
+      </BottomSheetModalProvider>
     </GlobalContext.Provider>
   );
 }
