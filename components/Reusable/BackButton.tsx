@@ -8,7 +8,7 @@ const BackButton = () => {
   const navigation = useNavigation()
 
   return <View style={styles.container}>
-    <TouchableHighlight style={styles.backButton} underlayColor="#f0ddcc" onPress={() => {
+    <TouchableHighlight style={styles.backButton} onPress={() => {
       navigation.goBack()
     }}>
       <BackIcon color="#333" size={20} />

@@ -9,6 +9,7 @@ import Header from '../components/Reusable/Header';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import { useState } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import ScreenTitle from '../components/Reusable/ScreenTitle';
 
 
 // Définition du type des propriétés pour la page CourseScreen
@@ -32,6 +33,7 @@ const CourseScreen = ({navigation}: Props) => {
   return (
     <View style={styles.container}>
       <Header/>
+      <ScreenTitle title="Course"/>
       <SegmentedControlTab
         values={['Onglet 1', 'Onglet 2']}
         selectedIndex={selectedTabIndex}
