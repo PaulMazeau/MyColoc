@@ -19,9 +19,11 @@ const CourseScreen = ({navigation}: Props) => {
   const handlePresentPress = () => {
     bottomSheetModalRef.current?.present();
   };
-  
 
-  
+  const CustomBackgroundComponent = () => (
+    <View></View>
+  );
+    
   return (
     <View style={styles.container}>
       <Header/>
@@ -29,11 +31,18 @@ const CourseScreen = ({navigation}: Props) => {
       
 
       <Button title="Présenter BottomSheet" onPress={handlePresentPress} />
-      <BottomSheetModal ref={bottomSheetModalRef} index={1} snapPoints={['25%', '50%']}>
-        <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text>Votre contenu ici</Text>
-        </View>
-      </BottomSheetModal>
+      <BottomSheetModal 
+        ref={bottomSheetModalRef} 
+        index={1} snapPoints={['25%', '50%']} 
+        backgroundComponent={CustomBackgroundComponent}
+        handleComponent={null}
+        >
+      <View style={styles.bottomSheet}>
+        <Text style={styles.bottomSheetText}>AGGGGGGG</Text>
+      </View>
+
+    </BottomSheetModal>
+
       <CourseCard name="Course de vendredi" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard>
       <CourseCard name="Course de dimanche" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard>
       <StatusBar style="auto" />
@@ -46,6 +55,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: main.BgColor,
   },
+  bottomSheet: {
+     flex: 1, 
+     backgroundColor: 'orange', 
+     margin: 16, 
+     borderRadius: 35, 
+     marginBottom: 16 
+  },
+  bottomSheetText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 12
+  }
+
 });
 
 export default CourseScreen
