@@ -41,7 +41,9 @@ export type RootStackParams = {
     name: string;
   };
   MiniJeu: undefined;
+  Main: undefined;
 };
+
 
 export type CourseStackParams = {
   Course: undefined;
@@ -62,21 +64,55 @@ export type AccueilStackParams = {
 };
 
 // Création des piles de navigation
+const RootStack = createNativeStackNavigator<RootStackParams>();
 const MainNavigation = createBottomTabNavigator<RootStackParams>();
 const CourseStack = createNativeStackNavigator<CourseStackParams>(); 
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
 const AccueilStack = createNativeStackNavigator<AccueilStackParams>();
 
+const RootNavigator = () => {
+  return (
+    <RootStack.Navigator screenOptions={{ headerShown: false }}>
+      <RootStack.Screen name="Main" component={MainNavigationScreenStack} />
+      <RootStack.Screen name="MiniJeu" component={MiniJeu}/>
+    </RootStack.Navigator>
+  );
+}
+
+const MainNavigationScreenStack = () => {
+  return(
+  <MainNavigation.Navigator
+          initialRouteName="Accueil"
+          screenOptions={{ 
+            headerShown: false,
+            tabBarStyle: NavBarStyle,
+            tabBarActiveTintColor: "#172ACE",
+            tabBarInactiveTintColor: "grey",
+            tabBarLabel: () => null,
+          }}
+        >
+          <MainNavigation.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: ({color}) => <AccueilIcon color={color}/>}} />
+          <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} options={{tabBarIcon: ({color}) => <CourseIcon color={color} />}} />
+          <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: ({color}) => <TacheIcon color={color} />}}/>
+          <MainNavigation.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
+        </MainNavigation.Navigator>
+  )
+}
+
+
+
 // Pile de navigation pour l'écran Accueil  
 const AccueilScreenStack = () => {
   return (
     <AccueilStack.Navigator screenOptions={{headerShown: false}}>
-      <AccueilStack.Screen name="Accueil" component={AccueilScreen} />
-      <AccueilStack.Screen name="MiniJeu" component={MiniJeu} />
-      <AccueilStack.Screen name="BoutonMiniJeu" component={BoutonMiniJeu} />
+      <AccueilStack.Screen 
+        name="Accueil" 
+        component={AccueilScreen} 
+      />
     </AccueilStack.Navigator>
   );
 }
+
 
 
 // Pile de navigation pour l'écran ListeDeCourseScreen
@@ -115,29 +151,15 @@ export default function App() {
   useEffect(() => {
     onAuthStateChanged(FB_AUTH, (user)=> setUser(user ? user.email : null))
   })
+  
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
   const renderContent = () => {
     if (user) {
-      return (
-        <MainNavigation.Navigator
-          initialRouteName="Accueil"
-          screenOptions={{ 
-            headerShown: false,
-            tabBarStyle: NavBarStyle,
-            tabBarActiveTintColor: "#172ACE",
-            tabBarInactiveTintColor: "grey",
-            tabBarLabel: () => null,
-          }}
-        >
-          <MainNavigation.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: ({color}) => <AccueilIcon color={color}/>}} />
-          <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} options={{tabBarIcon: ({color}) => <CourseIcon color={color} />}} />
-          <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: ({color}) => <TacheIcon color={color} />}}/>
-          <MainNavigation.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
-        </MainNavigation.Navigator>
-      );
+      return <RootNavigator />;
     }
     return <AuthScreenStack />;
   }
+  
 
   return (
     <GlobalContext.Provider value={{user, setUser}}>
