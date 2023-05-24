@@ -7,17 +7,19 @@ import ScoreLigne from './ScoreLigne';
 
 const windowWidth = Dimensions.get('window').width;
 
+
+
 const ScoreBoard = () => {
 
 
     return(
         <View style={styles.global}>
             <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
-                <ScoreLigne/>
+                <ScoreLigne position={1}/>
                 <View style={styles.separator}/>
-                <ScoreLigne/>
+                <ScoreLigne position={2}/>
                 <View style={styles.separator}/>
-                <ScoreLigne/>
+                <ScoreLigne position={5}/>
             </LinearGradient>
         </View>
 

@@ -3,7 +3,11 @@ import { View, Text, StyleSheet } from 'react-native';
 import Trophy from '../../assets/icons/Trophy.svg';
 import { MiniJeuColor } from '../../constants/Colors';
 
-const Score = ({ score }) => {
+interface ScoreProps {
+    score: number;
+}
+
+const Score: React.FC<ScoreProps> = ({ score }) => {
     return (
         <View style={styles.container}>
             <Trophy />
