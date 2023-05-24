@@ -19,7 +19,6 @@ const BackButton = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row', 
-    marginTop: 100
   },
   backButton: {
     borderRadius: 8,
