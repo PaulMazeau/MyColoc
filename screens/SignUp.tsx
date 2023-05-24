@@ -4,6 +4,9 @@ import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
+import { createUserWithEmailAndPassword} from 'firebase/auth';
+import { FB_AUTH } from '../firebaseconfig';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'SignUp'>;
 
@@ -11,7 +14,15 @@ export default function SignUpScreen({navigation}: Props) {
   const handleButtonPress = (message: string) => {
     console.log(message);
   };
+  const [email, setEmail] = useState('');
+  const [pwd, setPwd] = useState('');
 
+  const signUp = async () => {
+    try{
+        const response = await createUserWithEmailAndPassword(FB_AUTH, email, pwd);
+    } catch(error: any){
+        alert(error.message)
+    }}
   return (
     <View style={styles.container}>
       <StatusBar style="light"/>
@@ -40,6 +51,8 @@ export default function SignUpScreen({navigation}: Props) {
           autoCapitalize='none'
           keyboardType='email-address'
           autoCorrect={false}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           placeholder="Mot de passe"
@@ -47,12 +60,14 @@ export default function SignUpScreen({navigation}: Props) {
           secureTextEntry
           placeholderTextColor="rgba(255, 255, 255, 0.8)"
           autoCapitalize='none'
+          value={pwd}
+          onChangeText={(text) => setPwd(text)}
         />
         <TouchableOpacity onPress={() => handleButtonPress('true')}>
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>
-      <CustomButton title="S'inscrire" onPress={() => handleButtonPress('Button prout!')} />
+      <CustomButton title="S'inscrire" onPress={() => signUp()} />
     </View>
   );
 }
