@@ -1,10 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { main } from '../constants/Colors';
 import Header from '../components/Reusable/Header';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
-import { useState } from 'react';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
+import MesTaches from '../components/Tache/MesTaches';
+import GlobalTaches from '../components/Tache/GlobalTaches';
 
 const TacheScreen = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -16,12 +17,11 @@ const TacheScreen = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
       <Header />
       <ScreenTitle title="Tâche à faire" />
       <View style={styles.segmentedControl}>
         <SegmentedControlTab
-          values={['Onglet 1', 'Onglet 2']}
+          values={['Mes tâches', 'Tâches générales']}
           selectedIndex={selectedTabIndex}
           onTabPress={handleTabPress}
           activeTabStyle={styles.activeTabStyle}
@@ -30,9 +30,9 @@ const TacheScreen = () => {
         />
       </View>
       {selectedTabIndex === 0 ? (
-        <Text>Contenu de l'onglet 1</Text>
+        <MesTaches />
       ) : (
-        <Text>Contenu de l'onglet 2</Text>
+        <GlobalTaches />
       )}
     </View>
   );
@@ -44,23 +44,24 @@ const styles = StyleSheet.create({
     backgroundColor: main.BgColor,
   },
   segmentedControl: {
-    marginTop: 20,
-    marginHorizontal: 20,
+    marginHorizontal: 16,
+    marginBottom: 12,
     borderWidth: 1,
     borderColor: '#D3D3D3',
-    borderRadius: 8,
+    borderRadius: 4,
     backgroundColor: 'white',
   },
   activeTabStyle: {
-    backgroundColor: '#007AFF',
-    borderWidth: 0,
+    backgroundColor: '#172ACE',
+    borderWidth: 2,
+    borderColor: 'white',
   },
   tabStyle: {
     borderWidth: 0,
     backgroundColor: 'transparent',
   },
   tabTextStyle: {
-    color: '#007AFF',
+    color: '#172ACE',
     fontWeight: 'bold',
   },
 });
