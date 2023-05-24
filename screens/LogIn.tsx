@@ -5,7 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { FB_AUTH } from '../firebaseconfig';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'Login'>;
@@ -19,7 +19,7 @@ export default function LoginScreen({navigation}: Props) {
 
   const signIn = async () => {
     try{
-        const response = await createUserWithEmailAndPassword(FB_AUTH, email, pwd);
+        const response = await signInWithEmailAndPassword(FB_AUTH, email, pwd);
     } catch(error: any){
         alert(error.message)
     }}
