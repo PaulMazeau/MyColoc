@@ -25,9 +25,10 @@ import { NavBarStyle } from './constants/NavBar';
 import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
 
 //Import du contexte
-import { useGlobalContext, GlobalContext, user} from "./UserContext";
+import { UserContext} from "./UserContext";
 import { User, onAuthStateChanged } from 'firebase/auth';
-import { FB_AUTH } from './firebaseconfig';
+import { FB_AUTH, FB_DB } from './firebaseconfig';
+import { doc, getDoc } from 'firebase/firestore';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -147,14 +148,35 @@ export default function App() {
 
   //Verification de si l'utilisateur est connecté ou non
   const isLoggedIn = false; 
-  const [user, setUser] = useState<user>(null)
-  useEffect(() => {
-    onAuthStateChanged(FB_AUTH, (user)=> setUser(user ? user.email : null))
-  })
+  const [userInfo, setUserInfo] = useState(null)
+  const [uid, setUid] = useState(null)
+  // useEffect(() => {
+  //     onAuthStateChanged(FB_AUTH, async (user)=> {
+  //     if(user){
+  //       if(user.uid == FB_AUTH.currentUser.uid){
+  //       const data = await getDoc(doc(FB_DB, 'Users', FB_AUTH.currentUser.uid));
+  //       setUserInfo(data.data().nom)
+  //       console.log(userInfo)}
+  //     }else{
+  //       setUserInfo(null)
+  //     }
+  //   })
+  // })
   
+    useEffect(()=>{
+      const subscriber = onAuthStateChanged(FB_AUTH, (user) => user ? setUid(user.uid) : setUid(null))
+      return subscriber
+    }, [])
+
+    useEffect(() => {
+      if(uid){
+            getDoc(doc(FB_DB, 'Users', FB_AUTH.currentUser.uid)).then((data) => setUserInfo(data.data().nom))
+          }
+      }
+    , [uid])
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
   const renderContent = () => {
-    if (user) {
+    if (userInfo) {
       return <RootNavigator />;
     }
     return <AuthScreenStack />;
@@ -162,12 +184,12 @@ export default function App() {
   
 
   return (
-    <GlobalContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={[userInfo, setUserInfo]}>
       <BottomSheetModalProvider>
         <NavigationContainer>
           {renderContent()}
         </NavigationContainer>
       </BottomSheetModalProvider>
-    </GlobalContext.Provider>
+    </UserContext.Provider>
   );
 }
