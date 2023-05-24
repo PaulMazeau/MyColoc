@@ -3,6 +3,7 @@ import SalonCard from '../components/MiniJeu/SalonCard';
 import Classement from '../components/MiniJeu/ClassementCard';
 import Carousel from '../components/MiniJeu/CarouselGameCard';
 import {MiniJeuColor} from '../constants/Colors';
+import { StatusBar } from 'expo-status-bar';
 
 
 const Space_Background=require('../assets/images/Space_Background.png');
@@ -26,6 +27,7 @@ export default function MiniJeu() {
   return (
 
     <View style={styles.global}>
+      <StatusBar style="light"/>
         <ImageBackground source ={Space_Background} resizeMode="cover">
           <View style = {styles.container}>
             <View style={styles.logo}>
@@ -53,7 +55,11 @@ const styles = StyleSheet.create({
   text1:{
     color : "white",
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: 20,
+    alignItems:'flex-start',
+    width:'100%',
+    marginLeft:40,
+    marginBottom:5
   },
 
   container:{
