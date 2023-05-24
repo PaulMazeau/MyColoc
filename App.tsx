@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -26,7 +26,8 @@ import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
 
 //Import du contexte
 import { useGlobalContext, GlobalContext, user} from "./UserContext";
-import { User } from 'firebase/auth';
+import { User, onAuthStateChanged } from 'firebase/auth';
+import { FB_AUTH } from './firebaseconfig';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -109,12 +110,14 @@ export default function App() {
   };
 
   //Verification de si l'utilisateur est connecté ou non
-  const isLoggedIn = true; 
+  const isLoggedIn = false; 
   const [user, setUser] = useState<user>(null)
-
+  useEffect(() => {
+    onAuthStateChanged(FB_AUTH, (user)=> setUser(user ? user.email : null))
+  })
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
   const renderContent = () => {
-    if (isLoggedIn) {
+    if (user) {
       return (
         <MainNavigation.Navigator
           initialRouteName="Accueil"

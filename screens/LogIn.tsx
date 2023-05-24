@@ -4,6 +4,9 @@ import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { FB_AUTH } from '../firebaseconfig';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'Login'>;
 
@@ -11,6 +14,15 @@ export default function LoginScreen({navigation}: Props) {
   const handleButtonPress = (message: string) => {
     console.log(message);
   };
+  const [email, setEmail] = useState('');
+  const [pwd, setPwd] = useState('');
+
+  const signIn = async () => {
+    try{
+        const response = await signInWithEmailAndPassword(FB_AUTH, email, pwd);
+    } catch(error: any){
+        alert(error.message)
+    }}
 
   return (
     <View style={styles.container}>
@@ -21,7 +33,7 @@ export default function LoginScreen({navigation}: Props) {
           <Text style={styles.PasdeCompte}>S'inscrire</Text>
         </TouchableOpacity>
         <View style={styles.Title}>
-          <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => handleButtonPress('prout')}>
+          <TouchableOpacity style={{ flexDirection: 'row' }}>
             <Text style={styles.screenTitle}>Se Connecter</Text>
           </TouchableOpacity>
         </View>
@@ -32,6 +44,8 @@ export default function LoginScreen({navigation}: Props) {
           autoCapitalize='none'
           keyboardType='email-address'
           autoCorrect={false}
+          value = {email}
+          onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           placeholder="Mot de passe"
@@ -39,12 +53,14 @@ export default function LoginScreen({navigation}: Props) {
           secureTextEntry
           placeholderTextColor="rgba(255, 255, 255, 0.8)"
           autoCapitalize='none'
+          value={pwd}
+          onChangeText={(text) => setPwd(text)}
         />
         <TouchableOpacity onPress={() => handleButtonPress('true')}>
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>
-      <CustomButton title="Se connecter" onPress={() => handleButtonPress('Button prout!')} />
+      <CustomButton title="Se connecter" onPress={() => signIn()} />
     </View>
   );
 }
