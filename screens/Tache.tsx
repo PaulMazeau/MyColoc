@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { main } from '../constants/Colors';
 import Header from '../components/Reusable/Header';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
-import SegmentedControlTab from 'react-native-segmented-control-tab';
 import MesTaches from '../components/Tache/MesTaches';
 import GlobalTaches from '../components/Tache/GlobalTaches';
 
@@ -20,14 +19,38 @@ const TacheScreen = () => {
       <Header />
       <ScreenTitle title="Tâche à faire" />
       <View style={styles.segmentedControl}>
-        <SegmentedControlTab
-          values={['Mes tâches', 'Tâches générales']}
-          selectedIndex={selectedTabIndex}
-          onTabPress={handleTabPress}
-          activeTabStyle={styles.activeTabStyle}
-          tabStyle={styles.tabStyle}
-          tabTextStyle={styles.tabTextStyle}
-        />
+        <TouchableOpacity
+          style={[
+            styles.tabButton,
+            selectedTabIndex === 0 && styles.activeTabButton,
+          ]}
+          onPress={() => handleTabPress(0)}
+        >
+          <Text
+            style={[
+              styles.tabButtonText,
+              selectedTabIndex === 0 && styles.activeTabButtonText,
+            ]}
+          >
+            Mes tâches
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.tabButton,
+            selectedTabIndex === 1 && styles.activeTabButton,
+          ]}
+          onPress={() => handleTabPress(1)}
+        >
+          <Text
+            style={[
+              styles.tabButtonText,
+              selectedTabIndex === 1 && styles.activeTabButtonText,
+            ]}
+          >
+            Tâches générales
+          </Text>
+        </TouchableOpacity>
       </View>
       {selectedTabIndex === 0 ? (
         <MesTaches />
@@ -44,25 +67,33 @@ const styles = StyleSheet.create({
     backgroundColor: main.BgColor,
   },
   segmentedControl: {
+    flexDirection: 'row',
     marginHorizontal: 16,
     marginBottom: 12,
-    borderWidth: 1,
-    borderColor: '#D3D3D3',
-    borderRadius: 4,
+    borderRadius: 8,
     backgroundColor: 'white',
   },
-  activeTabStyle: {
-    backgroundColor: '#172ACE',
-    borderWidth: 2,
-    borderColor: 'white',
+
+  tabButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 5,
+    margin: 4
   },
-  tabStyle: {
-    borderWidth: 0,
-    backgroundColor: 'transparent',
+
+  activeTabButton: {
+    backgroundColor: '#3661F6',
+    borderRadius: 4,
   },
-  tabTextStyle: {
-    color: '#172ACE',
+  tabButtonText: {
+    color: '#8E8E93',
     fontWeight: 'bold',
+    fontSize: 12,
+  },
+  activeTabButtonText: {
+    color: 'white',
+
   },
 });
 
