@@ -10,8 +10,8 @@ const SalonCard = () => {
 
 
     return(
-        <View>
-            <LinearGradient colors={[MiniJeu.RedGradientColor1, MiniJeu.RedGradientColor2]} style={styles.global}>
+        <View style={styles.global}>
+            <LinearGradient colors={[MiniJeu.RedGradientColor1, MiniJeu.RedGradientColor2]} style={styles.backgroundGradient}>
                 <View style = {styles.firstRow}>
                     <Text style={styles.text1}>Salon de Julie</Text>
 
@@ -43,10 +43,15 @@ const SalonCard = () => {
 };
 
 const styles = StyleSheet.create({
+
     global:{
+        flex:0.35,
+    },
+
+    backgroundGradient:{
         borderRadius: 10,
         width : windowWidth*0.9,
-        padding : 10
+        padding : 10,
     },
 
     container:{
