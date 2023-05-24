@@ -11,8 +11,8 @@ const ScoreBoard = () => {
 
 
     return(
-        <View>
-            <LinearGradient colors={[MiniJeu.VioletGradientColor1, MiniJeu.VioletGradientColor2]} style={styles.global}>
+        <View style={styles.global}>
+            <LinearGradient colors={[MiniJeu.VioletGradientColor1, MiniJeu.VioletGradientColor2]} style={styles.backgroundGradient}>
                 <ScoreLigne/>
                 <View style={styles.separator}/>
                 <ScoreLigne/>
@@ -26,6 +26,10 @@ const ScoreBoard = () => {
 
 const styles = StyleSheet.create({
     global:{
+        flex:1
+    },
+
+    backgroundGradient:{
         borderRadius: 10,
         width : windowWidth*0.9,
         padding : 10,

@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   global: {
     borderRadius: 10,
     width: windowWidth * 0.9,
-    height: windowHeight * 0.3
+    height: windowHeight * 0.3,
   },
   container: {
     width: '100%',
