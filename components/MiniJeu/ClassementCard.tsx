@@ -19,7 +19,9 @@ const ScoreBoard = () => {
                 <View style={styles.separator}/>
                 <ScoreLigne position={2}/>
                 <View style={styles.separator}/>
-                <ScoreLigne position={5}/>
+                <ScoreLigne position={3}/>
+                <View style={styles.separator}/>
+                <ScoreLigne position={4}/>
             </LinearGradient>
         </View>
 
