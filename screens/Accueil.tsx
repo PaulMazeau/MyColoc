@@ -4,12 +4,12 @@ import Header from '../components/Reusable/Header';
 import { main } from '../constants/Colors';
 import BoutonMiniJeu from '../components/Accueil/BoutonMiniJeux';
 import MonSolde from '../components/Accueil/MonSolde';
-import TacheCardAccueil from '../components/Accueil/TacheCardAccueil';
 import Suggestion from '../components/Accueil/Suggestions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FB_AUTH } from '../firebaseconfig';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
+import TacheCard from '../components/Tache/TacheCard';
 
 const Appartement = require('../assets/images/Appartement.png');
 
@@ -32,7 +32,7 @@ const AccueilScreen = () => {
         <BoutonMiniJeu/>
       </View>
       <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
-      <TacheCardAccueil/>
+      <TacheCard />
       <TouchableOpacity onPress={() => {FB_AUTH.signOut(); setUser(null)}}><Text>DECONNEXION</Text></TouchableOpacity>
 
     </View>

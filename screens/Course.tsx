@@ -6,7 +6,6 @@ import React from 'react';
 import { CourseStackParams } from '../App';
 import { main } from '../constants/Colors';
 import Header from '../components/Reusable/Header';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
 
 
@@ -14,35 +13,11 @@ import ScreenTitle from '../components/Reusable/ScreenTitle';
 type Props = NativeStackScreenProps<CourseStackParams, 'Course'>;
 
 const CourseScreen = ({navigation}: Props) => {
-  const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
 
-  const handlePresentPress = () => {
-    bottomSheetModalRef.current?.present();
-  };
-
-  const CustomBackgroundComponent = () => (
-    <View></View>
-  );
-    
   return (
     <View style={styles.container}>
       <Header/>
       <ScreenTitle title="Course"/>
-      
-
-      <Button title="Présenter BottomSheet" onPress={handlePresentPress} />
-      <BottomSheetModal 
-        ref={bottomSheetModalRef} 
-        index={1} snapPoints={['25%', '50%']} 
-        backgroundComponent={CustomBackgroundComponent}
-        handleComponent={null}
-        >
-      <View style={styles.bottomSheet}>
-        <Text style={styles.bottomSheetText}>AGGGGGGG</Text>
-      </View>
-
-    </BottomSheetModal>
-
       <CourseCard name="Course de vendredi" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard>
       <CourseCard name="Course de dimanche" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard>
       <StatusBar style="auto" />

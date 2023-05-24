@@ -2,11 +2,21 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Horloge from '../../assets/icons/Horloge.svg';
 import { Shadows } from '../../constants/Shadow';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import TacheCardBottomSheet from '../Reusable/InfoBottomSheet';
 
 const TacheCard = () => {
+
+  //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
+  const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
+
+  const handlePresentPress = () => {
+    bottomSheetModalRef.current?.present();
+  };
+
   return (
     <View style={[styles.global, Shadows.shadow]}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handlePresentPress}>
         <View style={styles.container}>
           <View style={styles.top}>
             <Text style={styles.titre}>Ménage</Text>
@@ -22,6 +32,7 @@ const TacheCard = () => {
           </View>
         </View>
       </TouchableOpacity>
+      <TacheCardBottomSheet ref={bottomSheetModalRef} />
     </View>
   );
 };
@@ -75,6 +86,21 @@ const styles = StyleSheet.create({
   participants: {
     flexDirection: 'row',
   },
+
+  bottomSheet: {
+    flex: 1, 
+    backgroundColor: 'orange', 
+    margin: 16, 
+    borderRadius: 35, 
+    marginBottom: 16 
+ },
+ bottomSheetText: {
+   fontSize: 20,
+   fontWeight: 'bold',
+   color: 'white',
+   textAlign: 'center',
+   marginTop: 12
+ }
 });
 
 export default TacheCard;
