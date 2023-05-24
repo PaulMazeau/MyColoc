@@ -1,33 +1,49 @@
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Trophy from '../../assets/icons/Trophy.svg';
-import { MiniJeu } from '../../constants/Colors';
+import { main } from '../../constants/Colors';
 
+interface ScoreProps {
+    score: number;
+    color: string;
+}
 
-const Score = () => {
-    return(
-        <View style = {styles.container}>
-            <Trophy/>
-            <Text style = {styles.text}> 1800</Text>
+const Score: React.FC<ScoreProps> = ({ score, color }) => {
+    const dynamicStyles = StyleSheet.create({
+        container: {
+            backgroundColor: color,
+            borderRadius: 10,
+            width: '30%',
+            padding: 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+    });
+
+    return (
+        <View style={[styles.container, dynamicStyles.container]}>
+            <Trophy />
+            <Text style={styles.text}>{score}</Text>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container : {
-        backgroundColor : "white",
-        borderRadius : 10,
-        width : '30%',
-        padding : 2,
-        alignItems : 'center',
-        justifyContent : 'center',
-        flexDirection:'row'
+    container: {
+        borderRadius: 10,
+        width: '30%',
+        padding: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
     },
 
-    text : {
-        color : MiniJeu.TextColor1,
-        fontWeight : '600',
-        fontSize : 15,
-    }
-})
+    text: {
+        color: main.TextColor,
+        fontWeight: '600',
+        fontSize: 15,
+    },
+});
 
 export default Score;

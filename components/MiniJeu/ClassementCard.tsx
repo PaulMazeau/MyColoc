@@ -1,23 +1,27 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
-import { MiniJeu } from '../../constants/Colors';
+import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
 
 
 const windowWidth = Dimensions.get('window').width;
 
+
+
 const ScoreBoard = () => {
 
 
     return(
         <View style={styles.global}>
-            <LinearGradient colors={[MiniJeu.VioletGradientColor1, MiniJeu.VioletGradientColor2]} style={styles.backgroundGradient}>
-                <ScoreLigne/>
+            <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
+                <ScoreLigne position={1}/>
                 <View style={styles.separator}/>
-                <ScoreLigne/>
+                <ScoreLigne position={2}/>
                 <View style={styles.separator}/>
-                <ScoreLigne/>
+                <ScoreLigne position={3}/>
+                <View style={styles.separator}/>
+                <ScoreLigne position={4}/>
             </LinearGradient>
         </View>
 
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
     },
 
     text2:{
-        color : MiniJeu.RedGradientColor1,
+        color : MiniJeuColor.RedGradientColor1,
         fontWeight: '600',
         fontSize: 16,
     },

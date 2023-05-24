@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
-import { MiniJeu } from '../../constants/Colors';
+import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
@@ -11,7 +11,7 @@ const SalonCard = () => {
 
     return(
         <View style={styles.global}>
-            <LinearGradient colors={[MiniJeu.RedGradientColor1, MiniJeu.RedGradientColor2]} style={styles.backgroundGradient}>
+            <LinearGradient colors={[MiniJeuColor.RedGradientColor1, MiniJeuColor.RedGradientColor2]} style={styles.backgroundGradient}>
                 <View style = {styles.firstRow}>
                     <Text style={styles.text1}>Salon de Julie</Text>
 
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     },
 
     text2:{
-        color : MiniJeu.RedGradientColor1,
+        color : MiniJeuColor.RedGradientColor1,
         fontWeight: '600',
         fontSize: 16,
     },

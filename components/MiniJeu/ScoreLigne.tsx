@@ -1,46 +1,82 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
-import { MiniJeu } from '../../constants/Colors';
+import { View, Text, StyleSheet, Dimensions, Image, ImageBackground } from 'react-native';
 import Score from './Score';
-import MedailleOr from '../../assets/icons/MedailleOr.svg';
+import { MiniJeuColor } from "../../constants/Colors";
 
+const MedailleOr = require('../../assets/images/MedailleOr.png');
+const MedailleArgent = require('../../assets/images/MedailleArgent.png');
+const MedailleBronze = require('../../assets/images/MedailleBronze.png');
+const MedailleBlanche = require('../../assets/images/MedailleBlanche.png');
 
-const windowWidth = Dimensions.get('window').width;
+interface ScoreLigneProps {
+    position?: number;
+}
 
-const ScoreLigne = () => {
+const ScoreLigne: React.FC<ScoreLigneProps> = ({ position }) => {
+    const positionString = position !== undefined ? position.toString() : '';
+    let imageSource = null;
+    let couleur = "white";
 
-    return(
+    //Permet de choisir une medaille et une couleur selon la position du User
+    if (position === 1) {
+        imageSource = MedailleOr;
+        couleur = MiniJeuColor.Or
+    } else if (position === 2) {
+        imageSource = MedailleArgent;
+        couleur = MiniJeuColor.Argent
+    } else if (position === 3) {
+        imageSource = MedailleBronze;
+        couleur = MiniJeuColor.Bronze
+    }
+
+    return (
         <View style={styles.global}>
             <View style={styles.firstColumn}>
-                <MedailleOr/>
+                <ImageBackground source={imageSource}>
+                    <View style={styles.Medaille}>
+                        <Text>{positionString}</Text>
+                    </View>
+                </ImageBackground>
                 <View style={styles.ImageContainer}>
                     <Image source={require('../../assets/images/icon.png')} />
                 </View>
                 <Text style={styles.text1}> Julie </Text>
             </View>
 
-            <Score/>
+            <Score score={1800} color={couleur}/>
         </View>
-
     );
 };
 
+function getImageSource(position: number): string | undefined {
+    if (position === 1) {
+      return MedailleOr;
+    } else if (position === 2) {
+      return MedailleArgent;
+    } else if (position === 3) {
+      return MedailleBronze;
+    }
+  
+    return undefined;
+  }
+  
+
 const styles = StyleSheet.create({
-    global:{
+    global: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        margin:5
+        margin: 5
     },
 
-    firstColumn:{
+    firstColumn: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
     },
 
-    text1:{
-        color : "white",
+    text1: {
+        color: "white",
         fontWeight: '600',
         fontSize: 16,
     },
@@ -52,11 +88,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginRight: 10,
         marginLeft: 10,
-      },
+    },
 
-
+    Medaille: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 5,
+        paddingBottom: 5
+    }
 })
-
-
 
 export default ScoreLigne;
