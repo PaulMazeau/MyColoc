@@ -7,6 +7,8 @@ import ScoreLigne from './ScoreLigne';
 
 const windowWidth = Dimensions.get('window').width;
 
+
+
 const ScoreBoard = () => {
 
 

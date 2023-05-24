@@ -1,17 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, ImageBackground } from 'react-native';
 import Score from './Score';
-import MedailleOr from '../../assets/icons/MedailleOr.svg';
 
 
 const windowWidth = Dimensions.get('window').width;
+
+
+const MedailleOr=require('../../assets/images/MedailleOr.png');
 
 const ScoreLigne = () => {
 
     return(
         <View style={styles.global}>
             <View style={styles.firstColumn}>
-                <MedailleOr/>
+                <ImageBackground source={MedailleOr}>
+                    <View style={styles.Medaille}>
+                        <Text>1</Text>
+                    </View> 
+                </ImageBackground>
                 <View style={styles.ImageContainer}>
                     <Image source={require('../../assets/images/icon.png')} />
                 </View>
@@ -52,6 +58,13 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginLeft: 10,
       },
+
+    Medaille:{
+        paddingLeft:10,
+        paddingRight:10,
+        paddingTop:5,
+        paddingBottom:5
+    }
 
 
 })
