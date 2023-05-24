@@ -7,13 +7,16 @@ import ScoreBoard from '../components/MiniJeu/ScoreBoard1';
 const Space_Background=require('../assets/images/Space_Background.png');
 
 
+const backgroundBasketBall = require('../assets/images/BasketBall_Background.png');
+
+
 export default function MiniJeu() {
   return (
 
     <View style={styles.container}>
         <ImageBackground source ={Space_Background} resizeMode="cover">
           <View style = {styles.imageBackgrond}>
-            <GameCard/>
+            <GameCard gameTitle='BasketBall' backgroundImageSource={backgroundBasketBall}/>
             <Text style={styles.text1}>Salons ouverts</Text>
             <SalonCard/>
             <Text style={styles.text1}>Classement</Text>
