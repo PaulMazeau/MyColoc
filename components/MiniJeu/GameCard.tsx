@@ -6,11 +6,10 @@ import { MiniJeu } from '../../constants/Colors';
 import { LinearGradient }  from 'expo-linear-gradient';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 interface GameCardProps {
   gameTitle: string;
-  backgroundImageSource: any; // You can replace 'any' with the correct type for the image source
+  backgroundImageSource: any;
 }
 
 const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource }) => {
