@@ -1,12 +1,14 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import BlueGradient from '../components/Reusable/BlueGradient';
 import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { createUserWithEmailAndPassword} from 'firebase/auth';
-import { FB_AUTH } from '../firebaseconfig';
+import { FB_AUTH, FB_DB } from '../firebaseconfig';
+import {setDoc, doc, collection, getDoc} from 'firebase/firestore'
+import { UserContext } from '../UserContext';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'SignUp'>;
 
@@ -16,13 +18,31 @@ export default function SignUpScreen({navigation}: Props) {
   };
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
-
-  const signUp = async () => {
-    try{
-        const response = await createUserWithEmailAndPassword(FB_AUTH, email, pwd);
-    } catch(error: any){
-        alert(error.message)
-    }}
+  const [username, setUsername] = useState('');
+  const [user, setUser] = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  const signUp = () => {
+    if(username==""){
+        alert("Rentre un nom d'utilisateur !");
+        return
+    }
+    setLoading(true)
+    createUserWithEmailAndPassword(FB_AUTH, email, pwd).then(function(userCred) {
+        // get user data from the auth trigger
+        const userUid = userCred.user.uid; // The UID of the user.
+        // set account  doc  
+        const entry = {
+          nom: username,
+          uuid: userUid,
+          solde: 0,
+          colocID: "0",
+          // avatarUrl: avatarUrl
+        }
+        setDoc(doc(FB_DB, 'Users', userUid),entry).then(() => {setUser(username);
+        setLoading(false)}); 
+      }).catch(error => alert(error.message));
+    
+}
   return (
     <View style={styles.container}>
       <StatusBar style="light"/>
@@ -43,6 +63,8 @@ export default function SignUpScreen({navigation}: Props) {
           autoCapitalize='none'
           keyboardType='email-address'
           autoCorrect={false}
+          value={username}
+          onChangeText={(text) => setUsername(text)}
         />
         <TextInput
           placeholder="Adresse Email"
@@ -67,7 +89,7 @@ export default function SignUpScreen({navigation}: Props) {
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>
-      <CustomButton title="S'inscrire" onPress={() => signUp()} />
+      {loading ? <ActivityIndicator size='large' /> : <CustomButton title="S'inscrire" onPress={() => signUp()} />}
     </View>
   );
 }

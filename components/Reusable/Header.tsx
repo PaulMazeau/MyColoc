@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../../assets/icons/Settings.svg';
 import { useNavigation } from '@react-navigation/native';
+import { UserContext } from '../../UserContext';
 
 const Header = () => {
     const navigation = useNavigation();
-
+    const [user, setUser] = useContext(UserContext);
     const handleSettingsPress = () => {
         console.log('Settings');
         // Ici, vous pouvez ajouter la navigation vers les paramètres de l'application.
@@ -25,7 +26,7 @@ const Header = () => {
                         <Image source={require('../../assets/images/icon.png')} style={styles.image}/>
                     </View>
                     <View style={styles.title}>
-                        <Text style={styles.bigTitle}>Paul</Text>
+                        <Text style={styles.bigTitle}>{user}</Text>
                         <Text style={styles.smallTitle}>Decoloc</Text>
                     </View>
                 </TouchableOpacity>
