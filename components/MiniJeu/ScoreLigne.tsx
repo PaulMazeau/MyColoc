@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions, Image, ImageBackground } from 'react-native';
 import Score from './Score';
+import { MiniJeuColor } from "../../constants/Colors";
 
 const MedailleOr = require('../../assets/images/MedailleOr.png');
 const MedailleArgent = require('../../assets/images/MedailleArgent.png');
@@ -14,13 +15,18 @@ interface ScoreLigneProps {
 const ScoreLigne: React.FC<ScoreLigneProps> = ({ position }) => {
     const positionString = position !== undefined ? position.toString() : '';
     let imageSource = null;
+    let couleur = "white";
 
+    //Permet de choisir une medaille et une couleur selon la position du User
     if (position === 1) {
         imageSource = MedailleOr;
+        couleur = MiniJeuColor.Or
     } else if (position === 2) {
         imageSource = MedailleArgent;
+        couleur = MiniJeuColor.Argent
     } else if (position === 3) {
         imageSource = MedailleBronze;
+        couleur = MiniJeuColor.Bronze
     }
 
     return (
@@ -37,10 +43,23 @@ const ScoreLigne: React.FC<ScoreLigneProps> = ({ position }) => {
                 <Text style={styles.text1}> Julie </Text>
             </View>
 
-            <Score score={1800} />
+            <Score score={1800} color={couleur}/>
         </View>
     );
 };
+
+function getImageSource(position: number): string | undefined {
+    if (position === 1) {
+      return MedailleOr;
+    } else if (position === 2) {
+      return MedailleArgent;
+    } else if (position === 3) {
+      return MedailleBronze;
+    }
+  
+    return undefined;
+  }
+  
 
 const styles = StyleSheet.create({
     global: {

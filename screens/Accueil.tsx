@@ -8,12 +8,14 @@ import TacheCardAccueil from '../components/Accueil/TacheCardAccueil';
 import Suggestion from '../components/Accueil/Suggestions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FB_AUTH } from '../firebaseconfig';
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
 
 const Appartement = require('../assets/images/Appartement.png');
 
 
 const AccueilScreen = () => {
-
+  const [user, setUser] = useContext(UserContext)
   return (
     <View style={styles.container}>
       <BlueGradient />
@@ -31,7 +33,7 @@ const AccueilScreen = () => {
       </View>
       <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
       <TacheCardAccueil/>
-      <TouchableOpacity onPress={() => FB_AUTH.signOut()}><Text>DECONNEXION</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => {FB_AUTH.signOut(); setUser(null)}}><Text>DECONNEXION</Text></TouchableOpacity>
 
     </View>
   );
