@@ -11,16 +11,17 @@ interface GameCardProps {
   backgroundImageSource: any;
   colorGradient1: string;
   colorGradient2: string;
+  scoreUser:number;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, colorGradient1, colorGradient2 }) => {
+const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, colorGradient1, colorGradient2, scoreUser }) => {
   return (
     <View>
       <LinearGradient colors={[colorGradient1, colorGradient2]} style={styles.linearGradient}>
         <View style={styles.container}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.text}>{gameTitle}</Text>
-            <Score />
+            <Score score={scoreUser} />
           </View>
           <ImageBackground source={backgroundImageSource} resizeMode="contain">
             <View style={styles.imageBackgrond}>
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    padding: 15,
+    padding: 15
   },
   text: {
     color: "white",
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   },
   imageBackgrond: {
     height: '93%',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   }
 });
 

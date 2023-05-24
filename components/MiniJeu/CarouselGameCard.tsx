@@ -5,7 +5,7 @@ import { FlatList } from 'react-native-gesture-handler';
 
 
 interface CarouselProps {
-  gameData: { title: string; backgroundImageSource: any; colorGradient1: string; colorGradient2: string }[];
+  gameData: { title: string; scoreUser:number; backgroundImageSource: any; colorGradient1: string; colorGradient2: string }[];
 }
 
 
@@ -46,7 +46,7 @@ const Carousel: React.FC<CarouselProps> = ({ gameData }) => {
         keyExtractor={(item, index) => `${item.title}-${index}`}
         renderItem={({ item }) => (
           <View style={[styles.container, { width: windowWidth }]}>
-            <GameCard gameTitle={item.title} backgroundImageSource={item.backgroundImageSource} colorGradient1={item.colorGradient1} colorGradient2={item.colorGradient2}/>
+            <GameCard gameTitle={item.title} scoreUser={item.scoreUser} backgroundImageSource={item.backgroundImageSource} colorGradient1={item.colorGradient1} colorGradient2={item.colorGradient2}/>
           </View>
         )}
         onScroll={Animated.event(

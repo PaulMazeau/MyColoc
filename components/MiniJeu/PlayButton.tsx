@@ -16,13 +16,14 @@ const styles = StyleSheet.create({
     global:{
         backgroundColor : "white",
         borderRadius : 10,
-        height : '15%',
+        height : '25%',
         justifyContent : 'center',
         alignItems : 'center'
     },
 
     text:{
         fontWeight: '600',
+        fontSize : 20,
         color : MiniJeuColor.TextColor1
     }
 
