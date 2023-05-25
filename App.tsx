@@ -29,6 +29,7 @@ import { UserContext} from "./UserContext";
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FB_AUTH, FB_DB } from './firebaseconfig';
 import { doc, getDoc } from 'firebase/firestore';
+import NoColoc from './screens/NoColoc';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -64,12 +65,17 @@ export type AccueilStackParams = {
   BoutonMiniJeu: undefined;
 };
 
+export type NoColocStackParams = {
+  NoColoc: undefined,
+};
+
 // Création des piles de navigation
 const RootStack = createNativeStackNavigator<RootStackParams>();
 const MainNavigation = createBottomTabNavigator<RootStackParams>();
 const CourseStack = createNativeStackNavigator<CourseStackParams>(); 
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
 const AccueilStack = createNativeStackNavigator<AccueilStackParams>();
+const NoColocStack = createNativeStackNavigator<NoColocStackParams>();
 
 const RootNavigator = () => {
   return (
@@ -101,6 +107,14 @@ const MainNavigationScreenStack = () => {
 }
 
 
+// Pile de navigation pour l'écran ou tu as pas de coloc  
+const NoColocScreenStack = () => {
+  return (
+    <NoColocStack.Navigator>
+      <NoColocStack.Screen name="NoColoc" component={NoColoc}/>
+    </NoColocStack.Navigator>
+  );
+}
 
 // Pile de navigation pour l'écran Accueil  
 const AccueilScreenStack = () => {
@@ -164,8 +178,12 @@ export default function App() {
     , [uid])
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
   const renderContent = () => {
-    if (userInfo) {
-      return <RootNavigator />;
+    if (userInfo) { //Si l'user est connecté
+      if (!(userInfo)) { //Si l'user est dans une colocation
+        return <RootNavigator />;
+      }else {
+        return <NoColocScreenStack />
+      }
     }
     return <AuthScreenStack />;
   }
