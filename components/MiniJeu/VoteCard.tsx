@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { main } from '../../constants/Colors';
-import Button from "./Button";
+import Button from "../Reusable/ButtonColor";
 
 const windowWidth = Dimensions.get('window').width;
 

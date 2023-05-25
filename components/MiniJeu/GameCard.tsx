@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, ImageBackground, useWindowDimensions, Dimensions } from 'react-native';
-import Button from "./Button";
+import Button from "../Reusable/ButtonColor";
 import Score from './Score';
 import { LinearGradient }  from 'expo-linear-gradient';
 
