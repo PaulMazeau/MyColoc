@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet,TouchableOpacity,Image, View } from "react-native";
+import {main} from './../../constants/Colors'
 
 interface ButtonProps {
     text: string;
@@ -18,7 +19,9 @@ const ParticipantCard = ({ text, colorBackGround, colorText, onPress }: ButtonPr
             height:"100%",
             marginRight:5,
             marginLeft:5,
-            width:'20%'
+            width:'20%',
+            borderColor: main.MainColor,
+            borderWidth:2
         },
         text: {
             fontWeight: '600',
