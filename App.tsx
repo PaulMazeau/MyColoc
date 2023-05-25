@@ -150,18 +150,6 @@ export default function App() {
   const isLoggedIn = false; 
   const [userInfo, setUserInfo] = useState(null)
   const [uid, setUid] = useState(null)
-  // useEffect(() => {
-  //     onAuthStateChanged(FB_AUTH, async (user)=> {
-  //     if(user){
-  //       if(user.uid == FB_AUTH.currentUser.uid){
-  //       const data = await getDoc(doc(FB_DB, 'Users', FB_AUTH.currentUser.uid));
-  //       setUserInfo(data.data().nom)
-  //       console.log(userInfo)}
-  //     }else{
-  //       setUserInfo(null)
-  //     }
-  //   })
-  // })
   
     useEffect(()=>{
       const subscriber = onAuthStateChanged(FB_AUTH, (user) => user ? setUid(user.uid) : setUid(null))
@@ -170,7 +158,7 @@ export default function App() {
 
     useEffect(() => {
       if(uid){
-            getDoc(doc(FB_DB, 'Users', FB_AUTH.currentUser.uid)).then((data) => setUserInfo(data.data().nom))
+            getDoc(doc(FB_DB, 'Users', FB_AUTH.currentUser.uid)).then((data) => setUserInfo(data.data().nom)).catch((error) => alert(error.message))
           }
       }
     , [uid])
