@@ -32,7 +32,7 @@ export default function MiniJeu() {
         <ImageBackground 
             source ={Space_Background} 
             resizeMode="cover"
-            style={styles.imageBackground}  // Ajoutez le style ici
+            style={styles.imageBackground}
         >
           <View style = {styles.container}>
             <View style={styles.logo}>
@@ -56,10 +56,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems:'center'
   },
-  
+
   imageBackground: {
-    flex: 1,             // Permet à l'image de s'étendre
-    width: '100%',       // S'étend sur toute la largeur
+    flex: 1,             
+    width: '100%',       
     justifyContent: 'center',
     alignItems: 'center',
   },
