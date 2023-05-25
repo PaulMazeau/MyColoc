@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, ImageBackground, Image} from 'react-native';
 import SalonCard from '../components/MiniJeu/SalonCard';
-import Classement from '../components/MiniJeu/ClassementCard';
+import ClassementCard from '../components/MiniJeu/ClassementCard';
 import CarouselGame from '../components/MiniJeu/CarouselGameCard';
 import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
+import VoteCard from '../components/MiniJeu/VoteCard'
 
 
 const Space_Background=require('../assets/images/Space_Background.png');
@@ -37,7 +38,8 @@ export default function MiniJeu() {
             <Text style={styles.text1}>Salons ouverts</Text>
             <SalonCard/>
             <Text style={styles.text1}>Classement</Text>
-            <Classement/>
+            {/* <ClassementCard/> */}
+            <VoteCard/>
           </View>
 
         </ImageBackground>
