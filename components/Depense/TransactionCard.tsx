@@ -1,9 +1,17 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
+import RemboursementBS from './RemboursementBS';
 
 const TransactionCard = () => {
   const test = false; // Variable pour savoir si c le g a rembourse ou pas 
+
+  //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
+const bottomSheetModalRef = useRef(null);
+
+const handlePresentPress = () => {
+  bottomSheetModalRef.current?.present();
+};
 
   const renderContent = () => {
     if (test) {
@@ -38,12 +46,15 @@ const TransactionCard = () => {
   };
 
   return (
+    <TouchableOpacity style={{flex: 1}} onPress={handlePresentPress}>
     <View style={[styles.container, Shadows.shadow]}>
       <View style={styles.imageContainer}>
         <Image source={require('../../assets/images/icon.png')} style={styles.image} />
       </View>
       {renderContent()}
     </View>
+    <RemboursementBS ref={bottomSheetModalRef} />
+    </TouchableOpacity>
   );
 };
 
