@@ -57,6 +57,7 @@ export type CourseStackParams = {
 export type AuthStackParams = {
   Login: undefined;
   SignUp: undefined;
+  NoColoc: undefined;
 };
 
 export type AccueilStackParams = {
@@ -172,19 +173,23 @@ export default function App() {
 
     useEffect(() => {
       if(uid){
-            getDoc(doc(FB_DB, 'Users', FB_AUTH.currentUser.uid)).then((data) => setUserInfo(data.data().nom)).catch((error) => alert(error.message))
+            const getData = async () => {
+            getDoc(doc(FB_DB, 'Users', FB_AUTH.currentUser.uid)).then((data) => setUserInfo(data.data())).catch((error) => alert(error.message))
+            }
+            getData();
+            console.log(userInfo);
           }
       }
     , [uid])
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
   const renderContent = () => {
     if (userInfo) { //Si l'user est connecté
-      if (!(userInfo)) { //Si l'user est dans une colocation
+      if (!(userInfo.colocID == "0")) { //Si l'user est  dans une colocation
         return <RootNavigator />;
       }else {
-        return <NoColocScreenStack />
+        return <NoColocScreenStack />;
       }
-    }
+    }// l'user n'est pas connecté
     return <AuthScreenStack />;
   }
   

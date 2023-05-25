@@ -26,8 +26,8 @@ const Header = () => {
                         <Image source={require('../../assets/images/icon.png')} style={styles.image}/>
                     </View>
                     <View style={styles.title}>
-                        <Text style={styles.bigTitle}>{user}</Text>
-                        <Text style={styles.smallTitle}>Decoloc</Text>
+                        <Text style={styles.bigTitle}>{user.nom}</Text>
+                        <Text style={styles.smallTitle}>{user.nomColoc}</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleColocSettingsPress}>
