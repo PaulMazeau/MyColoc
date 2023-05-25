@@ -1,11 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { MiniJeuColor } from '../../constants/Colors';
 
-const Button = ({ text, color }) => {
+const Button = ({ text, colorText, colorBackGround }) => {
     const styles = StyleSheet.create({
         global: {
-            backgroundColor: color,
+            backgroundColor: colorBackGround,
             borderRadius: 10,
             height: '25%',
             justifyContent: 'center',
@@ -14,7 +13,7 @@ const Button = ({ text, color }) => {
         text: {
             fontWeight: '600',
             fontSize: 20,
-            color: MiniJeuColor.TextColor1
+            color: colorText
         }
     });
 
