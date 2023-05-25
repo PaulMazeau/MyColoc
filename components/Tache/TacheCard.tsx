@@ -1,21 +1,58 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Horloge from '../../assets/icons/Horloge.svg';
 import { Shadows } from '../../constants/Shadow';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import TacheCardBottomSheet from '../Reusable/InfoBottomSheet';
+import InfoBottomSheet from '../Reusable/InfoBottomSheet';
+import Valider from '../../assets/icons/Valider.svg'
 
 const TacheCard = () => {
 
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
-  const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
+  const bottomSheetModalRef = useRef(null);
 
   const handlePresentPress = () => {
     bottomSheetModalRef.current?.present();
   };
 
-  return (
-    <View style={[styles.global, Shadows.shadow]}>
+  var [ isPress, setIsPress ] = useState(<Valider/>);
+
+  function handleDone() { 
+    console.log('Done')
+  }
+
+  function handlePress() { 
+    setIsPress(<TouchableOpacity onPress={() => {handleDone(); setIsPress(<Valider/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Confirmer </Text></TouchableOpacity>);
+  }
+
+
+  const renderContent =() => {
+    const test = false
+    if(test){
+      return(
+        <View style={[styles.global, Shadows.shadow]}>
+      <TouchableOpacity onPress={handlePresentPress}>
+        <View style={styles.container}>
+          <View style={styles.top}>
+            <Text style={styles.titre}>Course</Text>
+
+            <View style={styles.dateContainer}>
+              <Horloge width={17} height={17} />
+              <Text style={styles.date}>Ven. 23</Text>
+            </View>
+          </View>
+
+          <TouchableOpacity onPress={() => {handlePress()}} style={styles.Button}>
+                {isPress}
+              </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+      <InfoBottomSheet ref={bottomSheetModalRef} />
+    </View>
+      )
+    }
+    return (
+      <View style={[styles.global, Shadows.shadow]}>
       <TouchableOpacity onPress={handlePresentPress}>
         <View style={styles.container}>
           <View style={styles.top}>
@@ -32,7 +69,14 @@ const TacheCard = () => {
           </View>
         </View>
       </TouchableOpacity>
-      <TacheCardBottomSheet ref={bottomSheetModalRef} />
+      <InfoBottomSheet ref={bottomSheetModalRef} />
+    </View>
+    )
+  }
+  
+  return (
+    <View>
+    {renderContent()}
     </View>
   );
 };
@@ -100,7 +144,34 @@ const styles = StyleSheet.create({
    color: 'white',
    textAlign: 'center',
    marginTop: 12
- }
+ },
+ confirmer: {
+  color: 'white',
+  fontSize: 13,
+  textAlign: 'center',
+  padding: 5
+},
+
+ButtonConfirm: {
+  backgroundColor: 'blue',
+  width: 90,
+  height: 34,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 10,
+  marginRight: 35
+},
+
+Button: {
+  backgroundColor: 'blue',
+  width: 52,
+  height: 34,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 10,
+},
+
 });
 
 export default TacheCard;
+

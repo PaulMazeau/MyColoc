@@ -1,12 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import TransactionCard from './TransactionCard';
 
 export default function Equilibrage() {
     return (
         <View>
-            <Text>Prout</Text>
+            <TransactionCard />
         </View>
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+})
