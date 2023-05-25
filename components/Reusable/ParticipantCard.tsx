@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import { main } from './../../constants/Colors';
 
 interface ButtonProps {
     text: string;
     onPress: () => void;
+    percent: number;  // Changer ici
 }
 
-const ParticipantCard = ({ text, onPress }: ButtonProps) => {
+const ParticipantCard = ({ text, onPress, percent }: ButtonProps) => {
+    const [bottomSectionStyle, setBottomSectionStyle] = useState({});
+
+    useEffect(() => {
+        setBottomSectionStyle({
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: `${percent}%`,  // Convertir le pourcentage en string ici
+            backgroundColor: 'blue',
+            width: '101%'
+        });
+    }, [percent]);  // Changer ici
+
     return (
         <TouchableOpacity onPress={onPress} style={styles.global}>
             <View style={styles.topSection}></View>
-            <View style={styles.bottomSection}></View>
+            <View style={bottomSectionStyle}></View>
             <View style={styles.imageContainer}>
                 <Image source={require('../../assets/images/profilIcon.png')} />
             </View>
@@ -30,31 +45,22 @@ const styles = StyleSheet.create({
         width: '20%',
         borderColor: main.MainColor,
         borderWidth: 1.5,
-        overflow: 'hidden',  // Cache les parties des vues d'arrière-plan qui dépassent du bouton
+        overflow: 'hidden',
     },
     topSection: {
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        height: '80%',  // Couvre 60% du bouton
+        height: '80%',
         backgroundColor: 'white',
-    },
-    bottomSection: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: '20%',  // Couvre 40% du bouton
-        backgroundColor: 'blue',
-        width:'101%'
     },
     text: {
         fontWeight: '400',
         fontSize: 20,
         color: main.TextColor,
-        position: 'absolute',  // Maintient le texte au centre du bouton
-        bottom: '10%',  // Ajustez ces valeurs en fonction de l'endroit où vous voulez que le texte apparaisse
+        position: 'absolute',
+        bottom: '10%',
     },
     imageContainer: {
         height: 40,
@@ -62,8 +68,8 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         borderRadius: 20,
         alignItems: 'center',
-        position: 'absolute',  // Maintient l'image au centre du bouton
-        top: '20%',  // Ajustez ces valeurs en fonction de l'endroit où vous voulez que l'image apparaisse
+        position: 'absolute',
+        top: '20%',
     },
 });
 

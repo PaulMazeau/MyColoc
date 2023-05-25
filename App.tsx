@@ -179,7 +179,7 @@ export default function App() {
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
   const renderContent = () => {
     if (userInfo) { //Si l'user est connecté
-      if (!(userInfo)) { //Si l'user est dans une colocation
+      if (userInfo) { //Si l'user est dans une colocation
         return <RootNavigator />;
       }else {
         return <NoColocScreenStack />

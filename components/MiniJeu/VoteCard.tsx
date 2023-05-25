@@ -13,9 +13,11 @@ const VoteCard = () => {
                 <Text style={styles.text1}>Vote contre l'incognito</Text>
             </View>
             <View style={styles.secondLign}>
-                <ParticipantCard text="julie"  />
-                <ParticipantCard text="julie" />
-
+                <ParticipantCard text="julie" percent={10}/>
+                <ParticipantCard text="julie" percent={90}/>
+                <ParticipantCard text="julie" percent={0}/>
+                <ParticipantCard text="julie" percent={0}/>
+                
             </View>
             <View style={styles.thirdLign}>
                 <Button text={"Voter"} colorBackGround={"#3B41F1"} colorText={'white'}/>
