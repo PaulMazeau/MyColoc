@@ -23,26 +23,26 @@ const styles = StyleSheet.create({
     global: {
         backgroundColor: "white",
         borderRadius: 10,
-        height: '25%',
         justifyContent: 'space-between',
         width:windowWidth * 0.9,
+        padding:10,
         
     },
 
     firstLign: {
         alignItems:'flex-start',
         width:'100%',
-        margin:10,
     },
 
     thirdLign:{
-        backgroundColor:'green'
+        height:'20%',
+
     },
 
     text1: {
         fontWeight: '600',
         fontSize: 20,
-        color: main.TextColor
+        color: main.TextColor,
     },
 
     text2: {

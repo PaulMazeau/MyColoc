@@ -7,7 +7,8 @@ const Button = ({ text, colorText, colorBackGround }) => {
             backgroundColor: colorBackGround,
             borderRadius: 10,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            height:"100%"
         },
         text: {
             fontWeight: '600',

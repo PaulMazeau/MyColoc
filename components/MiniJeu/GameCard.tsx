@@ -25,6 +25,7 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, c
             <Text style={styles.text}>{gameTitle}</Text>
             <Score score={scoreUser} color={"white"}/>
           </View>
+
           <View style={styles.secondLign}>
             <Button text={'Jouer'} colorBackGround={"white"} colorText={colorGradient1}/>
           </View>
@@ -50,9 +51,11 @@ const styles = StyleSheet.create({
   },
   firstLign:{
     flexDirection: 'row', 
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    height:"15%"
   },
   secondLign:{
+    height:"20%"
     
   },
   text: {
