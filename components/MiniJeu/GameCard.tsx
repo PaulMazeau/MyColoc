@@ -18,20 +18,21 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, c
   return (
     <View>
       <LinearGradient colors={[colorGradient1, colorGradient2]} style={styles.linearGradient}>
-      <ImageBackground source={backgroundImageSource} resizeMode="contain">
-        
         <View style={styles.container}>
-          <View style={styles.firstLign}>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.text}>{gameTitle}</Text>
             <Score score={scoreUser} color={"white"}/>
           </View>
-
-          <View style={styles.secondLign}>
-            <Button text={'Jouer'} colorBackGround={"white"} colorText={colorGradient1}/>
-          </View>
+          
+          <ImageBackground source={backgroundImageSource} resizeMode="contain">
+            <View style={styles.imageBackgrond}>
+              <View style={styles.button}>
+                <Button text={'Jouer'} colorBackGround={"white"} colorText={colorGradient1}/>
+              </View>
+            </View>
+          </ImageBackground>
         </View>
-
-      </ImageBackground>
       </LinearGradient>
     </View>
   );
@@ -46,17 +47,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    padding: 15,
-    justifyContent:'space-between'
-  },
-  firstLign:{
-    flexDirection: 'row', 
-    justifyContent: 'space-between',
-    height:"15%"
-  },
-  secondLign:{
-    height:"20%"
-    
+    padding: 15
   },
   text: {
     color: "white",
@@ -64,8 +55,13 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   imageBackgrond: {
-    height: '93%',
+    height: '100%',
     justifyContent: 'flex-end',
+  },
+  button:{
+    height:"17%",
+    justifyContent:'flex-end',
+    marginBottom:30
   }
 });
 
