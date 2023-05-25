@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { main } from '../../constants/Colors';
 import Button from "../Reusable/ButtonColor";
+import ParticipantCard from "../Reusable/ParticipantCard";
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -11,7 +12,7 @@ const VoteCard = () => {
             <View style={styles.firstLign}>
                 <Text style={styles.text1}>Vote contre l'incognito</Text>
             </View>
-            <Text style={styles.text1}>blabla</Text>
+            
             <View style={styles.thirdLign}>
                 <Button text={"Voter"} colorBackGround={"#3B41F1"} colorText={'white'}/>
             </View>
@@ -32,6 +33,11 @@ const styles = StyleSheet.create({
     firstLign: {
         alignItems:'flex-start',
         width:'100%',
+    },
+
+    secondLign:{
+        flexDirection:'row'
+
     },
 
     thirdLign:{
