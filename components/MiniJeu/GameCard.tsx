@@ -25,7 +25,7 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, c
           </View>
           <ImageBackground source={backgroundImageSource} resizeMode="contain">
             <View style={styles.imageBackgrond}>
-              <Button text={'Jouer'}/>
+              <Button text={'Jouer'} color={"white"}/>
             </View>
           </ImageBackground>
         </View>
