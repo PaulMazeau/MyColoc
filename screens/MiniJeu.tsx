@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ImageBackground, Image} from 'react-native';
 import SalonCard from '../components/MiniJeu/SalonCard';
 import Classement from '../components/MiniJeu/ClassementCard';
-import Carousel from '../components/MiniJeu/CarouselGameCard';
+import CarouselGame from '../components/MiniJeu/CarouselGameCard';
 import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
 
@@ -33,7 +33,7 @@ export default function MiniJeu() {
             <View style={styles.logo}>
               <Image source={Logo}/>
             </View>
-            <Carousel gameData={gameData}/>
+            <CarouselGame gameData={gameData}/>
             <Text style={styles.text1}>Salons ouverts</Text>
             <SalonCard/>
             <Text style={styles.text1}>Classement</Text>
