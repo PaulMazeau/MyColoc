@@ -38,8 +38,8 @@ export default function MiniJeu() {
             <Text style={styles.text1}>Salons ouverts</Text>
             <SalonCard/>
             <Text style={styles.text1}>Classement</Text>
-            {/* <ClassementCard/> */}
-            <VoteCard/>
+            <ClassementCard/>
+            {/* <VoteCard/> */}
           </View>
 
         </ImageBackground>

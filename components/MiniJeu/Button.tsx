@@ -6,7 +6,6 @@ const Button = ({ text, colorText, colorBackGround }) => {
         global: {
             backgroundColor: colorBackGround,
             borderRadius: 10,
-            height: '25%',
             justifyContent: 'center',
             alignItems: 'center'
         },

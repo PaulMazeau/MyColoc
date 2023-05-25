@@ -12,7 +12,9 @@ const VoteCard = () => {
                 <Text style={styles.text1}>Vote contre l'incognito</Text>
             </View>
             <Text style={styles.text1}>blabla</Text>
-            <Button text={"Voter"} colorBackGround={"#3B41F1"} colorText={'white'}/>
+            <View style={styles.thirdLign}>
+                <Button text={"Voter"} colorBackGround={"#3B41F1"} colorText={'white'}/>
+            </View>
         </View>
     );
 };
@@ -30,8 +32,11 @@ const styles = StyleSheet.create({
     firstLign: {
         alignItems:'flex-start',
         width:'100%',
-        margin:5,
-        marginLeft:30
+        margin:10,
+    },
+
+    thirdLign:{
+        backgroundColor:'green'
     },
 
     text1: {
