@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginLeft: 5,
         width: '20%',
-        borderColor: "grey",
+        borderColor: "#DDDDDD",
         borderWidth: 1,
         overflow: 'hidden',
     },
