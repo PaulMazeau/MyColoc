@@ -27,10 +27,13 @@ const gameData = [
 
 export default function MiniJeu() {
   return (
-
     <SafeAreaView style={styles.global} >
       <StatusBar style="light"/>
-        <ImageBackground source ={Space_Background} resizeMode="cover">
+        <ImageBackground 
+            source ={Space_Background} 
+            resizeMode="cover"
+            style={styles.imageBackground}  // Ajoutez le style ici
+        >
           <View style = {styles.container}>
             <View style={styles.logo}>
               <Image source={Logo}/>
@@ -42,7 +45,6 @@ export default function MiniJeu() {
             {/* <ClassementCard/> */}
             <VoteCard/>
           </View>
-
         </ImageBackground>
     </SafeAreaView>
   );
@@ -53,6 +55,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems:'center'
+  },
+  
+  imageBackground: {
+    flex: 1,             // Permet à l'image de s'étendre
+    width: '100%',       // S'étend sur toute la largeur
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   text1:{
