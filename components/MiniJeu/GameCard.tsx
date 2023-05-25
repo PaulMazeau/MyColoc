@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, ImageBackground, useWindowDimensions, Dimensions } from 'react-native';
-import PlayButton from "./PlayButton";
+import Button from "./Button";
 import Score from './Score';
 import { LinearGradient }  from 'expo-linear-gradient';
 
@@ -25,7 +25,7 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, c
           </View>
           <ImageBackground source={backgroundImageSource} resizeMode="contain">
             <View style={styles.imageBackgrond}>
-              <PlayButton />
+              <Button text={'Jouer'}/>
             </View>
           </ImageBackground>
         </View>
