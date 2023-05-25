@@ -5,7 +5,7 @@ import { main } from './../../constants/Colors';
 interface ButtonProps {
     text: string;
     onPress: () => void;
-    percent: number;  // Changer ici
+    percent: number;  // Pourcentage du background bleu
 }
 
 const ParticipantCard = ({ text, onPress, percent }: ButtonProps) => {
@@ -17,16 +17,16 @@ const ParticipantCard = ({ text, onPress, percent }: ButtonProps) => {
             bottom: 0,
             left: 0,
             right: 0,
-            height: `${percent}%`,  // Convertir le pourcentage en string ici
-            backgroundColor: 'blue',
+            height: `${percent}%`,
+            backgroundColor: "#3B41F1",
             width: '101%'
         });
-    }, [percent]);  // Changer ici
+    }, [percent]);
 
     return (
         <TouchableOpacity onPress={onPress} style={styles.global}>
-            <View style={styles.topSection}></View>
-            <View style={bottomSectionStyle}></View>
+            <View style={styles.topSection}></View>    
+            <View style={bottomSectionStyle}></View>    
             <View style={styles.imageContainer}>
                 <Image source={require('../../assets/images/profilIcon.png')} />
             </View>
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginLeft: 5,
         width: '20%',
-        borderColor: main.MainColor,
-        borderWidth: 1.5,
+        borderColor: "grey",
+        borderWidth: 1,
         overflow: 'hidden',
     },
     topSection: {
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: main.TextColor,
         position: 'absolute',
-        bottom: '10%',
+        bottom: '10%'
     },
     imageContainer: {
         height: 40,
