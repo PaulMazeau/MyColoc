@@ -4,6 +4,7 @@ import Header from '../components/Reusable/Header';
 import React, { useState } from 'react';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
 import Equilibrage from '../components/Depense/Equilibrage';
+import ListeTransaction from '../components/Depense/ListeTransaction';
 
 
 export default function DepenseScreen() {
@@ -33,7 +34,7 @@ export default function DepenseScreen() {
               selectedTabIndex === 0 && styles.activeTabButtonText,
             ]}
           >
-            Equilibrage dépenses
+            Equilibrage
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -49,14 +50,14 @@ export default function DepenseScreen() {
               selectedTabIndex === 1 && styles.activeTabButtonText,
             ]}
           >
-            Dépenses générales
+            Transactions
           </Text>
         </TouchableOpacity>
       </View>
       {selectedTabIndex === 0 ? (
         <Equilibrage />
       ) : (
-        <Text>SousProut</Text>
+        <ListeTransaction />
       )}
     </View>
   );
