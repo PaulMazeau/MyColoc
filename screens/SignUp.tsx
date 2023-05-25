@@ -21,7 +21,7 @@ export default function SignUpScreen({navigation}: Props) {
   const [username, setUsername] = useState('');
   const [user, setUser] = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const signUp = () => {
+  const signUp = async () => {
     if(username==""){
         alert("Rentre un nom d'utilisateur !");
         return

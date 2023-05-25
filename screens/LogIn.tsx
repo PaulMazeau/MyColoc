@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import BlueGradient from '../components/Reusable/BlueGradient';
 import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { FB_AUTH } from '../firebaseconfig';
+import { set } from 'react-native-reanimated';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'Login'>;
 
@@ -16,14 +17,15 @@ export default function LoginScreen({navigation}: Props) {
   };
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
-
+  const [loading, setLoading] = useState(false);
   const signIn = async () => {
-    try{
-        const response = await signInWithEmailAndPassword(FB_AUTH, email, pwd);
-    } catch(error: any){
-        alert(error.message)
-    }}
+    setLoading(true);
+    signInWithEmailAndPassword(FB_AUTH, email, pwd).then(()=>setLoading(false)).catch((error) => {alert(error.message); setLoading(false)});
+    }
 
+  const handleForgottenPwd = () => {
+    sendPasswordResetEmail(FB_AUTH, email).then(()=>alert('check t mail')).catch((error) => alert(error.message))
+  }
   return (
     <View style={styles.container}>
       <StatusBar style="light"/>
@@ -56,11 +58,11 @@ export default function LoginScreen({navigation}: Props) {
           value={pwd}
           onChangeText={(text) => setPwd(text)}
         />
-        <TouchableOpacity onPress={() => handleButtonPress('true')}>
+        <TouchableOpacity onPress={() => handleForgottenPwd()}>
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>
-      <CustomButton title="Se connecter" onPress={() => signIn()} />
+      {loading ? <ActivityIndicator size='large'/>:<CustomButton title="Se connecter" onPress={() => signIn()} />}
     </View>
   );
 }
