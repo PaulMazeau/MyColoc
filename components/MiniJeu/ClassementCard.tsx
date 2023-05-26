@@ -7,24 +7,32 @@ import ScoreLigne from './ScoreLigne';
 
 const windowWidth = Dimensions.get('window').width;
 
-
-
 const ScoreBoard = () => {
+    //Tableau de scores des user
+    const scores = [
+        { position: 1, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 2, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 3, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 4, userImage: require('../../assets/images/profilIcon2.png') },
+    ];
 
+    //Générer une ligne de score suivi d'un separateur
+    const renderScoreLines = (scores) => {
+        return scores.map((score, index) => (
+            <React.Fragment key={index}>
+                <ScoreLigne position={score.position} userImage={score.userImage}/>
+                {/* Permet de ne pas afficher de separator sur le dernier score */}
+                {index !== scores.length - 1 && <View style={styles.separator}/>}   
+            </React.Fragment>
+        ));
+    };
 
     return(
         <View style={styles.global}>
             <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
-                <ScoreLigne position={1} userImage={require('../../assets/images/profilIcon2.png')}/>
-                <View style={styles.separator}/>
-                <ScoreLigne position={2} userImage={require('../../assets/images/profilIcon2.png')}/>
-                <View style={styles.separator}/>
-                <ScoreLigne position={3} userImage={require('../../assets/images/profilIcon2.png')}/>
-                <View style={styles.separator}/>
-                <ScoreLigne position={4} userImage={require('../../assets/images/profilIcon2.png')}/>
+                {renderScoreLines(scores)}
             </LinearGradient>
         </View>
-
     );
 };
 
