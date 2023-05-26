@@ -6,7 +6,8 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import InfoBottomSheet from '../Reusable/InfoBottomSheet';
 import Valider from '../../assets/icons/Valider.svg'
 
-const TacheCard = () => {
+// props.desc = desc 
+const TacheCard = (props) => {
 
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
   const bottomSheetModalRef = useRef(null);
@@ -56,7 +57,7 @@ const TacheCard = () => {
       <TouchableOpacity onPress={handlePresentPress}>
         <View style={styles.container}>
           <View style={styles.top}>
-            <Text style={styles.titre}>Ménage</Text>
+            <Text style={styles.titre}>{props.desc}</Text>
 
             <View style={styles.dateContainer}>
               <Horloge width={17} height={17} />
