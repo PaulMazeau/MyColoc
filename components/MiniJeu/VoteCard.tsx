@@ -14,8 +14,6 @@ const VoteCard = () => {
         { text: 'Mehdi', percent: 10, imageSource: require('../../assets/images/profilIcon.png') },
         { text: 'Clara', percent: 0, imageSource: require('../../assets/images/profilIcon.png') },
         { text: 'Max', percent: 20, imageSource: require('../../assets/images/profilIcon.png') },
-        { text: 'Clara', percent: 0, imageSource: require('../../assets/images/profilIcon.png') },
-        { text: 'Max', percent: 20, imageSource: require('../../assets/images/profilIcon.png') },
     ];
 
     //Génère les ParticipantCardPurcentFilled
