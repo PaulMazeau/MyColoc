@@ -14,9 +14,9 @@ const VoteCard = () => {
             </View>
             <View style={styles.secondLign}>
                 <ParticipantCardPurcentFilled text="julie" percent={70} imageSource={require('../../assets/images/profilIcon.png')}/>
-                <ParticipantCardPurcentFilled text="julie" percent={10} imageSource={require('../../assets/images/profilIcon.png')}/>
-                <ParticipantCardPurcentFilled text="julie" percent={0} imageSource={require('../../assets/images/profilIcon.png')}/>
-                <ParticipantCardPurcentFilled text="julie" percent={20} imageSource={require('../../assets/images/profilIcon.png')}/>
+                <ParticipantCardPurcentFilled text="Mehdi" percent={10} imageSource={require('../../assets/images/profilIcon.png')}/>
+                <ParticipantCardPurcentFilled text="Clara" percent={0} imageSource={require('../../assets/images/profilIcon.png')}/>
+                <ParticipantCardPurcentFilled text="Max" percent={20} imageSource={require('../../assets/images/profilIcon.png')}/>
                 
             </View>
             <View style={styles.thirdLign}>
