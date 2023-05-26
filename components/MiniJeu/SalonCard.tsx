@@ -28,7 +28,7 @@ const SalonCard = () => {
 
 
     return(
-        <View style={styles.global}>
+        <View>
             <LinearGradient colors={[MiniJeuColor.RedGradientColor1, MiniJeuColor.RedGradientColor2]} style={styles.backgroundGradient}>
                 <View style = {styles.firstLign}>
                     <Text style={styles.text1}>Salon de Julie</Text>
@@ -56,10 +56,6 @@ const SalonCard = () => {
 };
 
 const styles = StyleSheet.create({
-
-    global:{
-        
-    },
 
     backgroundGradient:{
         borderRadius: 10,
