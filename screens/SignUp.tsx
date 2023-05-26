@@ -40,7 +40,7 @@ export default function SignUpScreen({navigation}: Props) {
         }
         setDoc(doc(FB_DB, 'Users', userUid),entry).then(() => {setUser(entry);
         setLoading(false);}); 
-      }).catch(error => alert(error.message));
+      }).catch(error => {alert(error.message); setLoading(false)});
     
 }
   return (

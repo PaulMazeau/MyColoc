@@ -2,8 +2,7 @@ import React, {useContext, useState} from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import {UserContext} from '../UserContext'
 import { FB_AUTH, FB_DB } from '../firebaseconfig';
-import "react-native-get-random-values";
-import {v4 as uuid} from 'uuid';
+import * as Crypto from 'expo-crypto';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { TextInput } from 'react-native-gesture-handler';
 import { TouchableOpacity } from '@gorhom/bottom-sheet';
@@ -13,11 +12,11 @@ export default function NoColoc() {
     const [codeColoc, setCodeColoc] = useState(null);
     const handleCreateColoc = async () => {
         const userID = FB_AUTH.currentUser.uid
-        var colocID = uuid().substring(0, 6)
+        var colocID = Crypto.randomUUID().substring(0, 6)
         console.log(colocID)
         var colocData = await getDoc(doc(FB_DB, "Colocs", colocID));
         while(colocData.exists()){ //checking if colodID already exists
-            colocID = uuid().stringify().substring(0, 6)
+            colocID = Crypto.randomUUID().substring(0, 6)
             colocData = await getDoc(doc(FB_DB, "Colocs", colocID))
         }
         const colocEntry = {
