@@ -1,11 +1,12 @@
 import React, {useContext, useState} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
 import {UserContext} from '../UserContext'
 import { FB_AUTH, FB_DB } from '../firebaseconfig';
 import * as Crypto from 'expo-crypto';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { TextInput } from 'react-native-gesture-handler';
-import { TouchableOpacity } from '@gorhom/bottom-sheet';
+import { main } from '../constants/Colors';
+import BlueGradient from '../components/Reusable/BlueGradient';
+
 export default function NoColoc() {
     const [user, setUser] = useContext(UserContext);
     const [nomColoc, setNomColoc] = useState(null);
@@ -41,7 +42,8 @@ export default function NoColoc() {
         }
     }
     return (
-        <View>
+        <View style={styles.container}>
+            <BlueGradient height={0.6}/>
             <TextInput
             value={nomColoc}
             onChangeText={(text) => setNomColoc(text)}
@@ -58,5 +60,8 @@ export default function NoColoc() {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({container: {
+    flex: 1,
+    backgroundColor: main.BgColor,
+  },})
 

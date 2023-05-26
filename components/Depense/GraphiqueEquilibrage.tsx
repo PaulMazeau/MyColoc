@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated';
 
@@ -6,23 +6,28 @@ const screenWidth = Dimensions.get('window').width;
 const barWidth = screenWidth * 0.40;
 
 const GraphiqueEquilibrage = ({data}) => {
-  const maxVal = Math.max(...data.map((item) => Math.abs(item.value)));
+
+  // Utilisation de useMemo pour le calcul de maxVal
+  const maxVal = useMemo(() => Math.max(...data.map((item) => Math.abs(item.value))), [data]);
+
+  // Utilisation d'une seule valeur partagée pour l'animation
+  const animation = useSharedValue(0);
+
+  //réglage de l'animation
+  useEffect(() => {
+    animation.value = withTiming(barWidth, {
+      duration: 2000,
+      easing: Easing.bounce,
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
       {data.map((item, index) => {
-        const animation = useSharedValue(0);
-
-        useEffect(() => {
-          animation.value = withTiming(barWidth * (Math.abs(item.value) / maxVal), {
-            duration: 2000,
-            easing: Easing.bounce,
-          });
-        }, []);
-
         const animatedStyle = useAnimatedStyle(() => {
+          const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
           return {
-            width: animation.value,
+            width: animation.value * (itemWidth / barWidth), //reglage la taille des bars par rapport aux valeurs
             backgroundColor: item.value >= 0 ? 'green' : 'red',
           };
         });
