@@ -45,8 +45,8 @@ export default function MiniJeu() {
           </View>
           <CarouselGame gameData={gameData} />
           <Text style={styles.text}>Salons ouverts</Text>
-          {/* <SalonCard /> */}
-          <WaitingCard/>
+          <SalonCard />
+          {/* <WaitingCard/> */}
           <Text style={styles.text}>Classement</Text>
           <ClassementCard/>
           {/* <VoteCard /> */}

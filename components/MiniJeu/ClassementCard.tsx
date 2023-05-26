@@ -15,13 +15,13 @@ const ScoreBoard = () => {
     return(
         <View style={styles.global}>
             <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
-                <ScoreLigne position={1}/>
+                <ScoreLigne position={1} userImage={require('../../assets/images/profilIcon2.png')}/>
                 <View style={styles.separator}/>
-                <ScoreLigne position={2}/>
+                <ScoreLigne position={2} userImage={require('../../assets/images/profilIcon2.png')}/>
                 <View style={styles.separator}/>
-                <ScoreLigne position={3}/>
+                <ScoreLigne position={3} userImage={require('../../assets/images/profilIcon2.png')}/>
                 <View style={styles.separator}/>
-                <ScoreLigne position={4}/>
+                <ScoreLigne position={4} userImage={require('../../assets/images/profilIcon2.png')}/>
             </LinearGradient>
         </View>
 
