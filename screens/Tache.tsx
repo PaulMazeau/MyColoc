@@ -1,19 +1,51 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { main } from '../constants/Colors';
 import Header from '../components/Reusable/Header';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
 import MesTaches from '../components/Tache/MesTaches';
 import GlobalTaches from '../components/Tache/GlobalTaches';
+import { collection, query, where, onSnapshot, orderBy, QuerySnapshot, Query } from "firebase/firestore";
+import { UserContext } from '../UserContext';
+import { FB_DB } from '../firebaseconfig';
+import { useFocusEffect } from '@react-navigation/native';
 
 const TacheScreen = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
-
+  const [myTache, setMyTache] = useState([]);
+  const [allTache, setAllTache] = useState([]);
+  const [myNextTache, setMyNextTache] = useState([]);
+  const [snapshot, setSnapshot] = useState(null);
+  const [user, setUser] = useContext(UserContext);
   const handleTabPress = (index: number) => {
     setSelectedTabIndex(index);
     console.log(`Onglet ${index + 1} sélectionné`);
   };
+  useEffect(()=>{ //setup the listener on mount, unsubscribe on dismount
+    const q = query(collection(FB_DB, "Colocs/"+user.colocID+ "/Taches"), orderBy('date'))
+    const subscriber = onSnapshot(q, (QuerySnapshot) => {setSnapshot(QuerySnapshot)})
+    return () => {subscriber()}
+  }, [])
 
+  useEffect(()=>{ //each time the snapshot updates, update myTache, etc...
+    if(snapshot){
+      const myTacheSetter = []
+      const myNextTacheSetter = []
+      const allTacheSetter = []
+      snapshot.forEach((doc)=>{
+        const task = doc.data()
+        if(task.nextOne === user.uuid){
+          myNextTacheSetter.push(task)
+        }else if(task.concerned.includes(user.uuid)){
+          myTacheSetter.push(task)
+        }
+        allTacheSetter.push(task)
+      })
+      setAllTache(allTacheSetter);
+      setMyTache(myTacheSetter);
+      setMyNextTache(myNextTacheSetter);
+    }
+  }, [snapshot])
   return (
     <View style={styles.container}>
       <Header />
@@ -53,9 +85,9 @@ const TacheScreen = () => {
         </TouchableOpacity>
       </View>
       {selectedTabIndex === 0 ? (
-        <MesTaches />
+        <MesTaches task={myTache} nextTask={myNextTache}/>
       ) : (
-        <GlobalTaches />
+        <GlobalTaches task={allTache}/>
       )}
     </View>
   );
