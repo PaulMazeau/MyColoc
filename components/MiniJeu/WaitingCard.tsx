@@ -6,17 +6,20 @@ import { main } from '../../constants/Colors';
 const windowWidth = Dimensions.get('window').width;
 
 const WaitingCard = () => {
+
+    //Liste des images des user
     const imageSources = [
-        require('../../assets/images/icon.png'),
-        require('../../assets/images/icon.png'),
-        require('../../assets/images/icon.png'),
-        // add more images here
+        require('../../assets/images/profilIcon.png'),
+        require('../../assets/images/profilIcon.png'),
+        require('../../assets/images/profilIcon.png'),
+        require('../../assets/images/profilIcon.png'),
     ];
 
+    //Permet d'affichage des images cote a cote peut importe le nombre
     const renderImages = (sources) => {
         return sources.map((source, index) => (
             <View key={index} style={styles.ImageContainer}>
-                <Image source={source} />
+                <Image source={source} style={styles.Image}/>
             </View>
         ));
     };
@@ -45,7 +48,7 @@ const WaitingCard = () => {
 const styles = StyleSheet.create({
 
     global:{
-        flex:0.37,
+        flex:0.4,
     },
 
     container:{
@@ -75,7 +78,9 @@ const styles = StyleSheet.create({
     secondLign:{
         flexDirection:'row', 
         alignItems:'center',
-        marginLeft:5
+        marginLeft:5,
+        flexWrap: 'wrap',
+        marginTop:5
     },
 
     text1:{
@@ -91,12 +96,18 @@ const styles = StyleSheet.create({
     },
 
     ImageContainer: {
-        height: 40,
-        width: 40,
+        height: 50,
+        width: 50,
         overflow: 'hidden',
         borderRadius: 20,
         marginRight: 10,
-      },
+        marginBottom: 10,
+    },
+
+    Image:{
+        height:'100%', 
+        width:'100%'
+    }
 
 })
 
