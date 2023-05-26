@@ -6,9 +6,10 @@ interface ButtonProps {
     colorBackGround: string;
     colorText: string;
     onPress: () => void;
+    height: number,
   }
 
-const Button = ({ text, colorBackGround, colorText, onPress }: ButtonProps) => {
+const Button = ({ text, colorBackGround, colorText, onPress, height }: ButtonProps) => {
     const styles = StyleSheet.create({
         global: {
             backgroundColor: colorBackGround,
