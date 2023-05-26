@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { BottomSheetModal, TouchableOpacity} from '@gorhom/bottom-sheet';
-import Button from '../Reusable/ButtonColor';
 import Remboursement from '../../assets/icons/Remboursement.svg'
+import { Shadows } from '../../constants/Shadow';
 
 type RemboursementBSProps = {
     onDismiss: () => void; // Ceci est une fonction qui ne renvoie rien.
@@ -11,6 +11,10 @@ type RemboursementBSProps = {
 const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref) => {
     
  
+    const BackdropComponent = () => (
+        <View style={styles.backdrop} />
+      );
+
     const CustomBackgroundComponent = () => (
         <View></View>
     );
@@ -22,8 +26,9 @@ const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref)
             snapPoints={['25%', '50%']} 
             backgroundComponent={CustomBackgroundComponent}
             handleComponent={null}
+            backdropComponent={BackdropComponent}
         >
-            <View style={styles.bottomSheet}>
+            <View style={[styles.bottomSheet, Shadows.shadow]}>
                 <Text style={styles.bottomSheetText}>Remboursement</Text>
                 <View style={styles.remboursementContainer}>
                     <View style={styles.Rembourseur}>
@@ -151,7 +156,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '90%',
         marginHorizontal: '5%' 
-    }
+    },
+    backdrop: {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+      },
 });
 
 export default RemboursementBS;

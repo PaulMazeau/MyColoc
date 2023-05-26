@@ -111,7 +111,7 @@ const MainNavigationScreenStack = () => {
 // Pile de navigation pour l'écran ou tu as pas de coloc  
 const NoColocScreenStack = () => {
   return (
-    <NoColocStack.Navigator>
+    <NoColocStack.Navigator screenOptions={{ headerShown: false }}>
       <NoColocStack.Screen name="NoColoc" component={NoColoc}/>
     </NoColocStack.Navigator>
   );
