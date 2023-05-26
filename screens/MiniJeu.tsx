@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View, ImageBackground, Image, SafeAreaView, Dimensions} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions} from 'react-native';
 import SalonCard from '../components/MiniJeu/SalonCard';
 import ClassementCard from '../components/MiniJeu/ClassementCard';
+import WaitingCard from '../components/MiniJeu/WaitingCard';
 import CarouselGame from '../components/MiniJeu/CarouselGameCard';
 import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
 import VoteCard from '../components/MiniJeu/VoteCard'
 import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const Space_Background=require('../assets/images/Space_Background.png');
@@ -30,28 +32,30 @@ const gameData = [
 
 export default function MiniJeu() {
   return (
-    <SafeAreaView style={styles.global} >
-      <StatusBar style="light"/>
-        <ImageBackground 
-            source ={Space_Background} 
-            resizeMode="cover"
-            style={styles.imageBackground}
-        >
-          <View style = {styles.container}>
-            <View style={styles.logo}>
-              <Image source={Logo}/>
-            </View>
-            <CarouselGame gameData={gameData}/>
-            <Text style={styles.text}>Salons ouverts</Text>
-            <SalonCard/>
-            <Text style={styles.text}>Classement</Text>
-            {/* <ClassementCard/> */}
-            <VoteCard/>
+    <ImageBackground 
+      source={Space_Background} 
+      resizeMode="cover"
+      style={styles.imageBackground}
+    >
+      <SafeAreaView style={styles.global} >
+        <StatusBar style="light" />
+        <View style={styles.container}>
+          <View style={styles.logo}>
+            <Image source={Logo} />
           </View>
-        </ImageBackground>
-    </SafeAreaView>
+          <CarouselGame gameData={gameData} />
+          <Text style={styles.text}>Salons ouverts</Text>
+          {/* <SalonCard /> */}
+          <WaitingCard/>
+          <Text style={styles.text}>Classement</Text>
+          <ClassementCard/>
+          {/* <VoteCard /> */}
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
+
 
 const styles = StyleSheet.create({
   global: {

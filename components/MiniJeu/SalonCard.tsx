@@ -45,7 +45,7 @@ const SalonCard = () => {
 const styles = StyleSheet.create({
 
     global:{
-        flex:0.3,
+        flex:0.37,
     },
 
     backgroundGradient:{
