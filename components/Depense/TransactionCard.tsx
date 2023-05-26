@@ -13,6 +13,10 @@ const handlePresentPress = () => {
   bottomSheetModalRef.current?.present();
 };
 
+const handleDismissPress = () => {
+  bottomSheetModalRef.current?.dismiss();
+};
+
   const renderContent = () => {
     if (test) {
       return (
@@ -40,6 +44,7 @@ const handlePresentPress = () => {
           <View style={styles.rightContainer}>
             <Text style={styles.title}>20€</Text>
           </View>
+          <RemboursementBS ref={bottomSheetModalRef} onDismiss={handleDismissPress} />
         </View>
       );
     }
@@ -53,7 +58,6 @@ const handlePresentPress = () => {
       </View>
       {renderContent()}
     </View>
-    <RemboursementBS ref={bottomSheetModalRef} />
     </TouchableOpacity>
   );
 };
