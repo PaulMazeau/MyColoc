@@ -6,9 +6,10 @@ interface ButtonProps {
     text: string;
     onPress: () => void;
     percent: number;  // Pourcentage du background bleu
+    imageSource: any;  // Source de l'image
 }
 
-const ParticipantCardPurcentFilled = ({ text, onPress, percent }: ButtonProps) => {
+const ParticipantCardPurcentFilled = ({ text, onPress, percent, imageSource }: ButtonProps) => {
     const [middleSection, setmiddleSection] = useState({});
 
     useEffect(() => {
@@ -26,11 +27,11 @@ const ParticipantCardPurcentFilled = ({ text, onPress, percent }: ButtonProps) =
     return (
         <TouchableOpacity onPress={onPress} style={styles.global}>
             <View style={styles.upperSection}>
-                <View style={styles.topSection}></View>    
-                <View style={middleSection}></View> 
+                <View style={styles.topSection}></View>
+                <View style={middleSection}></View>
                 <View style={styles.imageContainer}>
-                    <Image source={require('../../assets/images/profilIcon.png')} />
-                </View>   
+                    <Image source={imageSource} />
+                </View>
             </View>
             <View style={styles.bottomSection}>
                 <Text style={styles.text}>{text}</Text>
@@ -57,9 +58,9 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         height: '70%',
-        alignItems:'center'
+        alignItems: 'center'
     },
-    bottomSection:{
+    bottomSection: {
         position: 'absolute',
         bottom: 0,
         left: 0,
@@ -83,8 +84,8 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: main.TextColor,
         textAlign: 'center',
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     imageContainer: {
         height: 40,
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         borderRadius: 20,
         alignItems: 'center',
-        justifyContent:'center',
+        justifyContent: 'center',
         position: 'absolute',
         top: '20%',
     },
