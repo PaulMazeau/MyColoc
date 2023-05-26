@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { main } from '../../constants/Colors';
 import Button from "../Reusable/ButtonColor";
-import ParticipantCard from "../Reusable/ParticipantCard";
+import ParticipantCardPurcentFilled from "../Reusable/ParticipantCardPurcentFilled";
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -13,10 +13,10 @@ const VoteCard = () => {
                 <Text style={styles.text1}>Vote contre l'incognito</Text>
             </View>
             <View style={styles.secondLign}>
-                <ParticipantCard text="julie" percent={10}/>
-                <ParticipantCard text="julie" percent={90}/>
-                <ParticipantCard text="julie" percent={0}/>
-                <ParticipantCard text="julie" percent={0}/>
+                <ParticipantCardPurcentFilled text="julie" percent={70}/>
+                <ParticipantCardPurcentFilled text="julie" percent={10}/>
+                <ParticipantCardPurcentFilled text="julie" percent={0}/>
+                <ParticipantCardPurcentFilled text="julie" percent={20}/>
                 
             </View>
             <View style={styles.thirdLign}>
@@ -28,7 +28,7 @@ const VoteCard = () => {
 
 const styles = StyleSheet.create({
     global: {
-        backgroundColor: "white",
+        backgroundColor: "#EDF0FA",
         borderRadius: 10,
         justifyContent: 'space-between',
         width:windowWidth * 0.9,
