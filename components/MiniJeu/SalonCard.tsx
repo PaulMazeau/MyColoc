@@ -8,11 +8,29 @@ const windowWidth = Dimensions.get('window').width;
 
 const SalonCard = () => {
 
+    //Liste des images des user
+    const imageSources = [
+        require('../../assets/images/profilIcon.png'),
+        require('../../assets/images/profilIcon.png'),
+        require('../../assets/images/profilIcon.png'),
+        require('../../assets/images/profilIcon.png'),
+        require('../../assets/images/profilIcon.png'),
+    ];
+
+    //Permet d'affichage des images cote a cote peut importe le nombre
+    const renderImages = (sources) => {
+        return sources.map((source, index) => (
+            <View key={index} style={styles.ImageContainer}>
+                <Image source={source} style={styles.Image}/>
+            </View>
+        ));
+    };
+
 
     return(
         <View style={styles.global}>
             <LinearGradient colors={[MiniJeuColor.RedGradientColor1, MiniJeuColor.RedGradientColor2]} style={styles.backgroundGradient}>
-                <View style = {styles.firstRow}>
+                <View style = {styles.firstLign}>
                     <Text style={styles.text1}>Salon de Julie</Text>
 
                     <View style = {{flexDirection:'row', justifyContent:'space-between'}}>
@@ -27,13 +45,8 @@ const SalonCard = () => {
                     </View>
                 </View>
 
-                <View style = {styles.secondRow}>
-                    <View style={styles.ImageContainer}>
-                        <Image source={require('../../assets/images/icon.png')} />
-                    </View>
-                    <View style={styles.ImageContainer}>
-                        <Image source={require('../../assets/images/icon.png')} />
-                    </View>
+                <View style = {styles.secondLign}>
+                    {renderImages(imageSources)}
                 </View>
                 
             </LinearGradient>
@@ -57,27 +70,30 @@ const styles = StyleSheet.create({
     container:{
         backgroundColor:'white',
         borderRadius : 10,
-        padding : 10,
+        padding : 8,
         marginLeft : 5
         
     },
 
-    firstRow:{
+    firstLign:{
         flexDirection:'row', 
         justifyContent:'space-between', 
         alignItems:'center',
-        paddingBottom:5,
+        paddingBottom:15,
     },
 
-    secondRow:{
+    secondLign:{
         flexDirection:'row', 
-        alignItems:'center'
+        alignItems:'center',
+        flexWrap: 'wrap',
+        marginTop:5,
+        marginLeft:5
     },
 
     text1:{
         color : "white",
         fontWeight: '600',
-        fontSize: 16,
+        fontSize: 20,
     },
 
     text2:{
@@ -92,7 +108,13 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         borderRadius: 20,
         marginRight: 10,
-      },
+        marginBottom: 10,
+    },
+
+    Image:{
+        height:'100%', 
+        width:'100%'
+    }
 
 })
 
