@@ -2,9 +2,8 @@ import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Horloge from '../../assets/icons/Horloge.svg';
 import { Shadows } from '../../constants/Shadow';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import InfoBottomSheet from '../Reusable/InfoBottomSheet';
-import Valider from '../../assets/icons/Valider.svg'
+import Valider from '../../assets/icons/Valider'
 
 // props.desc = desc 
 const TacheCard = (props) => {
@@ -16,19 +15,19 @@ const TacheCard = (props) => {
     bottomSheetModalRef.current?.present();
   };
 
-  var [ isPress, setIsPress ] = useState(<Valider/>);
+  var [ isPress, setIsPress ] = useState(<Valider width={25} height={15} color='white'/>);
 
   function handleDone() { 
     console.log('Done')
   }
 
   function handlePress() { 
-    setIsPress(<TouchableOpacity onPress={() => {handleDone(); setIsPress(<Valider/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Confirmer </Text></TouchableOpacity>);
+    setIsPress(<TouchableOpacity onPress={() => {handleDone(); setIsPress(<Valider width={25} height={15} color='white'/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Confirmer </Text></TouchableOpacity>);
   }
 
 
   const renderContent =() => {
-    const test = false
+    const test = true
     if(test){
       return(
         <View style={[styles.global, Shadows.shadow]}>
