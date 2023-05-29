@@ -21,7 +21,9 @@ const CourseCard: React.FC<Props> = ({ name, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     height: 100,
-    margin: 20,
+    width: '90%',
+    marginBottom: 12,
+    marginHorizontal: '5%',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',

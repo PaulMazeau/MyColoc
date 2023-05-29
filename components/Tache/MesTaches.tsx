@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import TacheCard from './TacheCard';
+import AddTacheBS from '../Depense/AddTacheBS';
 //props.task = all task concerné(sauf suivant) & props.nextTask = all task ou luser est suivant
 export default function MesTaches(props) {
     const renderNextTask = () => {
@@ -26,16 +27,20 @@ export default function MesTaches(props) {
         )}
     }
     return (
-        <View>
+        <View style={styles.container}>
             <Text style={styles.SousTitre}>C'est ton tour!</Text>
             {renderNextTask()}
             <Text style={styles.SousTitre}>Toutes tes tâches</Text>
             {renderMyTask()}
+            <AddTacheBS />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
     SousTitre: {
         fontSize: 18,
         fontWeight: 'bold',

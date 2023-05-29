@@ -7,6 +7,7 @@ import { CourseStackParams } from '../App';
 import { main } from '../constants/Colors';
 import Header from '../components/Reusable/Header';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
+import AddListeCourseBS from '../components/Course/AddCourseBS';
 
 
 // Définition du type des propriétés pour la page CourseScreen
@@ -17,10 +18,11 @@ const CourseScreen = ({navigation}: Props) => {
   return (
     <View style={styles.container}>
       <Header/>
+      <StatusBar style="auto" />
       <ScreenTitle title="Course"/>
       <CourseCard name="Course de vendredi" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard>
       <CourseCard name="Course de dimanche" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard>
-      <StatusBar style="auto" />
+      <AddListeCourseBS />
     </View>
   );
 }
