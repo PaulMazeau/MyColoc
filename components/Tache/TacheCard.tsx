@@ -5,7 +5,7 @@ import { Shadows } from '../../constants/Shadow';
 import InfoBottomSheet from '../Reusable/InfoBottomSheet';
 import Valider from '../../assets/icons/Valider'
 
-// props.desc = desc 
+// props.tache = tache
 const TacheCard = (props) => {
 
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
@@ -25,6 +25,16 @@ const TacheCard = (props) => {
     setIsPress(<TouchableOpacity onPress={() => {handleDone(); setIsPress(<Valider width={25} height={15} color='white'/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Confirmer </Text></TouchableOpacity>);
   }
 
+  const renderDate = (date) => {
+    if(!date){return ""}
+    else{
+      const days = ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.']
+      const months = ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec']
+      const dayIndex = date.toDate().getDay()
+      return(days[dayIndex] + " " + date.toDate().getDate().toString() + " " + months[date.toDate().getMonth()])
+
+    }
+  }
 
   const renderContent =() => {
     const test = true
@@ -34,11 +44,11 @@ const TacheCard = (props) => {
       <TouchableOpacity onPress={handlePresentPress}>
         <View style={styles.container}>
           <View style={styles.top}>
-            <Text style={styles.titre}>Course</Text>
+            <Text style={styles.titre}>{props.tache ? props.tache.desc : 'loading...'}</Text>
 
             <View style={styles.dateContainer}>
               <Horloge width={17} height={17} />
-              <Text style={styles.date}>Ven. 23</Text>
+              <Text style={styles.date}>{props.tache ? renderDate(props.tache.date) : 'nodate'}</Text>
             </View>
           </View>
 

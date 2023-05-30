@@ -32,7 +32,7 @@ const AccueilScreen = () => {
         <BoutonMiniJeu/>
       </View>
       <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
-      <TacheCard />
+      {/* <TacheCard /> */}
       <TouchableOpacity onPress={() => {FB_AUTH.signOut(); setUser(null)}}><Text>DECONNEXION</Text></TouchableOpacity>
 
     </View>

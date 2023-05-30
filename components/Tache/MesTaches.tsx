@@ -10,7 +10,7 @@ export default function MesTaches(props) {
             return(
             props.nextTask.map(t => {
                 return(
-                <TacheCard key={t.date} desc={t.desc}/>
+                <TacheCard key={t.date} tache={t}/>
                 )
             })
         )}
@@ -21,7 +21,7 @@ export default function MesTaches(props) {
             return(
             props.task.map(t => {
                 return(
-                <TacheCard key={t.date} desc={t.desc}/>
+                <TacheCard key={t.date} tache={t}/>
                 )
             })
         )}

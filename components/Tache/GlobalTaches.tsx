@@ -10,7 +10,7 @@ export default function GlobalTaches(props) {
             return(
             props.task.map(t => {
                 return(
-                <TacheCard key={t.date} desc={t.desc}/>
+                <TacheCard key={t.date} tache={t}/>
                 )
             })
         )}
