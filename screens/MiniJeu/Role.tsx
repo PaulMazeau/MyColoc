@@ -12,7 +12,6 @@ import { useNavigation } from "@react-navigation/native";
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 const Card =require('../../assets/images/Card.png');
-const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
