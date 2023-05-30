@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Image, StyleSheet, ImageBackground } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text } from "react-native";
 import Regles from './../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import WaitingCard from "../../components/MiniJeu/WaitingCard";
+import { main } from '../../constants/Colors';
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -22,6 +23,9 @@ const IncognitoWait = () => {
         <View style={styles.global}>
             <View style={styles.logo}>
                 <Image source={Logo} />
+            </View>
+            <View style={styles.title}>
+                <Text style={styles.text}>Incognito</Text>
             </View>
             <View style={styles.container}>
                 <WaitingCard/>
@@ -44,7 +48,20 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         flex:1,
         paddingBottom:40,
-        paddingTop:40
+        paddingTop:20
+    },
+
+    title:{
+        justifyContent:'flex-start',
+        width:'100%',
+        paddingLeft:20,
+        marginTop:20
+    },
+
+    text: {
+        color: main.LightWhite,
+        fontWeight: '600',
+        fontSize: 20,
     },
 
     imageBackground: {
