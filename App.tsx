@@ -41,6 +41,8 @@ import Result from './screens/MiniJeu/Result';
 import Role from './screens/MiniJeu/Role';
 import Answer from './screens/MiniJeu/Answer';
 import Classement from './screens/MiniJeu/Classement';
+import UserSettingsScreen from './screens/UserSettings';
+import ColocationSettingsScreen from './screens/ColocationSettings';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -68,6 +70,9 @@ export type RootStackParams = {
   Basket: undefined;
   ClassementBasket: undefined;
   Classement: undefined;
+  UserSettings: undefined,
+  ColocationSettings: undefined,
+  SettingsStack: { screen: keyof SettingsStackParams },
 };
 
 
@@ -94,6 +99,11 @@ export type NoColocStackParams = {
   NoColoc: undefined,
 };
 
+export type SettingsStackParams = {
+  UserSettings: undefined,
+  ColocationSettings: undefined,
+};
+
 export type MiniJeuStackParams = {
   BoutonMiniJeu: undefined,
   MiniJeu: undefined;
@@ -118,12 +128,14 @@ const AuthStack = createNativeStackNavigator<AuthStackParams>();
 const AccueilStack = createNativeStackNavigator<AccueilStackParams>();
 const NoColocStack = createNativeStackNavigator<NoColocStackParams>();
 const MiniJeuStack = createNativeStackNavigator<MiniJeuStackParams>();
+const SettingsStack = createNativeStackNavigator<SettingsStackParams>();
 
 const RootNavigator = () => {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
       <RootStack.Screen name="Main" component={MainNavigationScreenStack} />
       <RootStack.Screen name="MiniJeuStack" component={MiniJeuScreenStack}/>
+      <RootStack.Screen name="SettingsStack" component={SettingsNavigator}/>
     </RootStack.Navigator>
   );
 }
@@ -148,6 +160,15 @@ const MainNavigationScreenStack = () => {
   )
 }
 
+// Pile de navigation pour l'écran des settings 
+const SettingsNavigator = () => {
+  return (
+    <SettingsStack.Navigator screenOptions={{ headerShown: false }}>
+      <SettingsStack.Screen name="UserSettings" component={UserSettingsScreen} />
+      <SettingsStack.Screen name="ColocationSettings" component={ColocationSettingsScreen} />
+    </SettingsStack.Navigator>
+  );
+}
 
 // Pile de navigation pour l'écran ou tu as pas de coloc  
 const NoColocScreenStack = () => {
@@ -170,6 +191,7 @@ const AccueilScreenStack = () => {
   );
 }
 
+// Pile de navigation pour l'écran MiniJeu
 const MiniJeuScreenStack = () => {
   return (
     <MiniJeuStack.Navigator initialRouteName="MiniJeu" screenOptions={{ headerShown: false }}>

@@ -4,18 +4,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../../assets/icons/Settings.svg';
 import { useNavigation } from '@react-navigation/native';
 import { UserContext } from '../../UserContext';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams, SettingsStackParams } from '../../App';
+
+type RootStackNavigationProp = NativeStackNavigationProp<RootStackParams, 'SettingsStack'>;
 
 const Header = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<RootStackNavigationProp>();
     const [user, setUser] = useContext(UserContext);
     const handleSettingsPress = () => {
-        console.log('Settings');
-        // Ici, vous pouvez ajouter la navigation vers les paramètres de l'application.
-    };
+        navigation.navigate('SettingsStack', { screen: 'UserSettings' });
+      };
+    
 
     const handleColocSettingsPress = () => {
-        console.log('ColocSettings');
-        // Ici, vous pouvez ajouter la navigation vers les paramètres de coloc.
+        navigation.navigate('SettingsStack', { screen: 'ColocationSettings' });
     };
 
     return (
