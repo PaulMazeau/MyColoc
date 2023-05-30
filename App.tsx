@@ -25,7 +25,7 @@ import { NavBarStyle } from './constants/NavBar';
 import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
 
 //Import du contexte
-import { UserContext} from "./UserContext";
+import { UserContext, CourseContext} from "./UserContext";
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FB_AUTH, FB_DB } from './firebaseconfig';
 import { doc, getDoc } from 'firebase/firestore';
@@ -53,7 +53,7 @@ export type RootStackParams = {
   Tache: undefined; 
   Depense: undefined;
   ListeDeCourse: {
-    name: string;
+    index: string;
   };
   MiniJeu: undefined;
   MiniJeuStack: undefined;
@@ -79,7 +79,7 @@ export type RootStackParams = {
 export type CourseStackParams = {
   Course: undefined;
   ListeDeCourse: {
-    name: string;
+    index: any;
   };
 };
 
@@ -213,11 +213,15 @@ const MiniJeuScreenStack = () => {
 
 // Pile de navigation pour l'écran ListeDeCourseScreen
 const ListeDeCourseScreenStack = () => {
+  const [courses, setCourses] = useState([]);
+
   return (
+    <CourseContext.Provider value={[courses, setCourses]}>
     <CourseStack.Navigator initialRouteName="Course" screenOptions={{ headerShown: false }}>
       <CourseStack.Screen name="Course" component={CourseScreen} />
       <CourseStack.Screen name="ListeDeCourse" component={ListeDeCourseScreen} />
     </CourseStack.Navigator>
+    </CourseContext.Provider>
   );
 }
 

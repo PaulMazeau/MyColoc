@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'react-native';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import Header from '../components/Reusable/Header';
@@ -10,6 +10,7 @@ import BackIcon from '../components/Reusable/BackButton';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
+import { CourseContext } from '../UserContext';
 
 // Définition du type des propriétés pour le composant ListeDeCourseScreen
 type Props = NativeStackScreenProps<RootStackParams, 'ListeDeCourse'>;
@@ -26,17 +27,17 @@ const initialTodos: Todo[] = [
   { id: '3', title: 'aliments' },
 ];
 
-
+//route.params.index est l'index de la course dans toutes les listes de courses
 const TodoList = ({route, navigation}: Props) => {
   const [todos, setTodos] = useState(initialTodos);
   const [input, setInput] = useState('');
-
+  const [courses, setCourses] = useContext(CourseContext);
+  const course = courses[route.params.index].data();
   const toggleTodo = (id: string) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
-
   const isScrollEnabled = todos.length > 15; // nombre d'élément avant un scroll
 
   const addTodo = () => {
@@ -52,20 +53,20 @@ const TodoList = ({route, navigation}: Props) => {
       <StatusBar style="auto" />
       <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
         
-        <ScreenTitle title={route.params.name}/>
+        <ScreenTitle title={course.Nom}/>
         </TouchableOpacity>
       <View style={[styles.container, Shadows.shadow]}>
         <KeyboardAwareFlatList
-          data={todos}
-          keyExtractor={item => item.id}
+          data={course.divers}
+          keyExtractor={item => item.item}
           scrollEnabled={isScrollEnabled} 
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => toggleTodo(item.id)}>
-              <View style={[styles.item, item.completed && styles.completedItem]}>
-                <View style={[styles.checkbox, item.completed && styles.completedCheckbox]}>
+              <View style={[styles.item, !item.selected && styles.completedItem]}>
+                <View style={[styles.checkbox, !item.selected && styles.completedCheckbox]}>
                   <Valider color="white" width={14} height={14}/>
                 </View>
-                <Text style={[styles.itemText, item.completed && styles.completedText]}>{item.title}</Text>
+                <Text style={[styles.itemText, !item.selected && styles.completedText]}>{item.item}</Text>
               </View>
             </TouchableOpacity>
           )}
