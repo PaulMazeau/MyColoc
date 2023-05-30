@@ -12,10 +12,6 @@ type RootStackNavigationProp = NativeStackNavigationProp<RootStackParams, 'Setti
 const Header = () => {
     const navigation = useNavigation<RootStackNavigationProp>();
     const [user, setUser] = useContext(UserContext);
-    const handleSettingsPress = () => {
-        navigation.navigate('SettingsStack', { screen: 'UserSettings' });
-      };
-    
 
     const handleColocSettingsPress = () => {
         navigation.navigate('SettingsStack', { screen: 'ColocationSettings' });
@@ -24,7 +20,7 @@ const Header = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={handleSettingsPress} style={styles.globalLeft}>
+                <View style={styles.globalLeft}>
                     <View style={styles.imageContainer}>
                         <Image source={user.avatarUrl ? {uri: user.avatarUrl, cache:'force-cache'} : require('../../assets/images/icon.png')} style={styles.image}/>
                     </View>
@@ -32,7 +28,7 @@ const Header = () => {
                         <Text style={styles.bigTitle}>{user.nom}</Text>
                         <Text style={styles.smallTitle}>{user.nomColoc}</Text>
                     </View>
-                </TouchableOpacity>
+                </View>
                 <TouchableOpacity onPress={handleColocSettingsPress}>
                     <Settings width={25} height={25} fill="#282828"/>
                 </TouchableOpacity>
