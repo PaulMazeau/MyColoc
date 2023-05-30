@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, Animated } from 'react-native';
 import TransactionCard from './TransactionCard';
-
-
-export default function ListeTransaction() {
+import * as Crypto from 'expo-crypto';
+//props.transacs est la liste de toutes les transactions
+export default function ListeTransaction(props) {
   const animation = React.useRef(new Animated.Value(0)).current;
 
   const fadeIn = () => {
@@ -30,23 +30,31 @@ export default function ListeTransaction() {
 
   const renderTransaction = React.useCallback(
     ({  }) => {
+      if(props.transacs){
+      if(props.transacs.length == 0){return(<Text>Pas de transac</Text>)}
+      else{
       return (
-        <Animated.View
+        props.transacs.map((t) => {
+          return(
+            <Animated.View
           style={[
             { opacity: animation, transform: [{ translateY }] },
           ]}
+          key={t.id}
         >
-          <TransactionCard />
+          <TransactionCard transac={t.data()} key={t.id}/>
         </Animated.View>
-      );
-    },
+          )
+        })
+      )};
+    }},
     [animation, translateY]
   );
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+        data={[1]}
         keyExtractor={(item) => item.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={renderTransaction}

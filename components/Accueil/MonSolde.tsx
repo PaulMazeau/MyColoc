@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import { Shadows } from '../../constants/Shadow';
+import { UserContext } from '../../UserContext';
 
 const MonSolde = () => {
+  const [user, setUser] = useContext(UserContext)
+  const renderNumber = (number) => {
+    const fixed = number.toFixed(2)
+    if (fixed == 0){
+      return '0'
+    }
+    return fixed
+  }
   return (
     <View style={[styles.container, Shadows.shadow]}>
       <TouchableOpacity onPress={() => console.log('DepenseStack')}>
         <View style={styles.innerContainer}>
           <View style={styles.ImageContainer}>
-            <Image source={require('../../assets/images/icon.png')} style={styles.Image}/>
+          <Image source={user.avatarUrl ? {uri: user.avatarUrl, cache:'force-cache'} : require('../../assets/images/icon.png')} style={styles.Image}/>
           </View>
           <View>
-            <Text style={styles.titre}>22 EUR</Text>
+            <Text style={styles.titre}>{renderNumber(user.solde)} €</Text>
             <Text style={styles.text}>Mon solde</Text>
           </View>
         </View>
