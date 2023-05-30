@@ -6,8 +6,6 @@ import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { MiniJeuStackParams } from "../App";
 
 
 const Space_Background=require('../assets/images/Space_Background.png');
@@ -27,8 +25,6 @@ const gameData = [
   { title: "Incognito", scoreUser: 1200, backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2, screen:'IncognitoWait'},
   { title: "Au plus proche", scoreUser: 1200, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'AuPlusProcheWait'},
 ];
-
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Basket'>;
 
 
 export default function MiniJeu() {

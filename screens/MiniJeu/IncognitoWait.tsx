@@ -1,17 +1,23 @@
 import React from "react";
-import { View, Image, StyleSheet, ImageBackground, Text } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
 import Regles from './../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import WaitingCard from "../../components/MiniJeu/WaitingCard";
 import { main } from '../../constants/Colors';
+import { RootStackParams } from '../../App';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import { useNavigation } from "@react-navigation/native";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 
-const IncognitoWait = () => {
+type navigationProp = NativeStackNavigationProp<RootStackParams, 'Role'>;
 
+const IncognitoWait = () => {
+    const navigation = useNavigation<navigationProp>();
     return (
         <ImageBackground 
         source={Space_Background} 
@@ -29,6 +35,9 @@ const IncognitoWait = () => {
             </View>
             <View style={styles.container}>
                 <WaitingCard/>
+                <TouchableOpacity style={{alignItems:'center'}} onPress={() => {navigation.navigate('Role')}}>
+                    <Text style={styles.text}>Clique ici</Text>    
+                </TouchableOpacity>
                 <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
             </View>
         </View>
