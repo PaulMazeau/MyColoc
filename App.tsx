@@ -30,6 +30,17 @@ import { User, onAuthStateChanged } from 'firebase/auth';
 import { FB_AUTH, FB_DB } from './firebaseconfig';
 import { doc, getDoc } from 'firebase/firestore';
 import NoColoc from './screens/NoColoc';
+import AuPlusProcheWait from './screens/MiniJeu/AuPlusProcheWait';
+import Basket from './screens/MiniJeu/Basket';
+import ClassementBasket from './screens/MiniJeu/ClassementBasket';
+import ClassementFoot from './screens/MiniJeu/ClassementFoot';
+import Foot from './screens/MiniJeu/Foot';
+import Guess from './screens/MiniJeu/Guess';
+import IncognitoWait from './screens/MiniJeu/IncognitoWait';
+import Result from './screens/MiniJeu/Result';
+import Role from './screens/MiniJeu/Role';
+import Answer from './screens/MiniJeu/Answer';
+import Classement from './screens/MiniJeu/Classement';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -43,7 +54,20 @@ export type RootStackParams = {
     name: string;
   };
   MiniJeu: undefined;
+  MiniJeuStack: undefined;
+  BoutonMiniJeu: undefined,
   Main: undefined;
+  AuPlusProcheWaiting: undefined;
+  Guess: undefined;
+  Answers: undefined;
+  IncognitoWait: undefined;
+  Role: undefined;
+  Result: undefined;
+  Foot: undefined;
+  ClassementFoot: undefined;
+  Basket: undefined;
+  ClassementBasket: undefined;
+  Classement: undefined;
 };
 
 
@@ -70,6 +94,22 @@ export type NoColocStackParams = {
   NoColoc: undefined,
 };
 
+export type MiniJeuStackParams = {
+  BoutonMiniJeu: undefined,
+  MiniJeu: undefined;
+  AuPlusProcheWaiting: undefined;
+  Guess: undefined;
+  Answers: undefined;
+  IncognitoWait: undefined;
+  Role: undefined;
+  Result: undefined;
+  Foot: undefined;
+  ClassementFoot: undefined;
+  Basket: undefined;
+  ClassementBasket: undefined;
+  Classement: undefined;
+};
+
 // Création des piles de navigation
 const RootStack = createNativeStackNavigator<RootStackParams>();
 const MainNavigation = createBottomTabNavigator<RootStackParams>();
@@ -77,12 +117,13 @@ const CourseStack = createNativeStackNavigator<CourseStackParams>();
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
 const AccueilStack = createNativeStackNavigator<AccueilStackParams>();
 const NoColocStack = createNativeStackNavigator<NoColocStackParams>();
+const MiniJeuStack = createNativeStackNavigator<MiniJeuStackParams>();
 
 const RootNavigator = () => {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
       <RootStack.Screen name="Main" component={MainNavigationScreenStack} />
-      <RootStack.Screen name="MiniJeu" component={MiniJeu}/>
+      <RootStack.Screen name="MiniJeuStack" component={MiniJeuScreenStack}/>
     </RootStack.Navigator>
   );
 }
@@ -129,7 +170,24 @@ const AccueilScreenStack = () => {
   );
 }
 
-
+const MiniJeuScreenStack = () => {
+  return (
+    <MiniJeuStack.Navigator initialRouteName="MiniJeu" screenOptions={{ headerShown: false }}>
+      <MiniJeuStack.Screen name="MiniJeu" component={MiniJeu} />
+      <MiniJeuStack.Screen name="Classement" component={Classement} />
+      <MiniJeuStack.Screen name="AuPlusProcheWaiting" component={AuPlusProcheWait} />
+      <MiniJeuStack.Screen name="Guess" component={Guess} />
+      <MiniJeuStack.Screen name="Answers" component={Answer} />
+      <MiniJeuStack.Screen name="IncognitoWait" component={IncognitoWait} />
+      <MiniJeuStack.Screen name="Role" component={Role} />
+      <MiniJeuStack.Screen name="Result" component={Result} />
+      <MiniJeuStack.Screen name="Foot" component={Foot} />
+      <MiniJeuStack.Screen name="ClassementFoot" component={ClassementFoot} />
+      <MiniJeuStack.Screen name="Basket" component={Basket} />
+      <MiniJeuStack.Screen name="ClassementBasket" component={ClassementBasket} />
+    </MiniJeuStack.Navigator>
+  );
+};
 
 // Pile de navigation pour l'écran ListeDeCourseScreen
 const ListeDeCourseScreenStack = () => {

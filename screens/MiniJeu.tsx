@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions} from 'react-native';
 import SalonCard from '../components/MiniJeu/SalonCard';
 import ClassementCard from '../components/MiniJeu/ClassementCard';
-import WaitingCard from '../components/MiniJeu/WaitingCard';
 import CarouselGame from '../components/MiniJeu/CarouselGameCard';
 import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
-import VoteCard from '../components/MiniJeu/VoteCard'
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

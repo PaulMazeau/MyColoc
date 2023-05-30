@@ -1,10 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground, useWindowDimensions, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, useWindowDimensions, Dimensions, TouchableOpacity } from 'react-native';
 import Button from "../Reusable/ButtonColor";
 import Score from './Score';
 import { LinearGradient }  from 'expo-linear-gradient';
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { MiniJeuStackParams } from "../../App";
+import { useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get('window').width;
+//type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Basket'>;
 
 interface GameCardProps {
   gameTitle: string;
@@ -15,6 +19,7 @@ interface GameCardProps {
 }
 
 const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, colorGradient1, colorGradient2, scoreUser }) => {
+  //const navigation = useNavigation<navigationProp>();
   return (
     <View>
       <LinearGradient colors={[colorGradient1, colorGradient2]} style={styles.linearGradient}>
@@ -28,7 +33,7 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, c
           <ImageBackground source={backgroundImageSource} resizeMode="contain">
             <View style={styles.imageBackgrond}>
               <View style={styles.button}>
-                <Button text={'Jouer'} colorBackGround={"white"} colorText={colorGradient1}/>
+                  <Button text={'Jouer'} colorBackGround={"white"} colorText={colorGradient1}/>
               </View>
             </View>
           </ImageBackground>

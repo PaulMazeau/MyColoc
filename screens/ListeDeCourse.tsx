@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import Valider from '../assets/icons/Valider';
 import { main } from '../constants/Colors';
 import { Shadows } from '../constants/Shadow';
-import BackIcon from '../assets/icons/BackIcon';
+import BackIcon from '../components/Reusable/BackButton';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
@@ -51,7 +51,7 @@ const TodoList = ({route, navigation}: Props) => {
       <Header/>
       <StatusBar style="auto" />
       <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
-        <BackIcon color={'red'} size={0}/>
+        
         <ScreenTitle title={route.params.name}/>
         </TouchableOpacity>
       <View style={[styles.container, Shadows.shadow]}>
