@@ -3,8 +3,13 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { main } from '../../constants/Colors';
 import Button from "../Reusable/ButtonColor";
 import ParticipantCardPurcentFilled from "../Reusable/ParticipantCardPurcentFilled";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from '../../App';
+import { useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get('window').width;
+
+type navigationProp = NativeStackNavigationProp<RootStackParams, 'Result'>;
 
 const VoteCard = () => {
 
@@ -28,6 +33,8 @@ const VoteCard = () => {
         ));
     };
 
+    const navigation = useNavigation<navigationProp>();
+
     return (
         <View style={styles.global}>
             <View style={styles.firstLign}>
@@ -37,7 +44,7 @@ const VoteCard = () => {
                 {renderParticipants(participants)}
             </View>
             <View style={styles.thirdLign}>
-                <Button text={"Voter"} colorBackGround={"#3B41F1"} colorText={'white'}/>
+                <Button text={"Voter"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={() => navigation.navigate('Result')}/>
             </View>
         </View>
     );
