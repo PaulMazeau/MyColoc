@@ -49,10 +49,8 @@ export default function MiniJeu() {
           <CarouselGame gameData={gameData}/>
           <Text style={styles.text}>Salons ouverts</Text>
           <SalonCard />
-          {/* <WaitingCard/> */}
           <Text style={styles.text}>Classement</Text>
           <ClassementCard/>
-          {/* <VoteCard /> */}
         </View>
       </SafeAreaView>
     </ImageBackground>

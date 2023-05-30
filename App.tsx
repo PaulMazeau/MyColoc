@@ -57,7 +57,7 @@ export type RootStackParams = {
   MiniJeuStack: undefined;
   BoutonMiniJeu: undefined,
   Main: undefined;
-  AuPlusProcheWaiting: undefined;
+  AuPlusProcheWait: undefined;
   Guess: undefined;
   Answers: undefined;
   IncognitoWait: undefined;
@@ -97,7 +97,7 @@ export type NoColocStackParams = {
 export type MiniJeuStackParams = {
   BoutonMiniJeu: undefined,
   MiniJeu: undefined;
-  AuPlusProcheWaiting: undefined;
+  AuPlusProcheWait: undefined;
   Guess: undefined;
   Answers: undefined;
   IncognitoWait: undefined;
@@ -175,7 +175,7 @@ const MiniJeuScreenStack = () => {
     <MiniJeuStack.Navigator initialRouteName="MiniJeu" screenOptions={{ headerShown: false }}>
       <MiniJeuStack.Screen name="MiniJeu" component={MiniJeu} />
       <MiniJeuStack.Screen name="Classement" component={Classement} />
-      <MiniJeuStack.Screen name="AuPlusProcheWaiting" component={AuPlusProcheWait} />
+      <MiniJeuStack.Screen name="AuPlusProcheWait" component={AuPlusProcheWait} />
       <MiniJeuStack.Screen name="Guess" component={Guess} />
       <MiniJeuStack.Screen name="Answers" component={Answer} />
       <MiniJeuStack.Screen name="IncognitoWait" component={IncognitoWait} />
