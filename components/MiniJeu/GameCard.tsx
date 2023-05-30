@@ -1,10 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground, GestureResponderEvent, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import Button from "../Reusable/ButtonColor";
 import Score from './Score';
 import { LinearGradient }  from 'expo-linear-gradient';
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { MiniJeuStackParams } from "../../App";
 import { useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get('window').width;
