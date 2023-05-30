@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ImageBackground, Image, Dimensions} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView} from 'react-native';
 import SalonCard from '../components/MiniJeu/SalonCard';
 import ClassementCard from '../components/MiniJeu/ClassementCard';
 import CarouselGame from '../components/MiniJeu/CarouselGameCard';
@@ -33,7 +33,6 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Basket'>;
 
 
 export default function MiniJeu() {
-  const navigation = useNavigation<navigationProp>();
   return (
     <ImageBackground 
       source={Space_Background} 
@@ -42,7 +41,7 @@ export default function MiniJeu() {
     >
       <SafeAreaView style={styles.global} >
         <StatusBar style="light" />
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.logo}>
             <Image source={Logo} />
           </View>
@@ -51,7 +50,7 @@ export default function MiniJeu() {
           <SalonCard />
           <Text style={styles.text}>Classement</Text>
           <ClassementCard/>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -83,7 +82,8 @@ const styles = StyleSheet.create({
 
   container:{
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems:'center',
+    width:windowWidth
   },
 
   logo:{

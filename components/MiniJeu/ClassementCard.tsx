@@ -14,6 +14,10 @@ const ScoreBoard = () => {
         { position: 2, userImage: require('../../assets/images/profilIcon2.png') },
         { position: 3, userImage: require('../../assets/images/profilIcon2.png') },
         { position: 4, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 5, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 6, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 7, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 8, userImage: require('../../assets/images/profilIcon2.png') },
     ];
 
     //Générer une ligne de score suivi d'un separateur
