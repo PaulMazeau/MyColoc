@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
-import { AccueilStackParams, RootStackParams } from '../../App';
+import { RootStackParams } from '../../App';
 import { Shadows } from '../../constants/Shadow';
 
 const ImgBg = require('../../assets/images/MiniJeu.png');
