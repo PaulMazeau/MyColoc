@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, SafeAreaView, FlatList } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, SafeAreaView, FlatList, Alert } from 'react-native'
 import ScreenTitle from '../components/Reusable/ScreenTitle'
 import { main } from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
@@ -46,8 +46,8 @@ const ColocationSettingsScreen: React.FC = () => {
       
       <SettingsCard title="Nom et mot de passe" onPress={() => console.log('Clicked!')} />
       <SettingsCard title="Avatar" onPress={() => console.log('Clicked!')} />
-      <SettingsCard title="Code de la colocation" subtitle="3000" onPress={async () => await Clipboard.setStringAsync("3000")} />
-      <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => await Clipboard.setStringAsync("support@coloc.fr")} />
+      <SettingsCard title="Code de la colocation" subtitle="3000" onPress={async () => { await Clipboard.setStringAsync("3000"); Alert.alert('Succès', 'Le texte a été copié'); }} />
+      <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
 
       <Button text={'Déconnexion'} colorBackGround={'red'} colorText={'white'} onPress={() => console.log('hehe')} />
       <Button text={'Quitter la colocation'} colorBackGround={'red'} colorText={'white'} onPress={() => console.log('prout')} />
