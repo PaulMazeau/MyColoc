@@ -13,6 +13,8 @@ const WaitingCard = () => {
         require('../../assets/images/profilIcon.png'),
         require('../../assets/images/profilIcon.png'),
         require('../../assets/images/profilIcon.png'),
+
+        
     ];
 
     //Permet d'affichage des images cote a cote peut importe le nombre
@@ -48,14 +50,13 @@ const WaitingCard = () => {
 const styles = StyleSheet.create({
 
     global:{
-        flex:0.4,
     },
 
     container:{
         borderRadius: 10,
         width : windowWidth*0.9,
         padding : 10,
-        backgroundColor:'white'
+        backgroundColor:main.LightWhite
     },
 
 

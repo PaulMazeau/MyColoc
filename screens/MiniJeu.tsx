@@ -8,7 +8,6 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MiniJeuStackParams } from "../App";
-import { useNavigation } from "@react-navigation/native";
 
 
 const Space_Background=require('../assets/images/Space_Background.png');
