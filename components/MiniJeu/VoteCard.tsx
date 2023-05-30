@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width:windowWidth * 0.9,
         padding:10,
-        flex:0.5,
+        height:'38%',
         marginBottom:10
     },
 
