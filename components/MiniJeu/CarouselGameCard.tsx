@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, Dimensions, Animated, TouchableOpacity } from 'react-native';
 import GameCard from './GameCard';
 import { FlatList } from 'react-native-gesture-handler';
+import { WINDOW_HEIGHT } from "@gorhom/bottom-sheet";
 
 
 interface CarouselProps {
@@ -9,10 +10,11 @@ interface CarouselProps {
 }
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const windowHeight = Dimensions.get('window').height;
 
 const Carousel: React.FC<CarouselProps> = ({ gameData }) => {
   const windowWidth = Dimensions.get('window').width;
-
+  
 
   //Variables pour la pagination
   const [currentPage, setCurrentPage] = useState(0);
@@ -62,7 +64,7 @@ const Carousel: React.FC<CarouselProps> = ({ gameData }) => {
 
 const styles = StyleSheet.create({
   global: {
-    flex: 0.8,
+    height:windowHeight*0.3,
     justifyContent:'center',
     alignItems:'center',
   },

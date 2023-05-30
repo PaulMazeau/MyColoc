@@ -1,11 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from '../../App';
+import { useNavigation } from '@react-navigation/native';
 
 
 const windowWidth = Dimensions.get('window').width;
+
+type navigationProp = NativeStackNavigationProp<RootStackParams, 'Classement'>;
 
 const ScoreBoard = () => {
     //Tableau de scores des user
@@ -14,6 +19,10 @@ const ScoreBoard = () => {
         { position: 2, userImage: require('../../assets/images/profilIcon2.png') },
         { position: 3, userImage: require('../../assets/images/profilIcon2.png') },
         { position: 4, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 5, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 6, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 7, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 8, userImage: require('../../assets/images/profilIcon2.png') },
     ];
 
     //Générer une ligne de score suivi d'un separateur
@@ -27,10 +36,14 @@ const ScoreBoard = () => {
         ));
     };
 
+    const navigation = useNavigation<navigationProp>();
+
     return(
         <View style={styles.global}>
             <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
+            <TouchableOpacity onPress={() => {navigation.navigate('Classement')}}>
                 {renderScoreLines(scores)}
+            </TouchableOpacity>
             </LinearGradient>
         </View>
     );
