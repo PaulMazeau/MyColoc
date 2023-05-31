@@ -64,7 +64,7 @@ const TodoList = ({route, navigation}: Props) => {
       <StatusBar style="auto" />
       <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
         
-        <ScreenTitle title={course.Nom}/>
+        <ScreenTitle title={course.Nom} shouldGoBack/>
         </TouchableOpacity>
       <View style={[styles.container, Shadows.shadow]}>
         <KeyboardAwareFlatList
