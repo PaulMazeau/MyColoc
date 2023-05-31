@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, {useState, useMemo, useEffect, useContext} from 'react';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -25,10 +25,10 @@ import { NavBarStyle } from './constants/NavBar';
 import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
 
 //Import du contexte
-import { UserContext, CourseContext, DepenseContext} from "./UserContext";
+import { UserContext, CourseContext, DepenseContext, ColocContext} from "./UserContext";
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FB_AUTH, FB_DB } from './firebaseconfig';
-import { QuerySnapshot, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { QuerySnapshot, collection, doc, getDoc, onSnapshot, query, where } from 'firebase/firestore';
 import NoColoc from './screens/NoColoc';
 import AuPlusProcheWait from './screens/MiniJeu/AuPlusProcheWait';
 import Basket from './screens/MiniJeu/Basket';
@@ -149,7 +149,28 @@ const RootNavigator = () => {
 }
 
 const MainNavigationScreenStack = () => {
+  const [coloc, setColoc] = useState([]);
+  const [user, setUser] = useContext(UserContext);
+  const [snap, setSnap] = useState(null);
+  useEffect(()=>{
+    const q = query(collection(FB_DB, 'Users'), where('uuid', 'in', user.membersID))
+    const subscriber3 = onSnapshot(q, (QuerySnapshot) => {setSnap(QuerySnapshot)})
+    return () => {subscriber3()}
+  }, [])
+  useEffect(()=>{
+    if(snap){
+      const colocSetter = []
+      snap.forEach((doc) =>{
+        colocSetter.push(doc.data())
+      })
+      setColoc(colocSetter)
+      console.log(colocSetter)
+    }else{
+      setColoc([])
+    }
+  }, [snap])
   return(
+  <ColocContext.Provider value={[coloc, setColoc]}>
   <MainNavigation.Navigator
           initialRouteName="Accueil"
           screenOptions={{ 
@@ -165,6 +186,7 @@ const MainNavigationScreenStack = () => {
           <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: ({color}) => <TacheIcon color={color} />}}/>
           <MainNavigation.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
         </MainNavigation.Navigator>
+        </ColocContext.Provider>
   )
 }
 
