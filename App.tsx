@@ -165,7 +165,6 @@ const MainNavigationScreenStack = () => {
         colocSetter.push(doc.data())
       })
       setColoc(colocSetter)
-      console.log(colocSetter)
     }else{
       setColoc([])
     }

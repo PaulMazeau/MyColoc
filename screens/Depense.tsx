@@ -7,7 +7,7 @@ import Equilibrage from '../components/Depense/Equilibrage';
 import ListeTransaction from '../components/Depense/ListeTransaction';
 import { DocumentData, QuerySnapshot, collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { FB_DB } from '../firebaseconfig';
-import { UserContext } from '../UserContext';
+import { ColocContext, DepenseContext, UserContext } from '../UserContext';
 import AddDepenseBS from '../components/Depense/AddDepenseBS';
 
 
@@ -15,7 +15,7 @@ export default function DepenseScreen() {
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const [user, setUser] = useContext(UserContext);
-  const [transac, setTransac] = useState([])
+  const [transac, setTransac] = useContext(DepenseContext);
   const [snapshot, setSnapshot] = useState(null);
   const handleTabPress = (index: number) => {
     setSelectedTabIndex(index);
@@ -75,7 +75,7 @@ export default function DepenseScreen() {
       {selectedTabIndex === 0 ? (
         <Equilibrage />
       ) : (
-        <ListeTransaction transacs={transac}/>
+        <ListeTransaction/>
       )}
     <AddDepenseBS />
     </View>
