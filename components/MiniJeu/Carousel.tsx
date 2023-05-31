@@ -36,7 +36,7 @@ function Carrousel({ gameCardData }: CarrouselProps) {
     : ({
         vertical: false,
         width: width ,
-        height: width * 0.6,
+        height: height * 0.4,
       } as const);
 
   return (
@@ -45,7 +45,6 @@ function Carrousel({ gameCardData }: CarrouselProps) {
         width:width,
         alignItems: "center",
         justifyContent:"center",
-        backgroundColor:'green'
       }}
     >
       <Carousel
@@ -61,7 +60,7 @@ function Carrousel({ gameCardData }: CarrouselProps) {
         mode="parallax"
         modeConfig={{
           parallaxScrollingScale: 0.9,
-          parallaxScrollingOffset: 45,
+          parallaxScrollingOffset: 100,
         }}
         data={gameCardData}
         renderItem={({item}: { item: GameCardDataType }) => <GameCard 
