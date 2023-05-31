@@ -1,10 +1,11 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
 import AddButton from '../../assets/icons/AddButton.svg';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import * as Haptics from 'expo-haptics';
+import { ColocContext } from '../../UserContext';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -29,6 +30,7 @@ const [value, setValue] = useState(null);
 const [day, Day] = React.useState(null);
 const [month, Month] = React.useState(null);
 const [year, Year] = React.useState(null);
+const [coloc, setColoc] = useContext(ColocContext)
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
   };
@@ -53,6 +55,16 @@ const [year, Year] = React.useState(null);
   const AddDepense = () => {
     closeBottomSheet();
   };
+
+  const renderParticipant = () => {
+    return(
+      coloc.map((c) => {
+        return(
+          <ParticipantCard nom ={c.nom} url={c.avatarUrl} key = {c.uuid}/>
+        )
+      })
+    )
+  }
 
   return (
     <View style={{flex: 1}}>
@@ -110,12 +122,13 @@ const [year, Year] = React.useState(null);
                      showsHorizontalScrollIndicator={false}
                      contentContainerStyle={{flexGrow: 1}}
                      keyboardShouldPersistTaps='handled'>
+                         {/* <ParticipantCard/>
                          <ParticipantCard/>
                          <ParticipantCard/>
                          <ParticipantCard/>
                          <ParticipantCard/>
-                         <ParticipantCard/>
-                         <ParticipantCard/>
+                         <ParticipantCard/> */}
+                         {renderParticipant()}
                  </ScrollView>
              </View>
        </View>

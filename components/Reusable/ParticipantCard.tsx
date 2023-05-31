@@ -11,8 +11,8 @@ const ParticipantCard = (props) => {
       
       <TouchableOpacity  onPress={() => setstate(!participant)}>
         <View style = {[!participant? styles.participant_invalid: styles.participant_valid]}>
-            <Image style={styles.avatar1} source={require('../../assets/images/icon.png')}/>
-              <Text style={styles.nom} numberOfLines={1}>Alexis</Text>
+            <Image style={styles.avatar1} source={props.url ? {uri : props.url, cache:'force-cache' } : require('../../assets/images/icon.png')}/>
+              <Text style={styles.nom} numberOfLines={1}>{props.nom ? props.nom : 'caca'}</Text>
         </View>
       </TouchableOpacity>
 

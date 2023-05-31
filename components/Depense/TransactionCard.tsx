@@ -56,7 +56,7 @@ const handleDismissPress = () => {
     <TouchableOpacity style={{flex: 1}} onPress={handlePresentPress}>
     <View style={[styles.container, Shadows.shadow]}>
       <View style={styles.imageContainer}>
-        <Image source={giver ? {uri: giver.avatarUrl} : require('../../assets/images/icon.png')} style={styles.image} />
+        <Image source={giver ? {uri: giver.avatarUrl, cache:'force-cache'} : require('../../assets/images/icon.png')} style={styles.image} />
       </View>
       {renderContent()}
     </View>
