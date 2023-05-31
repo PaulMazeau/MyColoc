@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useContext } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { ScrollView as GestureHandlerScrollView } from 'react-native-gesture-handler';
@@ -6,14 +6,25 @@ import Plus from '../../assets/icons/Plus.svg';
 import AddButton from '../../assets/icons/AddButton.svg';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import * as Haptics from 'expo-haptics';
+import { UserContext } from '../../UserContext';
+import { addDoc, collection } from 'firebase/firestore';
+import { FB_DB } from '../../firebaseconfig';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
+const emojiURLS = [
+  "https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F0-min.png?alt=media&token=b341911a-d6cf-4166-9829-e2aaca8f4752",
+  "https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F1-min.png?alt=media&token=a1778ed6-6c44-46b0-8593-33c22d2bdba3",
+  "https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F2-min.png?alt=media&token=a0bc831d-4454-4c0a-9778-8249fb018a3a",
+  "https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F3-min.png?alt=media&token=e04e2c6b-2c8f-4c63-a70b-b3c1e3aa91dc",
+  "https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F4-min.png?alt=media&token=b444f9cb-f3a5-4b2e-8c46-175a1b05c561",
+    
+]
 const AddListeCourseBS = () => {
   // State pour le titre de la liste
   const [title, setTitle] = useState(null);
-
+  const [emoji, setEmoji] = useState(null);
+  const [user, setUser] = useContext(UserContext)
   // Référence à la bottom sheet modal
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
@@ -26,7 +37,27 @@ const AddListeCourseBS = () => {
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
   };
+  const handleAddCourse = async () => {
+    if(title.length == 0){alert('titre vide')}
+    else{
+      await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Courses'), {Nom: title, Image:{uri :emoji}, divers: []}).then(() =>{
+        alert('course bien créee')
+      }).catch((error)=>{alert('error.message')})
+    }
+    
+  }
 
+  const renderCat = () => {
+    return(
+      emojiURLS.map((c, index) => {
+        return(
+          <TouchableOpacity key={c} onPress={() => {setEmoji(c)}}>
+          <ParticipantCard  url={c} key = {c}/>
+          </TouchableOpacity>
+        )
+      })
+    )
+  }
   // Rendu du backdrop de la bottom sheet modal
   const renderBackdrop = useCallback(
     (props) => {
@@ -77,16 +108,12 @@ const AddListeCourseBS = () => {
                   contentContainerStyle={styles.participantContainer}
                   keyboardShouldPersistTaps="handled"
                 >
-                  <ParticipantCard />
-                  <ParticipantCard />
-                  <ParticipantCard />
-                  <ParticipantCard />
-                  <ParticipantCard />
+                 {renderCat()}
                 </GestureHandlerScrollView>
               </View>
             </View>
 
-            <TouchableOpacity style={styles.add} onPress={() =>{ Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); addListeDeCourse() }}>
+            <TouchableOpacity style={styles.add} onPress={() =>{ Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); handleAddCourse() }}>
               <Plus />
               <Text style={styles.buttonText}>Ajouter la liste de course</Text>
             </TouchableOpacity>

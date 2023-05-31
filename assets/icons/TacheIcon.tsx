@@ -1,5 +1,5 @@
 import * as React from "react";
-import Svg, { SvgProps, Path } from "react-native-svg"
+import Svg, { SvgProps, Path, Rect } from "react-native-svg"
 
 interface Props {
     color: string
@@ -13,6 +13,11 @@ function TacheIcon(props: Props) {
       fill="none"
       viewBox="0 0 16 18"
     >
+      <Rect
+        width="48"
+        height="48"
+        fill="transparent"
+      />
       <Path
         stroke={props.color}
         strokeLinecap="round"

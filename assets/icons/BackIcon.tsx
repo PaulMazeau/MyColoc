@@ -1,5 +1,5 @@
 import * as React from "react"
-import Svg, { SvgProps, Path } from "react-native-svg"
+import Svg, { SvgProps, Path, Rect } from "react-native-svg"
 
 interface Props {
   color: string
@@ -13,6 +13,11 @@ function BackIcon(props: Props) {
       width={props.size}
       height={props.size}
     >
+      <Rect
+        width="48"
+        height="48"
+        fill="transparent"
+      />
       <Path
         fill="none"
         stroke={props.color}
