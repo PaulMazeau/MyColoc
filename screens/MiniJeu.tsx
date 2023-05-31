@@ -19,7 +19,7 @@ const userData =[
 ]
 
 //Contient les informations necessaires a faire une gameCard dans le caroussel, incluant le nom du screen vers lequel naviguer
-const gameData = [
+const gameCardData = [
   { title: "BasketBall", scoreUser: userData[0].ScoreBasket, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'Basket'},
   { title: "FootBall", scoreUser: userData[0].ScoreFoot, backgroundImageSource: require('../assets/images/FootBall_Background.png'), colorGradient1: MiniJeuColor.RedGradientColor1, colorGradient2: MiniJeuColor.RedGradientColor2, screen:'Foot'},
   { title: "Incognito", scoreUser: 1200, backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2, screen:'IncognitoWait'},
@@ -40,7 +40,7 @@ export default function MiniJeu() {
           <View style={styles.logo}>
             <Image source={Logo} />
           </View>
-          <Carrousel />
+          <Carrousel gameCardData={gameCardData}/>
           <Text style={styles.text}>Salons ouverts</Text>
           <SalonCard />
           <Text style={styles.text}>Classement</Text>
