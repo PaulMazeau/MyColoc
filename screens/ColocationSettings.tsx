@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, SafeAreaView, FlatList, Alert } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, FlatList, Alert } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenTitle from '../components/Reusable/ScreenTitle'
 import { main } from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';

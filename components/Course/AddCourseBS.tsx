@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { ScrollView as GestureHandlerScrollView } from 'react-native-gesture-handler';
 import Plus from '../../assets/icons/Plus.svg';
 import AddButton from '../../assets/icons/AddButton.svg';
@@ -35,6 +35,7 @@ const AddListeCourseBS = () => {
           {...props}
           disappearsOnIndex={-1}
           appearsOnIndex={0}
+          pressBehavior={'close'}
         />
       );
     },
@@ -54,7 +55,7 @@ const AddListeCourseBS = () => {
         backdropComponent={renderBackdrop}
       >
         <View style={styles.contentContainer}>
-          <ScrollView>
+          <BottomSheetScrollView>
             <Text style={styles.title}>Nouvelle Liste de Course</Text>
 
             <View style={styles.inputContainer}>
@@ -89,7 +90,7 @@ const AddListeCourseBS = () => {
               <Plus />
               <Text style={styles.buttonText}>Ajouter la liste de course</Text>
             </TouchableOpacity>
-          </ScrollView>
+          </BottomSheetScrollView>
         </View>
       </BottomSheetModal>
     </View>

@@ -89,7 +89,7 @@ const TodoList = ({route, navigation}: Props) => {
               onChangeText={setInput}
               onSubmitEditing={handleAddInput}
               placeholder="Ajouter un nouvel élément..."
-              returnKeyType="done"
+              returnKeyType="next"
               blurOnSubmit={false}
             />
           }
