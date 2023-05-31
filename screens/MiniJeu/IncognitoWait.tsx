@@ -7,7 +7,6 @@ import WaitingCard from "../../components/MiniJeu/WaitingCard";
 import { main } from '../../constants/Colors';
 import { RootStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 import { useNavigation } from "@react-navigation/native";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
