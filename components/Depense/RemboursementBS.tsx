@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { BottomSheetModal, TouchableOpacity} from '@gorhom/bottom-sheet';
+import { BottomSheetBackdrop, BottomSheetModal, TouchableOpacity} from '@gorhom/bottom-sheet';
 import Remboursement from '../../assets/icons/Remboursement.svg'
 import { Shadows } from '../../constants/Shadow';
 
@@ -11,9 +11,15 @@ type RemboursementBSProps = {
 const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref) => {
     
  
-    const BackdropComponent = () => (
-        <View style={styles.backdrop} />
-      );
+    const BackdropComponent = useCallback((props) => {
+        return (
+          <BottomSheetBackdrop
+            {...props}
+            disappearsOnIndex={-1}
+            appearsOnIndex={0}
+          />
+        );
+      }, []);
 
     const CustomBackgroundComponent = () => (
         <View></View>

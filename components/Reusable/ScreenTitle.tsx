@@ -1,28 +1,32 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/Reusable/BackButton';
 
 interface ScreenTitleProps {
     title: string;
-    handleGoBack?: () => void;
+    shouldGoBack?: boolean;
 }
 
-const ScreenTitle = ({ title, handleGoBack }: ScreenTitleProps) => {
-    const handleTitlePress = () => {
-        if (handleGoBack) {
-            handleGoBack();
+const ScreenTitle = ({ title, shouldGoBack }: ScreenTitleProps) => {
+    const navigation = useNavigation();
+
+    const handleGoBack = () => {
+        if (shouldGoBack) {
+            navigation.goBack();
         }
     };
 
     return (
         <View style={styles.titleView}>
-            <TouchableOpacity style={styles.titleTouch} onPress={handleTitlePress}>
-                {handleGoBack && <BackButton />}
-                <Text style={[styles.screenTitle, handleGoBack && styles.withHandleGoBack]}>{title}</Text>
+            <TouchableOpacity style={styles.titleTouch} onPress={handleGoBack}>
+                {shouldGoBack && <BackButton />}
+                <Text style={[styles.screenTitle, shouldGoBack && styles.withHandleGoBack]}>{title}</Text>
             </TouchableOpacity>
         </View>
     );
 }
+
 
 const styles = StyleSheet.create({
     screenTitle: {
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
     titleView: {
         flexDirection: 'row',
         marginBottom: 15,
-        marginTop: 10
+        marginTop: 10,
     },
     titleTouch: {
         flexDirection: 'row',

@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, ImageBackground, Image, SafeAreaView, Dimensions} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView} from 'react-native';
 import SalonCard from '../components/MiniJeu/SalonCard';
 import ClassementCard from '../components/MiniJeu/ClassementCard';
 import CarouselGame from '../components/MiniJeu/CarouselGameCard';
 import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
-import VoteCard from '../components/MiniJeu/VoteCard'
 import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const Space_Background=require('../assets/images/Space_Background.png');
@@ -18,40 +18,39 @@ const userData =[
   {ScoreTotal:1800, ScoreFoot:1500, ScoreBasket:1300}
 ]
 
+//Contient les informations necessaires a faire une gameCard dans le caroussel, incluant le nom du screen vers lequel naviguer
 const gameData = [
-  { title: "BasketBall", scoreUser: userData[0].ScoreBasket, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2},
-  { title: "FootBall", scoreUser: userData[0].ScoreFoot, backgroundImageSource: require('../assets/images/FootBall_Background.png'), colorGradient1: MiniJeuColor.RedGradientColor1, colorGradient2: MiniJeuColor.RedGradientColor2},
-  { title: "Incognito", scoreUser: 1200, backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2},
-  { title: "Au plus proche", scoreUser: 1200, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2},
+  { title: "BasketBall", scoreUser: userData[0].ScoreBasket, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'Basket'},
+  { title: "FootBall", scoreUser: userData[0].ScoreFoot, backgroundImageSource: require('../assets/images/FootBall_Background.png'), colorGradient1: MiniJeuColor.RedGradientColor1, colorGradient2: MiniJeuColor.RedGradientColor2, screen:'Foot'},
+  { title: "Incognito", scoreUser: 1200, backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2, screen:'IncognitoWait'},
+  { title: "Au plus proche", scoreUser: 1200, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'AuPlusProcheWait'},
 ];
-
-
 
 
 export default function MiniJeu() {
   return (
-    <SafeAreaView style={styles.global} >
-      <StatusBar style="light"/>
-        <ImageBackground 
-            source ={Space_Background} 
-            resizeMode="cover"
-            style={styles.imageBackground}
-        >
-          <View style = {styles.container}>
-            <View style={styles.logo}>
-              <Image source={Logo}/>
-            </View>
-            <CarouselGame gameData={gameData}/>
-            <Text style={styles.text}>Salons ouverts</Text>
-            <SalonCard/>
-            <Text style={styles.text}>Classement</Text>
-            {/* <ClassementCard/> */}
-            <VoteCard/>
+    <ImageBackground 
+      source={Space_Background} 
+      resizeMode="cover"
+      style={styles.imageBackground}
+    >
+      <SafeAreaView style={styles.global} >
+        <StatusBar style="light" />
+        <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.logo}>
+            <Image source={Logo} />
           </View>
-        </ImageBackground>
-    </SafeAreaView>
+          <CarouselGame gameData={gameData}/>
+          <Text style={styles.text}>Salons ouverts</Text>
+          <SalonCard />
+          <Text style={styles.text}>Classement</Text>
+          <ClassementCard/>
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
+
 
 const styles = StyleSheet.create({
   global: {
@@ -78,7 +77,8 @@ const styles = StyleSheet.create({
 
   container:{
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems:'center',
+    width:windowWidth
   },
 
   logo:{

@@ -1,19 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
-import { AccueilStackParams } from '../../App';
+import { RootStackParams } from '../../App';
 import { Shadows } from '../../constants/Shadow';
 
 const ImgBg = require('../../assets/images/MiniJeu.png');
-type navigationProp = NativeStackNavigationProp<AccueilStackParams, 'MiniJeu'>;
+type navigationProp = NativeStackNavigationProp<RootStackParams, 'MiniJeuStack'>;
 
 //props est le solde de l'utilisateur obtenu après connexion a la db
 const BoutonMiniJeu = () => {
   const navigation = useNavigation<navigationProp>();
   return (
     <View style={[styles.global, Shadows.shadow]}>
-      <TouchableOpacity onPress={() => {navigation.navigate('MiniJeu')}}>
+      <TouchableOpacity onPress={() => {navigation.navigate('MiniJeuStack')}}>
         <ImageBackground 
           source={ImgBg} 
           resizeMode="cover" 

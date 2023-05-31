@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground, useWindowDimensions, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import Button from "../Reusable/ButtonColor";
 import Score from './Score';
 import { LinearGradient }  from 'expo-linear-gradient';
+import { useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -12,9 +13,11 @@ interface GameCardProps {
   colorGradient1: string;
   colorGradient2: string;
   scoreUser:number;
+  screen:string;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, colorGradient1, colorGradient2, scoreUser }) => {
+const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, colorGradient1, colorGradient2, scoreUser, screen }) => {
+  const navigation = useNavigation();
   return (
     <View>
       <LinearGradient colors={[colorGradient1, colorGradient2]} style={styles.linearGradient}>
@@ -28,7 +31,7 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, c
           <ImageBackground source={backgroundImageSource} resizeMode="contain">
             <View style={styles.imageBackgrond}>
               <View style={styles.button}>
-                <Button text={'Jouer'} colorBackGround={"white"} colorText={colorGradient1}/>
+                  <Button text={'Jouer'} colorBackGround={"white"} colorText={colorGradient1} onPress={() => navigation.navigate(screen)}/>
               </View>
             </View>
           </ImageBackground>

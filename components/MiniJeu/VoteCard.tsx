@@ -3,24 +3,48 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { main } from '../../constants/Colors';
 import Button from "../Reusable/ButtonColor";
 import ParticipantCardPurcentFilled from "../Reusable/ParticipantCardPurcentFilled";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from '../../App';
+import { useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get('window').width;
 
+type navigationProp = NativeStackNavigationProp<RootStackParams, 'Result'>;
+
 const VoteCard = () => {
+
+    //Liste des participants
+    const participants = [
+        { text: 'Julie', percent: 70, imageSource: require('../../assets/images/profilIcon.png') },
+        { text: 'Mehdi', percent: 10, imageSource: require('../../assets/images/profilIcon.png') },
+        { text: 'Clara', percent: 0, imageSource: require('../../assets/images/profilIcon.png') },
+        { text: 'Max', percent: 20, imageSource: require('../../assets/images/profilIcon.png') },
+    ];
+
+    //Génère les ParticipantCardPurcentFilled
+    const renderParticipants = (participants) => {
+        return participants.map((participant, index) => (
+            <ParticipantCardPurcentFilled 
+                key={index} 
+                text={participant.text} 
+                percent={participant.percent} 
+                imageSource={participant.imageSource}
+            />
+        ));
+    };
+
+    const navigation = useNavigation<navigationProp>();
+
     return (
         <View style={styles.global}>
             <View style={styles.firstLign}>
                 <Text style={styles.text1}>Vote contre l'incognito</Text>
             </View>
             <View style={styles.secondLign}>
-                <ParticipantCardPurcentFilled text="julie" percent={70} imageSource={require('../../assets/images/profilIcon.png')}/>
-                <ParticipantCardPurcentFilled text="Mehdi" percent={10} imageSource={require('../../assets/images/profilIcon.png')}/>
-                <ParticipantCardPurcentFilled text="Clara" percent={0} imageSource={require('../../assets/images/profilIcon.png')}/>
-                <ParticipantCardPurcentFilled text="Max" percent={20} imageSource={require('../../assets/images/profilIcon.png')}/>
-                
+                {renderParticipants(participants)}
             </View>
             <View style={styles.thirdLign}>
-                <Button text={"Voter"} colorBackGround={"#3B41F1"} colorText={'white'}/>
+                <Button text={"Voter"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={() => navigation.navigate('Result')}/>
             </View>
         </View>
     );
@@ -33,9 +57,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width:windowWidth * 0.9,
         padding:10,
-        flex:0.5,
+        height:'38%',
         marginBottom:10
-        
     },
 
     firstLign: {
@@ -46,7 +69,7 @@ const styles = StyleSheet.create({
 
     secondLign:{
         flexDirection:'row',
-        height:'40%'
+        height:'40%',
     },
 
     thirdLign:{

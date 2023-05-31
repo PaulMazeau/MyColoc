@@ -1,30 +1,51 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from '../../App';
+import { useNavigation } from '@react-navigation/native';
 
 
 const windowWidth = Dimensions.get('window').width;
 
-
+type navigationProp = NativeStackNavigationProp<RootStackParams, 'Classement'>;
 
 const ScoreBoard = () => {
+    //Tableau de scores des user
+    const scores = [
+        { position: 1, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 2, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 3, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 4, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 5, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 6, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 7, userImage: require('../../assets/images/profilIcon2.png') },
+        { position: 8, userImage: require('../../assets/images/profilIcon2.png') },
+    ];
 
+    //Générer une ligne de score suivi d'un separateur
+    const renderScoreLines = (scores) => {
+        return scores.map((score, index) => (
+            <React.Fragment key={index}>
+                <ScoreLigne position={score.position} userImage={score.userImage}/>
+                {/* Permet de ne pas afficher de separator sur le dernier score */}
+                {index !== scores.length - 1 && <View style={styles.separator}/>}   
+            </React.Fragment>
+        ));
+    };
+
+    const navigation = useNavigation<navigationProp>();
 
     return(
         <View style={styles.global}>
             <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
-                <ScoreLigne position={1}/>
-                <View style={styles.separator}/>
-                <ScoreLigne position={2}/>
-                <View style={styles.separator}/>
-                <ScoreLigne position={3}/>
-                <View style={styles.separator}/>
-                <ScoreLigne position={4}/>
+            <TouchableOpacity onPress={() => {navigation.navigate('Classement')}}>
+                {renderScoreLines(scores)}
+            </TouchableOpacity>
             </LinearGradient>
         </View>
-
     );
 };
 

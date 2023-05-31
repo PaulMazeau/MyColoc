@@ -1,121 +1,154 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { RootStackParams } from '../App';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'react-native';
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import Header from '../components/Reusable/Header';
-import DraggableFlatList, { RenderItemParams } from 'react-native-draggable-flatlist';
-import { CheckBox } from 'react-native-elements';
-import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import Valider from '../assets/icons/Valider';
 import { main } from '../constants/Colors';
+import { Shadows } from '../constants/Shadow';
+import BackIcon from '../components/Reusable/BackButton';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParams } from '../App';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
+import { CourseContext } from '../UserContext';
 
+// Définition du type des propriétés pour le composant ListeDeCourseScreen
 type Props = NativeStackScreenProps<RootStackParams, 'ListeDeCourse'>;
 
-interface Item {
-  key: string;
-  label: string;
-  selected: boolean;
-  isInput?: boolean;
-}
+type Todo = {
+  id: string;
+  title: string;
+  completed?: boolean;
+};
 
-const ListeDeCourseScreen = ({route, navigation}: Props) => {
-  const [data, setData] = useState<Item[]>([
-    { key: '1', label: 'Cookie', selected: false },
-    { key: '2', label: 'Taboulet', selected: false },
-    { key: '3', label: 'Ratio', selected: false },
-    { key: 'input', label: '', selected: false, isInput: true },
-  ]);
+const initialTodos: Todo[] = [
+  { id: '1', title: 'Tarte' },
+  { id: '2', title: 'Pomme de terre' },
+  { id: '3', title: 'aliments' },
+];
 
-  const handleItemSelectionToggle = (item: Item, isActive: boolean) => {
-    if (!isActive) {
-      const newData = data.map((dataItem) =>
-        dataItem.key === item.key
-          ? { ...dataItem, selected: !dataItem.selected }
-          : dataItem
-      );
-      setData(newData);
+//route.params.index est l'index de la course dans toutes les listes de courses
+const TodoList = ({route, navigation}: Props) => {
+  const [todos, setTodos] = useState(initialTodos);
+  const [input, setInput] = useState('');
+  const [courses, setCourses] = useContext(CourseContext);
+  const course = courses[route.params.index].data();
+  const toggleTodo = (id: string) => {
+    setTodos(todos.map(todo =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+  };
+  const isScrollEnabled = todos.length > 15; // nombre d'élément avant un scroll
+
+  const addTodo = () => {
+    if (input.length > 0) {
+      setTodos([...todos, { id: Math.random().toString(36).substring(7), title: input }]);
+      setInput('');
     }
-  }
-
-  const handleItemSubmission = (event: any) => {
-    const newItem: Item = { key: `${data.length}`, label: event.nativeEvent.text, selected: false };
-    setData(prevData => [...prevData.slice(0, -1), newItem, prevData[prevData.length - 1]]);
-  }
-
-  const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
-    if (item.isInput) {
-      return (
-        <TextInput
-          style={styles.input}
-          placeholder="Ajouter un nouvel élément..."
-          onSubmitEditing={handleItemSubmission}
-          blurOnSubmit={false}
-        />
-      );
-    }
-
-    return (
-      <TouchableOpacity
-        style={[
-          styles.itemContainer,
-          { backgroundColor: isActive ? '#A0D6FF80' : main.BgColor },
-        ]}
-        onLongPress={drag}
-      >
-        <View style={styles.itemView}>
-          <CheckBox
-            checkedIcon='dot-circle-o'
-            uncheckedIcon='circle-o'
-            checked={item.selected}
-            onPress={() => handleItemSelectionToggle(item, isActive)}
-          />
-          <Text style={styles.itemText}>{item.label}</Text> 
-        </View>
-      </TouchableOpacity>
-    );
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
+    <View style={styles.body}>
       <Header/>
-      <ScreenTitle title={route.params.name} handleGoBack={() => navigation.goBack()} />
-      <DraggableFlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => `draggable-item-${item.key}`}
-        onDragEnd={({ data }) => setData(data)}
-        scrollEnabled={data.length > 10}
-      />
+      <StatusBar style="auto" />
+      <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
+        
+        <ScreenTitle title={course.Nom}/>
+        </TouchableOpacity>
+      <View style={[styles.container, Shadows.shadow]}>
+        <KeyboardAwareFlatList
+          data={course.divers}
+          keyExtractor={item => item.item}
+          scrollEnabled={isScrollEnabled} 
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => toggleTodo(item.id)}>
+              <View style={[styles.item, !item.selected && styles.completedItem]}>
+                <View style={[styles.checkbox, !item.selected && styles.completedCheckbox]}>
+                  <Valider color="white" width={14} height={14}/>
+                </View>
+                <Text style={[styles.itemText, !item.selected && styles.completedText]}>{item.item}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+          //ItemSeparatorComponent={() => <View style={styles.separator} />} -> j'hésite
+          ListFooterComponent={
+            <TextInput
+              style={styles.input}
+              value={input}
+              onChangeText={setInput}
+              onSubmitEditing={addTodo}
+              placeholder="Ajouter un nouvel élément..."
+              returnKeyType="done"
+              blurOnSubmit={false}
+            />
+          }
+          extraScrollHeight={Platform.OS === 'ios' ? 120 : 100}
+        />
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
     flex: 1,
-    backgroundColor: main.BgColor,
+    backgroundColor: main.BgColor  
   },
-  itemContainer: {
+  container: {
+    height: "auto",
+    backgroundColor: "white",
+    width: "90%",
+    marginHorizontal: "5%",
+    borderRadius: 10,
+    padding: 10,
+  },
+  listContainer: {
+    flex: 1,
+  },
+  item: {
     flexDirection: 'row',
-    height: 'auto',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 7,
+    marginBottom: 2
   },
-  itemView: {
-    flexDirection: 'row', 
-    alignItems: 'center'
+  completedItem: {
+    backgroundColor: '#f0f0f0',
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+    borderWidth: 2,
+    borderColor: '#172ACE',
+    borderRadius: 4,
+    padding: 4,
+  },
+  completedCheckbox: {
+    backgroundColor: '#172ACE',
   },
   itemText: {
-    color: 'black', 
-    fontSize: 18
+    fontSize: 18,
+  },
+  completedText: {
+    color: "#8D8D8D",
+    opacity: 0.8,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#ccc',
+    marginLeft: "12%",
   },
   input: {
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
+    backgroundColor: '#fff',  // Background color to match the todo items
+    paddingHorizontal: 15,  // Horizontal padding to match the todo items
+    paddingVertical: 10,  // Vertical padding to match the todo items
+    fontSize: 18,  // Font size to match the todo items
+    color: '#000',  // Text color to match the todo items
   },
 });
 
-export default ListeDeCourseScreen;
+export default TodoList;

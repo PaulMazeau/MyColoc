@@ -19,7 +19,6 @@ const TacheScreen = () => {
   const [user, setUser] = useContext(UserContext);
   const handleTabPress = (index: number) => {
     setSelectedTabIndex(index);
-    console.log(`Onglet ${index + 1} sélectionné`);
   };
   useEffect(()=>{ //setup the listener on mount, unsubscribe on dismount
     const q = query(collection(FB_DB, "Colocs/"+user.colocID+ "/Taches"), orderBy('date'))

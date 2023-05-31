@@ -11,7 +11,7 @@ const BackButton = () => {
     <TouchableHighlight style={styles.backButton} onPress={() => {
       navigation.goBack()
     }}>
-      <BackIcon color="#333" size={20} />
+      <BackIcon color="#333" size={28} />
     </TouchableHighlight>
   </View>
 }

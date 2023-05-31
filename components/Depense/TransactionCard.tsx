@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
 import RemboursementBS from './RemboursementBS';
-
-const TransactionCard = () => {
+//props.transac est la transac a render
+const TransactionCard = (props) => {
   const test = false; // Variable pour savoir si c le g a rembourse ou pas 
 
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
@@ -36,13 +36,13 @@ const handleDismissPress = () => {
       return (
         <View style={styles.textContainer}>
           <View style={styles.leftContainer}>
-            <Text style={styles.title}>Prout</Text>
+            <Text style={styles.title}>{props.transac.desc}</Text>
             <View style={styles.payeeContainer}>
               <Text style={styles.subtitle}>Payé par Paul</Text>
             </View>
           </View>
           <View style={styles.rightContainer}>
-            <Text style={styles.title}>20€</Text>
+            <Text style={styles.title}>{props.transac.amount.toFixed(2) + '€'}</Text>
           </View>
           <RemboursementBS ref={bottomSheetModalRef} onDismiss={handleDismissPress} />
         </View>

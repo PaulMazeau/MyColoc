@@ -16,7 +16,7 @@ export default function Equilibrage() {
         <View>
             <GraphiqueEquilibrage data={data}/>
             <Text style={styles.subTitle}>Comment équilibrer ?</Text>
-            <TransactionCard />
+            {/* <TransactionCard /> */}
         </View>
     )
 }
