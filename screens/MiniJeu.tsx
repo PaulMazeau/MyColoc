@@ -34,7 +34,7 @@ export default function MiniJeu() {
       resizeMode="cover"
       style={styles.imageBackground}
     >
-      <SafeAreaView style={styles.global} >
+      <SafeAreaView style={styles.global} edges={['top']} >
         <StatusBar style="light" />
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.logo}>
