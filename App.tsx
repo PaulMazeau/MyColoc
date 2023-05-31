@@ -43,6 +43,7 @@ import Answer from './screens/MiniJeu/Answer';
 import Classement from './screens/MiniJeu/Classement';
 import UserSettingsScreen from './screens/UserSettings';
 import ColocationSettingsScreen from './screens/ColocationSettings';
+import AvatarSettings from './screens/AvatarSettings';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -52,6 +53,7 @@ export type RootStackParams = {
   CourseStack: NavigatorScreenParams<CourseStackParams>; 
   Tache: undefined; 
   Depense: undefined;
+  DepenseStack: undefined;
   ListeDeCourse: {
     index: string;
   };
@@ -99,9 +101,14 @@ export type NoColocStackParams = {
   NoColoc: undefined,
 };
 
+export type DepenseStackParams = {
+  Depense: undefined,
+};
+
 export type SettingsStackParams = {
   UserSettings: undefined,
   ColocationSettings: undefined,
+  AvatarSettings: undefined,
 };
 
 export type MiniJeuStackParams = {
@@ -129,6 +136,7 @@ const AccueilStack = createNativeStackNavigator<AccueilStackParams>();
 const NoColocStack = createNativeStackNavigator<NoColocStackParams>();
 const MiniJeuStack = createNativeStackNavigator<MiniJeuStackParams>();
 const SettingsStack = createNativeStackNavigator<SettingsStackParams>();
+const DepenseStack = createNativeStackNavigator<DepenseStackParams>();
 
 const RootNavigator = () => {
   return (
@@ -155,7 +163,7 @@ const MainNavigationScreenStack = () => {
           <MainNavigation.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: ({color}) => <AccueilIcon color={color}/>}} />
           <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} options={{tabBarIcon: ({color}) => <CourseIcon color={color} />}} />
           <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: ({color}) => <TacheIcon color={color} />}}/>
-          <MainNavigation.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
+          <MainNavigation.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
         </MainNavigation.Navigator>
   )
 }
@@ -166,6 +174,7 @@ const SettingsNavigator = () => {
     <SettingsStack.Navigator screenOptions={{ headerShown: false }}>
       <SettingsStack.Screen name="UserSettings" component={UserSettingsScreen} />
       <SettingsStack.Screen name="ColocationSettings" component={ColocationSettingsScreen} />
+      <SettingsStack.Screen name="AvatarSettings" component={AvatarSettings} />
     </SettingsStack.Navigator>
   );
 }
@@ -190,6 +199,16 @@ const AccueilScreenStack = () => {
     </AccueilStack.Navigator>
   );
 }
+
+// Pile de navigation pour l'écran Depense  
+const DepenseScreenStack = () => {
+  return (
+    <DepenseStack.Navigator screenOptions={{headerShown: false}}>
+      <DepenseStack.Screen name="Depense" component={DepenseScreen} />
+    </DepenseStack.Navigator>
+  );
+}
+
 
 // Pile de navigation pour l'écran MiniJeu
 const MiniJeuScreenStack = () => {

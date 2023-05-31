@@ -8,6 +8,10 @@ import SettingsCard from '../components/Settings/SettingsCard';
 import * as Clipboard from 'expo-clipboard';
 import { FB_AUTH } from '../firebaseconfig';
 import { UserContext } from '../UserContext';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { SettingsStackParams } from '../App';
+
+type Props = NativeStackScreenProps<SettingsStackParams, 'ColocationSettings'>;
 
 // Définition du type de données
 interface Colocataire {
@@ -20,11 +24,6 @@ const data: Colocataire[] = [
     { id: '1', name: 'Photo du coloc' },
     // Ajoutez plus de colocataires ici
 ];
-
-// Composant d'item
-interface ItemProps {
-    name: string;
-  }
   
   const Item = ({ name }) => (
     <View style={styles.item}>
@@ -32,7 +31,7 @@ interface ItemProps {
     </View>
   );
 
-const ColocationSettingsScreen: React.FC = () => {
+const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
     const renderItem = ({ item }: { item: Colocataire }) => <Item name={item.name} />;
     const [user, setUser] = useContext(UserContext)
   return (
@@ -47,8 +46,8 @@ const ColocationSettingsScreen: React.FC = () => {
         style={styles.container}
       />
       
-      <SettingsCard title="Nom et mot de passe" onPress={() => console.log('Clicked!')} />
-      <SettingsCard title="Avatar" onPress={() => console.log('Clicked!')} />
+      <SettingsCard title="Nom et mot de passe" onPress={() => navigation.navigate('UserSettings')} />
+      <SettingsCard title="Avatar" onPress={() => navigation.navigate('AvatarSettings')} />
       <SettingsCard title="Code de la colocation" subtitle="3000" onPress={async () => { await Clipboard.setStringAsync("3000"); Alert.alert('Succès', 'Le texte a été copié'); }} />
       <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
 
