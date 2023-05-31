@@ -25,10 +25,10 @@ import { NavBarStyle } from './constants/NavBar';
 import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
 
 //Import du contexte
-import { UserContext, CourseContext} from "./UserContext";
+import { UserContext, CourseContext, DepenseContext} from "./UserContext";
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FB_AUTH, FB_DB } from './firebaseconfig';
-import { doc, getDoc } from 'firebase/firestore';
+import { QuerySnapshot, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import NoColoc from './screens/NoColoc';
 import AuPlusProcheWait from './screens/MiniJeu/AuPlusProcheWait';
 import Basket from './screens/MiniJeu/Basket';
@@ -202,10 +202,13 @@ const AccueilScreenStack = () => {
 
 // Pile de navigation pour l'écran Depense  
 const DepenseScreenStack = () => {
+  const [transac, setTransac] = useState([])
   return (
+    <DepenseContext.Provider value={[transac, setTransac]}>
     <DepenseStack.Navigator screenOptions={{headerShown: false}}>
       <DepenseStack.Screen name="Depense" component={DepenseScreen} />
     </DepenseStack.Navigator>
+    </DepenseContext.Provider>
   );
 }
 
@@ -268,22 +271,34 @@ export default function App() {
   const isLoggedIn = false; 
   const [userInfo, setUserInfo] = useState(null)
   const [uid, setUid] = useState(null)
-  
+  const [snapshot, setSnapshot] = useState(null);
     useEffect(()=>{
       const subscriber = onAuthStateChanged(FB_AUTH, (user) => user ? setUid(user.uid) : setUid(null))
       return subscriber
     }, [])
 
-    useEffect(() => {
+    useEffect(() => { //each time the uid updates, listen to the correct doc
       if(uid){
-            const getData = async () => {
-            getDoc(doc(FB_DB, 'Users', FB_AUTH.currentUser.uid)).then((data) => setUserInfo(data.data())).catch((error) => alert(error.message))
-            }
-            getData();
-            console.log(userInfo);
+            const subscriber2 = onSnapshot(doc(FB_DB, 'Users', FB_AUTH.currentUser.uid), (QuerySnapshot) => {
+              setSnapshot(QuerySnapshot)
+            })
+            return () => {subscriber2()}
+          }else{
+            setSnapshot(null)
           }
       }
     , [uid])
+
+    useEffect(() =>{ //each time the doc updates, update the context
+      if(snapshot){
+        setUserInfo(snapshot.data())
+      }else{
+        setUserInfo(null)
+      }
+    }, [snapshot])
+
+    //each time the user doc updates, update the context
+    
   // Rendu du contenu en fonction de si l'utilisateur est connecté ou non
   const renderContent = () => {
     if (userInfo) { //Si l'user est connecté
