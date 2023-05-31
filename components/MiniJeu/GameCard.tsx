@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "80%",
     height:"100%",
-    marginHorizontal:'10%'
+    marginHorizontal:'10%',
+    overflow:'hidden'
   },
   container: {
     width: '100%',
