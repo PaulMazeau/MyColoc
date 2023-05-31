@@ -6,7 +6,7 @@ interface ButtonProps {
     colorBackGround: string;
     colorText: string;
     onPress: () => void;
-    height: number,
+    height?: number,
   }
 
 const Button = ({ text, colorBackGround, colorText, onPress, height }: ButtonProps) => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, SafeAreaView, FlatList, Alert } from 'react-native'
 import ScreenTitle from '../components/Reusable/ScreenTitle'
 import { main } from '../constants/Colors';
@@ -6,6 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 import Button from '../components/Reusable/ButtonColor';
 import SettingsCard from '../components/Settings/SettingsCard';
 import * as Clipboard from 'expo-clipboard';
+import { FB_AUTH } from '../firebaseconfig';
+import { UserContext } from '../UserContext';
 
 // Définition du type de données
 interface Colocataire {
@@ -32,6 +34,7 @@ interface ItemProps {
 
 const ColocationSettingsScreen: React.FC = () => {
     const renderItem = ({ item }: { item: Colocataire }) => <Item name={item.name} />;
+    const [user, setUser] = useContext(UserContext)
   return (
     <SafeAreaView style={styles.container}>
     <StatusBar style="dark"/>
@@ -49,7 +52,7 @@ const ColocationSettingsScreen: React.FC = () => {
       <SettingsCard title="Code de la colocation" subtitle="3000" onPress={async () => { await Clipboard.setStringAsync("3000"); Alert.alert('Succès', 'Le texte a été copié'); }} />
       <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
 
-      <Button text={'Déconnexion'} colorBackGround={'red'} colorText={'white'} onPress={() => console.log('hehe')} />
+      <Button text={'Déconnexion'} colorBackGround={'red'} colorText={'white'} onPress={() => {FB_AUTH.signOut(); setUser(null)}} />
       <Button text={'Quitter la colocation'} colorBackGround={'red'} colorText={'white'} onPress={() => console.log('prout')} />
     </View>
     </SafeAreaView>
@@ -78,3 +81,7 @@ const styles = StyleSheet.create({
 });
 
 export default  ColocationSettingsScreen
+
+function setUser(arg0: null) {
+  throw new Error('Function not implemented.');
+}

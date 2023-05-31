@@ -16,8 +16,8 @@ const GraphiqueEquilibrage = ({data}) => {
   //réglage de l'animation
   useEffect(() => {
     animation.value = withTiming(barWidth, {
-      duration: 2000,
-      easing: Easing.bounce,
+      duration: 1000,
+      easing: Easing.out(Easing.exp),
     });
   }, []);
 

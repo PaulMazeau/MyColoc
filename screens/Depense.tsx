@@ -18,7 +18,6 @@ export default function DepenseScreen() {
   const [snapshot, setSnapshot] = useState(null);
   const handleTabPress = (index: number) => {
     setSelectedTabIndex(index);
-    console.log(`Onglet ${index + 1} sélectionné`);
   };
   useEffect(()=>{ //setup the listener on mount, unsubscribe on dismount
     const q = query(collection(FB_DB, "Colocs/"+user.colocID+ "/Transactions"), orderBy('timestamp'))

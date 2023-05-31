@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import GraphiqueEquilibrage from './GraphiqueEquilibrage';
-import TransactionCard from './TransactionCard';
 
 
 const data = [
