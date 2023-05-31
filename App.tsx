@@ -44,6 +44,7 @@ import Classement from './screens/MiniJeu/Classement';
 import UserSettingsScreen from './screens/UserSettings';
 import ColocationSettingsScreen from './screens/ColocationSettings';
 import AvatarSettings from './screens/AvatarSettings';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -164,7 +165,6 @@ const MainNavigationScreenStack = () => {
         colocSetter.push(doc.data())
       })
       setColoc(colocSetter)
-      console.log(colocSetter)
     }else{
       setColoc([])
     }
@@ -179,6 +179,7 @@ const MainNavigationScreenStack = () => {
             tabBarActiveTintColor: "#172ACE",
             tabBarInactiveTintColor: "grey",
             tabBarLabel: () => null,
+            tabBarHideOnKeyboard: true
           }}
         >
           <MainNavigation.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: ({color}) => <AccueilIcon color={color}/>}} />
@@ -335,6 +336,7 @@ export default function App() {
   
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <UserContext.Provider value={[userInfo, setUserInfo]}>
       <BottomSheetModalProvider>
         <NavigationContainer>
@@ -342,5 +344,6 @@ export default function App() {
         </NavigationContainer>
       </BottomSheetModalProvider>
     </UserContext.Provider>
+    </GestureHandlerRootView>
   );
 }
