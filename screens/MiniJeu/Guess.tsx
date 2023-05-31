@@ -9,6 +9,7 @@ import { RootStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
+import ButtonColor from './../../components/Reusable/ButtonColor'
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -43,12 +44,20 @@ const Guess = () => {
                 <Text style={styles.text}>Quelle est la distance Terre-Lune</Text>
             </View>
             <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Ecris ta réponse ici"
-              placeholderTextColor={main.TextColor}
-              textAlignVertical="top"
-            />
+                <ImageBackground 
+                source={LogoBlackWhite} 
+                resizeMode='contain'
+                style={styles.LogoBlackWhite}>
+                <TextInput
+                    style={styles.textInput}
+                    placeholder="Ecris ta réponse ici"
+                    placeholderTextColor={main.TextColor}
+                    textAlignVertical="top"
+                />
+                </ImageBackground>
+            </View>
+            <View style={styles.Button}>
+            <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'}/>
             </View>
         </View>
         </SafeAreaView>
@@ -78,19 +87,27 @@ const styles = StyleSheet.create({
     },
 
     inputContainer:{
-        width:'100%',
-        paddingLeft:20,
-        paddingRight:20,
-        marginTop:10
+        width:'90%',
+        height:'25%',
+        backgroundColor:main.BgColor,
+        borderRadius:10,
     },
 
-    textInput:{
+    blackWhiteBg:{
         backgroundColor:main.BgColor,
         borderRadius:10,
         marginTop:10,
         height:'50%',
         padding:10,
         alignItems:'flex-start',
+    },
+
+    textInput:{
+        backgroundColor:'rgba(237, 240, 250, 0.85)',
+        borderRadius:10,
+        padding:10,
+        alignItems:'flex-start',
+        flex:1
     },
 
     text: {
@@ -111,12 +128,18 @@ const styles = StyleSheet.create({
     },
 
     LogoBlackWhite:{
-        height:'20%'
+        flex:1,
+        backgroundColor:'green'
     },
 
     Image:{
         width:350,
         height:300,
+    },
+
+    Button:{
+        width:'90%',
+        marginTop:20
     },
 
     Lign:{
