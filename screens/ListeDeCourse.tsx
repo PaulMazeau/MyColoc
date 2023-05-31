@@ -10,7 +10,9 @@ import BackIcon from '../components/Reusable/BackButton';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
-import { CourseContext } from '../UserContext';
+import { CourseContext, UserContext } from '../UserContext';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { FB_APP, FB_DB } from '../firebaseconfig';
 
 // Définition du type des propriétés pour le composant ListeDeCourseScreen
 type Props = NativeStackScreenProps<RootStackParams, 'ListeDeCourse'>;
@@ -32,7 +34,9 @@ const TodoList = ({route, navigation}: Props) => {
   const [todos, setTodos] = useState(initialTodos);
   const [input, setInput] = useState('');
   const [courses, setCourses] = useContext(CourseContext);
+  const [user, setUser] = useContext(UserContext)
   const course = courses[route.params.index].data();
+  const courseId = courses[route.params.index].id
   const toggleTodo = (id: string) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -47,6 +51,13 @@ const TodoList = ({route, navigation}: Props) => {
     }
   };
 
+  const handleAddInput = async () => {
+    if(input.length != 0){
+      await updateDoc(doc(FB_DB, "Colocs/"+user.colocID+"/Courses", courseId), {divers: arrayUnion({item: input, selected: false})}).then(()=>{
+        setInput('')
+      }).catch((error)=>{alert(error.message)})
+    }
+  }
   return (
     <View style={styles.body}>
       <Header/>
@@ -59,14 +70,14 @@ const TodoList = ({route, navigation}: Props) => {
         <KeyboardAwareFlatList
           data={course.divers}
           keyExtractor={item => item.item}
-          scrollEnabled={isScrollEnabled} 
+          scrollEnabled={true} 
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => toggleTodo(item.id)}>
-              <View style={[styles.item, !item.selected && styles.completedItem]}>
-                <View style={[styles.checkbox, !item.selected && styles.completedCheckbox]}>
+              <View style={[styles.item, item.selected && styles.completedItem]}>
+                <View style={[styles.checkbox, item.selected && styles.completedCheckbox]}>
                   <Valider color="white" width={14} height={14}/>
                 </View>
-                <Text style={[styles.itemText, !item.selected && styles.completedText]}>{item.item}</Text>
+                <Text style={[styles.itemText, item.selected && styles.completedText]}>{item.item}</Text>
               </View>
             </TouchableOpacity>
           )}
@@ -76,7 +87,7 @@ const TodoList = ({route, navigation}: Props) => {
               style={styles.input}
               value={input}
               onChangeText={setInput}
-              onSubmitEditing={addTodo}
+              onSubmitEditing={handleAddInput}
               placeholder="Ajouter un nouvel élément..."
               returnKeyType="done"
               blurOnSubmit={false}
