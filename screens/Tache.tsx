@@ -8,7 +8,6 @@ import GlobalTaches from '../components/Tache/GlobalTaches';
 import { collection, query, where, onSnapshot, orderBy, QuerySnapshot, Query } from "firebase/firestore";
 import { UserContext } from '../UserContext';
 import { FB_DB } from '../firebaseconfig';
-import { useFocusEffect } from '@react-navigation/native';
 
 const TacheScreen = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);

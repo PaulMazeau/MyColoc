@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import TacheCard from './TacheCard'
-import AddTacheBS from '../Depense/AddTacheBS'
+import AddTacheBS from './AddTacheBS'
 //props.task = list all task
 export default function GlobalTaches(props) {
     const renderTask = () => {

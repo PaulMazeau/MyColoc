@@ -8,6 +8,7 @@ import ListeTransaction from '../components/Depense/ListeTransaction';
 import { DocumentData, QuerySnapshot, collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { FB_DB } from '../firebaseconfig';
 import { UserContext } from '../UserContext';
+import AddDepenseBS from '../components/Depense/AddDepenseBS';
 
 
 export default function DepenseScreen() {
@@ -76,6 +77,7 @@ export default function DepenseScreen() {
       ) : (
         <ListeTransaction transacs={transac}/>
       )}
+    <AddDepenseBS />
     </View>
   );
 }
