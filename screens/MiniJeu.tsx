@@ -1,18 +1,18 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView} from 'react-native';
 import SalonCard from '../components/MiniJeu/SalonCard';
 import ClassementCard from '../components/MiniJeu/ClassementCard';
-import CarouselGame from '../components/MiniJeu/CarouselGameCard';
 import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import Carrousel from '../components/MiniJeu/Carousel';
 
 const Space_Background=require('../assets/images/Space_Background.png');
 const Logo =require('../assets/images/Logo_Minijeu.png');
 
 
 const windowWidth = Dimensions.get('window').width;
+const width = Dimensions.get('window').width;
 
 const userData =[
   {ScoreTotal:1800, ScoreFoot:1500, ScoreBasket:1300}
@@ -40,7 +40,7 @@ export default function MiniJeu() {
           <View style={styles.logo}>
             <Image source={Logo} />
           </View>
-          <CarouselGame gameData={gameData}/>
+          <Carrousel />
           <Text style={styles.text}>Salons ouverts</Text>
           <SalonCard />
           <Text style={styles.text}>Classement</Text>

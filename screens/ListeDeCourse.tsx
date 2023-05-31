@@ -81,7 +81,7 @@ const TodoList = ({route, navigation}: Props) => {
               </View>
             </TouchableOpacity>
           )}
-          //ItemSeparatorComponent={() => <View style={styles.separator} />} -> j'hésite
+          
           ListFooterComponent={
             <TextInput
               style={styles.input}
@@ -147,18 +147,13 @@ const styles = StyleSheet.create({
     color: "#8D8D8D",
     opacity: 0.8,
   },
-  separator: {
-    height: 1,
-    backgroundColor: '#ccc',
-    marginLeft: "12%",
-  },
   input: {
     height: 40,
-    backgroundColor: '#fff',  // Background color to match the todo items
-    paddingHorizontal: 15,  // Horizontal padding to match the todo items
-    paddingVertical: 10,  // Vertical padding to match the todo items
-    fontSize: 18,  // Font size to match the todo items
-    color: '#000',  // Text color to match the todo items
+    backgroundColor: '#fff',  
+    paddingHorizontal: 15,  
+    paddingVertical: 10,  
+    fontSize: 18,  
+    color: '#000',
   },
 });
 
