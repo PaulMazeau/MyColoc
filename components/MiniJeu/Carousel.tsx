@@ -6,6 +6,7 @@ import { MiniJeuColor } from "../../constants/Colors";
 import GameCard from "./GameCard";
 
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 type GameCardDataType = {
   title: string;
@@ -29,19 +30,22 @@ function Carrousel({ gameCardData }: CarrouselProps) {
   const baseOptions = isVertical
     ? ({
         vertical: true,
-        width: width * 0.86,
-        height: width * 0.6,
+        width: width ,
+        height: width,
       } as const)
     : ({
         vertical: false,
-        width: width * 0.8,
+        width: width ,
         height: width * 0.6,
       } as const);
 
   return (
     <View
       style={{
+        width:width,
         alignItems: "center",
+        justifyContent:"center",
+        backgroundColor:'green'
       }}
     >
       <Carousel
@@ -57,7 +61,7 @@ function Carrousel({ gameCardData }: CarrouselProps) {
         mode="parallax"
         modeConfig={{
           parallaxScrollingScale: 0.9,
-          parallaxScrollingOffset: 50,
+          parallaxScrollingOffset: 45,
         }}
         data={gameCardData}
         renderItem={({item}: { item: GameCardDataType }) => <GameCard 
