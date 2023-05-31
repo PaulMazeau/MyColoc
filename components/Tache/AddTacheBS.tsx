@@ -6,35 +6,43 @@ import AddButton from '../../assets/icons/AddButton.svg';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import * as Haptics from 'expo-haptics';
 import { ColocContext } from '../../UserContext';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Recurrence = [
-  { label: 'Aucune', value: '1' },
-  { label: '1 jour', value: '2' },
-  { label: '2 jours', value: '3' },
-  { label: '3 jours', value: '4' },
-  { label: '1 semaine', value: '5' },
-  { label: '2 semaines', value: '6' },
-  { label: '1 mois', value: '7' },
-  { label: '2 mois', value: '8' },
-];
 
-const Notification = [
-  { off: 'Oui', input: '2' },
-  { off: 'Non', input: '1' },
-];
 
-const Rappel = [
-  { rappel: 'Aucun', id: '1' },
-  { rappel: '1 heures', id: '2' },
-  { rappel: '2 heures', id: '3' },
-  { rappel: '1 jour', id: '4' },
-  { rappel: '1 semaine', id: '5' },
-];
+
+
 
 const AddTacheBS = () => {
+  const [open, setOpen] = useState(false);
+  const [payeur, setPayeur] = useState(null);
+  const [recurrence, setReccurence] = useState([
+    { label: 'Aucune', value: '1' },
+    { label: '1 jour', value: '2' },
+    { label: '2 jours', value: '3' },
+    { label: '3 jours', value: '4' },
+    { label: '1 semaine', value: '5' },
+    { label: '2 semaines', value: '6' },
+    { label: '1 mois', value: '7' },
+    { label: '2 mois', value: '8' },
+  ]);
+  
+  const [rappel, setRappel] = useState([
+    { label: 'Aucun', value: '1' },
+    { label: '1 heures', value: '2' },
+    { label: '2 heures', value: '3' },
+    { label: '1 jour', value: '4' },
+    { label: '1 semaine', value: '5' },
+  ]);
+  
+  const [notification, setNotification] = useState([
+    { label: 'Oui', value: '2' },
+    { label: 'Non', value: '1' },
+  ]);
+
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [title, setTitle] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -108,18 +116,45 @@ const AddTacheBS = () => {
 
             <View style={styles.inputContainer}>
               <Text style={styles.subTitle}>Récurrence</Text>
-              <View></View>
+              <View>
+              <DropDownPicker
+                      open={open}
+                      value={payeur}
+                      items={recurrence}
+                      setOpen={setOpen}
+                      setValue={setPayeur}
+                      setItems={setReccurence}
+                    />
+              </View>
             </View>
 
             <View style={styles.inputContainer}>
               <View style={styles.groupe}>
                 <View>
                   <Text style={styles.subTitle}>Notification</Text>
-                  <View></View>
+                  <View style={styles.dropdownRappel}>
+                  <DropDownPicker
+                      open={open}
+                      value={payeur}
+                      items={notification}
+                      setOpen={setOpen}
+                      setValue={setPayeur}
+                      setItems={setNotification}
+                    />
+                  </View>
                 </View>
                 <View>
                   <Text style={styles.subTitle}>Rappel</Text>
-                  <View style={styles.dropdownRappel}></View>
+                  <View style={styles.dropdownRappel}>
+                  <DropDownPicker
+                      open={open}
+                      value={payeur}
+                      items={rappel}
+                      setOpen={setOpen}
+                      setValue={setPayeur}
+                      setItems={setRappel}
+                    />
+                  </View>
                 </View>
               </View>
             </View>
@@ -133,11 +168,6 @@ const AddTacheBS = () => {
                   contentContainerStyle={styles.participantContainer}
                   nestedScrollEnabled={true}
                 >
-                  {/* <ParticipantCard />
-                  <ParticipantCard />
-                  <ParticipantCard />
-                  <ParticipantCard />
-                  <ParticipantCard /> */}
                   {renderParticipant()}
                 </ScrollView>
               </View>
