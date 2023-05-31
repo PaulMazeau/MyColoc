@@ -6,6 +6,7 @@ import { MiniJeuColor } from "../../constants/Colors";
 import GameCard from "./GameCard";
 
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 type GameCardDataType = {
   title: string;
@@ -43,7 +44,8 @@ function Carrousel({ gameCardData }: CarrouselProps) {
       style={{
         width:width,
         alignItems: "center",
-        justifyContent:"center"
+        justifyContent:"center",
+        backgroundColor:'green'
       }}
     >
       <Carousel
