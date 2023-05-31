@@ -6,31 +6,27 @@ import AddButton from '../../assets/icons/AddButton.svg';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import * as Haptics from 'expo-haptics';
 import { ColocContext } from '../../UserContext';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Recurrence = [
-    { label: 'Tout le monde', value: '1' },
-    { label: 'Colocataire 1', value: '2' },
-    { label: 'Colocataire 2', value: '3' },
-    { label: 'Colocataire 3', value: '4' },
-    { label: 'Colocataire 4', value: '5' },
-    { label: 'Colocataire 5', value: '6' },
-  ];
-
-
-
 const AddDepenseBS = () => {
+  const [open, setOpen] = useState(false);
+  const [payeur, setPayeur] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Apple', value: 'apple'},
+    {label: 'Banana', value: 'banana'}
+  ]);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [isOpen, setIsOpen] = useState(false);
-
   const [title, onChangeTitre] = React.useState(null);
-const [value, setValue] = useState(null);
-const [day, Day] = React.useState(null);
-const [month, Month] = React.useState(null);
-const [year, Year] = React.useState(null);
-const [coloc, setColoc] = useContext(ColocContext)
+  const [value, setValue] = useState(null);
+  const [day, Day] = React.useState(null);
+  const [month, Month] = React.useState(null);
+  const [year, Year] = React.useState(null);
+  const [coloc, setColoc] = useContext(ColocContext)
+  
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
   };
@@ -88,8 +84,7 @@ const [coloc, setColoc] = useContext(ColocContext)
                  style={styles.input}
                  onChangeText={onChangeTitre}
                  value={title}
-                 placeholder="Entrer le titre"
-                 
+                 placeholder="Entrer le titre"  
              />
        </View>
  
@@ -106,9 +101,14 @@ const [coloc, setColoc] = useContext(ColocContext)
  
        <View style={styles.depenseTitle}>
          <Text style={styles.subTitle}>Payé par :</Text>
-             <View>
-            
-             </View>
+         <DropDownPicker
+            open={open}
+            value={payeur}
+            items={items}
+            setOpen={setOpen}
+            setValue={setPayeur}
+            setItems={setValue}
+          />
        </View>
  
  
@@ -122,12 +122,6 @@ const [coloc, setColoc] = useContext(ColocContext)
                      showsHorizontalScrollIndicator={false}
                      contentContainerStyle={{flexGrow: 1}}
                      keyboardShouldPersistTaps='handled'>
-                         {/* <ParticipantCard/>
-                         <ParticipantCard/>
-                         <ParticipantCard/>
-                         <ParticipantCard/>
-                         <ParticipantCard/>
-                         <ParticipantCard/> */}
                          {renderParticipant()}
                  </ScrollView>
              </View>
