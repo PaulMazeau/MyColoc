@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     
   linearGradient: {
     borderRadius: 10,
-    width: windowWidth * 0.75,
+    width: windowWidth ,
   },
   container: {
     width: '100%',
