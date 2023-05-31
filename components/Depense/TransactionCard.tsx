@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
 import RemboursementBS from './RemboursementBS';
+import { ColocContext } from '../../UserContext';
 //props.transac est la transac a render
 const TransactionCard = (props) => {
   const test = false; // Variable pour savoir si c le g a rembourse ou pas 
-
+  const [coloc, setColoc] = useContext(ColocContext);
+  const giver = coloc.find(u => u.uuid === props.transac.giverID)
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
 const bottomSheetModalRef = useRef(null);
 
@@ -38,7 +40,7 @@ const handleDismissPress = () => {
           <View style={styles.leftContainer}>
             <Text style={styles.title}>{props.transac.desc}</Text>
             <View style={styles.payeeContainer}>
-              <Text style={styles.subtitle}>Payé par Paul</Text>
+              <Text style={styles.subtitle}>Payé par {giver ? giver.nom : 'Un ancien membre'}</Text>
             </View>
           </View>
           <View style={styles.rightContainer}>
@@ -54,7 +56,7 @@ const handleDismissPress = () => {
     <TouchableOpacity style={{flex: 1}} onPress={handlePresentPress}>
     <View style={[styles.container, Shadows.shadow]}>
       <View style={styles.imageContainer}>
-        <Image source={require('../../assets/images/icon.png')} style={styles.image} />
+        <Image source={giver ? {uri: giver.avatarUrl} : require('../../assets/images/icon.png')} style={styles.image} />
       </View>
       {renderContent()}
     </View>

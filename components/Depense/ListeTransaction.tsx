@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View, FlatList, Animated } from 'react-native';
 import TransactionCard from './TransactionCard';
 import * as Crypto from 'expo-crypto';
+import { DepenseContext } from '../../UserContext';
 //props.transacs est la liste de toutes les transactions
-export default function ListeTransaction(props) {
+export default function ListeTransaction() {
   const animation = React.useRef(new Animated.Value(0)).current;
-
+  const [transac, setTransac] = useContext(DepenseContext)
   const fadeIn = () => {
     Animated.timing(animation, {
       toValue: 1,
@@ -30,11 +31,11 @@ export default function ListeTransaction(props) {
 
   const renderTransaction = React.useCallback(
     ({  }) => {
-      if(props.transacs){
-      if(props.transacs.length == 0){return(<Text>Pas de transac</Text>)}
+      if(transac){
+      if(transac.length == 0){return(<Text>Pas de transac</Text>)}
       else{
       return (
-        props.transacs.map((t) => {
+        transac.map((t) => {
           return(
             <Animated.View
           style={[

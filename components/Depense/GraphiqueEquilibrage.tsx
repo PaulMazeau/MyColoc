@@ -1,12 +1,26 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated';
+import { ColocContext } from '../../UserContext';
 
 const screenWidth = Dimensions.get('window').width;
 const barWidth = screenWidth * 0.40;
 
-const GraphiqueEquilibrage = ({data}) => {
-
+const GraphiqueEquilibrage = () => {
+  const [coloc, setColoc] = useContext(ColocContext);
+  //formatage des soldes pr que ça rentre dans le graph
+  const unsortedData = coloc.map((u) => {
+    var rObj = {}
+    rObj['name'] = u.nom
+    if(Math.abs(u.solde)<= 0.009){
+      rObj['value'] = 0
+    }else{
+      rObj['value'] = u.solde
+    }
+    return rObj;
+  })
+  //tri pr afficher par ordre croissant
+  const data = unsortedData.sort((d1, d2) => (d1.value<d2.value) ? 1 : (d1.value>d2.value) ? -1 : 0);
   // Utilisation de useMemo pour le calcul de maxVal
   const maxVal = useMemo(() => Math.max(...data.map((item) => Math.abs(item.value))), [data]);
 

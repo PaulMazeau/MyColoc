@@ -13,7 +13,7 @@ const data = [
 export default function Equilibrage() {
     return (
         <View>
-            <GraphiqueEquilibrage data={data}/>
+            <GraphiqueEquilibrage/>
             <Text style={styles.subTitle}>Comment équilibrer ?</Text>
             {/* <TransactionCard /> */}
         </View>
