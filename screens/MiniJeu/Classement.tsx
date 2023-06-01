@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, Touchable} from 'react-native';
 import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard';
-import ClassementCardPodium from '../../components/MiniJeu/ClassementCardPodium'
-import {MiniJeuColor} from '../../constants/Colors';
+import ClassementCardPodium from '../../components/MiniJeu/ClassementCardPodium';
+import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import BackIcon from '../../assets/icons/BackIcon'
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -25,6 +27,7 @@ const scores = [
 ];
 
 export default function MiniJeu() {
+    const navigation = useNavigation();
   return (
     <ImageBackground 
       source={Space_Background} 
@@ -37,7 +40,10 @@ export default function MiniJeu() {
             <View style={styles.logo}>
                 <Image source={Logo} />
             </View>
-            <Text style={styles.text}>Classement</Text>
+            <TouchableOpacity onPress={() => {navigation.goBack() }} style={styles.lign}>
+                <BackIcon color="white" size={28}/>
+                <Text style={styles.text}>Classement</Text>
+            </TouchableOpacity>
             <View style={styles.Classement1}>
                 <ClassementCardPodium scores={scores}/>
             </View>
@@ -56,6 +62,13 @@ const styles = StyleSheet.create({
         flex:1,
         width:'100%',
         alignItems:'center'
+    },
+
+    lign:{
+        flexDirection:'row',
+        marginLeft:70,
+        alignItems:'center',
+        marginBottom:10
     },
 
     imageBackground: {
@@ -78,10 +91,12 @@ const styles = StyleSheet.create({
     color : "white",
     fontWeight: '600',
     fontSize: 24,
-    marginLeft:40,
     marginBottom:10,
     marginTop:10,
+    marginLeft:8,
     width:windowWidth,
+    justifyContent:'center',
+    alignItems:'center'
   },
 
   container:{
