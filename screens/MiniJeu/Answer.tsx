@@ -14,7 +14,7 @@ const Podium =require('../../assets/images/Podium.png');
 const Brick =require('../../assets/images/Brick.png');
 
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Answer'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Guess'>;
 
 //Tableau de scores de la partie AuPlusProche en cours 
 const scores = [
