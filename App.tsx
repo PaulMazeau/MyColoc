@@ -64,7 +64,7 @@ export type RootStackParams = {
   Main: undefined;
   AuPlusProcheWait: undefined;
   Guess: undefined;
-  Answers: undefined;
+  Answer: undefined;
   IncognitoWait: undefined;
   Role: undefined;
   Result: undefined;
@@ -117,7 +117,7 @@ export type MiniJeuStackParams = {
   MiniJeu: undefined;
   AuPlusProcheWait: undefined;
   Guess: undefined;
-  Answers: undefined;
+  Answer: undefined;
   IncognitoWait: undefined;
   Role: undefined;
   Result: undefined;
@@ -244,7 +244,7 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="Classement" component={Classement} />
       <MiniJeuStack.Screen name="AuPlusProcheWait" component={AuPlusProcheWait} />
       <MiniJeuStack.Screen name="Guess" component={Guess} />
-      <MiniJeuStack.Screen name="Answers" component={Answer} />
+      <MiniJeuStack.Screen name="Answer" component={Answer} />
       <MiniJeuStack.Screen name="IncognitoWait" component={IncognitoWait} />
       <MiniJeuStack.Screen name="Role" component={Role} />
       <MiniJeuStack.Screen name="Result" component={Result} />
