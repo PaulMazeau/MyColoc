@@ -1,18 +1,35 @@
-import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, TouchableOpacity} from 'react-native';
 import SalonCard from '../components/MiniJeu/SalonCard';
-import ClassementCard from '../components/MiniJeu/ClassementCard';
+import ClassementCardScrollable from '../components/MiniJeu/ClassementCardScrollable';
 import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Carrousel from '../components/MiniJeu/Carousel';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { MiniJeuStackParams } from '../../App';
+import { useNavigation } from '@react-navigation/native';
 
 const Space_Background=require('../assets/images/Space_Background.png');
 const Logo =require('../assets/images/Logo_Minijeu.png');
 
 
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'>;
+
+
 const windowWidth = Dimensions.get('window').width;
-const width = Dimensions.get('window').width;
+
+//Tableau de scores de la Colloc
+const scores = [
+  { position: 1, userImage: require('../assets/images/profilIcon2.png') },
+  { position: 2, userImage: require('../assets/images/profilIcon2.png') },
+  { position: 3, userImage: require('../assets/images/profilIcon2.png') },
+  { position: 4, userImage: require('../assets/images/profilIcon2.png') },
+  { position: 5, userImage: require('../assets/images/profilIcon2.png') },
+  { position: 6, userImage: require('../assets/images/profilIcon2.png') },
+  { position: 7, userImage: require('../assets/images/profilIcon2.png') },
+  { position: 8, userImage: require('../assets/images/profilIcon2.png') },
+];
 
 const userData =[
   {ScoreTotal:1800, ScoreFoot:1500, ScoreBasket:1300}
@@ -28,6 +45,7 @@ const gameCardData = [
 
 
 export default function MiniJeu() {
+  const navigation = useNavigation<navigationProp>();
   return (
     <ImageBackground 
       source={Space_Background} 
@@ -44,7 +62,11 @@ export default function MiniJeu() {
           <Text style={styles.text}>Salons ouverts</Text>
           <SalonCard />
           <Text style={styles.text}>Classement</Text>
-          <ClassementCard/>
+          <View style={{flex:1}}>
+            <TouchableOpacity onPress={() => {navigation.navigate('Classement')}}>
+              <ClassementCardScrollable scores={scores} isScrollable={false}/>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>

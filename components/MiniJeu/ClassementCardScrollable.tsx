@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
 import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
@@ -8,95 +8,95 @@ import { MiniJeuStackParams } from '../../App';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from "react-native-gesture-handler";
 
-
 const windowWidth = Dimensions.get('window').width;
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'>;
 
-interface Score {
+type ScoreType = {
   position: number;
-  userImage: any; 
-}
+  userImage: any;
+};
 
-interface Props {
-  scores: Score[];
-}
+type ScoreBoardProps = {
+  scores: ScoreType[];
+  name?: string;
+  isScrollable: boolean;
+};
 
-const ScoreBoardScrollable = ({ scores }: Props) => {
-  //Générer une ligne de score suivi d'un separateur
-  const renderScoreLines = (scores: Score[]) => {
-    return scores.map((score, index) => (
-      <React.Fragment key={index}>
-        <ScoreLigne position={score.position} userImage={score.userImage}/>
-        {/* Permet de ne pas afficher de séparateur sur le dernier score */}
-        {index !== scores.length - 1 && <View style={styles.separator}/>}   
-      </React.Fragment>
-    ));
-  };
+const ScoreBoardScrollable = ({ scores, name, isScrollable }: ScoreBoardProps) => {
+    const renderScoreLines = (scores: ScoreType[]) => {
+        return scores.map((score, index) => (
+            <React.Fragment key={index}>
+                <ScoreLigne position={score.position} userImage={score.userImage}/>
+                {index !== scores.length - 1 && <View style={styles.separator}/>}   
+            </React.Fragment>
+        ));
+    };
 
-  const navigation = useNavigation<navigationProp>();
+    const navigation = useNavigation<navigationProp>();
 
-  return(
-    <View style={styles.global}>
-      <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
-        <ScrollView>
-          {renderScoreLines(scores)}
-        </ScrollView>
-      </LinearGradient>
-    </View>
-  );
+    const content = (
+      <>
+        {name && <Text style={styles.text}>{name}</Text>}
+        {renderScoreLines(scores)}
+      </>
+    );
+
+    return(
+        <View style={styles.global}>
+            <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
+              {isScrollable ? <ScrollView>{content}</ScrollView> : content}
+            </LinearGradient>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  global:{
-    flex:1
-  },
+    global:{
+        flex:1
+    },
 
-  backgroundGradient:{
-    borderRadius: 10,
-    width : windowWidth*0.9,
-    padding : 10,
-  },
+    backgroundGradient:{
+        borderRadius: 10,
+        width : windowWidth*0.9,
+        padding : 10,
+    },
 
-  firstRow:{
-    flexDirection:'row', 
-    justifyContent:'space-between', 
-    alignItems:'center',
-    paddingBottom:5,
-  },
+    firstRow:{
+        flexDirection:'row', 
+        justifyContent:'space-between', 
+        alignItems:'center',
+        paddingBottom:5,
+    },
 
-  secondRow:{
-    flexDirection:'row', 
-    alignItems:'center'
-  },
+    secondRow:{
+        flexDirection:'row', 
+        alignItems:'center'
+    },
 
-  text1:{
-    color : "white",
-    fontWeight: '600',
-    fontSize: 16,
-  },
+    text:{
+        color : "white",
+        fontWeight: '600',
+        fontSize: 20,
+        marginBottom:10
+    },
 
-  text2:{
-    color : MiniJeuColor.RedGradientColor1,
-    fontWeight: '600',
-    fontSize: 16,
-  },
+    ImageContainer: {
+        height: 40,
+        width: 40,
+        overflow: 'hidden',
+        borderRadius: 20,
+        marginRight: 10,
+    },
 
-  ImageContainer: {
-    height: 40,
-    width: 40,
-    overflow: 'hidden',
-    borderRadius: 20,
-    marginRight: 10,
-  },
+    separator: {
+        height : 1,
+        width : "100%",
+        backgroundColor : "#EDF0FA",
+        marginTop : 10,
+        marginBottom : 10
+      },
 
-  separator: {
-    height : 1,
-    width : "100%",
-    backgroundColor : "#EDF0FA",
-    marginTop : 10,
-    marginBottom : 10
-  },
-});
+})
 
 export default ScoreBoardScrollable;

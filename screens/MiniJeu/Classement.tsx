@@ -42,7 +42,7 @@ export default function MiniJeu() {
                 <ClassementCardPodium scores={scores}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardScrollable scores={scores}/>
+                <ClassementCardScrollable scores={scores} name={"National"} isScrollable={true}/>
             </View>
         </View>
       </SafeAreaView>
