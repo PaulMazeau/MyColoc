@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
 import AddButton from '../../assets/icons/AddButton.svg';
