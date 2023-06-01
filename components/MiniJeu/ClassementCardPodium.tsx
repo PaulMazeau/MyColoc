@@ -48,19 +48,9 @@ const ScoreBoardPodium = ({ scores }: Props) => {
             </View>
             
             <View style={styles.lign2}>
-            <View style={styles.Row}>
-                <View style={styles.ImageContainer}>
-                    <Image source={scores[0].userImage} style={styles.Image}/>
-                </View>
-                <Text style={styles.name}>Julie</Text>
-            </View>
-            <View style={styles.Row}>
-                <View style={[styles.ImageContainer, {height:80, width:80}]}>
-                    <Image source={scores[0].userImage} style={styles.Image}/>
-                </View>
-                <Text>Julie</Text>
-            </View>
-            <UserBubble name="Julie" userImage={scores[0].userImage}/>
+            <UserBubble name="Julie" userImage={scores[0].userImage} size={40}/>
+            <UserBubble name="Julie" userImage={scores[0].userImage} size={80}/>
+            <UserBubble name="Julie" userImage={scores[0].userImage} size={40}/>
             </View>
           {renderScoreLines(scores)}
         </ScrollView>

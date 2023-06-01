@@ -2,60 +2,58 @@ import React from "react";
 import { View, Text, StyleSheet, Image, ImageSourcePropType } from 'react-native';
 import { MiniJeuColor } from "../../constants/Colors";
 
-
-
 interface UserProps {
-    name?: string;
-    userImage?: ImageSourcePropType;
+  name?: string;
+  userImage?: ImageSourcePropType;
+  size?: number;
 }
 
-const UserBubble: React.FC<UserProps> = ({ name, userImage }) => {
+const UserBubble: React.FC<UserProps> = ({ name, userImage, size }) => {
+  const imageContainerStyle = {
+    height: size,
+    width: size,
+  };
 
-
-    return (
-        <View style={styles.global}>
-            <View style={styles.ImageContainer}>
-                <Image source={userImage} style={styles.Image}/>
-            </View>
-            <Text>{name}</Text>
-        </View>
-    );
+  return (
+    <View style={styles.global}>
+      <View style={[styles.ImageContainer, imageContainerStyle]}>
+        <Image source={userImage} style={styles.Image}/>
+      </View>
+      <Text>{name}</Text>
+    </View>
+  );
 };
 
-  
-
 const styles = StyleSheet.create({
-    global: {
-        flexDirection:'column', 
-        alignItems:'center',
-        justifyContent:'center',
-        paddingBottom:5,
-        marginHorizontal:20,
-    },
+  global: {
+    flexDirection:'column', 
+    alignItems:'center',
+    justifyContent:'center',
+    paddingBottom:5,
+    marginHorizontal:20,
+  },
 
-    firstColumn: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
+  firstColumn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
 
-    text1: {
-        color: "white",
-        fontWeight: '600',
-        fontSize: 16,
-    },
+  text1: {
+    color: "white",
+    fontWeight: '600',
+    fontSize: 16,
+  },
 
-    ImageContainer: {
-        height: 40,
-        width: 40,
-        overflow: 'hidden',
-        borderRadius: 50,
-    },
+  ImageContainer: {
+    overflow: 'hidden',
+    borderRadius:50
+  },
 
-    Image:{
-        height:'100%',
-        width:"100%"
-      },
+  Image: {
+    height: '100%',
+    width: '100%',
+  },
 })
 
 export default UserBubble;
