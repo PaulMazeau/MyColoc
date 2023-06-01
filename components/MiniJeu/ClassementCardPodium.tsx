@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
 
   lign2:{
     justifyContent:'center',
-    alignItems:'baseline',
+    alignItems:'flex-end',
     flexDirection:'row',
     marginBottom:10
   },
