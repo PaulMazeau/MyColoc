@@ -6,13 +6,14 @@ import ScoreLigne from './ScoreLigne';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MiniJeuStackParams } from '../../App';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from "react-native-gesture-handler";
 
 
 const windowWidth = Dimensions.get('window').width;
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'>;
 
-const ScoreBoard = () => {
+const ScoreBoardScrollable = () => {
     //Tableau de scores des user
     const scores = [
         { position: 1, userImage: require('../../assets/images/profilIcon2.png') },
@@ -41,9 +42,9 @@ const ScoreBoard = () => {
     return(
         <View style={styles.global}>
             <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
-            <TouchableOpacity onPress={() => {navigation.navigate('Classement')}}>
+                <ScrollView>
                 {renderScoreLines(scores)}
-            </TouchableOpacity>
+                </ScrollView>
             </LinearGradient>
         </View>
     );
@@ -102,4 +103,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default ScoreBoard;
+export default ScoreBoardScrollable;

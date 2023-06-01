@@ -23,11 +23,13 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#C8C9F0",
         borderRadius: 10,
-        width: '40%',
+        width: '35%',
         padding: 5,
         paddingLeft:10,
         paddingRight:10,
         flexDirection: 'row',
+        alignItems:'center',
+        justifyContent:'center'
     },
 
     text: {

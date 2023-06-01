@@ -4,12 +4,12 @@ import { main } from '../../constants/Colors';
 import Button from "../Reusable/ButtonColor";
 import ParticipantCardPurcentFilled from "../Reusable/ParticipantCardPurcentFilled";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../App';
 import { useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get('window').width;
 
-type navigationProp = NativeStackNavigationProp<RootStackParams, 'Result'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Result'>;
 
 const VoteCard = () => {
 
