@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, Image } from 'react-native';
 import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
@@ -7,6 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MiniJeuStackParams } from '../../App';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from "react-native-gesture-handler";
+import UserBubble from "./UserBubble";
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -22,7 +23,7 @@ interface Props {
   scores: Score[];
 }
 
-const ScoreBoardScrollable = ({ scores }: Props) => {
+const ScoreBoardPodium = ({ scores }: Props) => {
   //Générer une ligne de score suivi d'un separateur
   const renderScoreLines = (scores: Score[]) => {
     return scores.map((score, index) => (
@@ -40,6 +41,17 @@ const ScoreBoardScrollable = ({ scores }: Props) => {
     <View style={styles.global}>
       <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
         <ScrollView>
+            <Text style={styles.text1}>Zacoloc</Text>
+            <View style={styles.lign1}>
+             <Text style={styles.text2}>Score total :</Text>
+             <Text style={styles.text2}>450</Text>
+            </View>
+            
+            <View style={styles.lign2}>
+            <UserBubble name="Julie" userImage={scores[0].userImage} size={40}/>
+            <UserBubble name="Julie" userImage={scores[0].userImage} size={80}/>
+            <UserBubble name="Julie" userImage={scores[0].userImage} size={40}/>
+            </View>
           {renderScoreLines(scores)}
         </ScrollView>
       </LinearGradient>
@@ -58,36 +70,54 @@ const styles = StyleSheet.create({
     padding : 10,
   },
 
-  firstRow:{
-    flexDirection:'row', 
-    justifyContent:'space-between', 
+  Row:{
+    flexDirection:'column', 
     alignItems:'center',
+    justifyContent:'center',
     paddingBottom:5,
-  },
-
-  secondRow:{
-    flexDirection:'row', 
-    alignItems:'center'
+    marginHorizontal:20,
   },
 
   text1:{
     color : "white",
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: 20,
   },
 
   text2:{
-    color : MiniJeuColor.RedGradientColor1,
+    color : "white",
     fontWeight: '600',
     fontSize: 16,
+    marginRight:5
+  },
+
+  name:{
+    alignItems:'center',
+    marginHorizontal:0,
+  },
+
+  lign1:{
+    justifyContent:'flex-start',
+    flexDirection:'row'
+  },
+
+  lign2:{
+    justifyContent:'center',
+    alignItems:'flex-end',
+    flexDirection:'row',
+    marginBottom:10
   },
 
   ImageContainer: {
     height: 40,
     width: 40,
     overflow: 'hidden',
-    borderRadius: 20,
-    marginRight: 10,
+    borderRadius: 50,
+  },
+
+  Image:{
+    height:'100%',
+    width:"100%"
   },
 
   separator: {
@@ -99,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ScoreBoardScrollable;
+export default ScoreBoardPodium;
