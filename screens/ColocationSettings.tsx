@@ -39,7 +39,7 @@ const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
     <SafeAreaView style={styles.container}>
     <StatusBar style="dark"/>
     <View style={styles.body}>
-      <ScreenTitle title={'Settings'} />
+      <ScreenTitle title={'Settings'} shouldGoBack/>
       <FlatList
         data={data}
         renderItem={renderItem}

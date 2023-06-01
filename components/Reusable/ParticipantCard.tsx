@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const ParticipantCard = (props) => {
   const [participant, setstate] = useState(false);
   return (
-    <View style={styles.global}>
+    <View>
       
       <TouchableOpacity  onPress={() => setstate(!participant)}>
         <View style = {[!participant? styles.participant_invalid: styles.participant_valid]}>
@@ -22,10 +22,6 @@ const ParticipantCard = (props) => {
 };
 
 const styles = StyleSheet.create({
-  global: {
-    marginTop: 12,
-  },
-
   nom: {
     fontWeight: '600',
     fontSize: 13,
