@@ -82,13 +82,14 @@ const styles = StyleSheet.create({
     text2: {
         color: main.TextColor,
         fontWeight: '600',
-        fontSize: 25,
+        fontSize: 35,
     },
 
     word:{
         justifyContent:'center',
         alignItems:'center',
-        flex:1
+        flex:1,
+
     },
 
     imageBackground: {
