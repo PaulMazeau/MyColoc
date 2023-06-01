@@ -48,7 +48,7 @@ const TodoList = ({route, navigation}: Props) => {
   const itemIndex = divers.findIndex((obj => obj==item))
   divers[itemIndex].selected = !course.divers[itemIndex].selected
   const toUpload = divers
-  await updateDoc(doc(FB_DB, "Colocs/"+user.colocID+ "/Courses", courseId), {divers: toUpload})
+  await updateDoc(doc(FB_DB, "Colocs/"+user.colocID+ "/Courses", courseId), {divers: toUpload}).catch((error) => {alert(error.message)})
 
  }
   const isScrollEnabled = todos.length > 15; // nombre d'élément avant un scroll
