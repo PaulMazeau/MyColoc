@@ -49,7 +49,7 @@ const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
       
       <SettingsCard title="Nom et mot de passe" onPress={() => navigation.navigate('UserSettings')} />
       <SettingsCard title="Avatar" onPress={() => navigation.navigate('AvatarSettings')} />
-      <SettingsCard title="Code de la colocation" subtitle="3000" onPress={async () => { await Clipboard.setStringAsync("3000"); Alert.alert('Succès', 'Le texte a été copié'); }} />
+      <SettingsCard title="Code de la colocation" subtitle={user.colocID} onPress={async () => { await Clipboard.setStringAsync(user.colocID); Alert.alert('Succès', 'Le texte a été copié'); }} />
       <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
 
       <Button text={'Déconnexion'} colorBackGround={'red'} colorText={'white'} onPress={() => {FB_AUTH.signOut(); setUser(null)}} />
