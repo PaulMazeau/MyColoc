@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import WaitingCard from "../../components/MiniJeu/WaitingCard";
 import { main } from '../../constants/Colors';
-import { RootStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 
@@ -13,7 +13,7 @@ const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 
-type navigationProp = NativeStackNavigationProp<RootStackParams, 'Role'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Role'>;
 
 const IncognitoWait = () => {
     const navigation = useNavigation<navigationProp>();

@@ -4,7 +4,7 @@ import Button from "../../components/Reusable/ButtonColor";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
-import { RootStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 
@@ -14,8 +14,8 @@ const CardIncognito =require('../../assets/images/Card.png');
 const CardCivil =require('../../assets/images/Card.png');
 const windowHeight = Dimensions.get('window').height;
 
-type navigationProp1 = NativeStackNavigationProp<RootStackParams, 'IncognitoWait'>;
-type navigationProp2 = NativeStackNavigationProp<RootStackParams, 'MiniJeu'>;
+type navigationProp1 = NativeStackNavigationProp<MiniJeuStackParams, 'IncognitoWait'>;
+type navigationProp2 = NativeStackNavigationProp<MiniJeuStackParams, 'MiniJeu'>;
 
 const Result = () => {
     const navigation1 = useNavigation<navigationProp1>();

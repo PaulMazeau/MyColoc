@@ -4,7 +4,7 @@ import VoteCard from "../../components/MiniJeu/VoteCard";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
-import { RootStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { useNavigation } from "@react-navigation/native";
@@ -15,7 +15,7 @@ const Card =require('../../assets/images/Card.png');
 const windowHeight = Dimensions.get('window').height;
 
 
-type navigationProp = NativeStackNavigationProp<RootStackParams, 'Role'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Role'>;
 
 const Role = () => {
     const navigation = useNavigation<navigationProp>();

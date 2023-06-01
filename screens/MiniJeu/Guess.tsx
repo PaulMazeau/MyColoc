@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import QuestionNumber from "../../components/MiniJeu/QuestionNumber";
 import TimeLeft from "./TimeLeft";
-import { MiniJeuStackParams, RootStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";

@@ -4,13 +4,13 @@ import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../App';
 import { useNavigation } from '@react-navigation/native';
 
 
 const windowWidth = Dimensions.get('window').width;
 
-type navigationProp = NativeStackNavigationProp<RootStackParams, 'Classement'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'>;
 
 const ScoreBoard = () => {
     //Tableau de scores des user
