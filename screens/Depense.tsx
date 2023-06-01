@@ -21,7 +21,7 @@ export default function DepenseScreen() {
     setSelectedTabIndex(index);
   };
   useEffect(()=>{ //setup the listener on mount, unsubscribe on dismount
-    const q = query(collection(FB_DB, "Colocs/"+user.colocID+ "/Transactions"), orderBy('timestamp'))
+    const q = query(collection(FB_DB, "Colocs/"+user.colocID+ "/Transactions"), orderBy('timestamp', 'desc'))
     const subscriber = onSnapshot(q, (QuerySnapshot) => {setSnapshot(QuerySnapshot)})
     return () => {subscriber()}
   }, [])

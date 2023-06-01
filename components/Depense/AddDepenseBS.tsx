@@ -1,23 +1,27 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView, Alert} from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
 import AddButton from '../../assets/icons/AddButton.svg';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import * as Haptics from 'expo-haptics';
-import { ColocContext } from '../../UserContext';
+import { ColocContext, UserContext } from '../../UserContext';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { FB_APP, FB_DB } from '../../firebaseconfig';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const AddDepenseBS = () => {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useContext(UserContext);
   const [payeur, setPayeur] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'}
-  ]);
+  const [receivers, setReceivers] = useState([])
+  // const [items, setItems] = useState([
+  //   {label: 'Apple', value: 'apple'},
+  //   {label: 'Banana', value: 'banana'}
+  // ]);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [title, onChangeTitre] = React.useState(null);
@@ -25,8 +29,13 @@ const AddDepenseBS = () => {
   const [day, Day] = React.useState(null);
   const [month, Month] = React.useState(null);
   const [year, Year] = React.useState(null);
-  const [coloc, setColoc] = useContext(ColocContext)
-  
+  const [coloc, setColoc] = useContext(ColocContext);
+  const items = coloc.map((c)=>{ //data dans le dropdown
+    var rObj = {}
+    rObj['label'] = c.nom
+    rObj['value'] = c.uuid
+    return rObj;
+  }) 
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
   };
@@ -56,11 +65,63 @@ const AddDepenseBS = () => {
     return(
       coloc.map((c) => {
         return(
+          <TouchableOpacity key = {c.uuid} onPress={() => {selectUser(c.uuid)}}>
           <ParticipantCard nom ={c.nom} url={c.avatarUrl} key = {c.uuid}/>
+          </TouchableOpacity>
         )
       })
     )
   }
+
+  const selectUser = (id) => {
+    if(receivers.includes(id)){
+      setReceivers(receivers.filter(elt => !(elt==id)))
+    }else{
+      setReceivers([...receivers, id])
+    } 
+  }
+  const isNumber = (str) => {
+    if (str.trim() === '') {
+      return false;
+    }
+  
+    return !isNaN(str);
+  }
+  const handleAddDepense = async () => {
+    if(!isNumber(value)){
+      return Alert.alert(
+        //Titre
+        "Il manque le montant de la dépense",
+        //Texte
+        "Entre un nombre valide"
+        )
+      }
+      if(receivers.length==0){
+        return Alert.alert(
+        "Cette dépense concerne qui?",
+        "Entre les personnes concernés par cette dépense"
+        )
+      }
+      if(payeur.length==0){
+        return Alert.alert(
+        "Qui a payé ?",
+        "Entre la personne qui a payé"
+        )
+      }
+      if(title.length==0){
+        return Alert.alert(
+        "Comment s'intitule cette dépense?",
+        "Ajoute un titre à cette dépense "
+        )
+      }
+      if(title == "rbrsmnt"){
+        alert("Change de titre")
+        return
+      }
+    const allParticipant = [...receivers]
+    if(!(allParticipant.includes(payeur))){allParticipant.push(payeur)}
+    await addDoc(collection(FB_DB, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(value), giverID: payeur, receiversID: receivers, desc: title, concerned: allParticipant}).then(()=>{alert('dep add')}).catch((error)=>{alert(error.message)})
+    };
 
   return (
     <View style={{flex: 1}}>
@@ -107,7 +168,7 @@ const AddDepenseBS = () => {
             items={items}
             setOpen={setOpen}
             setValue={setPayeur}
-            setItems={setValue}
+            setItems={setPayeur}
           />
        </View>
  
@@ -127,7 +188,7 @@ const AddDepenseBS = () => {
              </View>
        </View>
  
-       <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); AddDepense() }} > 
+       <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); AddDepense(); setPayeur(null); setReceivers([]); handleAddDepense(); setValue(null); onChangeTitre(null)}} > 
        <Plus/>
        <Text style={styles.buttonText}>Ajouter la dépense</Text>
        </TouchableOpacity>
@@ -141,7 +202,7 @@ const AddDepenseBS = () => {
 const styles = StyleSheet.create({
     addButton: {
         position: 'absolute',
-        bottom: windowHeight * 0.12, // 5% de la hauteur de l'écran
+        bottom: windowHeight * 0.12, // 12% de la hauteur de l'écran
         right: windowWidth * 0.05, // 5% de la largeur de l'écran
       },
     input: {
