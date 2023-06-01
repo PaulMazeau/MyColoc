@@ -11,6 +11,7 @@ import ClassementCardScrollable from './../../components/MiniJeu/ClassementCardS
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 const Podium =require('../../assets/images/Podium.png');
+const Brick =require('../../assets/images/Brick.png');
 
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Answer'>;
@@ -47,7 +48,16 @@ const Guess = () => {
                 <ClassementCardScrollable/>
             </View>
             
-            
+            <View style={styles.brick}>
+                <ImageBackground 
+                source={Brick} 
+                resizeMode="stretch"
+                style={styles.brickImage}
+                >
+                    <Text style={styles.text4}>Prochaine question dans</Text>
+                    <Text style={styles.text5}>20:00s</Text>
+                </ImageBackground>
+            </View>
         </View>
         </SafeAreaView>
       </ImageBackground>
@@ -63,17 +73,31 @@ const styles = StyleSheet.create({
     },
 
     classement:{
-        flex:1,
+        flex:0.8,
         paddingBottom:20,
-        paddingTop:20
+        paddingTop:30,
     },
 
     podium:{
+        marginTop:20,
         width:"80%",
         height:"20%"
     },
 
     podiumImage:{
+        height:'100%',
+        width:'100%',
+        justifyContent:'space-between',
+        alignItems:'center',
+    },
+
+    brick:{
+        width:"80%",
+        height:"15%",
+        marginTop:10
+    },
+
+    brickImage:{
         height:'100%',
         width:'100%',
         justifyContent:'space-between',
@@ -112,6 +136,20 @@ const styles = StyleSheet.create({
     },
 
     text3: {
+        color: main.LightWhite,
+        fontWeight: '600',
+        fontSize: 40,
+        marginBottom:10
+    },
+
+    text4: {
+        color: main.LightWhite,
+        fontWeight: '600',
+        fontSize: 20,
+        marginTop:20
+    },
+
+    text5: {
         color: main.LightWhite,
         fontWeight: '600',
         fontSize: 40,

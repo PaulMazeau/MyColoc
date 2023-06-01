@@ -52,7 +52,7 @@ const ScoreBoardScrollable = () => {
 
 const styles = StyleSheet.create({
     global:{
-        height:"55%"
+        flex:1
     },
 
     backgroundGradient:{
