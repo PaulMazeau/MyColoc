@@ -14,7 +14,19 @@ const Podium =require('../../assets/images/Podium.png');
 const Brick =require('../../assets/images/Brick.png');
 
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Answer'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Guess'>;
+
+//Tableau de scores de la partie AuPlusProche en cours 
+const scores = [
+    { position: 1, userImage: require('../../assets/images/profilIcon2.png') },
+    { position: 2, userImage: require('../../assets/images/profilIcon2.png') },
+    { position: 3, userImage: require('../../assets/images/profilIcon2.png') },
+    { position: 4, userImage: require('../../assets/images/profilIcon2.png') },
+    { position: 5, userImage: require('../../assets/images/profilIcon2.png') },
+    { position: 6, userImage: require('../../assets/images/profilIcon2.png') },
+    { position: 7, userImage: require('../../assets/images/profilIcon2.png') },
+    { position: 8, userImage: require('../../assets/images/profilIcon2.png') },
+];
 
 const Guess = () => {
     const navigation = useNavigation<navigationProp>();
@@ -45,7 +57,7 @@ const Guess = () => {
             </View>
 
             <View style={styles.classement}>
-                <ClassementCardScrollable/>
+                <ClassementCardScrollable scores={scores}/>
             </View>
             
             <View style={styles.brick}>

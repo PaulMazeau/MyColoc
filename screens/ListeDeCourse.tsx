@@ -42,14 +42,16 @@ const TodoList = ({route, navigation}: Props) => {
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
-  const isScrollEnabled = todos.length > 15; // nombre d'élément avant un scroll
 
-  const addTodo = () => {
-    if (input.length > 0) {
-      setTodos([...todos, { id: Math.random().toString(36).substring(7), title: input }]);
-      setInput('');
-    }
-  };
+ const handleCocher = async (item) => {
+  const divers = [...course.divers]
+  const itemIndex = divers.findIndex((obj => obj==item))
+  divers[itemIndex].selected = !course.divers[itemIndex].selected
+  const toUpload = divers
+  await updateDoc(doc(FB_DB, "Colocs/"+user.colocID+ "/Courses", courseId), {divers: toUpload}).catch((error) => {alert(error.message)})
+
+ }
+  const isScrollEnabled = todos.length > 15; // nombre d'élément avant un scroll
 
   const handleAddInput = async () => {
     if(input.length != 0){
@@ -72,7 +74,7 @@ const TodoList = ({route, navigation}: Props) => {
           keyExtractor={item => item.item}
           scrollEnabled={true} 
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => toggleTodo(item.id)}>
+            <TouchableOpacity onPress={() => handleCocher(item)}>
               <View style={[styles.item, item.selected && styles.completedItem]}>
                 <View style={[styles.checkbox, item.selected && styles.completedCheckbox]}>
                   <Valider color="white" width={14} height={14}/>
