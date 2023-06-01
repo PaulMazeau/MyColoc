@@ -1,12 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
 import Score from './Score';
 import { MiniJeuColor } from "../../constants/Colors";
 
 const MedailleOr = require('../../assets/images/MedailleOr.png');
 const MedailleArgent = require('../../assets/images/MedailleArgent.png');
 const MedailleBronze = require('../../assets/images/MedailleBronze.png');
-const MedailleBlanche = require('../../assets/images/MedailleBlanche.png');
 
 interface ScoreLigneProps {
     position?: number;
