@@ -6,6 +6,7 @@ import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
+import ClassementCardScrollable from './../../components/MiniJeu/ClassementCardScrollable'
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -28,6 +29,8 @@ const Guess = () => {
             <View style={styles.Logo}>
                 <Image source={Logo} />
             </View>
+
+
             <View style={styles.podium}>
                 <ImageBackground 
                 source={Podium} 
@@ -39,6 +42,11 @@ const Guess = () => {
                     <Text style={styles.text3}>300 000 km</Text>
                 </ImageBackground>
             </View>
+
+            <View style={styles.classement}>
+                <ClassementCardScrollable/>
+            </View>
+            
             
         </View>
         </SafeAreaView>
@@ -54,8 +62,7 @@ const styles = StyleSheet.create({
 
     },
 
-    container:{
-        justifyContent:'space-between',
+    classement:{
         flex:1,
         paddingBottom:20,
         paddingTop:20
