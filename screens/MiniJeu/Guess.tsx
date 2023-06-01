@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import QuestionNumber from "../../components/MiniJeu/QuestionNumber";
 import TimeLeft from "./TimeLeft";
-import { RootStackParams } from '../../App';
+import { MiniJeuStackParams, RootStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
@@ -17,10 +17,10 @@ const LogoBlackWhite =require('../../assets/images/Logo_Minijeu_BlackWhite.png')
 const Visual =require('../../assets/images/ImageDemo.png');
 
 
-//type navigationProp = NativeStackNavigationProp<RootStackParams, 'Role'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Answer'>;
 
 const Guess = () => {
-    //const navigation = useNavigation<navigationProp>();
+    const navigation = useNavigation<navigationProp>();
     return (
         <ImageBackground 
         source={Space_Background} 
@@ -50,14 +50,14 @@ const Guess = () => {
                 style={styles.LogoBlackWhite}>
                 <TextInput
                     style={styles.textInput}
-                    placeholder="Ecris ta réponse ici"
-                    placeholderTextColor={main.TextColor}
+                    placeholder="Ecris ta réponse ici..."
+                    placeholderTextColor="#B7B7B7"
                     textAlignVertical="top"
                 />
                 </ImageBackground>
             </View>
             <View style={styles.Button}>
-            <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'}/>
+            <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {navigation.navigate('Answer')}}/>
             </View>
         </View>
         </SafeAreaView>
@@ -88,9 +88,10 @@ const styles = StyleSheet.create({
 
     inputContainer:{
         width:'90%',
-        height:'25%',
+        height:'20%',
         backgroundColor:main.BgColor,
         borderRadius:10,
+        marginTop:15
     },
 
     blackWhiteBg:{
@@ -107,7 +108,9 @@ const styles = StyleSheet.create({
         borderRadius:10,
         padding:10,
         alignItems:'flex-start',
-        flex:1
+        flex:1,
+        marginLeft:8,
+        fontSize :17
     },
 
     text: {
@@ -129,7 +132,6 @@ const styles = StyleSheet.create({
 
     LogoBlackWhite:{
         flex:1,
-        backgroundColor:'green'
     },
 
     Image:{
