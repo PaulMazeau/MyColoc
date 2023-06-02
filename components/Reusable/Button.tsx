@@ -4,19 +4,22 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 interface ButtonProps {
   title: string;
   onPress: () => void;
+  backgroundColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  color?: string;
 }
 
-const CustomButton = ({ title, onPress }: ButtonProps) => {
+const CustomButton = ({ title, onPress, backgroundColor = '#172ACE', borderColor = '#000000', borderWidth = 0, color='white' }: ButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
-      <Text style={styles.buttonText}>{title}</Text>
+    <TouchableOpacity onPress={onPress} style={[styles.button, { backgroundColor, borderColor, borderWidth }]}>
+      <Text style={[styles.buttonText, {color}]}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#172ACE',
     padding: 10,
     height: 48,
     borderRadius: 10,
@@ -27,7 +30,6 @@ const styles = StyleSheet.create({
     marginTop: 50
   },
   buttonText: {
-    color: '#fff',
     fontWeight: '700',
   },
 });

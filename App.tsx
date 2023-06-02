@@ -45,6 +45,7 @@ import UserSettingsScreen from './screens/UserSettings';
 import ColocationSettingsScreen from './screens/ColocationSettings';
 import AvatarSettings from './screens/AvatarSettings';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import FirstPage from './screens/FirstPage';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -75,6 +76,7 @@ export type RootStackParams = {
   Classement: undefined;
   UserSettings: undefined,
   ColocationSettings: undefined,
+  FirstPage: undefined;
   SettingsStack: { screen: keyof SettingsStackParams },
 };
 
@@ -90,6 +92,8 @@ export type AuthStackParams = {
   Login: undefined;
   SignUp: undefined;
   NoColoc: undefined;
+  FirstPage: undefined;
+  AvatarSettings: undefined;
 };
 
 export type AccueilStackParams = {
@@ -273,9 +277,11 @@ const ListeDeCourseScreenStack = () => {
 // Pile de navigation pour l'écran AuthScreen
 const AuthScreenStack = () => {
   return (
-    <AuthStack.Navigator screenOptions={{headerShown: false}}>
+    <AuthStack.Navigator initialRouteName="FirstPage" screenOptions={{headerShown: false}}>
+      <AuthStack.Screen name="FirstPage" component={FirstPage} />
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="SignUp" component={SignUpScreen} />
+      <AuthStack.Screen name="AvatarSettings" component={AvatarSettings} />
     </AuthStack.Navigator>
   )
 }
