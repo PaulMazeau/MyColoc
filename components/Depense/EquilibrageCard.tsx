@@ -2,26 +2,26 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import React from 'react'
 import { Shadows } from '../../constants/Shadow'
 
-const EquilibrageCard = () => {
+const EquilibrageCard = ({deveur, receveur, montant}) => {
   return (
     <TouchableOpacity style={{flex: 1}} onPress={() => console.log('test')}>
     <View style={[styles.container, Shadows.shadow]}>
       <View style={styles.imageContainer}>
-        <Image source={require('../../assets/images/icon.png')} style={styles.image} />
+        <Image source={{uri : deveur.avatarUrl, cache:'force-cache'}} style={styles.image} />
       </View>
       <View style={styles.textContainer}>
           <View style={styles.leftContainer}>
-            <Text style={styles.title}>Alexandre</Text>
+            <Text style={styles.title}>{deveur.nom}</Text>
             <View style={styles.payeeContainer}>
-              <Text style={styles.subtitle}>doit remboursé</Text>
+              <Text style={styles.subtitle}>doit rembourser à {receveur.nom}</Text>
             </View>
           </View>
           <View style={styles.middleContainer}>
-            <Text style={styles.title}>10€</Text>
+            <Text style={styles.title}>{montant}</Text>
           </View>
           <View style={styles.rightContainer}>
             <View style={styles.imageContainer}>
-                 <Image source={require('../../assets/images/icon.png')} style={styles.image} />
+                 <Image source={{uri: receveur.avatarUrl, cache:'force-cache'}} style={styles.image} />
             </View>
           </View>
         </View>
