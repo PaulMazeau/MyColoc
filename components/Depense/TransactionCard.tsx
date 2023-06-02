@@ -53,28 +53,35 @@ const handleDismissPress = () => {
   };
 
   return (
+    <View style={styles.body}>
     <TouchableOpacity style={{flex: 1}} onPress={handlePresentPress}>
-    <View style={[styles.container, Shadows.shadow]}>
+    <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={giver ? {uri: giver.avatarUrl, cache:'force-cache'} : require('../../assets/images/icon.png')} style={styles.image} />
       </View>
       {renderContent()}
     </View>
     </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
+    ...Shadows.shadow,
     backgroundColor: 'white',
+    width: '90%',
+    marginHorizontal: '5%',
     borderRadius: 10,
-    padding: 15,
-    marginHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 70,
-    marginBottom: 12,
-  },
+    marginBottom: 12
+},
+container: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  padding: 15,
+  height: 60,
+  borderRadius: 10,
+},
   imageContainer: {
     height: 40,
     width: 40,
