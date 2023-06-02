@@ -77,8 +77,8 @@ const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
         style={styles.container}
       />
       
-      <SettingsCard title="Nom et mot de passe" onPress={() => navigation.navigate('UserSettings')} />
-      <SettingsCard title="Avatar" onPress={() => navigation.navigate('AvatarSettings')} />
+
+      <SettingsCard title="Avatar" onPress={() => navigation.navigate('AvatarSettings')} avatar={{uri: user.avatarUrl, cache:'force-cache'}} />
       <SettingsCard title="Code de la colocation" subtitle={user.colocID} onPress={async () => { await Clipboard.setStringAsync(user.colocID); Alert.alert('Succès', 'Le texte a été copié'); }} />
       <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
 
