@@ -1,34 +1,32 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
 import AddButton from '../../assets/icons/AddButton.svg';
 import ParticipantCard from '../Reusable/ParticipantCard';
-import { ColocContext } from '../../UserContext';
+import { ColocContext, UserContext } from '../../UserContext';
 import { Dropdown } from 'react-native-element-dropdown';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Haptics from 'expo-haptics';
+import { addDoc, collection, doc } from 'firebase/firestore';
+import { FB_DB } from '../../firebaseconfig';
 
 const windowDimensions = Dimensions.get('window');
 
 const recurrenceOptions = [
-  { label: 'Aucune', value: '1' },
-  { label: '1 jour', value: '2' },
-  { label: '2 jours', value: '3' },
-  { label: '3 jours', value: '4' },
-  { label: '1 semaine', value: '5' },
-  { label: '2 semaines', value: '6' },
-  { label: '1 mois', value: '7' },
-  { label: '2 mois', value: '8' },
+  { label: 'Aucune', value: '0' },
+  { label: '1 jour', value: '1' },
+  { label: '2 jours', value: '2' },
+  { label: '3 jours', value: '3' },
+  { label: '1 semaine', value: '7' },
+  { label: '2 semaines', value: '14' },
+  { label: '1 mois', value: '28' },
 ];
 
 const reminderOptions = [
-  { label: 'Aucun', value: '1' },
-  { label: '1 heures', value: '2' },
-  { label: '2 heures', value: '3' },
-  { label: '1 jour', value: '4' },
-  { label: '1 semaine', value: '5' },
+  { label: 'Non', value: '0' },
+  { label: 'Oui', value: '1' },
 ];
 
 const notificationOptions = [
@@ -36,16 +34,61 @@ const notificationOptions = [
   { label: 'Non', value: '1' },
 ];
 
+function getDateString(date) {
+  
+      var
+          
+          monthName = ["Janvier", "Février", "Mars", "Avril", "Mais", "Juin",
+                       "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
+          utc = date.getTime() + date.getTimezoneOffset() * 60000,
+          FR_time = utc + (3600000 * +1),
+          FR_date = new Date(FR_time);
+
+      return FR_date.getDate() + " " + monthName[FR_date.getMonth()] +
+             " " + FR_date.getFullYear();
+  }
+
+
 const AddTacheBS = () => {
   const bottomSheetRef = useRef(null);
+  const[concerned, setConcerned] = useState([]);
   const [coloc] = useContext(ColocContext);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateString, setDateString] = useState("");
+  const [date, setDate] = useState(null);
   const [title, setTitle] = useState(null);
-  
-  const handleConfirmDate = () => {
-    console.log('date')
+  const [recur, setRecur] = useState('');
+  const [rappel, setRappel] = useState('')
+  const [user, setUser] = useContext(UserContext);
+  const putInOrPutOut = (id) => {
+    if(concerned.includes(id)){
+      setConcerned(concerned.filter(elt => !(elt==id)))
+    }else {
+    setConcerned([...concerned, id])
+  }}
+  const handleConfirmDate = (date) => {
+    setDateString(getDateString(date));
+    setDate(date);
+    toggleDatePicker();
   };
+
+  const handleAddTask = async () =>  {
+    if(recur==""){return Alert.alert("Il manque la fréquence","Sélectionne une fréquence pour ta tâche !")}
+    if(!date){return Alert.alert("Quand doit être effectuée la tâche ?","Ajoute une date à cette tâche")}
+    if(!title){return Alert.alert("Comment s'intitule cette tâche","Rentre un titre pour cette tâche !")}
+    if(rappel ==''){return Alert.alert("Souhaites-tu recevoir un rappel ?", "Sélectionne oui pour recevoir une notification !")}
+    if(concerned.length == 0){return Alert.alert("Qui est concerné par cette tâche ?","Selectionne les personnes concernées par cette tâche")}
+    await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Taches'), {desc : title, colocID: user.colocID, date : date, rappel: rappel, concerned: concerned, recur: recur, nextOne: concerned[0]}).then(()=>{
+      alert('Tache add')
+    }).catch((error)=>{alert(error.message)})
+    bottomSheetRef.current?.close();
+    setTitle(null);
+    setConcerned([]);
+    setDate(null);
+    setRecur("");
+    setRappel('');
+    setDateString('');
+  }
 
   const toggleDatePicker = () => {
     setDatePickerVisibility((isVisible) => !isVisible);
@@ -69,11 +112,14 @@ const AddTacheBS = () => {
     <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
   ), []);
 
-  const renderParticipant = useCallback(() => {
-    return coloc.map((c) => (
+  const renderParticipant = () => {
+    return coloc.map((c) => {
+      return(
+      <TouchableOpacity key ={c.uuid} onPress = {() => {putInOrPutOut(c.uuid)}}>
       <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} />
-    ));
-  }, [coloc])
+      </TouchableOpacity>)
+  });}
+
 
   return (
     <View style={styles.container}>
@@ -135,9 +181,10 @@ const AddTacheBS = () => {
                 maxHeight={300}
                 labelField="label"
                 valueField="value"
+                value={recur}
                 placeholder="Choisir une récurrence"
-                onChange={() => {
-                  console.log('recu');
+                onChange={(item) => {
+                  setRecur(item.value);
                 }}
               />
             </View>
@@ -155,8 +202,9 @@ const AddTacheBS = () => {
                     labelField="label"
                     valueField="value"
                     placeholder="Rappel"
-                    onChange={() => {
-                      console.log('recu');
+                    value={rappel}
+                    onChange={(item) => {
+                      setRappel(item.value);
                     }}
                   />
                 </View>
@@ -177,7 +225,7 @@ const AddTacheBS = () => {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.add} onPress={addTask}>
+            <TouchableOpacity style={styles.add} onPress={handleAddTask}>
               <Plus />
               <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
             </TouchableOpacity>
