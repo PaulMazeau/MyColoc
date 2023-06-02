@@ -7,8 +7,7 @@ import Equilibrage from '../components/Depense/Equilibrage';
 import ListeTransaction from '../components/Depense/ListeTransaction';
 import { DocumentData, QuerySnapshot, collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { FB_DB } from '../firebaseconfig';
-import { ColocContext, DepenseContext, UserContext } from '../UserContext';
-import AddDepenseBS from '../components/Depense/AddDepenseBS';
+import { DepenseContext, UserContext } from '../UserContext';
 
 
 export default function DepenseScreen() {
@@ -77,7 +76,7 @@ export default function DepenseScreen() {
       ) : (
         <ListeTransaction/>
       )}
-    <AddDepenseBS />
+    
     </View>
   );
 }

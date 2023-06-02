@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
 import RemboursementBS from './RemboursementBS';
 import { ColocContext } from '../../UserContext';
+import { Colors, Drawer } from 'react-native-ui-lib';
 //props.transac est la transac a render
 const TransactionCard = (props) => {
-  const test = false; // Variable pour savoir si c le g a rembourse ou pas 
   const [coloc, setColoc] = useContext(ColocContext);
   const giver = coloc.find(u => u.uuid === props.transac.giverID)
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
@@ -19,22 +19,12 @@ const handleDismissPress = () => {
   bottomSheetModalRef.current?.dismiss();
 };
 
+const handleDelete = async () => {
+  //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
+  console.log('delete')
+}
+
   const renderContent = () => {
-    if (test) {
-      return (
-        <View style={styles.textContainer}>
-          <View style={styles.leftContainer}>
-            <Text style={styles.title}>Alexandre</Text>
-            <View style={styles.payeeContainer}>
-              <Text style={styles.subtitle}>a remboursé</Text>
-            </View>
-          </View>
-          <View style={styles.rightContainer}>
-            <Text style={styles.title}>10€</Text>
-          </View>
-        </View>
-      );
-    } else {
       return (
         <View style={styles.textContainer}>
           <View style={styles.leftContainer}>
@@ -49,11 +39,15 @@ const handleDismissPress = () => {
           <RemboursementBS ref={bottomSheetModalRef} onDismiss={handleDismissPress} />
         </View>
       );
-    }
   };
 
   return (
     <View style={styles.body}>
+      <Drawer
+        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
+        style={styles.drawer}
+        >
+      <View style={styles.global}>
     <TouchableOpacity style={{flex: 1}} onPress={handlePresentPress}>
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -62,6 +56,8 @@ const handleDismissPress = () => {
       {renderContent()}
     </View>
     </TouchableOpacity>
+    </View>
+    </Drawer>
     </View>
   );
 };
@@ -74,6 +70,10 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
     borderRadius: 10,
     marginBottom: 12
+},
+global: {
+  backgroundColor: 'white',
+  borderRadius: 10,
 },
 container: {
   flexDirection: 'row',
@@ -119,6 +119,9 @@ container: {
   payeeContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+  },
+  drawer: {
+    borderRadius: 10
   },
 });
 
