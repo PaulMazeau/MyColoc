@@ -37,6 +37,7 @@ const AddDepenseBS = () => {
     rObj['value'] = c.uuid
     return rObj;
   }) 
+
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
   };
@@ -82,6 +83,9 @@ const AddDepenseBS = () => {
     } 
   }
   const isNumber = (str) => {
+    if(!str){
+      return false
+    }
     if (str.trim() === '') {
       return false;
     }
@@ -167,13 +171,14 @@ const AddDepenseBS = () => {
                 style={styles.input}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
-                data={coloc}
+                data={items}
                 maxHeight={300}
                 labelField="label"
                 valueField="value"
+                value={payeur}
                 placeholder="Qui à payé ?"
-                onChange={() => {
-                  console.log('recu');
+                onChange={(item) => {
+                  setPayeur(item.value);
                 }}
               />
        </View>
@@ -182,7 +187,7 @@ const AddDepenseBS = () => {
  
       
        <View style={styles.depenseTitle}>
-         <Text style={styles.subTitle}>Participant</Text>
+         <Text style={styles.subTitle}>Payé pour</Text>
              <View style={styles.participant}>
                  <ScrollView  
                      horizontal={true}
