@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
 import RemboursementBS from './RemboursementBS';
 import { ColocContext } from '../../UserContext';
+import { Colors, Drawer } from 'react-native-ui-lib';
 //props.transac est la transac a render
 const TransactionCard = (props) => {
   const [coloc, setColoc] = useContext(ColocContext);
@@ -17,6 +18,11 @@ const handlePresentPress = () => {
 const handleDismissPress = () => {
   bottomSheetModalRef.current?.dismiss();
 };
+
+const handleDelete = async () => {
+  //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
+  console.log('delete')
+}
 
   const renderContent = () => {
       return (
@@ -37,6 +43,11 @@ const handleDismissPress = () => {
 
   return (
     <View style={styles.body}>
+      <Drawer
+        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
+        style={styles.drawer}
+        >
+      <View style={styles.global}>
     <TouchableOpacity style={{flex: 1}} onPress={handlePresentPress}>
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -45,6 +56,8 @@ const handleDismissPress = () => {
       {renderContent()}
     </View>
     </TouchableOpacity>
+    </View>
+    </Drawer>
     </View>
   );
 };
@@ -57,6 +70,10 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
     borderRadius: 10,
     marginBottom: 12
+},
+global: {
+  backgroundColor: 'white',
+  borderRadius: 10,
 },
 container: {
   flexDirection: 'row',
@@ -102,6 +119,9 @@ container: {
   payeeContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+  },
+  drawer: {
+    borderRadius: 10
   },
 });
 

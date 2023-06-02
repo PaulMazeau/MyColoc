@@ -4,6 +4,7 @@ import Horloge from '../../assets/icons/Horloge.svg';
 import { Shadows } from '../../constants/Shadow';
 import InfoBottomSheet from '../Reusable/InfoBottomSheet';
 import Valider from '../../assets/icons/Valider'
+import { Colors, Drawer } from 'react-native-ui-lib';
 
 // props.tache = tache
 const TacheCard = (props) => {
@@ -37,9 +38,18 @@ const TacheCard = (props) => {
   }
 
   const renderContent =() => {
+    const handleDelete = async () => {
+      //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
+      console.log('delete')
+    }
     const test = true
     if(test){
       return(
+        <View style={styles.body}>
+        <Drawer
+        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
+        style={styles.drawer}
+        >
         <View style={[styles.global, Shadows.shadow]}>
       <TouchableOpacity onPress={handlePresentPress}>
         <View style={styles.container}>
@@ -58,6 +68,8 @@ const TacheCard = (props) => {
         </View>
       </TouchableOpacity>
       <InfoBottomSheet ref={bottomSheetModalRef} />
+    </View>
+    </Drawer>
     </View>
       )
     }
@@ -92,11 +104,16 @@ const TacheCard = (props) => {
 };
 
 const styles = StyleSheet.create({
-  global: {
+  body: {
     backgroundColor: 'white',
     borderRadius: 10,
     marginHorizontal: 16,
     marginBottom: 12,
+  },
+
+  global: {
+    backgroundColor: 'white',
+    borderRadius: 10,
   },
 
   container: {
@@ -180,7 +197,9 @@ Button: {
   justifyContent: 'center',
   borderRadius: 10,
 },
-
+drawer: {
+  borderRadius: 10
+},
 });
 
 export default TacheCard;
