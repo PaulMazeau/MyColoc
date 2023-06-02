@@ -1,26 +1,32 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, Text, ScrollView, View } from 'react-native'
 import GraphiqueEquilibrage from './GraphiqueEquilibrage';
+import EquilibrageCard from './EquilibrageCard';
+import AddDepenseBS from './AddDepenseBS';
 
-
-const data = [
-    { name: 'Alice', value: 100 },
-    { name: 'Bob', value: -50 },
-    { name: 'Charlie', value: 200 },
-    { name: 'Diana', value: -150 },
-];
 
 export default function Equilibrage() {
     return (
-        <View>
+        <View style={styles.container}>
+            <ScrollView
+            showsVerticalScrollIndicator={false}
+            >
             <GraphiqueEquilibrage/>
             <Text style={styles.subTitle}>Comment équilibrer ?</Text>
-            {/* <TransactionCard /> */}
+            <EquilibrageCard />
+            <EquilibrageCard />
+            <EquilibrageCard />
+            <EquilibrageCard />
+            </ScrollView>
+            <AddDepenseBS />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     subTitle: {
         fontSize: 20,
         fontWeight: 'bold',

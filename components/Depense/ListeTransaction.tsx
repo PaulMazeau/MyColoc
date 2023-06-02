@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, Animated } from 'react-native';
 import TransactionCard from './TransactionCard';
 import * as Crypto from 'expo-crypto';
 import { DepenseContext } from '../../UserContext';
+import AddDepenseBS from './AddDepenseBS';
 //props.transacs est la liste de toutes les transactions
 export default function ListeTransaction() {
   const animation = React.useRef(new Animated.Value(0)).current;
@@ -60,6 +61,7 @@ export default function ListeTransaction() {
         showsVerticalScrollIndicator={false}
         renderItem={renderTransaction}
       />
+      <AddDepenseBS />
     </View>
   );
 }
