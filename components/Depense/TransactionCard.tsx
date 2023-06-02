@@ -5,7 +5,6 @@ import RemboursementBS from './RemboursementBS';
 import { ColocContext } from '../../UserContext';
 //props.transac est la transac a render
 const TransactionCard = (props) => {
-  const test = false; // Variable pour savoir si c le g a rembourse ou pas 
   const [coloc, setColoc] = useContext(ColocContext);
   const giver = coloc.find(u => u.uuid === props.transac.giverID)
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
@@ -20,21 +19,6 @@ const handleDismissPress = () => {
 };
 
   const renderContent = () => {
-    if (test) {
-      return (
-        <View style={styles.textContainer}>
-          <View style={styles.leftContainer}>
-            <Text style={styles.title}>Alexandre</Text>
-            <View style={styles.payeeContainer}>
-              <Text style={styles.subtitle}>a remboursé</Text>
-            </View>
-          </View>
-          <View style={styles.rightContainer}>
-            <Text style={styles.title}>10€</Text>
-          </View>
-        </View>
-      );
-    } else {
       return (
         <View style={styles.textContainer}>
           <View style={styles.leftContainer}>
@@ -49,7 +33,6 @@ const handleDismissPress = () => {
           <RemboursementBS ref={bottomSheetModalRef} onDismiss={handleDismissPress} />
         </View>
       );
-    }
   };
 
   return (
