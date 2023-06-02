@@ -77,6 +77,7 @@ function Carrousel({ gameCardData }: CarrouselProps) {
           style={
             isVertical
               ? {
+                  
                   flexDirection: "column",
                   justifyContent: "space-between",
                   width: 10,

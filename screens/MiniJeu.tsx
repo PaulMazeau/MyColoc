@@ -54,6 +54,9 @@ export default function MiniJeu() {
     >
       <SafeAreaView style={styles.global} edges={['top']} >
         <StatusBar style="light" />
+        <TouchableOpacity style={styles.quitter} onPress={() => navigation.goBack()}>
+              <Text style={styles.TextQuitter}>Quitter</Text>
+            </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.logo}>
             <Image source={Logo} />
@@ -77,15 +80,11 @@ export default function MiniJeu() {
 const styles = StyleSheet.create({
   global: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems:'center'
   },
 
   imageBackground: {
     flex: 1,             
     width: '100%',       
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   text:{
@@ -93,17 +92,31 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 20,
     marginLeft:40,
-    marginBottom:10,
     width:windowWidth,
+    marginVertical: 12
   },
 
   container:{
     justifyContent: 'center',
     alignItems:'center',
     width:windowWidth,
+    marginTop: -10
   },
 
   logo:{
-    margin:10
+    margin:10,
+  },
+
+  quitter: {
+    backgroundColor: 'white',
+    height: 20,
+    padding: 'auto',
+    borderRadius: 4,
+    width: 52,
+  },
+  
+  TextQuitter: {
+    fontWeight: '700',
+    color: '#001355'
   }
 });
