@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, FlatList, Alert } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { View, StyleSheet, TouchableOpacity, Text, FlatList, Alert, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenTitle from '../components/Reusable/ScreenTitle'
 import { main } from '../constants/Colors';
@@ -7,10 +7,11 @@ import { StatusBar } from 'expo-status-bar';
 import Button from '../components/Reusable/ButtonColor';
 import SettingsCard from '../components/Settings/SettingsCard';
 import * as Clipboard from 'expo-clipboard';
-import { FB_AUTH } from '../firebaseconfig';
+import { FB_AUTH, FB_DB } from '../firebaseconfig';
 import { UserContext } from '../UserContext';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SettingsStackParams } from '../App';
+import { arrayRemove, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 
 type Props = NativeStackScreenProps<SettingsStackParams, 'ColocationSettings'>;
 
@@ -35,8 +36,37 @@ const data: Colocataire[] = [
 const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
     const renderItem = ({ item }: { item: Colocataire }) => <Item name={item.name} />;
     const [user, setUser] = useContext(UserContext)
+    const [loading, setLoading] = useState(false)
+    const handleLeaveColocSetup = () => {
+     Alert.alert('Attention', 'Quitter la colocation supprimera toutes les données vous concernant dans la colocation, pensez à régler vos dépenses !',
+     [{text :'Continuer', onPress : (()=>{isUserSure()})}, {text:'Annuler'}]) 
+    }
+
+    const isUserSure = () => {
+      Alert.alert('Quitter la colocation', 'Cela supprimera toutes vos données, êtes-vous sur ?', 
+      [{text:'Quitter', onPress: () => {handleLeaveColoc()}}, {text: 'Annuler'}])
+    }
+
+    const handleLeaveColoc = async () => {
+      try {
+      setLoading(true)
+      const tacheQuery = query(collection(FB_DB, 'Colocs/'+ user.colocID +'/Taches'), where('concerned', 'array-contains', user.uuid));
+      const transacQuery = query(collection(FB_DB, 'Colocs/'+user.colocID+'/Transactions'), where('concerned', 'array-contains', user.uuid));
+      const tacheSnapshot = await getDocs(tacheQuery);
+      const transacSnapshot = await getDocs(transacQuery);
+      tacheSnapshot.forEach(async (t) => {await deleteDoc(doc(FB_DB, 'Colocs/' + user.colocID + '/Taches', t.id))})
+      transacSnapshot.forEach(async (t) => {await deleteDoc(doc(FB_DB, 'Colocs/' + user.colocID + '/Transactions', t.id))})
+      await updateDoc(doc(FB_DB, 'Colocs', user.colocID), {membersID: arrayRemove(user.uuid)});
+      await updateDoc(doc(FB_DB, 'Users', user.uuid), {colocID: "0", nomColoc: "", membersID: []});}
+      catch{setLoading(false); Alert.alert('Erreur', 'Check ta connection !')}
+      finally{
+          setLoading(false); Alert.alert('Réussi', 'Tu as bien quitté la colocation !')
+          setUser({...user, colocID: "0", membersID: []})
+      }
+    }
   return (
     <SafeAreaView style={styles.container}>
+
     <StatusBar style="dark"/>
     <View style={styles.body}>
       <ScreenTitle title={'Settings'} shouldGoBack/>
@@ -53,8 +83,9 @@ const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
       <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
 
       <Button text={'Déconnexion'} colorBackGround={'red'} colorText={'white'} onPress={() => {FB_AUTH.signOut(); setUser(null)}} />
-      <Button text={'Quitter la colocation'} colorBackGround={'red'} colorText={'white'} onPress={() => console.log('prout')} />
+      {loading ? <ActivityIndicator size= 'small'/>: <Button text={'Quitter la colocation'} colorBackGround={'red'} colorText={'white'} onPress={() => handleLeaveColocSetup()} />}
     </View>
+
     </SafeAreaView>
   )
 }
