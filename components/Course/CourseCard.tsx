@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
 import { useContext } from 'react';
 import { CourseContext } from '../../UserContext';
+import { Colors, Drawer } from 'react-native-ui-lib';
 
 interface Props {
     name: string;
@@ -10,17 +11,30 @@ interface Props {
 }
 //index est l'index de la course en question dans la liste de toutes les courses "courses"
 const CourseCard: React.FC<Props> = ({ name, onPress, index }) => {
+    const handleDelete = async () => {
+        //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
+        console.log('delete')
+      }
     const [courses, setCourses] = useContext(CourseContext);
     const course = courses[index].data()
+
     return(
-    <View style={styles.body}>
+        <View style={styles.body}>
+        <Drawer
+        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
+        style={styles.drawer}
+        >
+        <View style={styles.sousbody}>
         <TouchableOpacity onPress={() => onPress(index)}>
             <View style={styles.container}>
                 <Image style={styles.categorie} source={course.Image.uri ? {uri: course.Image.uri, cache:'force-cache'} : require('../../assets/images/icon.png')} />
                 <Text style={styles.name}>{name}</Text>
             </View>
         </TouchableOpacity>
-    </View>)
+        </View>
+    </Drawer>
+    </View>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -32,6 +46,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: 12
     },
+    sousbody: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+      },
     container: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -49,6 +67,9 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 50,
     },
+    drawer: {
+        borderRadius: 10
+      },
 });
 
 export default CourseCard;
