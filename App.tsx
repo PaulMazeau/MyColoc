@@ -41,7 +41,6 @@ import Result from './screens/MiniJeu/Result';
 import Role from './screens/MiniJeu/Role';
 import Answer from './screens/MiniJeu/Answer';
 import Classement from './screens/MiniJeu/Classement';
-import UserSettingsScreen from './screens/UserSettings';
 import ColocationSettingsScreen from './screens/ColocationSettings';
 import AvatarSettings from './screens/AvatarSettings';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -74,7 +73,6 @@ export type RootStackParams = {
   Basket: undefined;
   ClassementBasket: undefined;
   Classement: undefined;
-  UserSettings: undefined,
   ColocationSettings: undefined,
   FirstPage: undefined;
   SettingsStack: { screen: keyof SettingsStackParams },
@@ -111,7 +109,6 @@ export type DepenseStackParams = {
 };
 
 export type SettingsStackParams = {
-  UserSettings: undefined,
   ColocationSettings: undefined,
   AvatarSettings: undefined,
 };
@@ -199,7 +196,6 @@ const MainNavigationScreenStack = () => {
 const SettingsNavigator = () => {
   return (
     <SettingsStack.Navigator screenOptions={{ headerShown: false }}>
-      <SettingsStack.Screen name="UserSettings" component={UserSettingsScreen} />
       <SettingsStack.Screen name="ColocationSettings" component={ColocationSettingsScreen} />
       <SettingsStack.Screen name="AvatarSettings" component={AvatarSettings} />
     </SettingsStack.Navigator>
