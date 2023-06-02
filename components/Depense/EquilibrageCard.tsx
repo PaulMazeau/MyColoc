@@ -1,9 +1,22 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import React from 'react'
 import { Shadows } from '../../constants/Shadow'
+import { Colors, Drawer } from 'react-native-ui-lib'
 
 const EquilibrageCard = ({deveur, receveur, montant}) => {
+
+  const handleDelete = async () => {
+    //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
+    console.log('delete')
+  }
+
   return (
+    <View style={styles.body}>
+    <Drawer
+        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
+        style={styles.drawer}
+      >
+      <View style={styles.global}>
     <TouchableOpacity style={{flex: 1}} onPress={() => console.log('test')}>
     <View style={[styles.container, Shadows.shadow]}>
       <View style={styles.imageContainer}>
@@ -27,19 +40,31 @@ const EquilibrageCard = ({deveur, receveur, montant}) => {
         </View>
     </View>
     </TouchableOpacity>
+    </View>
+    </Drawer>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+    body: {
+      ...Shadows.shadow,
+      backgroundColor: 'white',
+      width: '90%',
+      marginHorizontal: '5%',
+      borderRadius: 10,
+      marginBottom: 12
+    },
+    global: {
+      backgroundColor: 'white',
+      borderRadius: 10,
+    },
     container: {
-        backgroundColor: 'white',
-        borderRadius: 10,
-        padding: 15,
-        marginHorizontal: 16,
-        flexDirection: 'row',
-        alignItems: 'center',
-        height: 70,
-        marginBottom: 12,
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 15,
+      height: 60,
+      borderRadius: 10,
       },
       imageContainer: {
         height: 40,
@@ -84,6 +109,9 @@ const styles = StyleSheet.create({
       payeeContainer: {
         flexDirection: 'row',
         alignItems: 'flex-end',
+      },
+      drawer: {
+        borderRadius: 10
       },
 })
 

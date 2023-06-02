@@ -9,6 +9,7 @@ import { ColocContext, UserContext } from '../../UserContext';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { FB_APP, FB_DB } from '../../firebaseconfig';
+import { Dropdown } from 'react-native-element-dropdown';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -162,14 +163,19 @@ const AddDepenseBS = () => {
  
        <View style={styles.depenseTitle}>
          <Text style={styles.subTitle}>Payé par :</Text>
-         <DropDownPicker
-            open={open}
-            value={payeur}
-            items={items}
-            setOpen={setOpen}
-            setValue={setPayeur}
-            setItems={setPayeur}
-          />
+         <Dropdown
+                style={styles.input}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                data={coloc}
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder="Qui à payé ?"
+                onChange={() => {
+                  console.log('recu');
+                }}
+              />
        </View>
  
  

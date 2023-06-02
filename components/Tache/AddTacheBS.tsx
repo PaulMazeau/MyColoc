@@ -1,47 +1,58 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
 import AddButton from '../../assets/icons/AddButton.svg';
 import ParticipantCard from '../Reusable/ParticipantCard';
-import * as Haptics from 'expo-haptics';
 import { ColocContext } from '../../UserContext';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { Dropdown } from 'react-native-element-dropdown';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import * as Haptics from 'expo-haptics';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const windowDimensions = Dimensions.get('window');
+
+const recurrenceOptions = [
+  { label: 'Aucune', value: '1' },
+  { label: '1 jour', value: '2' },
+  { label: '2 jours', value: '3' },
+  { label: '3 jours', value: '4' },
+  { label: '1 semaine', value: '5' },
+  { label: '2 semaines', value: '6' },
+  { label: '1 mois', value: '7' },
+  { label: '2 mois', value: '8' },
+];
+
+const reminderOptions = [
+  { label: 'Aucun', value: '1' },
+  { label: '1 heures', value: '2' },
+  { label: '2 heures', value: '3' },
+  { label: '1 jour', value: '4' },
+  { label: '1 semaine', value: '5' },
+];
+
+const notificationOptions = [
+  { label: 'Oui', value: '2' },
+  { label: 'Non', value: '1' },
+];
 
 const AddTacheBS = () => {
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const [coloc, setColoc] = useContext(ColocContext);
-  const [isOpen, setIsOpen] = useState(false);
+  const bottomSheetRef = useRef(null);
+  const [coloc] = useContext(ColocContext);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [dateString, setDateString] = useState("");
   const [title, setTitle] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [payeur, setPayeur] = useState(null);
-  const [recurrence, setReccurence] = useState([
-    { label: 'Aucune', value: '1' },
-    { label: '1 jour', value: '2' },
-    { label: '2 jours', value: '3' },
-    { label: '3 jours', value: '4' },
-    { label: '1 semaine', value: '5' },
-    { label: '2 semaines', value: '6' },
-    { label: '1 mois', value: '7' },
-    { label: '2 mois', value: '8' },
-  ]);
-  const [rappel, setRappel] = useState([
-    { label: 'Aucun', value: '1' },
-    { label: '1 heures', value: '2' },
-    { label: '2 heures', value: '3' },
-    { label: '1 jour', value: '4' },
-    { label: '1 semaine', value: '5' },
-  ]);
-  const [notification, setNotification] = useState([
-    { label: 'Oui', value: '2' },
-    { label: 'Non', value: '1' },
-  ]);
+  
+  const handleConfirmDate = () => {
+    console.log('date')
+  };
+
+  const toggleDatePicker = () => {
+    setDatePickerVisibility((isVisible) => !isVisible);
+  };
 
   const openBottomSheet = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     bottomSheetRef.current?.present();
   };
 
@@ -50,6 +61,7 @@ const AddTacheBS = () => {
   };
 
   const addTask = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     closeBottomSheet();
   };
 
@@ -57,14 +69,15 @@ const AddTacheBS = () => {
     <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
   ), []);
 
-  const renderParticipant = () => {
+  const renderParticipant = useCallback(() => {
     return coloc.map((c) => (
-      <ParticipantCard nom ={c.nom} url={c.avatarUrl} key = {c.uuid} />
+      <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} />
     ));
-  }
+  }, [coloc])
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() =>{ Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); openBottomSheet() }} style={styles.addButton}>
+      <TouchableOpacity onPress={openBottomSheet} style={styles.addButton}>
         <AddButton />
       </TouchableOpacity>
 
@@ -92,53 +105,60 @@ const AddTacheBS = () => {
 
             <View style={styles.inputContainer}>
               <Text style={styles.subTitle}>Date</Text>
-              <View style={styles.inputDate}></View>
+
+              <TextInput
+                style={styles.inputDate}
+                value={dateString}
+                placeholder="Choisir la date"
+                onPressIn={toggleDatePicker}
+                showSoftInputOnFocus={false}
+                placeholderTextColor="#A9A9A9"
+              />
+
+              <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirmDate}
+                onCancel={toggleDatePicker}
+                cancelTextIOS='Annuler'
+                confirmTextIOS='Confirmer'
+              />
             </View>
 
             <View style={styles.inputContainer}>
               <Text style={styles.subTitle}>Récurrence</Text>
-              <View>
-              <DropDownPicker
-                      open={open}
-                      value={payeur}
-                      items={recurrence}
-                      setOpen={setOpen}
-                      setValue={setPayeur}
-                      setItems={setReccurence}
-                      style={styles.dropDownPicker}
-                    />
-              </View>
+              <Dropdown
+                style={styles.input}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                data={recurrenceOptions}
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder="Choisir une récurrence"
+                onChange={() => {
+                  console.log('recu');
+                }}
+              />
             </View>
 
             <View style={styles.inputContainer}>
-              <View style={styles.groupe}>
+              <View>
+                <Text style={styles.subTitle}>Rappel</Text>
                 <View>
-                  <Text style={styles.subTitle}>Notification</Text>
-                  <View>
-                  <DropDownPicker
-                      open={open}
-                      value={payeur}
-                      items={notification}
-                      setOpen={setOpen}
-                      setValue={setPayeur}
-                      setItems={setNotification}
-                      style={styles.halfDropDownPicker}
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text style={styles.subTitle}>Rappel</Text>
-                  <View>
-                  <DropDownPicker
-                      open={open}
-                      value={payeur}
-                      items={rappel}
-                      setOpen={setOpen}
-                      setValue={setPayeur}
-                      setItems={setRappel}
-                      style={styles.halfDropDownPicker}
-                    />
-                  </View>
+                  <Dropdown
+                    style={styles.input}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    data={reminderOptions}
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value"
+                    placeholder="Rappel"
+                    onChange={() => {
+                      console.log('recu');
+                    }}
+                  />
                 </View>
               </View>
             </View>
@@ -157,7 +177,7 @@ const AddTacheBS = () => {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.add} onPress={() =>{ Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); addTask() }}>
+            <TouchableOpacity style={styles.add} onPress={addTask}>
               <Plus />
               <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
             </TouchableOpacity>
@@ -174,17 +194,15 @@ const styles = StyleSheet.create({
   },
   addButton: {
     position: 'absolute',
-    bottom: windowHeight * 0.12, // 5% de la hauteur de l'écran
-    right: windowWidth * 0.05, // 5% de la largeur de l'écran
+    bottom: windowDimensions.height * 0.12,
+    right: windowDimensions.width * 0.05,
   },
-  dropDownPicker:{
-    height: 44,
-    borderRadius: 14,
-    padding: 12,
-    elevation: 2,
-    borderWidth: 1,
-    borderColor: '#DDDDDD',
-    backgroundColor: 'white',
+  placeholderStyle: {
+    fontSize: 14,
+    color: '#BCBCBC'
+  },
+  selectedTextStyle: {
+    fontSize: 16,
   },
   contentContainer: {
     flex: 1,
@@ -222,20 +240,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 14,
   },
-  groupe: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  halfDropDownPicker: {
-    height: 44,
-    borderRadius: 14,
-    padding: 12,
-    elevation: 2,
-    borderWidth: 1,
-    borderColor: '#DDDDDD',
-    width: 145,
-    backgroundColor: 'white',
-  },
   participant: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -257,6 +261,6 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: 15,
   },
-});
+  });
 
 export default AddTacheBS;
