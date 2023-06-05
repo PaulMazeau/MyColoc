@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     marginLeft: 8
   },
   freqtitle: {
-    fontSize: 16,
+    fontSize: 19,
     fontWeight: '600',
   },
   title: {
