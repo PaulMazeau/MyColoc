@@ -45,6 +45,7 @@ import ColocationSettingsScreen from './screens/ColocationSettings';
 import AvatarSettings from './screens/AvatarSettings';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import FirstPage from './screens/FirstPage';
+import GetNotificationPermission from './GetNotificationPermission'
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -171,7 +172,9 @@ const MainNavigationScreenStack = () => {
     }
   }, [snap])
   return(
+    
   <ColocContext.Provider value={[coloc, setColoc]}>
+  <GetNotificationPermission/>
   <MainNavigation.Navigator
           initialRouteName="Accueil"
           screenOptions={{ 

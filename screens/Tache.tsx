@@ -8,6 +8,7 @@ import GlobalTaches from '../components/Tache/GlobalTaches';
 import { collection, query, where, onSnapshot, orderBy, QuerySnapshot, Query } from "firebase/firestore";
 import { UserContext } from '../UserContext';
 import { FB_DB } from '../firebaseconfig';
+import * as Notifications from 'expo-notifications'
 
 const TacheScreen = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -34,6 +35,7 @@ const TacheScreen = () => {
         const task = doc.data()
         if(task.nextOne === user.uuid){
           myNextTacheSetter.push(task)
+          pushNotif(task, doc.id)
         }else if(task.concerned.includes(user.uuid)){
           myTacheSetter.push(task)
         }
@@ -44,6 +46,27 @@ const TacheScreen = () => {
       setMyNextTache(myNextTacheSetter);
     }
   }, [snapshot])
+
+  const pushNotif = async(task, id) => {
+    
+    const notifs = await Notifications.getAllScheduledNotificationsAsync();
+    const notifsTacheID = notifs.map((n)=> n.content.data.tacheID);
+    if(!(notifsTacheID.includes(id))){ 
+      const trigger = new Date (task.date.toDate().toString())
+      trigger.setHours(8)
+      trigger.setMinutes(0)
+      const now = new Date(Date.now())
+      if(trigger > now){
+      await Notifications.scheduleNotificationAsync({
+              content:{
+                title:"Ton tour approche!",
+                body:"C'est ton tour de :" + " " + task.desc,
+                data: {tacheID: id}
+              },
+              trigger,
+            })}
+          }
+  }
   return (
     <View style={styles.container}>
       <Header />
