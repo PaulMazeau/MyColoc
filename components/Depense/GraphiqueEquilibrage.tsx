@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated';
 import { ColocContext } from '../../UserContext';
@@ -8,6 +8,14 @@ const barWidth = screenWidth * 0.40;
 
 const GraphiqueEquilibrage = () => {
   const [coloc, setColoc] = useContext(ColocContext);
+  const onlyZeros = (array) => {
+    for(var i=0; i<array.length; ++i){
+      if(array[i].solde !== 0){
+        return false
+      }
+    }
+    return true
+  } 
   //formatage des soldes pr que ça rentre dans le graph
   const unsortedData = coloc.map((u) => {
     var rObj = {}
@@ -37,7 +45,8 @@ const GraphiqueEquilibrage = () => {
 
   return (
     <View style={styles.container}>
-      {data.map((item, index) => {
+
+      {onlyZeros(coloc) ? <Text>Tout le monde est à 0 !</Text>: data.map((item, index) => {
         const animatedStyle = useAnimatedStyle(() => {
           const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
           return {
