@@ -1,7 +1,7 @@
-import React from 'react'
-import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
-import TacheCard from './TacheCard'
-import AddTacheBS from './AddTacheBS'
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View, Image } from 'react-native';
+import TacheCard from './TacheCard';
+import AddTacheBS from './AddTacheBS';
 import { main } from '../../constants/Colors';
 //props.task = list all task
 export default function GlobalTaches(props) {
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         marginBottom: 90, 
     },
     emptyPageContainer: {
+        marginTop:20,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',

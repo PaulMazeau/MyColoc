@@ -36,6 +36,7 @@ export default function SignUpScreen({navigation}: Props) {
           uuid: userUid,
           solde: 0,
           colocID: "0",
+          membersID: [],
           // avatarUrl: avatarUrl
         }
         setDoc(doc(FB_DB, 'Users', userUid),entry).then(() => {setUser(entry);
