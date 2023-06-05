@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   texte: {
-    fontSize: 14,
+    fontSize: 16,
     color: main.TextColor,
     marginLeft: 5,
     fontWeight: '600',
