@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         margin: 16, 
         borderRadius: 35, 
         marginBottom: 16,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     bottomSheetText: {
         fontSize: 24,

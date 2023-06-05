@@ -24,16 +24,6 @@ const recurrenceOptions = [
   { label: '1 mois', value: '28' },
 ];
 
-const reminderOptions = [
-  { label: 'Non', value: '0' },
-  { label: 'Oui', value: '1' },
-];
-
-const notificationOptions = [
-  { label: 'Oui', value: '2' },
-  { label: 'Non', value: '1' },
-];
-
 function getDateString(date) {
   
       var
@@ -58,7 +48,6 @@ const AddTacheBS = () => {
   const [date, setDate] = useState(null);
   const [title, setTitle] = useState(null);
   const [recur, setRecur] = useState('');
-  const [rappel, setRappel] = useState('')
   const [user, setUser] = useContext(UserContext);
   const putInOrPutOut = (id) => {
     if(concerned.includes(id)){
@@ -76,9 +65,8 @@ const AddTacheBS = () => {
     if(recur==""){return Alert.alert("Il manque la fréquence","Sélectionne une fréquence pour ta tâche !")}
     if(!date){return Alert.alert("Quand doit être effectuée la tâche ?","Ajoute une date à cette tâche")}
     if(!title){return Alert.alert("Comment s'intitule cette tâche","Rentre un titre pour cette tâche !")}
-    if(rappel ==''){return Alert.alert("Souhaites-tu recevoir un rappel ?", "Sélectionne oui pour recevoir une notification !")}
     if(concerned.length == 0){return Alert.alert("Qui est concerné par cette tâche ?","Selectionne les personnes concernées par cette tâche")}
-    await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Taches'), {desc : title, colocID: user.colocID, date : date, rappel: rappel, concerned: concerned, recur: recur, nextOne: concerned[0]}).then(()=>{
+    await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Taches'), {desc : title, colocID: user.colocID, date : date, concerned: concerned, recur: recur, nextOne: concerned[0]}).then(()=>{
       alert('Tache add')
     }).catch((error)=>{alert(error.message)})
     bottomSheetRef.current?.close();
@@ -86,7 +74,6 @@ const AddTacheBS = () => {
     setConcerned([]);
     setDate(null);
     setRecur("");
-    setRappel('');
     setDateString('');
   }
 
@@ -189,27 +176,6 @@ const AddTacheBS = () => {
               />
             </View>
 
-            <View style={styles.inputContainer}>
-              <View>
-                <Text style={styles.subTitle}>Rappel</Text>
-                <View>
-                  <Dropdown
-                    style={styles.input}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    data={reminderOptions}
-                    maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    placeholder="Rappel"
-                    value={rappel}
-                    onChange={(item) => {
-                      setRappel(item.value);
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
 
             <View style={styles.inputContainer}>
               <Text style={styles.subTitle}>Participant</Text>

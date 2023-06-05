@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import BlueGradient from '../components/Reusable/BlueGradient';
 import Header from '../components/Reusable/Header';
 import { main } from '../constants/Colors';
 import BoutonMiniJeu from '../components/Accueil/BoutonMiniJeux';
 import MonSolde from '../components/Accueil/MonSolde';
 import Suggestion from '../components/Accueil/Suggestions';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FB_AUTH } from '../firebaseconfig';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
@@ -25,15 +24,19 @@ const AccueilScreen = () => {
       <View style={styles.headerContainer}>
         <Header/>
       </View>
-      <Text style={styles.TitreCategorie1}>La selection du mois</Text>
-      <Suggestion />
-      <View style={styles.row}>
-        <MonSolde/>
-        <BoutonMiniJeu/>
-      </View>
-      <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
-      {/* <TacheCard /> */}
-
+      <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={styles.scrollView}
+      >
+        <Text style={styles.TitreCategorie1}>La selection du mois</Text>
+        <Suggestion />
+        <View style={styles.row}>
+          <MonSolde/>
+          <BoutonMiniJeu/>
+        </View>
+        <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
+        <TacheCard />
+      </ScrollView>
     </View>
   );
 }
@@ -78,6 +81,9 @@ const styles = StyleSheet.create({
     width: 300,
     height: 250,
   },
+  scrollView: {
+    marginBottom: 90, 
+},
 });
 
 export default AccueilScreen;

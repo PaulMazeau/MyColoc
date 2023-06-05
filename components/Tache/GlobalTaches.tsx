@@ -19,6 +19,7 @@ export default function GlobalTaches(props) {
         <View style={styles.container}>
             <ScrollView 
             style={styles.scrollView}
+            showsVerticalScrollIndicator={false}
             >
                 <Text style={styles.SousTitre}>Toutes les tâches</Text>
                 {renderTask()}

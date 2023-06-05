@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import TacheCard from './TacheCard';
 import AddTacheBS from './AddTacheBS';
 //props.task = all task concerné(sauf suivant) & props.nextTask = all task ou luser est suivant
@@ -28,10 +28,15 @@ export default function MesTaches(props) {
     }
     return (
         <View style={styles.container}>
+            <ScrollView
+            style={styles.scrollView}
+            showsVerticalScrollIndicator={false}
+            >
             <Text style={styles.SousTitre}>C'est ton tour!</Text>
             {renderNextTask()}
             <Text style={styles.SousTitre}>Toutes tes tâches</Text>
             {renderMyTask()}
+            </ScrollView>
             <AddTacheBS />
         </View>
     )
@@ -46,5 +51,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 16,
         marginHorizontal: 16
-    }
+    },
+    scrollView: {
+        marginBottom: 90, 
+    },
 })
