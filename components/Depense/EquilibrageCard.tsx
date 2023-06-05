@@ -1,9 +1,20 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Shadows } from '../../constants/Shadow'
 import { Colors, Drawer } from 'react-native-ui-lib'
+import RemboursementBS from './RemboursementBS'
 
 const EquilibrageCard = ({deveur, receveur, montant}) => {
+
+  const bottomSheetModalRef = useRef(null);
+
+  const handlePresentPress = () => {
+    bottomSheetModalRef.current?.present();
+  };
+
+  const handleDismissPress = () => {
+    bottomSheetModalRef.current?.dismiss();
+  };
 
   const handleDelete = async () => {
     //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
@@ -17,7 +28,7 @@ const EquilibrageCard = ({deveur, receveur, montant}) => {
         style={styles.drawer}
       >
       <View style={styles.global}>
-    <TouchableOpacity style={{flex: 1}} onPress={() => console.log('test')}>
+    <TouchableOpacity style={{flex: 1}} onPress={handlePresentPress}>
     <View style={[styles.container, Shadows.shadow]}>
       <View style={styles.imageContainer}>
         <Image source={{uri : deveur.avatarUrl, cache:'force-cache'}} style={styles.image} />
@@ -39,6 +50,7 @@ const EquilibrageCard = ({deveur, receveur, montant}) => {
           </View>
         </View>
     </View>
+    <RemboursementBS onDismiss={handleDismissPress} ref={bottomSheetModalRef}/>
     </TouchableOpacity>
     </View>
     </Drawer>

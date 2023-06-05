@@ -4,6 +4,7 @@ import { Shadows } from '../../constants/Shadow';
 import RemboursementBS from './RemboursementBS';
 import { ColocContext } from '../../UserContext';
 import { Colors, Drawer } from 'react-native-ui-lib';
+import InfoDepenseBS from './InfoDepenseBS';
 //props.transac est la transac a render
 const TransactionCard = (props) => {
   const [coloc, setColoc] = useContext(ColocContext);
@@ -36,7 +37,7 @@ const handleDelete = async () => {
           <View style={styles.rightContainer}>
             <Text style={styles.title}>{props.transac.amount.toFixed(2) + '€'}</Text>
           </View>
-          <RemboursementBS ref={bottomSheetModalRef} onDismiss={handleDismissPress} />
+          <InfoDepenseBS ref={bottomSheetModalRef} />
         </View>
       );
   };

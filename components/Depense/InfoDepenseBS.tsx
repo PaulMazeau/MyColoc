@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal} from '@gorhom/bottom-sheet';
 
-const InfoBottomSheet = React.forwardRef<any>((props, ref) => {
+const InfoDepenseBS = React.forwardRef<any>((props, ref) => {
     const BackdropComponent = useCallback((props) => {
         return (
           <BottomSheetBackdrop
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default InfoBottomSheet;
+export default InfoDepenseBS;
