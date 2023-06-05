@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import CourseCard from '../components/Course/CourseCard';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useContext, useEffect, useState } from 'react';
@@ -34,31 +34,40 @@ const CourseScreen = ({navigation}: Props) => {
       setCourses(courseSetter)
     }
   }, [snapshot])
+  
+  const EmptyPage = () => {
+    return (
+      <View style={styles.emptyPageContainer}>
+        <Image source={require('../assets/images/EmptyCourse.png')} style={styles.emptyPageImage} />
+        <Text style={styles.texte}>Oops, tu n'as pas encore de liste de courses</Text>
+      </View>
+    );
+  };
+
   const renderContent = () => {
     if(courses.length == 0){
-      return(<Text>Pas de courses</Text>)
+      return <EmptyPage />;
     }else{
-      var i = 0;
-      return(
-      courses.map((c, index) => {
-        return(
-          <CourseCard key={c.id} name={c.data().Nom} index={index} onPress={ (index) => {navigation.navigate('ListeDeCourse', {index})}}></CourseCard>
-        )
-      }))
+      return (
+        courses.map((c, index) => {
+          return (
+            <CourseCard key={c.id} name={c.data().Nom} index={index} onPress={(index) => {navigation.navigate('ListeDeCourse', {index})}}></CourseCard>
+          );
+        })
+      );
     }
-  }
+  };
+
   return (
-    
     <View style={styles.container}>
       <Header/>
       <StatusBar style="auto" />
       <ScreenTitle title="Course"/>
       <ScrollView style={styles.ScrollView}>
-      {renderContent()}
+        {renderContent()}
       </ScrollView>
       <AddListeCourseBS />
     </View>
-
   );
 }
 
@@ -68,11 +77,11 @@ const styles = StyleSheet.create({
     backgroundColor: main.BgColor,
   },
   bottomSheet: {
-     flex: 1, 
-     backgroundColor: 'orange', 
-     margin: 16, 
-     borderRadius: 35, 
-     marginBottom: 16 
+    flex: 1, 
+    backgroundColor: 'orange', 
+    margin: 16, 
+    borderRadius: 35, 
+    marginBottom: 16 
   },
   bottomSheetText: {
     fontSize: 20,
@@ -83,8 +92,24 @@ const styles = StyleSheet.create({
   },
   ScrollView:{
     marginBottom: 90,
-  }
-
+  },
+  emptyPageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyPageImage: {
+    width: 250,
+    height: 250,
+    marginBottom: 10,
+  },
+  texte: {
+    fontSize: 14,
+    color: main.TextColor,
+    marginLeft: 5,
+    fontWeight: '600',
+    letterSpacing: -0.6,
+  },
 });
 
-export default CourseScreen
+export default CourseScreen;
