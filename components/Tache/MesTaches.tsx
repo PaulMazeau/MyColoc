@@ -29,13 +29,14 @@ export default function MesTaches(props) {
     return (
         <View style={styles.container}>
             <ScrollView
-            style={styles.scrollView}
             showsVerticalScrollIndicator={false}
             >
+            <View style={styles.scrollView}>
             <Text style={styles.SousTitre}>C'est ton tour!</Text>
             {renderNextTask()}
             <Text style={styles.SousTitre}>Toutes tes tâches</Text>
             {renderMyTask()}
+            </View>
             </ScrollView>
             <AddTacheBS />
         </View>
