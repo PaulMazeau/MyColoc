@@ -17,6 +17,7 @@ const EquilibrageCard = ({deveur, receveur, montant}) => {
   const handleDelete = async () => {
     console.log('delete');
   };
+  console.log(deveur.avatarUrl)
 
   return (
     <Drawer

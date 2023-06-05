@@ -18,7 +18,7 @@ export default function Equilibrage() {
             let estDuLePlus = colocCopy[0]
             if(!((-0.1 < estDuLePlus.solde && estDuLePlus.solde < 0.1) || (-0.1 < doitLePlus.solde && doitLePlus.solde < 0.1))){
                 toRender.push( <EquilibrageCard deveur={doitLePlus} receveur={estDuLePlus} montant={-doitLePlus.solde} key={doitLePlus.uuid}/>)
-                colocCopy[0] = {colocID: estDuLePlus.colocID, nom: estDuLePlus.nom, nomColoc: estDuLePlus.nomColoc, solde: (estDuLePlus.solde + doitLePlus.solde), tache: estDuLePlus.tache, uuid: estDuLePlus.uuid}
+                colocCopy[0] = {colocID: estDuLePlus.colocID, nom: estDuLePlus.nom, nomColoc: estDuLePlus.nomColoc, solde: (estDuLePlus.solde + doitLePlus.solde), tache: estDuLePlus.tache, uuid: estDuLePlus.uuid, avatarUrl: estDuLePlus.avatarUrl}
                 if(-0.1 < colocCopy[0].solde && colocCopy[0].solde < 0.1){
                     colocCopy = [...colocCopy.slice(1)]
                 }
