@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, FlatList } from 'react-native';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import Header from '../components/Reusable/Header';
 import { StatusBar } from 'expo-status-bar';
@@ -69,7 +69,7 @@ const TodoList = ({route, navigation}: Props) => {
         <ScreenTitle title={course.Nom} shouldGoBack/>
         </TouchableOpacity>
       <View style={[styles.container, Shadows.shadow]}>
-        <KeyboardAwareFlatList
+        <FlatList
           data={course.divers}
           keyExtractor={item => item.item}
           scrollEnabled={true} 
@@ -95,7 +95,7 @@ const TodoList = ({route, navigation}: Props) => {
               blurOnSubmit={false}
             />
           }
-          extraScrollHeight={Platform.OS === 'ios' ? 120 : 100}
+
         />
       </View>
     </View>
