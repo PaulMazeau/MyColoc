@@ -1,130 +1,87 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
-import React, { useRef } from 'react'
-import { Shadows } from '../../constants/Shadow'
-import { Colors, Drawer } from 'react-native-ui-lib'
-import RemboursementBS from './RemboursementBS'
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import React, { useRef } from 'react';
+import { Colors, Drawer } from 'react-native-ui-lib';
+import RemboursementBS from './RemboursementBS';
 
 const EquilibrageCard = ({deveur, receveur, montant}) => {
-
   const bottomSheetModalRef = useRef(null);
-
+  
   const handlePresentPress = () => {
     bottomSheetModalRef.current?.present();
   };
-
+  
   const handleDismissPress = () => {
     bottomSheetModalRef.current?.dismiss();
   };
-
+  
   const handleDelete = async () => {
-    //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
-    console.log('delete')
-  }
+    console.log('delete');
+  };
 
   return (
-    <View style={styles.body}>
     <Drawer
-        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
-        style={styles.drawer}
-      >
-      <View style={styles.global}>
-    <TouchableOpacity style={{flex: 1}} onPress={handlePresentPress}>
-    <View style={[styles.container, Shadows.shadow]}>
-      <View style={styles.imageContainer}>
-        <Image source={{uri : deveur.avatarUrl, cache:'force-cache'}} style={styles.image} />
-      </View>
-      <View style={styles.textContainer}>
-          <View style={styles.leftContainer}>
-            <Text style={styles.title}>{deveur.nom}</Text>
-            <View style={styles.payeeContainer}>
-              <Text style={styles.subtitle}>doit rembourser à {receveur.nom}</Text>
-            </View>
-          </View>
-          <View style={styles.middleContainer}>
-            <Text style={styles.title}>{montant}</Text>
-          </View>
-          <View style={styles.rightContainer}>
-            <View style={styles.imageContainer}>
-                 <Image source={{uri: receveur.avatarUrl, cache:'force-cache'}} style={styles.image} />
-            </View>
-          </View>
+      rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
+      style={styles.drawer}
+    >
+      <TouchableOpacity style={styles.card} onPress={handlePresentPress}>
+        <View style={styles.userContainer}>
+          <Image source={{uri : deveur.avatarUrl, cache:'force-cache'}} style={styles.avatar} />
+          <Text style={styles.userName}>{deveur.nom}</Text>
         </View>
-    </View>
-    <RemboursementBS onDismiss={handleDismissPress} ref={bottomSheetModalRef}/>
-    </TouchableOpacity>
-    </View>
+        
+        <View style={styles.reminderContainer}>
+          <Text style={styles.reminder}>doit rembourser à</Text>
+          <Text style={styles.amount}>{montant} €</Text>
+        </View>
+        
+        <View style={styles.userContainer}>
+          <Image source={{uri : receveur.avatarUrl, cache:'force-cache'}} style={styles.avatar} />
+          <Text style={styles.userName}>{receveur.nom}</Text>
+        </View>
+      </TouchableOpacity>
+      <RemboursementBS onDismiss={handleDismissPress} ref={bottomSheetModalRef}/>
     </Drawer>
-    </View>
   )
 }
 
 const styles = StyleSheet.create({
-    body: {
-      ...Shadows.shadow,
-      backgroundColor: 'white',
-      width: '90%',
-      marginHorizontal: '5%',
-      borderRadius: 10,
-      marginBottom: 12
-    },
-    global: {
-      backgroundColor: 'white',
-      borderRadius: 10,
-    },
-    container: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      padding: 15,
-      height: 60,
-      borderRadius: 10,
-      },
-      imageContainer: {
-        height: 40,
-        width: 40,
-        overflow: 'hidden',
-        borderRadius: 7,
-      },
-      image: {
-        height: '100%',
-        width: '100%',
-      },
-      textContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        flex: 1,
-      },
-      leftContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        marginLeft: 10,
-      },
-      middleContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        marginLeft: 10,
-      },
-      rightContainer: {
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        marginLeft: 10,
-        alignItems: 'center',
-      },
-      title: {
-        fontWeight: '600',
-        fontSize: 19,
-      },
-      subtitle: {
-        fontSize: 14,
-      },
-      payeeContainer: {
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-      },
-      drawer: {
-        borderRadius: 10
-      },
-})
+  drawer: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginHorizontal: '5%',
+    marginBottom: 12,
+  },
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 15,
+    borderRadius: 10,
+  },
+  userContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+  },
+  userName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 5,
+  },
+  reminderContainer: {
+    alignItems: 'center',
+  },
+  reminder: {
+    fontSize: 14,
+  },
+  amount: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
 
-export default EquilibrageCard
+export default EquilibrageCard;

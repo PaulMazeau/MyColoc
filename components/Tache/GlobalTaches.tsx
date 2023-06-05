@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import TacheCard from './TacheCard'
 import AddTacheBS from './AddTacheBS'
 //props.task = list all task
@@ -17,9 +17,14 @@ export default function GlobalTaches(props) {
     }
     return (
         <View style={styles.container}>
-            <Text style={styles.SousTitre}>Toutes les tâches</Text>
-            {renderTask()}
+            <ScrollView 
+            style={styles.scrollView}
+            >
+                <Text style={styles.SousTitre}>Toutes les tâches</Text>
+                {renderTask()}
+            </ScrollView>
             <AddTacheBS />
+           
         </View>
     )
 }
@@ -33,5 +38,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 16,
         marginHorizontal: 16
-    }
+    },
+    scrollView: {
+        marginBottom: 90, 
+    },
 })

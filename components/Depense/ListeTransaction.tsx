@@ -60,6 +60,7 @@ export default function ListeTransaction() {
         keyExtractor={(item) => item.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={renderTransaction}
+        style={styles.flatlist}
       />
       <AddDepenseBS />
     </View>
@@ -70,4 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  flatlist: {
+    marginBottom: 90, 
+  }
 });

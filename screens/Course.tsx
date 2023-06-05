@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
 import CourseCard from '../components/Course/CourseCard';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useContext, useEffect, useState } from 'react';
@@ -53,9 +53,9 @@ const CourseScreen = ({navigation}: Props) => {
       <Header/>
       <StatusBar style="auto" />
       <ScreenTitle title="Course"/>
-      {/* <CourseCard name="Course de vendredi" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard>
-      <CourseCard name="Course de dimanche" onPress={ name => {navigation.navigate('ListeDeCourse', {name})}}></CourseCard> */}
+      <ScrollView style={styles.ScrollView}>
       {renderContent()}
+      </ScrollView>
       <AddListeCourseBS />
     </View>
 
@@ -80,6 +80,9 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginTop: 12
+  },
+  ScrollView:{
+    marginBottom: 90,
   }
 
 });

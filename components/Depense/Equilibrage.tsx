@@ -42,6 +42,7 @@ export default function Equilibrage() {
     return (
         <View style={styles.container}>
             <ScrollView
+            style={styles.scrollView}
             showsVerticalScrollIndicator={false}
             >
             <GraphiqueEquilibrage/>
@@ -62,5 +63,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginHorizontal: 16,
         marginBottom: 12
-    }
+    },
+    scrollView: {
+        marginBottom: 90, 
+    },
 })
