@@ -5,7 +5,7 @@ import Remboursement from '../../assets/icons/Remboursement.svg'
 import { Shadows } from '../../constants/Shadow';
 
 type RemboursementBSProps = {
-    onDismiss: () => void; // Ceci est une fonction qui ne renvoie rien.
+    onDismiss: () => void;
   };
 
 const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref) => {
