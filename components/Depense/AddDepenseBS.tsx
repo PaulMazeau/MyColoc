@@ -6,9 +6,8 @@ import AddButton from '../../assets/icons/AddButton.svg';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import * as Haptics from 'expo-haptics';
 import { ColocContext, UserContext } from '../../UserContext';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { FB_APP, FB_DB } from '../../firebaseconfig';
+import { FB_DB } from '../../firebaseconfig';
 import { Dropdown } from 'react-native-element-dropdown';
 
 const windowWidth = Dimensions.get('window').width;
@@ -183,9 +182,6 @@ const AddDepenseBS = () => {
               />
        </View>
  
- 
- 
-      
        <View style={styles.depenseTitle}>
          <Text style={styles.subTitle}>Payé pour</Text>
              <View style={styles.participant}>
