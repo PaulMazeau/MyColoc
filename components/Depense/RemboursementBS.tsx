@@ -41,19 +41,13 @@ const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref)
                         <Image source={require('../../assets/images/icon.png')} style={styles.image} />
                         <View style={styles.leftContainer}>
                             <Text style={styles.title}>Alexandre</Text>
-                            <View style={styles.payeeContainer}>
-                                <Text style={styles.subtitle}>a remboursé</Text>
-                            </View>
                         </View>
                     </View>
                     <Remboursement />
                     <View style={styles.Rembourseur}>
                         <Image source={require('../../assets/images/icon.png')} style={styles.image} />
                         <View style={styles.leftContainer}>
-                            <Text style={styles.title}>Alexandre</Text>
-                            <View style={styles.payeeContainer}>
-                                <Text style={styles.subtitle}>a remboursé</Text>
-                            </View>
+                            <Text style={styles.title}>Alexandre</Text>  
                         </View>
                     </View>
                 </View>
