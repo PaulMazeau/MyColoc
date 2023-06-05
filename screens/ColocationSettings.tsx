@@ -8,7 +8,7 @@ import Button from '../components/Reusable/ButtonColor';
 import SettingsCard from '../components/Settings/SettingsCard';
 import * as Clipboard from 'expo-clipboard';
 import { FB_AUTH, FB_DB } from '../firebaseconfig';
-import { UserContext } from '../UserContext';
+import { ColocContext, UserContext } from '../UserContext';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SettingsStackParams } from '../App';
 import { arrayRemove, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';

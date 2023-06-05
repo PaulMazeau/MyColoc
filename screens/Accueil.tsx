@@ -5,16 +5,45 @@ import { main } from '../constants/Colors';
 import BoutonMiniJeu from '../components/Accueil/BoutonMiniJeux';
 import MonSolde from '../components/Accueil/MonSolde';
 import Suggestion from '../components/Accueil/Suggestions';
-import { FB_AUTH } from '../firebaseconfig';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../UserContext';
 import TacheCard from '../components/Tache/TacheCard';
+import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
+import { FB_DB } from '../firebaseconfig';
 
 const Appartement = require('../assets/images/Appartement.png');
 
 
 const AccueilScreen = () => {
-  const [user, setUser] = useContext(UserContext)
+  const [user, setUser] = useContext(UserContext);
+  const [nextTask, setNextTask] = useState(null);
+  useEffect(()=>{
+    const getTache = async () => {
+      const q = query(collection(FB_DB, "Colocs/" + user.colocID + "/Taches"), where('nextOne', '==', user.uuid), orderBy('date', 'desc'), limit(1));
+      const data = await getDocs(q)
+      setNextTask(data)}
+      getTache();
+    }, [])
+
+  const renderNextTache = () => {
+    if(nextTask){
+      if(nextTask.docs.length >0){
+        return(
+          nextTask.docs.map((doc)=>{
+            return(
+              <TacheCard tache={doc.data()} key={doc.id}/>
+            )
+          })
+        )
+      }
+    }
+    else{
+      return(
+        <Text>Pas de tâches ou t le suivant potow</Text>
+      )
+    }
+  }
+  
   return (
     <View style={styles.container}>
       <BlueGradient />
@@ -35,7 +64,7 @@ const AccueilScreen = () => {
           <BoutonMiniJeu/>
         </View>
         <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
-        <TacheCard />
+        {renderNextTache()}
       </ScrollView>
     </View>
   );
