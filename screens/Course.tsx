@@ -95,12 +95,13 @@ const styles = StyleSheet.create({
   },
   emptyPageContainer: {
     flex: 1,
+    marginTop:50,
     justifyContent: 'center',
     alignItems: 'center',
   },
   emptyPageImage: {
-    width: 250,
-    height: 250,
+    width: 200,
+    height: 200,
     marginBottom: 10,
   },
   texte: {

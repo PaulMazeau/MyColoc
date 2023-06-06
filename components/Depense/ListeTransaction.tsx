@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, FlatList, Animated } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Animated, Image } from 'react-native';
 import TransactionCard from './TransactionCard';
 import * as Crypto from 'expo-crypto';
 import { DepenseContext } from '../../UserContext';
 import AddDepenseBS from './AddDepenseBS';
+import { main } from '../../constants/Colors';
 //props.transacs est la liste de toutes les transactions
 export default function ListeTransaction() {
   const animation = React.useRef(new Animated.Value(0)).current;
@@ -33,7 +34,7 @@ export default function ListeTransaction() {
   const renderTransaction = React.useCallback(
     ({  }) => {
       if(transac){
-      if(transac.length == 0){return(<Text>Pas de transac</Text>)}
+      if(transac.length == 0){return(emptyTransaction())}
       else{
       return (
         transac.map((t) => {
@@ -52,6 +53,15 @@ export default function ListeTransaction() {
     }},
     [animation, translateY]
   );
+  
+  //Fonction d'affichage pour transacation Empty
+  const emptyTransaction = () => {
+    return( 
+    <View style={styles.emptyPageContainer}>
+      <Image source={require('../../assets/images/EmptyTransac.png')} style={styles.emptyPageImage} />
+      <Text style={styles.texte}>Tu n'as aucune transaction</Text>
+    </View>)
+  };
 
   return (
     <View style={styles.container}>
@@ -73,5 +83,23 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     marginBottom: 90, 
-  }
+  },
+  emptyPageContainer: {
+    flex: 1,
+    marginTop:100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyPageImage: {
+    width: 90,
+    height: 90,
+    marginBottom: 10,
+  },
+  texte: {
+    fontSize: 16,
+    color: main.TextColor,
+    marginLeft: 5,
+    fontWeight: '600',
+    letterSpacing: -0.6,
+  },
 });

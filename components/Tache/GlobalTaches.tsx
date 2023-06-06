@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
       emptyPageImage: {
-        width: 150,
-        height: 150,
+        width: 175,
+        height: 175,
         marginBottom: 10,
       },
       emptyPageText: {

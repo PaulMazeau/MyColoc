@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import React, { useContext, useEffect, useMemo } from 'react';
+import { View, Text, Dimensions, StyleSheet, Image } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated';
 import { ColocContext } from '../../UserContext';
+import { main } from '../../constants/Colors';
 
 const screenWidth = Dimensions.get('window').width;
 const barWidth = screenWidth * 0.40;
@@ -43,10 +44,20 @@ const GraphiqueEquilibrage = () => {
     });
   }, []);
 
+  //fonction pour afficher l'emptyGraphe
+  const emptyGraph = () => {
+    return (
+      <View style={styles.emptyPageContainer}>
+        <Image source={require('../../assets/images/EmptyDepense.png')} style={styles.emptyPageImage} />
+        <Text style={styles.texte}>Oops, il n'y a encore aucune dépense</Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
 
-      {onlyZeros(coloc) ? <Text>Tout le monde est à 0 !</Text>: data.map((item, index) => {
+      {onlyZeros(coloc) ? emptyGraph(): data.map((item, index) => {
         const animatedStyle = useAnimatedStyle(() => {
           const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
           return {
@@ -123,6 +134,23 @@ const styles = StyleSheet.create({
   },
   valueRight: {
     left: '50%',
+  },
+  emptyPageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyPageImage: {
+    width: 150,
+    height: 150,
+    marginBottom: 10,
+  },
+  texte: {
+    fontSize: 16,
+    color: main.TextColor,
+    marginLeft: 5,
+    fontWeight: '600',
+    letterSpacing: -0.6,
   },
 });
 
