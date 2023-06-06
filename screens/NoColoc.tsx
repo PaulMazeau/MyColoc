@@ -74,7 +74,7 @@
                 <View style={styles.inputContainer}>
                   <View style={styles.segmentedControl}>
                     <TabButton index={0} title="J'ai une colocation" />
-                    <TabButton index={1} title="J'ai pas de colocation" />
+                    <TabButton index={1} title="Je n'ai pas de colocation" />
                   </View>
                   <Text style={styles.Title}>
                     {selectedTabIndex === 0
