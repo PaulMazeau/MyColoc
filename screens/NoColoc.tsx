@@ -1,5 +1,5 @@
     import React, {useContext, useState} from 'react'
-    import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
+    import { StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native'
     import {UserContext} from '../UserContext'
     import { FB_AUTH, FB_DB } from '../firebaseconfig';
     import * as Crypto from 'expo-crypto';
@@ -67,14 +67,18 @@
           };
           
           return (
-            <View style={styles.container}>
-              <View style={styles.content}>
+            <KeyboardAvoidingView 
+            style={styles.container}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 0 : -50}
+            >
+            <View style={styles.content}>
                 <StatusBar style="light" />
                 <BlueGradient height={0.6} />
                 <View style={styles.inputContainer}>
                   <View style={styles.segmentedControl}>
                     <TabButton index={0} title="J'ai une colocation" />
-                    <TabButton index={1} title="J'ai pas de colocation" />
+                    <TabButton index={1} title="Je n'ai pas de colocation" />
                   </View>
                   <Text style={styles.Title}>
                     {selectedTabIndex === 0
@@ -101,8 +105,8 @@
                   }
                 />
               </View>
-              <TouchableOpacity style={styles.decoBouton} onPress={() => { FB_AUTH.signOut(); setUser(null);}}><Text style={styles.textDecoBouton}>Déconnexion</Text></TouchableOpacity>
-            </View>
+        <TouchableOpacity style={styles.decoBouton} onPress={() => { FB_AUTH.signOut(); setUser(null);}}><Text style={styles.textDecoBouton}>Déconnexion</Text></TouchableOpacity>
+      </KeyboardAvoidingView>
           );
           
     }

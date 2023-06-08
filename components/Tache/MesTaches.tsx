@@ -11,7 +11,7 @@ export default function MesTaches(props) {
           <View style={styles.emptyPageContainer}>
             <Image source={require('../../assets/images/EmptyPersonnalTask.png')} style={styles.emptyPageImage} />
             <Text style={styles.emptyPageText}>Oops, tu n'as encore aucune</Text>
-            <Text style={styles.emptyPageText}>tâches te concernant</Text>
+            <Text style={styles.emptyPageText}>tâche te concernant</Text>
           </View>
         );
     };

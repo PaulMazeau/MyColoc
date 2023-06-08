@@ -1,13 +1,24 @@
 import React, { useContext } from 'react'
-import { StyleSheet, Text, ScrollView, View } from 'react-native'
+import { StyleSheet, Text, ScrollView, View, Image } from 'react-native'
 import GraphiqueEquilibrage from './GraphiqueEquilibrage';
 import EquilibrageCard from './EquilibrageCard';
 import AddDepenseBS from './AddDepenseBS';
 import { ColocContext } from '../../UserContext';
+import { main } from '../../constants/Colors';
 
 
 export default function Equilibrage() {
     const [coloc, setColoc] = useContext(ColocContext);
+
+    //Fonction d'affichage pour l'equilibrage empty
+    const emptyEquilibrage = () => {
+        return (
+        <View style={styles.emptyPageContainer}>
+            <Image source={require('../../assets/images/EmptyTransac.png')} style={styles.emptyPageImage} />
+            <Text style={styles.texte}>Il n'y a rien à équilibrer</Text>
+        </View>
+        );
+    }
 
     const renderEquilibrage = () => {
         var toRender = []
@@ -36,7 +47,7 @@ export default function Equilibrage() {
             )
             
           }
-        return (<Text>Toutout est benné</Text>)
+        return (emptyEquilibrage())
     }
       
     return (
@@ -67,4 +78,22 @@ const styles = StyleSheet.create({
     scrollView: {
         marginBottom: 90, 
     },
+    emptyPageContainer: {
+        flex: 1,
+        marginTop:50,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      emptyPageImage: {
+        width: 90,
+        height: 90,
+        marginBottom: 10,
+      },
+      texte: {
+        fontSize: 16,
+        color: main.TextColor,
+        marginLeft: 5,
+        fontWeight: '600',
+        letterSpacing: -0.6,
+      },
 })
