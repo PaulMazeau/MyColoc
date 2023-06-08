@@ -1,7 +1,6 @@
 import { Platform, Dimensions } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
-console.log(width)
 let padding = 30;
 
 if(width <= 375) { // Pour les écrans plus petits comme iPhone SE

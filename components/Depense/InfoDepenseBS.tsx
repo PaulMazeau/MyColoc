@@ -5,8 +5,12 @@ import ParticipantCard from '../Reusable/ParticipantCard';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import Cross from '../../assets/icons/cross.svg'
 
+interface InfoDepenseBSProps {
+  onClose: () => void;
+}
 
-const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, {}>((props, ref) => {
+const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSProps>((props, ref) => {
+  
     const backdropComponent = useCallback(
     (props) => (
       <BottomSheetBackdrop
@@ -33,7 +37,7 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, {}>((props, ref)
         
         <View style={styles.header}>
             <Text style={styles.bottomSheetTitle}>Pizza</Text>
-            <TouchableOpacity style={styles.cross} onPress={() => console.log('prout')}>
+            <TouchableOpacity style={styles.cross} onPress={props.onClose}>
             <Cross />
             </TouchableOpacity>
         </View>

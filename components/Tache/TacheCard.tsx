@@ -5,6 +5,7 @@ import { Shadows } from '../../constants/Shadow';
 import InfoBottomSheet from '../Reusable/InfoBottomSheet';
 import Valider from '../../assets/icons/Valider'
 import { Colors, Drawer } from 'react-native-ui-lib';
+import * as Haptics from 'expo-haptics';
 
 // props.tache = tache
 const TacheCard = (props) => {
@@ -23,7 +24,7 @@ const TacheCard = (props) => {
   }
 
   function handlePress() { 
-    setIsPress(<TouchableOpacity onPress={() => {handleDone(); setIsPress(<Valider width={25} height={15} color='white'/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Confirmer </Text></TouchableOpacity>);
+    setIsPress(<TouchableOpacity onPress={() => {Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success), handleDone(); setIsPress(<Valider width={25} height={15} color='white'/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Confirmer </Text></TouchableOpacity>);
   }
 
   const renderDate = (date) => {
@@ -62,7 +63,7 @@ const TacheCard = (props) => {
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => {handlePress()}} style={styles.Button}>
+          <TouchableOpacity onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium), handlePress()}} style={styles.Button}>
                 {isPress}
               </TouchableOpacity>
         </View>

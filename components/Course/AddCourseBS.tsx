@@ -36,6 +36,7 @@ const AddListeCourseBS = () => {
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
   };
+  
   const handleAddCourse = async () => {
     if(title.length == 0){alert('titre vide')}
     else{
