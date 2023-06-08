@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, FlatList, Alert, ActivityIndicator } from 'react-native'
+import { View, StyleSheet, Text, FlatList, Alert, ActivityIndicator, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenTitle from '../components/Reusable/ScreenTitle'
 import { main } from '../constants/Colors';
@@ -19,22 +19,36 @@ type Props = NativeStackScreenProps<SettingsStackParams, 'ColocationSettings'>;
 interface Colocataire {
     id: string;
     name: string;
+    photo: any;
   }
   
 // Données de test
 const data: Colocataire[] = [
-    { id: '1', name: 'Photo du coloc' },
+    { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
+    { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
+    { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
+    { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
+    { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
+    { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
+    
     // Ajoutez plus de colocataires ici
 ];
   
-  const Item = ({ name }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{name}</Text>
-    </View>
+//Render d'un coloc dans la flatlist
+  const Item = ({ name, photo }) => (
+    <View style={styles.colocataire}>
+        <View style={styles.ImageContainer}>
+        <Image source={photo} style={styles.Image}/>
+        </View>
+        <Text style={styles.nom}> {name} </Text>
+     </View>
   );
 
 const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
-    const renderItem = ({ item }: { item: Colocataire }) => <Item name={item.name} />;
+    const renderItem = ({ item }: { item: Colocataire }) => (
+      <Item name={item.name} photo={item.photo} />
+    );
+
     const [user, setUser] = useContext(UserContext)
     const [loading, setLoading] = useState(false)
     const handleLeaveColocSetup = () => {
@@ -69,20 +83,28 @@ const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
     <StatusBar style="dark"/>
     <ScreenTitle title={'Settings'} shouldGoBack/>
     <View style={styles.body}>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item: Colocataire) => item.id}
-        style={styles.container}
-      />
+
+      <View style={styles.containerFlatList}>
+        <View style={styles.flatlist}>
+            <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item: Colocataire) => item.id}
+            numColumns={3}   
+            columnWrapperStyle={{justifyContent:'space-around'}}
+            />
+        </View>
+      </View>
       
 
+      
       <SettingsCard title="Avatar" onPress={() => navigation.navigate('AvatarSettings')} avatar={{uri: user.avatarUrl, cache:'force-cache'}} />
       <SettingsCard title="Code de la colocation" subtitle={user.colocID} onPress={async () => { await Clipboard.setStringAsync(user.colocID); Alert.alert('Succès', 'Le texte a été copié'); }} />
       <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
 
       <Button text={'Déconnexion'} colorBackGround={'red'} colorText={'white'} onPress={() => {FB_AUTH.signOut(); setUser(null)}} />
       {loading ? <ActivityIndicator size= 'small'/>: <Button text={'Quitter la colocation'} colorBackGround={'red'} colorText={'white'} onPress={() => handleLeaveColocSetup()} />}
+      
     </View>
 
     </SafeAreaView>
@@ -97,17 +119,37 @@ const styles = StyleSheet.create({
   body:{
     flex: 1,
     width: '90%',
-    marginHorizontal: '5%'
+    marginHorizontal: '5%',
   },
-  item: {
+  containerFlatList: {
+    flex:1,
+    marginBottom:10
+  },
+  flatlist:{
     backgroundColor: '#172ACE',
-    padding: 20,
-    marginVertical: 8,
+    borderRadius: 10,
+    padding:10,
   },
-  title: {
-    fontSize: 32,
-    color: 'white'
+  colocataire: {
+    alignItems: 'center',
+    margin: 6
   },
+  ImageContainer: {
+    height: 90,
+    width: 90,
+    borderRadius: 4
+  },
+  nom: {
+    color: 'white',
+    fontSize: 13,
+    marginTop: 5,
+    fontWeight: '700'
+  },
+  Image: {
+    height: '100%',
+    width: '100%',   
+  },
+
 });
 
 export default  ColocationSettingsScreen
