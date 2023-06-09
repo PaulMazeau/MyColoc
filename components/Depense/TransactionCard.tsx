@@ -1,7 +1,6 @@
 import React, { useContext, useRef } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Animated } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
-import RemboursementBS from './RemboursementBS';
 import { ColocContext } from '../../UserContext';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import InfoDepenseBS from './InfoDepenseBS';
@@ -25,6 +24,19 @@ const handleDelete = async () => {
   console.log('delete')
 }
 
+  //Permet d'animer les ombres en fadeIn
+  const opacity = useRef(new Animated.Value(0)).current;  
+  const fadeIn = () => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+  React.useEffect(() => {
+    fadeIn();
+  }, []);
+
   const renderContent = () => {
       return (
         <View style={styles.textContainer}>
@@ -43,7 +55,9 @@ const handleDelete = async () => {
   };
 
   return (
-    <View style={styles.body}>
+    
+    <View>
+      <Animated.View style={[styles.body, { opacity }]}>
       <Drawer
         rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
         style={styles.drawer}
@@ -59,7 +73,9 @@ const handleDelete = async () => {
     </TouchableOpacity>
     </View>
     </Drawer>
+    </Animated.View>
     </View>
+    
   );
 };
 
