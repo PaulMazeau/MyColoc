@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text,  KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
@@ -22,13 +22,15 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Answer'>;
 const Guess = () => {
     const navigation = useNavigation<navigationProp>();
     return (
-        <ImageBackground 
-        source={Space_Background} 
-        resizeMode="cover"
-        style={styles.imageBackground}
-        >
-        <SafeAreaView style={styles.global} >
-        <StatusBar style="light" />
+        <KeyboardAvoidingView behavior={"height"} style={{flex: 1}}>
+            <ScrollView contentContainerStyle={{flexGrow: 1}}>
+                <ImageBackground 
+                source={Space_Background} 
+                resizeMode="cover"
+                style={styles.imageBackground}
+                >
+                <SafeAreaView style={styles.global} >
+                <StatusBar style="light" />
         <View style={styles.global}>
             <View style={styles.Logo}>
                 <Image source={Logo} />
@@ -61,7 +63,9 @@ const Guess = () => {
             </View>
         </View>
         </SafeAreaView>
-      </ImageBackground>
+              </ImageBackground>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
