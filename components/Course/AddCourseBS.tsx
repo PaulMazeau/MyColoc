@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useContext } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView, Platform} from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { ScrollView as GestureHandlerScrollView } from 'react-native-gesture-handler';
 import Plus from '../../assets/icons/Plus.svg';
@@ -74,6 +74,21 @@ const AddListeCourseBS = () => {
     []
   );
 
+  const CustomScrollView = ({ children }) => {
+    if (Platform.OS === 'ios') {
+      return (
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </KeyboardAwareScrollView>
+      );
+    } else {
+      return <ScrollView>{children}</ScrollView>;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() =>{ Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); openBottomSheet() }} style={styles.addButton}>
@@ -87,10 +102,7 @@ const AddListeCourseBS = () => {
         backdropComponent={renderBackdrop}
       >
         <View style={styles.contentContainer}>
-          <KeyboardAwareScrollView  
-            keyboardShouldPersistTaps={'always'}
-            showsVerticalScrollIndicator={false}
-            >
+          <CustomScrollView>
             <Text style={styles.title}>Nouvelle Liste de Course</Text>
 
             <View style={styles.inputContainer}>
@@ -121,7 +133,7 @@ const AddListeCourseBS = () => {
               <Plus />
               <Text style={styles.buttonText}>Ajouter la liste de course</Text>
             </TouchableOpacity>
-          </KeyboardAwareScrollView>
+          </CustomScrollView>
         </View>
       </BottomSheetModal>
     </View>
