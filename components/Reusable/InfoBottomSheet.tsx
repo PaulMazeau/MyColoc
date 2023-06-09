@@ -41,14 +41,17 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
   const [coloc, setColoc] = useContext(ColocContext);
   const nextOne = coloc.find(u => u.uuid === props.tache.nextOne)
   const freq = recurrenceOptions.find(rec => rec.value === props.tache.recur)
+  const participants = coloc.filter(c => props.tache.concerned.includes(c.uuid) )
+
   const CustomBackgroundComponent = () => <View />;
   const renderParticipant = () => {
-    return coloc.map((c) => {
+    if (participants){
+    return participants.map((c) => {
       return(
      
       <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} />
       )
-  });}
+  })};}
   return (
     <BottomSheetModal
       ref={ref}

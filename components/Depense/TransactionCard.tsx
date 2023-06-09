@@ -51,7 +51,7 @@ const handleDelete = async () => {
           <View style={styles.rightContainer}>
             <Text style={styles.title}>{props.transac.amount.toFixed(2) + '€'}</Text>
           </View>
-          <InfoDepenseBS ref={bottomSheetModalRef} onClose={() => handleDismissPress()}/>
+          <InfoDepenseBS ref={bottomSheetModalRef} transac = {props.transac}onClose={() => handleDismissPress()}/>
         </View>
       );
   };

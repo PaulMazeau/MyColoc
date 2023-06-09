@@ -1,12 +1,14 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import Cross from '../../assets/icons/cross.svg'
+import { ColocContext } from '../../UserContext';
 
 interface InfoDepenseBSProps {
   onClose: () => void;
+  transac: any;
 }
 
 const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSProps>((props, ref) => {
@@ -23,7 +25,17 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
   );
 
   const CustomBackgroundComponent = () => <View />;
-
+  const [coloc, setColoc] = useContext(ColocContext);
+  const giver = coloc.find(u => u.uuid === props.transac.giverID)
+  const participants = coloc.filter(c => props.transac.receiversID.includes(c.uuid) )
+  const renderParticipant = () => {
+    if (participants){
+    return participants.map((c) => {
+      return(
+     
+      <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} />
+      )
+  })};}
   return (
     <BottomSheetModal
       ref={ref}
@@ -36,7 +48,7 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
       <View style={styles.bottomSheet}>
         
         <View style={styles.header}>
-            <Text style={styles.bottomSheetTitle}>Pizza</Text>
+            <Text style={styles.bottomSheetTitle}>{props.transac.desc}</Text>
             <TouchableOpacity style={styles.cross} onPress={props.onClose}>
             <Cross />
             </TouchableOpacity>
@@ -50,20 +62,20 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
 
         <View style={styles.section}>
           <Text style={styles.freqtitle}>
-            Montant: <Text style={styles.text}>255€</Text>
+            Montant: <Text style={styles.text}>{props.transac.amount.toFixed(2)}</Text>
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.freqtitle}>
-            Payé par: <Text style={styles.text}>Aya</Text>
+            Payé par: <Text style={styles.text}>{giver.nom}</Text>
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.title}>Payé pour:</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled'>
-              <ParticipantCard />
+              {renderParticipant()}
             </ScrollView>
         </View>
       </View>

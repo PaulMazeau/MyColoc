@@ -6,6 +6,7 @@ import InfoBottomSheet from '../Reusable/InfoBottomSheet';
 import Valider from '../../assets/icons/Valider'
 import { Colors, Drawer } from 'react-native-ui-lib';
 import * as Haptics from 'expo-haptics';
+import { deleteDoc, doc } from 'firebase/firestore';
 
 // props.tache = tache
 const TacheCard = (props) => {
@@ -44,8 +45,9 @@ const TacheCard = (props) => {
 
   const renderContent =() => {
     const handleDelete = async () => {
-      //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
-      console.log('delete')
+      // await deleteDoc(doc(FB_DB, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
+     
+      
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
     }
     const test = true
