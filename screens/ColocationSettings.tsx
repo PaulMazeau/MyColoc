@@ -21,19 +21,7 @@ interface Colocataire {
     name: string;
     photo: any;
   }
-  
-// Données de test
-// const data: Colocataire[] = [
-//     { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
-//     { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
-//     { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
-//     { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
-//     { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
-//     { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
-    
-//     // Ajoutez plus de colocataires ici
-// ];
-  
+
 //Render d'un coloc dans la flatlist
   const Item = ({ name, photo }) => (
     <View style={styles.colocataire}>
