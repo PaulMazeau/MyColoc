@@ -40,7 +40,7 @@ const AccueilScreen = () => {
     }
     else{
       return(
-        <Text>Pas de tâches ou t le suivant potow</Text>
+        <Text>Tu es le suivant sur aucune tâche</Text>
       )
     }
   }
