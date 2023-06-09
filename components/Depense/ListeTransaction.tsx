@@ -31,8 +31,8 @@ export default function ListeTransaction() {
     [animation]
   );
 
-  const renderTransaction = React.useCallback(
-    ({  }) => {
+  const renderTransaction = () => {
+   
       if(transac){
       if(transac.length == 0){return(emptyTransaction())}
       else{
@@ -50,9 +50,8 @@ export default function ListeTransaction() {
           )
         })
       )};
-    }},
-    [animation, translateY]
-  );
+    }}
+   
   
   //Fonction d'affichage pour transacation Empty
   const emptyTransaction = () => {

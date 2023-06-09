@@ -25,13 +25,12 @@ export default function DepenseScreen() {
     return () => {subscriber()}
   }, [])
   useEffect(()=>{
-    if(snapshot){
+ 
       const transacSetter = []
       snapshot.forEach((doc)=>{
         transacSetter.push(doc)
       })
       setTransac(transacSetter)
-    }
   }, [snapshot])
   return (
     <View style={styles.container}>

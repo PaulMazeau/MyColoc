@@ -125,7 +125,7 @@ const AddDepenseBS = () => {
       }
     const allParticipant = [...receivers]
     if(!(allParticipant.includes(payeur))){allParticipant.push(payeur)}
-    await addDoc(collection(FB_DB, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(value), giverID: payeur, receiversID: receivers, desc: title, concerned: allParticipant}).then(()=>{alert('dep add')}).catch((error)=>{alert(error.message)})
+    await addDoc(collection(FB_DB, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(value), giverID: payeur, receiversID: receivers, desc: title, concerned: allParticipant}).catch((error)=>{alert(error.message)})
     };
 
   return (
