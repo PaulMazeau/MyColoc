@@ -63,7 +63,7 @@ export default function LoginScreen({navigation}: Props) {
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>
-      {loading ? <ActivityIndicator size='large'/>:<CustomButton title="Se connecter" onPress={() => {Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);signIn()}} />}
+      {loading ? <ActivityIndicator size='large' style={styles.activityIndicator}/>:<CustomButton title="Se connecter" onPress={() => signIn()} />}
     </View>
   );
 }
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     width: "90%",
     top: 50,
     zIndex: 1,
-    marginHorizontal: '5%'
+    marginHorizontal: '5%',
   },
   input: {
     paddingHorizontal: 10,
@@ -116,4 +116,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingLeft: 10
   },
+  activityIndicator:{
+    flex:1
+  }
 });
