@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MyColoc",
-    "slug": "MyColoc",
+    "name": "MyColocv2",
+    "slug": "MyColocv2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -15,20 +15,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pabloprout.MyColocv2"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.pabloprout.MyColocv2"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "8dbcef21-2594-49b0-8188-354cc40a94d0"
+        "projectId": "6c8e8ab1-b259-4937-afb8-5d756758ca6f"
       }
     }
   }
