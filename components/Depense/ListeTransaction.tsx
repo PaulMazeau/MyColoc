@@ -70,7 +70,7 @@ export default function ListeTransaction() {
         keyExtractor={(item) => item.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={renderTransaction}
-        style={styles.flatlist}
+        ListFooterComponent={<View style={{ height: 90 }} />}
       />
       <AddDepenseBS />
     </View>

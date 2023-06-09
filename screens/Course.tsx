@@ -63,8 +63,12 @@ const CourseScreen = ({navigation}: Props) => {
       <Header/>
       <StatusBar style="auto" />
       <ScreenTitle title="Course"/>
-      <ScrollView style={styles.ScrollView}>
+      <ScrollView 
+      showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.ScrollView}>
         {renderContent()}
+        </View>
       </ScrollView>
       <AddListeCourseBS />
     </View>
