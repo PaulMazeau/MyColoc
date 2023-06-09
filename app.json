@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MyColocv2",
-    "slug": "MyColocv2",
+    "name": "MyColoc",
+    "slug": "MyColoc",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
