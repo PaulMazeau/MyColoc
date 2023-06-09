@@ -73,7 +73,7 @@ const TacheCard = (props) => {
               </TouchableOpacity>
         </View>
       </TouchableOpacity>
-      <InfoBottomSheet ref={bottomSheetModalRef} onClose={() => handleDismissPress()}/>
+      <InfoBottomSheet ref={bottomSheetModalRef} tache ={props.tache} onClose={() => handleDismissPress()}/>
     </View>
     </Drawer>
     </View>
@@ -97,7 +97,7 @@ const TacheCard = (props) => {
           </View>
         </View>
       </TouchableOpacity>
-      <InfoBottomSheet ref={bottomSheetModalRef} onClose={() => handleDismissPress()} />
+      <InfoBottomSheet ref={bottomSheetModalRef} tache = {props.tache} onClose={() => handleDismissPress()} />
     </View>
     )
   }

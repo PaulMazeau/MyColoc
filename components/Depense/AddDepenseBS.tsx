@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView, Alert} from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
 import AddButton from '../../assets/icons/AddButton.svg';
@@ -186,10 +187,10 @@ const AddDepenseBS = () => {
          <Text style={styles.subTitle}>Payé pour</Text>
              <View style={styles.participant}>
                  <ScrollView  
-                     horizontal={true}
+                     horizontal
                      showsHorizontalScrollIndicator={false}
-                     contentContainerStyle={{flexGrow: 1}}
-                     keyboardShouldPersistTaps='handled'>
+                     contentContainerStyle={styles.participantContainer}
+                     nestedScrollEnabled={true}>
                          {renderParticipant()}
                  </ScrollView>
              </View>
@@ -331,6 +332,10 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         flex: 1,
+      },
+
+      participantContainer: {
+        flexGrow: 1,
       },
 });
 

@@ -1,14 +1,32 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import ParticipantCard from './ParticipantCard';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import Cross from '../../assets/icons/cross.svg'
+import { ColocContext } from '../../UserContext';
 
 interface InfoTacheBSProps {
   onClose: () => void;
+  tache: any;
 }
-
+const recurrenceOptions = [
+  { label: 'Aucune', value: '0' },
+  { label: '1 jour', value: '1' },
+  { label: '2 jours', value: '2' },
+  { label: '3 jours', value: '3' },
+  { label: '1 semaine', value: '7' },
+  { label: '2 semaines', value: '14' },
+  { label: '1 mois', value: '28' },
+];
+const renderDate = (date) => {
+  if(!date){return ""}
+  else{
+    const days = ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.']
+    const months = ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec']
+    const dayIndex = date.toDate().getDay()
+    return(days[dayIndex] + " " + date.toDate().getDate().toString() + " " + months[date.toDate().getMonth()])
+  }}
 const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSProps>((props, ref) => {
     const backdropComponent = useCallback(
     (props) => (
@@ -20,9 +38,17 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
     ),
     []
   );
-
+  const [coloc, setColoc] = useContext(ColocContext);
+  const nextOne = coloc.find(u => u.uuid === props.tache.nextOne)
+  const freq = recurrenceOptions.find(rec => rec.value === props.tache.recur)
   const CustomBackgroundComponent = () => <View />;
-
+  const renderParticipant = () => {
+    return coloc.map((c) => {
+      return(
+     
+      <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} />
+      )
+  });}
   return (
     <BottomSheetModal
       ref={ref}
@@ -35,7 +61,7 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
       <View style={styles.bottomSheet}>
         
         <View style={styles.header}>
-            <Text style={styles.bottomSheetTitle}>Tour de aya</Text>
+            <Text style={styles.bottomSheetTitle}>{props.tache.desc}</Text>
             <TouchableOpacity style={styles.cross} onPress={props.onClose}>
             <Cross />
             </TouchableOpacity>
@@ -43,17 +69,17 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
 
         <View style={styles.section}>
           <Text style={styles.freqtitle}>
-            Fréquence: <Text style={styles.text}>2 fois par semaine</Text>
+            Fréquence: <Text style={styles.text}>Tous les {freq.label}</Text>
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.title}>Prochain concerné : </Text>
           <View style={styles.card}>                
-            <Image source={require('../../assets/images/icon.png')} style={styles.avatar}/> 
+            <Image source={nextOne.avatarUrl ? {uri : nextOne.avatarUrl, cache:'force-cache'} :require('../../assets/images/icon.png')} style={styles.avatar}/> 
             <View>
-              <Text style={styles.text}> Aya </Text>
-              <Text style={styles.text}> 12 dec. </Text>
+              <Text style={styles.text}> {nextOne.nom} </Text>
+              <Text style={styles.text}> {renderDate(props.tache.date)} </Text>
             </View>
           </View>
         </View>
@@ -61,7 +87,7 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
         <View style={styles.section}>
           <Text style={styles.title}>Rotation:</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled'>
-              <ParticipantCard />
+              {renderParticipant()}
             </ScrollView>
         </View>
       </View>
