@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert, Platform  } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
@@ -109,6 +109,21 @@ const AddTacheBS = () => {
       </TouchableOpacity>)
   });}
 
+  const CustomScrollView = ({ children }) => {
+    if (Platform.OS === 'ios') {
+      return (
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </KeyboardAwareScrollView>
+      );
+    } else {
+      return <ScrollView>{children}</ScrollView>;
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -125,10 +140,7 @@ const AddTacheBS = () => {
         enableContentPanningGesture={true}
       >
         <View style={styles.contentContainer}>
-        <KeyboardAwareScrollView  
-            keyboardShouldPersistTaps={'always'}
-            showsVerticalScrollIndicator={false}
-            >
+        <CustomScrollView>
             <Text style={styles.title}>Nouvelle tâche ménagère</Text>
 
             <View style={styles.inputContainer}>
@@ -200,7 +212,7 @@ const AddTacheBS = () => {
               <Plus />
               <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
             </TouchableOpacity>
-          </KeyboardAwareScrollView>
+          </CustomScrollView>
         </View>
       </BottomSheetModal>
     </View>

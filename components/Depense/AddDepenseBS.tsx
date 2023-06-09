@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert} from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert, Platform} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
@@ -127,7 +127,22 @@ const AddDepenseBS = () => {
     const allParticipant = [...receivers]
     if(!(allParticipant.includes(payeur))){allParticipant.push(payeur)}
     await addDoc(collection(FB_DB, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(value), giverID: payeur, receiversID: receivers, desc: title, concerned: allParticipant}).catch((error)=>{alert(error.message)})
-    };
+  };
+
+  const CustomScrollView = ({ children }) => {
+    if (Platform.OS === 'ios') {
+      return (
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </KeyboardAwareScrollView>
+      );
+    } else {
+      return <ScrollView>{children}</ScrollView>;
+    }
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -143,10 +158,7 @@ const AddDepenseBS = () => {
         enableHandlePanningGesture={true}
       >
         <View style={styles.contentContainer}>
-        <KeyboardAwareScrollView  
-            keyboardShouldPersistTaps={'always'}
-            showsVerticalScrollIndicator={false}
-            >
+        <CustomScrollView>
  <Text style={styles.Title}>Nouvelle dépense</Text>
      <View style={styles.depenseTitle}>
          <Text style={styles.subTitle}>Titre</Text>
@@ -204,7 +216,7 @@ const AddDepenseBS = () => {
        <Plus/>
        <Text style={styles.buttonText}>Ajouter la dépense</Text>
        </TouchableOpacity>
-       </KeyboardAwareScrollView>
+       </CustomScrollView>
         </View>
       </BottomSheetModal>
     </View>
