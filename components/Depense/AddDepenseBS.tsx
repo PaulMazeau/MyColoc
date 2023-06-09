@@ -142,7 +142,7 @@ const AddDepenseBS = () => {
         enableHandlePanningGesture={true}
       >
         <View style={styles.contentContainer}>
- 
+        <ScrollView>
  <Text style={styles.Title}>Nouvelle dépense</Text>
      <View style={styles.depenseTitle}>
          <Text style={styles.subTitle}>Titre</Text>
@@ -200,7 +200,7 @@ const AddDepenseBS = () => {
        <Plus/>
        <Text style={styles.buttonText}>Ajouter la dépense</Text>
        </TouchableOpacity>
-    
+       </ScrollView>
         </View>
       </BottomSheetModal>
     </View>
