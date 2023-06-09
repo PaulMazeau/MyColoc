@@ -4,6 +4,7 @@ import { Shadows } from '../../constants/Shadow';
 import { ColocContext } from '../../UserContext';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import InfoDepenseBS from './InfoDepenseBS';
+import * as Haptics from 'expo-haptics';
 //props.transac est la transac a render
 const TransactionCard = (props) => {
   const [coloc, setColoc] = useContext(ColocContext);
@@ -22,6 +23,7 @@ const handleDismissPress = () => {
 const handleDelete = async () => {
   //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
   console.log('delete')
+  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
 }
 
   //Permet d'animer les ombres en fadeIn

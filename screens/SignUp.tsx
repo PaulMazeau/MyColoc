@@ -9,6 +9,7 @@ import { createUserWithEmailAndPassword} from 'firebase/auth';
 import { FB_AUTH, FB_DB } from '../firebaseconfig';
 import {setDoc, doc, collection, getDoc} from 'firebase/firestore'
 import { UserContext } from '../UserContext';
+import * as Haptics from 'expo-haptics';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'SignUp'>;
 
@@ -90,7 +91,7 @@ export default function SignUpScreen({navigation}: Props) {
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>
-      {loading ? <ActivityIndicator size='large' /> : <CustomButton title="S'inscrire" onPress={() => signUp()} />}
+      {loading ? <ActivityIndicator size='large' /> : <CustomButton title="S'inscrire" onPress={() => {Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);signUp()}} />}
     </View>
   );
 }

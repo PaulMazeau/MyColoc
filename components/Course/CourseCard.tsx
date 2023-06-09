@@ -3,6 +3,7 @@ import { Shadows } from '../../constants/Shadow';
 import { useContext } from 'react';
 import { CourseContext } from '../../UserContext';
 import { Colors, Drawer } from 'react-native-ui-lib';
+import * as Haptics from 'expo-haptics';
 
 interface Props {
     name: string;
@@ -14,6 +15,7 @@ const CourseCard: React.FC<Props> = ({ name, onPress, index }) => {
     const handleDelete = async () => {
         //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
         console.log('delete')
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
       }
     const [courses, setCourses] = useContext(CourseContext);
     const course = courses[index].data()
