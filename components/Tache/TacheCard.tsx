@@ -46,6 +46,7 @@ const TacheCard = (props) => {
     const handleDelete = async () => {
       //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
       console.log('delete')
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
     }
     const test = true
     if(test){
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 16,
     marginBottom: 12,
+    ...Shadows.shadow
   },
 
   global: {

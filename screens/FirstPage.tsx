@@ -5,6 +5,7 @@ import Button from '../components/Reusable/ButtonColor'
 import CustomButton from '../components/Reusable/Button'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { AuthStackParams } from '../App'
+import * as Haptics from 'expo-haptics';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'FirstPage'>;
 const Logo = require('../assets/images/Icon_Blanc.png');
@@ -20,7 +21,7 @@ const FirstPage = ({navigation}: Props) => {
         </View>
           <CustomButton 
             title={'S\'inscrire'}  
-            onPress={() => navigation.navigate('SignUp')}
+            onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);navigation.navigate('SignUp')}}
           />
           <CustomButton 
             title={'Se connecter'} 
@@ -28,7 +29,7 @@ const FirstPage = ({navigation}: Props) => {
             borderColor={'#172ACE'} 
             borderWidth={2} 
             color='#172ACE'
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);navigation.navigate('Login')}}
           />
     </View>
   )

@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { FB_AUTH } from '../firebaseconfig';
 import { set } from 'react-native-reanimated';
+import * as Haptics from 'expo-haptics';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'Login'>;
 
@@ -35,7 +36,7 @@ export default function LoginScreen({navigation}: Props) {
           <Text style={styles.PasdeCompte}>S'inscrire</Text>
         </TouchableOpacity>
         <View style={styles.Title}>
-          <TouchableOpacity style={{ flexDirection: 'row' }}>
+          <TouchableOpacity>
             <Text style={styles.screenTitle}>Se Connecter</Text>
           </TouchableOpacity>
         </View>
@@ -58,7 +59,7 @@ export default function LoginScreen({navigation}: Props) {
           value={pwd}
           onChangeText={(text) => setPwd(text)}
         />
-        <TouchableOpacity onPress={() => handleForgottenPwd()}>
+        <TouchableOpacity onPress={() =>  handleForgottenPwd() }>
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>

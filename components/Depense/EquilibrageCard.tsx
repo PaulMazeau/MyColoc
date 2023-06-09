@@ -2,6 +2,8 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, { useRef } from 'react';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import RemboursementBS from './RemboursementBS';
+import * as Haptics from 'expo-haptics';
+import { Shadows } from '../../constants/Shadow';
 
 const EquilibrageCard = ({deveur, receveur, montant}) => {
   const bottomSheetModalRef = useRef(null);
@@ -16,14 +18,18 @@ const EquilibrageCard = ({deveur, receveur, montant}) => {
   
   const handleDelete = async () => {
     console.log('delete');
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
   };
 
 
   return (
+    <View style={styles.body}>
     <Drawer
       rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
       style={styles.drawer}
     >
+    <View style={styles.global}>
+    
       <TouchableOpacity style={styles.card} onPress={handlePresentPress}>
         <View style={styles.userContainer}>
           <Image source={{uri : deveur.avatarUrl, cache:'force-cache'}} style={styles.avatar} />
@@ -41,22 +47,36 @@ const EquilibrageCard = ({deveur, receveur, montant}) => {
         </View>
       </TouchableOpacity>
       <RemboursementBS onDismiss={handleDismissPress} ref={bottomSheetModalRef}/>
+    
+    </View>
     </Drawer>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  body: {
+    marginBottom: 12,
+    backgroundColor: 'white',
+    width: '90%',
+    borderRadius: 10,
+    marginHorizontal: '5%',
+    ...Shadows.shadow,
+  },
+  global: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 16
+  },
   drawer: {
     backgroundColor: 'white',
     borderRadius: 10,
-    marginHorizontal: '5%',
-    marginBottom: 12,
   },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 15,
+    backgroundColor: 'white',
     borderRadius: 10,
   },
   userContainer: {

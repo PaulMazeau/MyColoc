@@ -9,6 +9,7 @@ import { createUserWithEmailAndPassword} from 'firebase/auth';
 import { FB_AUTH, FB_DB } from '../firebaseconfig';
 import {setDoc, doc, collection, getDoc} from 'firebase/firestore'
 import { UserContext } from '../UserContext';
+import * as Haptics from 'expo-haptics';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'SignUp'>;
 
