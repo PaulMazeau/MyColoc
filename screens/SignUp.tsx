@@ -90,7 +90,7 @@ export default function SignUpScreen({navigation}: Props) {
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>
-      {loading ? <ActivityIndicator size='large' /> : <CustomButton title="S'inscrire" onPress={() => signUp()} />}
+      {loading ? <ActivityIndicator size='large' style={styles.activityIndicator} /> : <CustomButton title="S'inscrire" onPress={() => signUp()} />}
     </View>
   );
 }
@@ -143,4 +143,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingLeft: 10
   },
+  activityIndicator:{
+    flex:1
+  }
 });
