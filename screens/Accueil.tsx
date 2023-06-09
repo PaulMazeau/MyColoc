@@ -10,6 +10,7 @@ import { UserContext } from '../UserContext';
 import TacheCard from '../components/Tache/TacheCard';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { FB_DB } from '../firebaseconfig';
+import GetNotificationPermission from '../GetNotificationPermission';
 
 const Appartement = require('../assets/images/Appartement.png');
 
@@ -47,6 +48,7 @@ const AccueilScreen = () => {
   return (
     <View style={styles.container}>
       <BlueGradient />
+      <GetNotificationPermission/>
       <View style={styles.appartementContainer}>
         <Image source={Appartement} style={styles.AppartementImage}/>
       </View>
