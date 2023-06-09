@@ -210,12 +210,7 @@ const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
     bottom: windowDimensions.height * 0.12,
-    right: windowDimensions.width * 0.00,
-    
-    backgroundColor:main.BgColor,
-    borderBottomLeftRadius:40,
-    borderTopLeftRadius:40,
-    padding:2,
+    right: windowDimensions.width * 0.03,
   },
   placeholderStyle: {
     fontSize: 14,

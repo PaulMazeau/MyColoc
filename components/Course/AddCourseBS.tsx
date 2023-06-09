@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
     bottom: windowHeight * 0.12, // 5% de la hauteur de l'écran
-    right: windowWidth * 0.05, // 5% de la largeur de l'écran
+    right: windowWidth * 0.03, // 5% de la largeur de l'écran
   },
   contentContainer: {
     flex: 1,

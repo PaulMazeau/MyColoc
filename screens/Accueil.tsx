@@ -55,16 +55,17 @@ const AccueilScreen = () => {
       </View>
       <ScrollView
       showsVerticalScrollIndicator={false}
-      style={styles.scrollView}
       >
-        <Text style={styles.TitreCategorie1}>La selection du mois</Text>
-        <Suggestion />
-        <View style={styles.row}>
-          <MonSolde/>
-          <BoutonMiniJeu/>
+        <View style={styles.scrollView}>
+          <Text style={styles.TitreCategorie1}>La selection du mois</Text>
+          <Suggestion />
+          <View style={styles.row}>
+            <MonSolde/>
+            <BoutonMiniJeu/>
+          </View>
+          <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
+          {renderNextTache()}
         </View>
-        <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
-        {renderNextTache()}
       </ScrollView>
     </View>
   );
