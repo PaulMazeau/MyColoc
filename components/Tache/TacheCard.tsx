@@ -17,6 +17,10 @@ const TacheCard = (props) => {
     bottomSheetModalRef.current?.present();
   };
 
+  const handleDismissPress = () => {
+    bottomSheetModalRef.current?.dismiss();
+  };
+
   var [ isPress, setIsPress ] = useState(<Valider width={25} height={15} color='white'/>);
 
   function handleDone() { 
@@ -69,7 +73,7 @@ const TacheCard = (props) => {
               </TouchableOpacity>
         </View>
       </TouchableOpacity>
-      <InfoBottomSheet ref={bottomSheetModalRef} />
+      <InfoBottomSheet ref={bottomSheetModalRef} onClose={() => handleDismissPress()}/>
     </View>
     </Drawer>
     </View>
@@ -93,7 +97,7 @@ const TacheCard = (props) => {
           </View>
         </View>
       </TouchableOpacity>
-      <InfoBottomSheet ref={bottomSheetModalRef} />
+      <InfoBottomSheet ref={bottomSheetModalRef} onClose={() => handleDismissPress()} />
     </View>
     )
   }
