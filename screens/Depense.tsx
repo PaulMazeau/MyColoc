@@ -24,14 +24,16 @@ export default function DepenseScreen() {
     const subscriber = onSnapshot(q, (QuerySnapshot) => {setSnapshot(QuerySnapshot)})
     return () => {subscriber()}
   }, [])
-  useEffect(()=>{
- 
-      const transacSetter = []
-      snapshot.forEach((doc)=>{
-        transacSetter.push(doc)
-      })
-      setTransac(transacSetter)
-  }, [snapshot])
+  useEffect(() => {
+    if (snapshot) {
+      const transacSetter = [];
+      snapshot.forEach((doc) => {
+        transacSetter.push(doc);
+      });
+      setTransac(transacSetter);
+    }
+  }, [snapshot]);
+  
   return (
     <View style={styles.container}>
       <Header/>
