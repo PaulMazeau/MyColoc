@@ -23,22 +23,22 @@ interface Colocataire {
   }
   
 // Données de test
-const data: Colocataire[] = [
-    { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
+// const data: Colocataire[] = [
+//     { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
+//     { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
+//     { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
+//     { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
+//     { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
+//     { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
     
-    // Ajoutez plus de colocataires ici
-];
+//     // Ajoutez plus de colocataires ici
+// ];
   
 //Render d'un coloc dans la flatlist
   const Item = ({ name, photo }) => (
     <View style={styles.colocataire}>
         <View style={styles.ImageContainer}>
-        <Image source={photo} style={styles.Image}/>
+        <Image source={{uri : photo}} style={styles.Image}/>
         </View>
         <Text style={styles.nom}> {name} </Text>
      </View>
@@ -48,9 +48,19 @@ const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
     const renderItem = ({ item }: { item: Colocataire }) => (
       <Item name={item.name} photo={item.photo} />
     );
-
+    const [coloc, setColoc] = useContext(ColocContext);
     const [user, setUser] = useContext(UserContext)
     const [loading, setLoading] = useState(false)
+
+    
+    const data = coloc.map((c)=>{ //data dans le dropdown
+      var rObj = {}
+      rObj['id'] = c.nom
+      rObj['name'] = c.nom
+      rObj['photo'] = c.avatarUrl
+      return rObj;
+    }) 
+
     const handleLeaveColocSetup = () => {
      Alert.alert('Attention', 'Quitter la colocation supprimera toutes les données vous concernant dans la colocation, pensez à régler vos dépenses !',
      [{text :'Continuer', onPress : (()=>{isUserSure()})}, {text:'Annuler'}]) 

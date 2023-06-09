@@ -142,16 +142,6 @@ const SettingsStack = createNativeStackNavigator<SettingsStackParams>();
 const DepenseStack = createNativeStackNavigator<DepenseStackParams>();
 
 const RootNavigator = () => {
-  return (
-    <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      <RootStack.Screen name="Main" component={MainNavigationScreenStack} />
-      <RootStack.Screen name="MiniJeuStack" component={MiniJeuScreenStack}/>
-      <RootStack.Screen name="SettingsStack" component={SettingsNavigator}/>
-    </RootStack.Navigator>
-  );
-}
-
-const MainNavigationScreenStack = () => {
   const [coloc, setColoc] = useState([]);
   const [user, setUser] = useContext(UserContext);
   const [snap, setSnap] = useState(null);
@@ -171,10 +161,23 @@ const MainNavigationScreenStack = () => {
       setColoc([])
     }
   }, [snap])
+  return (
+    <ColocContext.Provider value={[coloc, setColoc]}>
+    <RootStack.Navigator screenOptions={{ headerShown: false }}>
+      <RootStack.Screen name="Main" component={MainNavigationScreenStack} />
+      <RootStack.Screen name="MiniJeuStack" component={MiniJeuScreenStack}/>
+      <RootStack.Screen name="SettingsStack" component={SettingsNavigator}/>
+    </RootStack.Navigator>
+    </ColocContext.Provider>
+  );
+}
+
+const MainNavigationScreenStack = () => {
+ 
   return(
     
-  <ColocContext.Provider value={[coloc, setColoc]}>
-  <GetNotificationPermission/>
+
+ 
   <MainNavigation.Navigator
           initialRouteName="Accueil"
           screenOptions={{ 
@@ -191,7 +194,7 @@ const MainNavigationScreenStack = () => {
           <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: ({color}) => <TacheIcon color={color} />}}/>
           <MainNavigation.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
         </MainNavigation.Navigator>
-        </ColocContext.Provider>
+        
   )
 }
 
