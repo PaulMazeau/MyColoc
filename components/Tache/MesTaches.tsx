@@ -11,7 +11,7 @@ export default function MesTaches(props) {
           <View style={styles.emptyPageContainer}>
             <Image source={require('../../assets/images/EmptyPersonnalTask.png')} style={styles.emptyPageImage} />
             <Text style={styles.emptyPageText}>Oops, tu n'as encore aucune</Text>
-            <Text style={styles.emptyPageText}>tâche te concernant</Text>
+            <Text style={styles.emptyPageText}>autre tâche te concernant</Text>
           </View>
         );
     };
@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
         color: main.TextColor,
         fontWeight: '600',
         letterSpacing: -0.6,
-        marginBottom:16,
       },
       emptyPageContainer: {
         marginTop:20,
@@ -91,8 +90,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
       emptyPageImage: {
-        width: 150,
-        height: 150,
+        width: 200,
+        height: 100,
         marginBottom: 10,
+        marginTop: 20,
+        resizeMode: 'contain'
       },
 })

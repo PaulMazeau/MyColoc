@@ -69,7 +69,7 @@ const AddTacheBS = () => {
     if(!title){return Alert.alert("Comment s'intitule cette tâche","Rentre un titre pour cette tâche !")}
     if(concerned.length == 0){return Alert.alert("Qui est concerné par cette tâche ?","Selectionne les personnes concernées par cette tâche")}
     await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Taches'), {desc : title, colocID: user.colocID, date : date, concerned: concerned, recur: recur, nextOne: concerned[0]}).then(()=>{
-      alert('Tache add')
+      alert('Tache ajoutée')
     }).catch((error)=>{alert(error.message)})
     bottomSheetRef.current?.close();
     setTitle(null);
