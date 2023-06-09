@@ -11,6 +11,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Haptics from 'expo-haptics';
 import { addDoc, collection, doc } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
+import { main } from '../../constants/Colors';
 
 const windowDimensions = Dimensions.get('window');
 
@@ -209,7 +210,12 @@ const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
     bottom: windowDimensions.height * 0.12,
-    right: windowDimensions.width * 0.05,
+    right: windowDimensions.width * 0.00,
+    
+    backgroundColor:main.BgColor,
+    borderBottomLeftRadius:40,
+    borderTopLeftRadius:40,
+    padding:2,
   },
   placeholderStyle: {
     fontSize: 14,

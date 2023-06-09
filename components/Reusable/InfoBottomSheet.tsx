@@ -5,8 +5,11 @@ import ParticipantCard from './ParticipantCard';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import Cross from '../../assets/icons/cross.svg'
 
+interface InfoDepenseBSProps {
+  onClose: () => void;
+}
 
-const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, {}>((props, ref) => {
+const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSProps>((props, ref) => {
     const backdropComponent = useCallback(
     (props) => (
       <BottomSheetBackdrop
@@ -33,7 +36,7 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, {}>((props, re
         
         <View style={styles.header}>
             <Text style={styles.bottomSheetTitle}>Tour de aya</Text>
-            <TouchableOpacity style={styles.cross} onPress={() => console.log('prout')}>
+            <TouchableOpacity style={styles.cross} onPress={props.onClose}>
             <Cross />
             </TouchableOpacity>
         </View>
