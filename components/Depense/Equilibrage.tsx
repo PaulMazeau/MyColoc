@@ -53,12 +53,13 @@ export default function Equilibrage() {
     return (
         <View style={styles.container}>
             <ScrollView
-            style={styles.scrollView}
             showsVerticalScrollIndicator={false}
             >
+            <View style={styles.scrollView}>
             <GraphiqueEquilibrage/>
             <Text style={styles.subTitle}>Comment équilibrer ?</Text>
             {renderEquilibrage()}
+            </View>
             </ScrollView>
             <AddDepenseBS />
         </View>
