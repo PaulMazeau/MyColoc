@@ -9,6 +9,7 @@ import * as Haptics from 'expo-haptics';
 import { UserContext } from '../../UserContext';
 import { addDoc, collection } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -86,7 +87,10 @@ const AddListeCourseBS = () => {
         backdropComponent={renderBackdrop}
       >
         <View style={styles.contentContainer}>
-          <BottomSheetScrollView>
+          <KeyboardAwareScrollView  
+            keyboardShouldPersistTaps={'always'}
+            showsVerticalScrollIndicator={false}
+            >
             <Text style={styles.title}>Nouvelle Liste de Course</Text>
 
             <View style={styles.inputContainer}>
@@ -117,7 +121,7 @@ const AddListeCourseBS = () => {
               <Plus />
               <Text style={styles.buttonText}>Ajouter la liste de course</Text>
             </TouchableOpacity>
-          </BottomSheetScrollView>
+          </KeyboardAwareScrollView>
         </View>
       </BottomSheetModal>
     </View>

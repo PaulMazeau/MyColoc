@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     marginHorizontal: '5%',
-    marginTop: 50
+    marginTop: 25,
   },
   buttonText: {
     fontWeight: '700',

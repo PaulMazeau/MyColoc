@@ -10,6 +10,7 @@ import { ColocContext, UserContext } from '../../UserContext';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
 import { Dropdown } from 'react-native-element-dropdown';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -142,7 +143,10 @@ const AddDepenseBS = () => {
         enableHandlePanningGesture={true}
       >
         <View style={styles.contentContainer}>
-        <ScrollView>
+        <KeyboardAwareScrollView  
+            keyboardShouldPersistTaps={'always'}
+            showsVerticalScrollIndicator={false}
+            >
  <Text style={styles.Title}>Nouvelle dépense</Text>
      <View style={styles.depenseTitle}>
          <Text style={styles.subTitle}>Titre</Text>
@@ -200,7 +204,7 @@ const AddDepenseBS = () => {
        <Plus/>
        <Text style={styles.buttonText}>Ajouter la dépense</Text>
        </TouchableOpacity>
-       </ScrollView>
+       </KeyboardAwareScrollView>
         </View>
       </BottomSheetModal>
     </View>

@@ -12,6 +12,7 @@ import * as Haptics from 'expo-haptics';
 import { addDoc, collection, doc } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
 import { main } from '../../constants/Colors';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const windowDimensions = Dimensions.get('window');
 
@@ -124,7 +125,10 @@ const AddTacheBS = () => {
         enableContentPanningGesture={true}
       >
         <View style={styles.contentContainer}>
-          <ScrollView>
+        <KeyboardAwareScrollView  
+            keyboardShouldPersistTaps={'always'}
+            showsVerticalScrollIndicator={false}
+            >
             <Text style={styles.title}>Nouvelle tâche ménagère</Text>
 
             <View style={styles.inputContainer}>
@@ -196,7 +200,7 @@ const AddTacheBS = () => {
               <Plus />
               <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
             </TouchableOpacity>
-          </ScrollView>
+          </KeyboardAwareScrollView>
         </View>
       </BottomSheetModal>
     </View>
