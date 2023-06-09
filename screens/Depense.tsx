@@ -119,7 +119,3 @@ const styles = StyleSheet.create({
 });
 
 
-function setSnapshot(QuerySnapshot: QuerySnapshot<DocumentData>) {
-  throw new Error('Function not implemented.');
-}
-
