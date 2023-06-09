@@ -5,11 +5,11 @@ import ParticipantCard from './ParticipantCard';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import Cross from '../../assets/icons/cross.svg'
 
-interface InfoDepenseBSProps {
+interface InfoTacheBSProps {
   onClose: () => void;
 }
 
-const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSProps>((props, ref) => {
+const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSProps>((props, ref) => {
     const backdropComponent = useCallback(
     (props) => (
       <BottomSheetBackdrop
