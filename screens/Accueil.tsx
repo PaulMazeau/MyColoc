@@ -10,6 +10,7 @@ import { UserContext } from '../UserContext';
 import TacheCard from '../components/Tache/TacheCard';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { FB_DB } from '../firebaseconfig';
+import GetNotificationPermission from '../GetNotificationPermission';
 
 const Appartement = require('../assets/images/Appartement.png');
 
@@ -39,7 +40,7 @@ const AccueilScreen = () => {
     }
     else{
       return(
-        <Text>Pas de tâches ou t le suivant potow</Text>
+        <Text>Tu es le suivant sur aucune tâche</Text>
       )
     }
   }
@@ -47,6 +48,7 @@ const AccueilScreen = () => {
   return (
     <View style={styles.container}>
       <BlueGradient />
+      <GetNotificationPermission/>
       <View style={styles.appartementContainer}>
         <Image source={Appartement} style={styles.AppartementImage}/>
       </View>
@@ -55,16 +57,17 @@ const AccueilScreen = () => {
       </View>
       <ScrollView
       showsVerticalScrollIndicator={false}
-      style={styles.scrollView}
       >
-        <Text style={styles.TitreCategorie1}>La selection du mois</Text>
-        <Suggestion />
-        <View style={styles.row}>
-          <MonSolde/>
-          <BoutonMiniJeu/>
+        <View style={styles.scrollView}>
+          <Text style={styles.TitreCategorie1}>La selection du mois</Text>
+          <Suggestion />
+          <View style={styles.row}>
+            <MonSolde/>
+            <BoutonMiniJeu/>
+          </View>
+          <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
+          {renderNextTache()}
         </View>
-        <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
-        {renderNextTache()}
       </ScrollView>
     </View>
   );

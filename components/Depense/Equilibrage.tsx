@@ -53,12 +53,13 @@ export default function Equilibrage() {
     return (
         <View style={styles.container}>
             <ScrollView
-            style={styles.scrollView}
             showsVerticalScrollIndicator={false}
             >
+            <View style={styles.scrollView}>
             <GraphiqueEquilibrage/>
             <Text style={styles.subTitle}>Comment équilibrer ?</Text>
             {renderEquilibrage()}
+            </View>
             </ScrollView>
             <AddDepenseBS />
         </View>
@@ -80,7 +81,6 @@ const styles = StyleSheet.create({
     },
     emptyPageContainer: {
         flex: 1,
-        marginTop:50,
         justifyContent: 'center',
         alignItems: 'center',
       },

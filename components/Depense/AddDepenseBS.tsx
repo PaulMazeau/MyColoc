@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView, Alert} from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert, Platform} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
 import AddButton from '../../assets/icons/AddButton.svg';
@@ -9,6 +10,7 @@ import { ColocContext, UserContext } from '../../UserContext';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
 import { Dropdown } from 'react-native-element-dropdown';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -124,8 +126,23 @@ const AddDepenseBS = () => {
       }
     const allParticipant = [...receivers]
     if(!(allParticipant.includes(payeur))){allParticipant.push(payeur)}
-    await addDoc(collection(FB_DB, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(value), giverID: payeur, receiversID: receivers, desc: title, concerned: allParticipant}).then(()=>{alert('dep add')}).catch((error)=>{alert(error.message)})
-    };
+    await addDoc(collection(FB_DB, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(value), giverID: payeur, receiversID: receivers, desc: title, concerned: allParticipant}).catch((error)=>{alert(error.message)})
+  };
+
+  const CustomScrollView = ({ children }) => {
+    if (Platform.OS === 'ios') {
+      return (
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </KeyboardAwareScrollView>
+      );
+    } else {
+      return <ScrollView>{children}</ScrollView>;
+    }
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -141,7 +158,7 @@ const AddDepenseBS = () => {
         enableHandlePanningGesture={true}
       >
         <View style={styles.contentContainer}>
- 
+        <CustomScrollView>
  <Text style={styles.Title}>Nouvelle dépense</Text>
      <View style={styles.depenseTitle}>
          <Text style={styles.subTitle}>Titre</Text>
@@ -186,10 +203,10 @@ const AddDepenseBS = () => {
          <Text style={styles.subTitle}>Payé pour</Text>
              <View style={styles.participant}>
                  <ScrollView  
-                     horizontal={true}
+                     horizontal
                      showsHorizontalScrollIndicator={false}
-                     contentContainerStyle={{flexGrow: 1}}
-                     keyboardShouldPersistTaps='handled'>
+                     contentContainerStyle={styles.participantContainer}
+                     nestedScrollEnabled={true}>
                          {renderParticipant()}
                  </ScrollView>
              </View>
@@ -199,7 +216,7 @@ const AddDepenseBS = () => {
        <Plus/>
        <Text style={styles.buttonText}>Ajouter la dépense</Text>
        </TouchableOpacity>
-    
+       </CustomScrollView>
         </View>
       </BottomSheetModal>
     </View>
@@ -210,7 +227,7 @@ const styles = StyleSheet.create({
     addButton: {
         position: 'absolute',
         bottom: windowHeight * 0.12, // 12% de la hauteur de l'écran
-        right: windowWidth * 0.05, // 5% de la largeur de l'écran
+        right: windowWidth * 0.03, // 5% de la largeur de l'écran
       },
     input: {
         height: 44,
@@ -331,6 +348,10 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         flex: 1,
+      },
+
+      participantContainer: {
+        flexGrow: 1,
       },
 });
 

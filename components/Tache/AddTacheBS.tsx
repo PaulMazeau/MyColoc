@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert, Platform  } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Plus from '../../assets/icons/Plus.svg';
@@ -12,6 +12,7 @@ import * as Haptics from 'expo-haptics';
 import { addDoc, collection, doc } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
 import { main } from '../../constants/Colors';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const windowDimensions = Dimensions.get('window');
 
@@ -68,7 +69,7 @@ const AddTacheBS = () => {
     if(!title){return Alert.alert("Comment s'intitule cette tâche","Rentre un titre pour cette tâche !")}
     if(concerned.length == 0){return Alert.alert("Qui est concerné par cette tâche ?","Selectionne les personnes concernées par cette tâche")}
     await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Taches'), {desc : title, colocID: user.colocID, date : date, concerned: concerned, recur: recur, nextOne: concerned[0]}).then(()=>{
-      alert('Tache add')
+      alert('Tache ajoutée')
     }).catch((error)=>{alert(error.message)})
     bottomSheetRef.current?.close();
     setTitle(null);
@@ -108,6 +109,21 @@ const AddTacheBS = () => {
       </TouchableOpacity>)
   });}
 
+  const CustomScrollView = ({ children }) => {
+    if (Platform.OS === 'ios') {
+      return (
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </KeyboardAwareScrollView>
+      );
+    } else {
+      return <ScrollView>{children}</ScrollView>;
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -124,7 +140,7 @@ const AddTacheBS = () => {
         enableContentPanningGesture={true}
       >
         <View style={styles.contentContainer}>
-          <ScrollView>
+        <CustomScrollView>
             <Text style={styles.title}>Nouvelle tâche ménagère</Text>
 
             <View style={styles.inputContainer}>
@@ -196,7 +212,7 @@ const AddTacheBS = () => {
               <Plus />
               <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
             </TouchableOpacity>
-          </ScrollView>
+          </CustomScrollView>
         </View>
       </BottomSheetModal>
     </View>
@@ -210,12 +226,7 @@ const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
     bottom: windowDimensions.height * 0.12,
-    right: windowDimensions.width * 0.00,
-    
-    backgroundColor:main.BgColor,
-    borderBottomLeftRadius:40,
-    borderTopLeftRadius:40,
-    padding:2,
+    right: windowDimensions.width * 0.03,
   },
   placeholderStyle: {
     fontSize: 14,

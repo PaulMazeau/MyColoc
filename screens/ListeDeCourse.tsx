@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, FlatList } from 'react-native';
-import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, FlatList, KeyboardAvoidingView } from 'react-native';
+import { KeyboardAwareFlatList, KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Header from '../components/Reusable/Header';
 import { StatusBar } from 'expo-status-bar';
 import Valider from '../assets/icons/Valider';
@@ -30,7 +30,7 @@ const initialTodos: Todo[] = [
 ];
 
 //route.params.index est l'index de la course dans toutes les listes de courses
-const TodoList = ({route, navigation}: Props) => {
+const ListeDeCourse = ({route, navigation}: Props) => {
   const [todos, setTodos] = useState(initialTodos);
   const [input, setInput] = useState('');
   const [courses, setCourses] = useContext(CourseContext);
@@ -65,7 +65,6 @@ const TodoList = ({route, navigation}: Props) => {
       <Header/>
       <StatusBar style="auto" />
       <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
-        
         <ScreenTitle title={course.Nom} shouldGoBack/>
         </TouchableOpacity>
       <View style={[styles.container, Shadows.shadow]}>
@@ -95,7 +94,6 @@ const TodoList = ({route, navigation}: Props) => {
               blurOnSubmit={false}
             />
           }
-
         />
       </View>
     </View>
@@ -159,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TodoList;
+export default ListeDeCourse;

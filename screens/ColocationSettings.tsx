@@ -1,159 +1,153 @@
-import React, { useContext, useState } from 'react'
-import { View, StyleSheet, Text, FlatList, Alert, ActivityIndicator, Image } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ScreenTitle from '../components/Reusable/ScreenTitle'
-import { main } from '../constants/Colors';
-import { StatusBar } from 'expo-status-bar';
-import Button from '../components/Reusable/ButtonColor';
-import SettingsCard from '../components/Settings/SettingsCard';
-import * as Clipboard from 'expo-clipboard';
-import { FB_AUTH, FB_DB } from '../firebaseconfig';
-import { ColocContext, UserContext } from '../UserContext';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { SettingsStackParams } from '../App';
-import { arrayRemove, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+  import React, { useContext, useState } from 'react'
+  import { View, StyleSheet, Text, FlatList, Alert, ActivityIndicator, Image } from 'react-native'
+  import { SafeAreaView } from 'react-native-safe-area-context';
+  import ScreenTitle from '../components/Reusable/ScreenTitle'
+  import { main } from '../constants/Colors';
+  import { StatusBar } from 'expo-status-bar';
+  import Button from '../components/Reusable/ButtonColor';
+  import SettingsCard from '../components/Settings/SettingsCard';
+  import * as Clipboard from 'expo-clipboard';
+  import { FB_AUTH, FB_DB } from '../firebaseconfig';
+  import { ColocContext, UserContext } from '../UserContext';
+  import { NativeStackScreenProps } from '@react-navigation/native-stack';
+  import { SettingsStackParams } from '../App';
+  import { arrayRemove, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+  import { ScrollView } from 'react-native-gesture-handler';
 
-type Props = NativeStackScreenProps<SettingsStackParams, 'ColocationSettings'>;
+  type Props = NativeStackScreenProps<SettingsStackParams, 'ColocationSettings'>;
 
-// Définition du type de données
-interface Colocataire {
-    id: string;
-    name: string;
-    photo: any;
-  }
-  
-// Données de test
-const data: Colocataire[] = [
-    { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Marie', photo: require('./../assets/images/profilIcon2.png') },
-    { id: '1', name: 'Paul', photo: require('./../assets/images/profilIcon2.png') },
-    
-    // Ajoutez plus de colocataires ici
-];
-  
-//Render d'un coloc dans la flatlist
-  const Item = ({ name, photo }) => (
-    <View style={styles.colocataire}>
-        <View style={styles.ImageContainer}>
-        <Image source={photo} style={styles.Image}/>
-        </View>
-        <Text style={styles.nom}> {name} </Text>
-     </View>
-  );
+  // Définition du type de données
+  interface Colocataire {
+      id: string;
+      name: string;
+      photo: any;
+    }
 
-const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
-    const renderItem = ({ item }: { item: Colocataire }) => (
-      <Item name={item.name} photo={item.photo} />
+  //Render d'un coloc dans la flatlist
+    const Item = ({ name, photo }) => (
+      <View style={styles.colocataire}>
+          <View style={styles.ImageContainer}>
+          <Image source={{uri : photo}} style={styles.Image}/>
+          </View>
+          <Text style={styles.nom}> {name} </Text>
+      </View>
     );
 
-    const [user, setUser] = useContext(UserContext)
-    const [loading, setLoading] = useState(false)
-    const handleLeaveColocSetup = () => {
-     Alert.alert('Attention', 'Quitter la colocation supprimera toutes les données vous concernant dans la colocation, pensez à régler vos dépenses !',
-     [{text :'Continuer', onPress : (()=>{isUserSure()})}, {text:'Annuler'}]) 
-    }
+  const ColocationSettingsScreen: React.FC = ({navigation}: Props) => {
+      const renderItem = ({ item }: { item: Colocataire }) => (
+        <Item name={item.name} photo={item.photo} />
+      );
+      const [coloc, setColoc] = useContext(ColocContext);
+      const [user, setUser] = useContext(UserContext)
+      const [loading, setLoading] = useState(false)
 
-    const isUserSure = () => {
-      Alert.alert('Quitter la colocation', 'Cela supprimera toutes vos données, êtes-vous sur ?', 
-      [{text:'Quitter', onPress: () => {handleLeaveColoc()}}, {text: 'Annuler'}])
-    }
+      
+      const data = coloc.map((c)=>{ //data dans le dropdown
+        var rObj = {}
+        rObj['id'] = c.nom
+        rObj['name'] = c.nom
+        rObj['photo'] = c.avatarUrl
+        return rObj;
+      }) 
 
-    const handleLeaveColoc = async () => {
-      try {
-      setLoading(true)
-      const tacheQuery = query(collection(FB_DB, 'Colocs/'+ user.colocID +'/Taches'), where('concerned', 'array-contains', user.uuid));
-      const transacQuery = query(collection(FB_DB, 'Colocs/'+user.colocID+'/Transactions'), where('concerned', 'array-contains', user.uuid));
-      const tacheSnapshot = await getDocs(tacheQuery);
-      const transacSnapshot = await getDocs(transacQuery);
-      tacheSnapshot.forEach(async (t) => {await deleteDoc(doc(FB_DB, 'Colocs/' + user.colocID + '/Taches', t.id))})
-      transacSnapshot.forEach(async (t) => {await deleteDoc(doc(FB_DB, 'Colocs/' + user.colocID + '/Transactions', t.id))})
-      await updateDoc(doc(FB_DB, 'Colocs', user.colocID), {membersID: arrayRemove(user.uuid)});
-      await updateDoc(doc(FB_DB, 'Users', user.uuid), {colocID: "0", nomColoc: "", membersID: []});}
-      catch{setLoading(false); Alert.alert('Erreur', 'Check ta connection !')}
-      finally{
-          setLoading(false); Alert.alert('Réussi', 'Tu as bien quitté la colocation !')
-          setUser({...user, colocID: "0", membersID: []})
+      const handleLeaveColocSetup = () => {
+      Alert.alert('Attention', 'Quitter la colocation supprimera toutes les données vous concernant dans la colocation, pensez à régler vos dépenses !',
+      [{text :'Continuer', onPress : (()=>{isUserSure()})}, {text:'Annuler'}]) 
       }
-    }
-  return (
-    <SafeAreaView style={styles.container}>
-    <StatusBar style="dark"/>
-    <ScreenTitle title={'Settings'} shouldGoBack/>
-    <View style={styles.body}>
 
-      <View style={styles.containerFlatList}>
-        <View style={styles.flatlist}>
-            <FlatList
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={(item: Colocataire) => item.id}
-            numColumns={3}   
-            columnWrapperStyle={{justifyContent:'space-around'}}
-            />
+      const isUserSure = () => {
+        Alert.alert('Quitter la colocation', 'Cela supprimera toutes vos données, êtes-vous sur ?', 
+        [{text:'Quitter', onPress: () => {handleLeaveColoc()}}, {text: 'Annuler'}])
+      }
+
+      const handleLeaveColoc = async () => {
+        try {
+        setLoading(true)
+        const tacheQuery = query(collection(FB_DB, 'Colocs/'+ user.colocID +'/Taches'), where('concerned', 'array-contains', user.uuid));
+        const transacQuery = query(collection(FB_DB, 'Colocs/'+user.colocID+'/Transactions'), where('concerned', 'array-contains', user.uuid));
+        const tacheSnapshot = await getDocs(tacheQuery);
+        const transacSnapshot = await getDocs(transacQuery);
+        tacheSnapshot.forEach(async (t) => {await deleteDoc(doc(FB_DB, 'Colocs/' + user.colocID + '/Taches', t.id))})
+        transacSnapshot.forEach(async (t) => {await deleteDoc(doc(FB_DB, 'Colocs/' + user.colocID + '/Transactions', t.id))})
+        await updateDoc(doc(FB_DB, 'Colocs', user.colocID), {membersID: arrayRemove(user.uuid)});
+        await updateDoc(doc(FB_DB, 'Users', user.uuid), {colocID: "0", nomColoc: "", membersID: []});}
+        catch{setLoading(false); Alert.alert('Erreur', 'Check ta connection !')}
+        finally{
+            setLoading(false); Alert.alert('Réussi', 'Tu as bien quitté la colocation !')
+            setUser({...user, colocID: "0", membersID: []})
+        }
+      }
+    return (
+      <SafeAreaView style={styles.container}>
+      <StatusBar style="dark"/>
+      <ScreenTitle title={'Settings'} shouldGoBack/>
+      <View style={styles.body}>
+
+        <View style={styles.containerFlatList}>
+          <View style={styles.flatlist}>
+              <FlatList
+              data={data}
+              renderItem={renderItem}
+              keyExtractor={(item: Colocataire) => item.id}
+              numColumns={3}   
+              columnWrapperStyle={{justifyContent:'space-around'}}
+              />
+          </View>
         </View>
+        
+
+        
+        <SettingsCard title="Changer d'avatar" onPress={() => navigation.navigate('AvatarSettings')} avatar={{uri: user.avatarUrl, cache:'force-cache'}} />
+        <SettingsCard title="Code de la colocation" subtitle={user.colocID} onPress={async () => { await Clipboard.setStringAsync(user.colocID); Alert.alert('Succès', 'Le texte a été copié'); }} />
+        <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
+
+        <Button text={'Déconnexion'} colorBackGround={'red'} colorText={'white'} onPress={() => {FB_AUTH.signOut(); setUser(null)}} />
+        {loading ? <ActivityIndicator size= 'small'/>: <Button text={'Quitter la colocation'} colorBackGround={'red'} colorText={'white'} onPress={() => handleLeaveColocSetup()} />}
+        
       </View>
-      
+      </SafeAreaView>
+    )
+  }
 
-      
-      <SettingsCard title="Avatar" onPress={() => navigation.navigate('AvatarSettings')} avatar={{uri: user.avatarUrl, cache:'force-cache'}} />
-      <SettingsCard title="Code de la colocation" subtitle={user.colocID} onPress={async () => { await Clipboard.setStringAsync(user.colocID); Alert.alert('Succès', 'Le texte a été copié'); }} />
-      <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: main.BgColor
+    },
+    body:{
+      flex: 1,
+      width: '90%',
+      marginHorizontal: '5%',
+    },
+    containerFlatList: {
+      marginBottom:10,
+    },
+    flatlist:{
+      backgroundColor: '#172ACE',
+      borderRadius: 10,
+      padding:10,
+    },
+    colocataire: {
+      alignItems: 'center',
+      margin: 6
+    },
+    ImageContainer: {
+      height: 90,
+      width: 90,
+      borderRadius: 4
+    },
+    nom: {
+      color: 'white',
+      fontSize: 13,
+      marginTop: 5,
+      fontWeight: '700'
+    },
+    Image: {
+      height: '100%',
+      width: '100%',
+      borderRadius: 5,
+    },
 
-      <Button text={'Déconnexion'} colorBackGround={'red'} colorText={'white'} onPress={() => {FB_AUTH.signOut(); setUser(null)}} />
-      {loading ? <ActivityIndicator size= 'small'/>: <Button text={'Quitter la colocation'} colorBackGround={'red'} colorText={'white'} onPress={() => handleLeaveColocSetup()} />}
-      
-    </View>
+  });
 
-    </SafeAreaView>
-  )
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: main.BgColor
-  },
-  body:{
-    flex: 1,
-    width: '90%',
-    marginHorizontal: '5%',
-  },
-  containerFlatList: {
-    flex:1,
-    marginBottom:10
-  },
-  flatlist:{
-    backgroundColor: '#172ACE',
-    borderRadius: 10,
-    padding:10,
-  },
-  colocataire: {
-    alignItems: 'center',
-    margin: 6
-  },
-  ImageContainer: {
-    height: 90,
-    width: 90,
-    borderRadius: 4
-  },
-  nom: {
-    color: 'white',
-    fontSize: 13,
-    marginTop: 5,
-    fontWeight: '700'
-  },
-  Image: {
-    height: '100%',
-    width: '100%',   
-  },
-
-});
-
-export default  ColocationSettingsScreen
-
-function setUser(arg0: null) {
-  throw new Error('Function not implemented.');
-}
+  export default  ColocationSettingsScreen

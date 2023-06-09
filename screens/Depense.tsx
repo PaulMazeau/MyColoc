@@ -24,15 +24,16 @@ export default function DepenseScreen() {
     const subscriber = onSnapshot(q, (QuerySnapshot) => {setSnapshot(QuerySnapshot)})
     return () => {subscriber()}
   }, [])
-  useEffect(()=>{
-    if(snapshot){
-      const transacSetter = []
-      snapshot.forEach((doc)=>{
-        transacSetter.push(doc)
-      })
-      setTransac(transacSetter)
+  useEffect(() => {
+    if (snapshot) {
+      const transacSetter = [];
+      snapshot.forEach((doc) => {
+        transacSetter.push(doc);
+      });
+      setTransac(transacSetter);
     }
-  }, [snapshot])
+  }, [snapshot]);
+  
   return (
     <View style={styles.container}>
       <Header/>
@@ -117,8 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-function setSnapshot(QuerySnapshot: QuerySnapshot<DocumentData>) {
-  throw new Error('Function not implemented.');
-}
 

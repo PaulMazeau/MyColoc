@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Horloge from '../../assets/icons/Horloge.svg';
 import { Shadows } from '../../constants/Shadow';
@@ -6,10 +6,14 @@ import InfoBottomSheet from '../Reusable/InfoBottomSheet';
 import Valider from '../../assets/icons/Valider'
 import { Colors, Drawer } from 'react-native-ui-lib';
 import * as Haptics from 'expo-haptics';
+import { collection, deleteDoc, doc, getDocs, limit, query, updateDoc, where } from 'firebase/firestore';
+import { FB_DB } from '../../firebaseconfig';
+import { UserContext } from '../../UserContext';
 
 // props.tache = tache
 const TacheCard = (props) => {
-
+  const [loading, setLoading] = useState(false)
+  const[user, setUser] = useContext(UserContext)
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
   const bottomSheetModalRef = useRef(null);
 
@@ -23,10 +27,7 @@ const TacheCard = (props) => {
 
   var [ isPress, setIsPress ] = useState(<Valider width={25} height={15} color='white'/>);
 
-  function handleDone() { 
-    console.log('Done')
-  }
-
+ 
   function handlePress() { 
     setIsPress(<TouchableOpacity onPress={() => {Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success), handleDone(); setIsPress(<Valider width={25} height={15} color='white'/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Confirmer </Text></TouchableOpacity>);
   }
@@ -42,18 +43,37 @@ const TacheCard = (props) => {
     }
   }
 
+  const handleDelete = async () => {
+    setLoading(true)
+    const q = query(collection(FB_DB, 'Colocs/'+user.colocID+'/Taches'), where('date', '==', props.tache.date), limit(1))
+    const data = await getDocs(q)
+    const id = data.docs[0].id
+    deleteDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Taches', id)).then(() => {setLoading(false)}).catch((err) => {alert(err.message); setLoading(false)})
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+  }
+  const handleDone = async () => {
+    const q = query(collection(FB_DB, 'Colocs/'+user.colocID+'/Taches'), where('date', '==', props.tache.date), limit(1))
+    const data = await getDocs(q)
+    const id = data.docs[0].id
+    if(props.tache.recur == '0'){await deleteDoc(doc(FB_DB, "Colocs/" + user.colocID + "/Taches/" + id))}
+    else{
+     const justDid = props.tache.concerned[0]
+     const newConcerned = props.tache.concerned
+     newConcerned.splice(0, 1);
+     newConcerned.push(justDid)
+     const doneDate = props.tache.date.toDate();
+     const recur = props.tache.recur
+     doneDate.setDate(doneDate.getDate() + Number(recur))
+     await updateDoc(doc(FB_DB, "Colocs/" + user.colocID + "/Taches/" + id), {concerned: newConcerned, date: doneDate, nextOne: newConcerned[0]})
+  }}
+
   const renderContent =() => {
-    const handleDelete = async () => {
-      //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
-      console.log('delete')
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
-    }
-    const test = true
-    if(test){
+    
+   
       return(
         <View style={styles.body}>
         <Drawer
-        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
+        rightItems={loading ? [{text: 'Loading', background: Colors.red30}]:[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
         style={styles.drawer}
         >
         <View style={[styles.global, Shadows.shadow]}>
@@ -73,33 +93,12 @@ const TacheCard = (props) => {
               </TouchableOpacity>
         </View>
       </TouchableOpacity>
-      <InfoBottomSheet ref={bottomSheetModalRef} onClose={() => handleDismissPress()}/>
+      <InfoBottomSheet ref={bottomSheetModalRef} tache ={props.tache} onClose={() => handleDismissPress()}/>
     </View>
     </Drawer>
     </View>
       )
-    }
-    return (
-      <View style={[styles.global, Shadows.shadow]}>
-      <TouchableOpacity onPress={handlePresentPress}>
-        <View style={styles.container}>
-          <View style={styles.top}>
-            <Text style={styles.titre}>{props.desc}</Text>
-
-            <View style={styles.dateContainer}>
-              <Horloge width={17} height={17} />
-              <Text style={styles.date}>Ven. 23</Text>
-            </View>
-          </View>
-
-          <View style={styles.participants}>
-            <Image style={styles.avatar1} source={require('../../assets/images/icon.png')} />
-          </View>
-        </View>
-      </TouchableOpacity>
-      <InfoBottomSheet ref={bottomSheetModalRef} onClose={() => handleDismissPress()} />
-    </View>
-    )
+    
   }
   
   return (

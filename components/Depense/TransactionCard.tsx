@@ -1,14 +1,19 @@
-import React, { useContext, useRef } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Animated } from 'react-native';
+import React, { useContext, useRef, useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Animated, ActivityIndicator } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
-import { ColocContext } from '../../UserContext';
+import { ColocContext, DepenseContext, UserContext } from '../../UserContext';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import InfoDepenseBS from './InfoDepenseBS';
 import * as Haptics from 'expo-haptics';
+import { collection, deleteDoc, doc, getDocs, limit, query, where } from 'firebase/firestore';
+import { FB_DB } from '../../firebaseconfig';
 //props.transac est la transac a render
 const TransactionCard = (props) => {
   const [coloc, setColoc] = useContext(ColocContext);
+  const [user, setUser] = useContext(UserContext);
+  const [transac, setTransac] = useContext(DepenseContext);
   const giver = coloc.find(u => u.uuid === props.transac.giverID)
+  const [loading, setLoading] = useState(false)
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
 const bottomSheetModalRef = useRef(null);
 
@@ -21,8 +26,11 @@ const handleDismissPress = () => {
 };
 
 const handleDelete = async () => {
-  //await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID)); -> ancien code
-  console.log('delete')
+  setLoading(true)
+  const q = query(collection(FB_DB, 'Colocs/'+user.colocID+'/Transactions'), where('timestamp', '==', props.transac.timestamp), limit(1))
+  const data = await getDocs(q)
+  const id = data.docs[0].id
+  deleteDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Transactions', id)).then(() => {setLoading(false)}).catch((err) => {alert(err.message); setLoading(false)})
   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
 }
 
@@ -51,7 +59,7 @@ const handleDelete = async () => {
           <View style={styles.rightContainer}>
             <Text style={styles.title}>{props.transac.amount.toFixed(2) + '€'}</Text>
           </View>
-          <InfoDepenseBS ref={bottomSheetModalRef} onClose={() => handleDismissPress()}/>
+          <InfoDepenseBS ref={bottomSheetModalRef} transac = {props.transac}onClose={() => handleDismissPress()}/>
         </View>
       );
   };
@@ -60,10 +68,13 @@ const handleDelete = async () => {
     
     <View>
       <Animated.View style={[styles.body, { opacity }]}>
-      <Drawer
-        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
+        
+    <Drawer
+        rightItems={[loading ?{text:'loading', background: Colors.red30} : {text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
         style={styles.drawer}
         >
+      
+      
       <View style={styles.global}>
     <TouchableOpacity style={{flex: 1}} onPress={handlePresentPress}>
     <View style={styles.container}>
@@ -78,7 +89,7 @@ const handleDelete = async () => {
     </Animated.View>
     </View>
     
-  );
+    );
 };
 
 const styles = StyleSheet.create({

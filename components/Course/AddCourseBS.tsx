@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useContext } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView, Platform} from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { ScrollView as GestureHandlerScrollView } from 'react-native-gesture-handler';
 import Plus from '../../assets/icons/Plus.svg';
@@ -9,6 +9,7 @@ import * as Haptics from 'expo-haptics';
 import { UserContext } from '../../UserContext';
 import { addDoc, collection } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -73,6 +74,21 @@ const AddListeCourseBS = () => {
     []
   );
 
+  const CustomScrollView = ({ children }) => {
+    if (Platform.OS === 'ios') {
+      return (
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </KeyboardAwareScrollView>
+      );
+    } else {
+      return <ScrollView>{children}</ScrollView>;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() =>{ Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); openBottomSheet() }} style={styles.addButton}>
@@ -86,7 +102,7 @@ const AddListeCourseBS = () => {
         backdropComponent={renderBackdrop}
       >
         <View style={styles.contentContainer}>
-          <BottomSheetScrollView>
+          <CustomScrollView>
             <Text style={styles.title}>Nouvelle Liste de Course</Text>
 
             <View style={styles.inputContainer}>
@@ -117,7 +133,7 @@ const AddListeCourseBS = () => {
               <Plus />
               <Text style={styles.buttonText}>Ajouter la liste de course</Text>
             </TouchableOpacity>
-          </BottomSheetScrollView>
+          </CustomScrollView>
         </View>
       </BottomSheetModal>
     </View>
@@ -131,7 +147,7 @@ const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
     bottom: windowHeight * 0.12, // 5% de la hauteur de l'écran
-    right: windowWidth * 0.05, // 5% de la largeur de l'écran
+    right: windowWidth * 0.03, // 5% de la largeur de l'écran
   },
   contentContainer: {
     flex: 1,
