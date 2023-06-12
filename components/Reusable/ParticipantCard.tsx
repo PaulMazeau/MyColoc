@@ -6,19 +6,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 //props est name du frelon + url de sa pfp
 //props.nom et props.url
 const ParticipantCard = (props) => {
-  const [participant, setstate] = useState(false);
   return (
     <View>
-      
-      <TouchableOpacity  onPress={() => setstate(!participant)}>
-        <View style = {[!participant? styles.participant_invalid: styles.participant_valid]}>
+      <TouchableOpacity onPress={props.onPress}>
+        <View style={props.selected ? styles.participant_valid : styles.participant_invalid}>
             <Image style={styles.avatar1} source={props.url ? {uri : props.url, cache:'force-cache' } : require('../../assets/images/icon.png')}/>
             <Text style={styles.nom} numberOfLines={1}>{props.nom ? props.nom : 'Nom par défaut'}</Text>
         </View>
       </TouchableOpacity>
-
     </View>
-    
   );
 };
 

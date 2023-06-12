@@ -49,17 +49,26 @@ const AddListeCourseBS = () => {
         Alert.alert('','course bien créee')
         closeBottomSheet()
       }).catch((error)=>{Alert.alert('','error.message')})
+      setTitle(null);
+      setEmoji(null);
     }
     
   }
+
+  
 
   const renderCat = () => {
     return(
       categorieList.map((c, index) => {
         return(
-            <TouchableOpacity onPress={() => {setEmoji(c.emojiUrl)}} key={c.emojiUrl}>
-            <ParticipantCard url={c.emojiUrl} key = {c.emojiUrl} nom={c.nom}/>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setEmoji(c.emojiUrl)}} key={c.emojiUrl}>
+            <ParticipantCard 
+              url={c.emojiUrl} 
+              key={c.emojiUrl} 
+              nom={c.nom} 
+              selected={emoji === c.emojiUrl} // Ajoutez cette ligne
+            />
+          </TouchableOpacity>
         )
       })
     )
