@@ -101,8 +101,8 @@
         <SettingsCard title="Code de la colocation" subtitle={user.colocID} onPress={async () => { await Clipboard.setStringAsync(user.colocID); Alert.alert('Succès', 'Le texte a été copié'); }} />
         <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
 
-        <Button text={'Déconnexion'} colorBackGround={'red'} colorText={'white'} onPress={() => {FB_AUTH.signOut(); setUser(null)}} />
-        {loading ? <ActivityIndicator size= 'small'/>: <Button text={'Quitter la colocation'} colorBackGround={'red'} colorText={'white'} onPress={() => handleLeaveColocSetup()} />}
+        <Button text={'Déconnexion'} colorBackGround={'#E40000'} colorText={'white'} onPress={() => {FB_AUTH.signOut(); setUser(null)}} />
+        {loading ? <ActivityIndicator size= 'small'/>: <Button text={'Quitter la colocation'} colorBackGround={'#E40000'} colorText={'white'} onPress={() => handleLeaveColocSetup()} />}
         
       </View>
       </SafeAreaView>
