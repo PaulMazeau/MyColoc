@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert } from 'react-native';
 import { RootStackParams } from '../../App';
 import { Shadows } from '../../constants/Shadow';
+import { Tile } from 'react-native-elements';
 
 const ImgBg = require('../../assets/images/MiniJeu.png');
 type navigationProp = NativeStackNavigationProp<RootStackParams, 'MiniJeuStack'>;
@@ -13,7 +14,8 @@ const BoutonMiniJeu = () => {
   const navigation = useNavigation<navigationProp>();
   return (
     <View style={[styles.global, Shadows.shadow]}>
-      <TouchableOpacity onPress={() => {navigation.navigate('MiniJeuStack')}}>
+      {/* <TouchableOpacity onPress={() => {navigation.navigate('MiniJeuStack')}}> */}
+      <TouchableOpacity onPress={() => {Alert.alert('','Les minis jeux arrivent bientôt !')}}>
         <ImageBackground 
           source={ImgBg} 
           resizeMode="cover" 
@@ -22,6 +24,7 @@ const BoutonMiniJeu = () => {
           <View style={styles.container}>
             <View>
               <Text style={styles.titre}> Mini jeu</Text>
+              <Text style={styles.texte}> Bientôt disponible</Text>
             </View>
           </View>
         </ImageBackground>

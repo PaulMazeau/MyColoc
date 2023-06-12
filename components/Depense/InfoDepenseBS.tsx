@@ -68,7 +68,7 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
 
         <View style={styles.section}>
           <Text style={styles.freqtitle}>
-            Payé par: <Text style={styles.text}>{giver.nom}</Text>
+            Payé par: <Text style={styles.text}>{giver ? giver.nom : 'Un ancien membre'}</Text>
           </Text>
         </View>
 

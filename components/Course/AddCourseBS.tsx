@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useContext } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView, Platform} from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, ScrollView, Platform, Alert} from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { ScrollView as GestureHandlerScrollView } from 'react-native-gesture-handler';
 import Plus from '../../assets/icons/Plus.svg';
@@ -43,12 +43,12 @@ const AddListeCourseBS = () => {
   };
   
   const handleAddCourse = async () => {
-    if(title.length == 0){alert('titre vide')}
+    if(title.length == 0){Alert.alert('','titre vide')}
     else{
       await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Courses'), {Nom: title, Image:{uri :emoji}, divers: []}).then(() =>{
-        alert('course bien créee')
+        Alert.alert('','course bien créee')
         closeBottomSheet()
-      }).catch((error)=>{alert('error.message')})
+      }).catch((error)=>{Alert.alert('','error.message')})
     }
     
   }
