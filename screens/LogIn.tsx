@@ -21,8 +21,8 @@ export default function LoginScreen({navigation}: Props) {
   const [loading, setLoading] = useState(false);
   const signIn = async () => {
     setLoading(true);
-    signInWithEmailAndPassword(FB_AUTH, email, pwd).then(()=>setLoading(false)).catch((error) => {alert(error.message); setLoading(false)});
-    }
+    signInWithEmailAndPassword(FB_AUTH, email, pwd).then(()=>{setLoading(false);Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);}).catch((error) => {alert(error.message); setLoading(false)});
+  }
 
   const handleForgottenPwd = () => {
     sendPasswordResetEmail(FB_AUTH, email).then(()=>Alert.alert('','check t mail')).catch((error) => alert(error.message))
