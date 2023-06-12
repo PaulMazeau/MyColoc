@@ -46,7 +46,6 @@ const AddListeCourseBS = () => {
     if(title.length == 0){Alert.alert('','titre vide')}
     else{
       await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Courses'), {Nom: title, Image:{uri :emoji}, divers: []}).then(() =>{
-        Alert.alert('','course bien créee')
         closeBottomSheet()
       }).catch((error)=>{Alert.alert('','error.message')})
       setTitle(null);
