@@ -11,23 +11,17 @@ import { getDownloadURL, list, ref } from 'firebase/storage';
 import { UserContext } from '../UserContext';
 import { doc, updateDoc } from 'firebase/firestore';
 
-  // const imageData: ImageItem[] = [
-  //   { id: '1', uri: 'https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/AvatarsCompress%2FAvatar1-min.jpg?alt=media&token=3b3b84f7-5925-4ad8-a95a-06f18aaad14e&_gl=1*1sgnxbb*_ga*MjA0OTY5MDU2NC4xNjY5ODA4MTA1*_ga_CW55HF8NVT*MTY4NTYxNzQ5My4xNC4xLjE2ODU2MTg4NTQuMC4wLjA.' },
-  //   { id: '2', uri: 'https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/AvatarsCompress%2FAvatar12-min.jpg?alt=media&token=75ad7f21-0777-4d3b-847f-c63981832e56&_gl=1*1mhlj6x*_ga*MjA0OTY5MDU2NC4xNjY5ODA4MTA1*_ga_CW55HF8NVT*MTY4NTYxNzQ5My4xNC4xLjE2ODU2MTk4NTQuMC4wLjA.' },
-  //   { id: '3', uri: 'https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/AvatarsCompress%2FAvatar1-min.jpg?alt=media&token=3b3b84f7-5925-4ad8-a95a-06f18aaad14e&_gl=1*1sgnxbb*_ga*MjA0OTY5MDU2NC4xNjY5ODA4MTA1*_ga_CW55HF8NVT*MTY4NTYxNzQ5My4xNC4xLjE2ODU2MTg4NTQuMC4wLjA.' },
-  //   { id: '4', uri: 'https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/AvatarsCompress%2FAvatar1-min.jpg?alt=media&token=3b3b84f7-5925-4ad8-a95a-06f18aaad14e&_gl=1*1sgnxbb*_ga*MjA0OTY5MDU2NC4xNjY5ODA4MTA1*_ga_CW55HF8NVT*MTY4NTYxNzQ5My4xNC4xLjE2ODU2MTg4NTQuMC4wLjA.' },    
-  //   // ...
-  // ];
-
 const AvatarSettings: React.FC = (Props) => {
     const [urls, setUrls] = useState([]) 
     const [user, setUser] = useContext(UserContext);
     useEffect(() => {
       const avatarListRef = ref(FB_STORE, 'AvatarsCompress/');
       list(avatarListRef).then((res => {
+        const urlSetter = []
         res.items.forEach((item) => {
-          getDownloadURL(item).then((url) => {setUrls((prev) => [...prev, url])})
+          getDownloadURL(item).then((url) => {urlSetter.push(url)})
         })
+        setUrls(urlSetter)
       }))
     }, [])
    
@@ -71,6 +65,7 @@ const AvatarSettings: React.FC = (Props) => {
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
             numColumns={4}
+            showsVerticalScrollIndicator={false}
           />
           <Button text='Enregistrer' colorBackGround={"#172ACE"} colorText={'white'} onPress={() => {navigation.goBack(); setSelectedImage(null); handleUpdateAvatar();}}/>
         </View>
@@ -86,7 +81,7 @@ const AvatarSettings: React.FC = (Props) => {
     containerGalery: {
       flex: 1,
       width: '90%',
-      marginHorizontal: '5%'
+      marginHorizontal: '5%',
     },
     item: {
       flex: 1,
