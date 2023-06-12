@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import BlueGradient from '../components/Reusable/BlueGradient';
 import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -25,7 +25,7 @@ export default function LoginScreen({navigation}: Props) {
     }
 
   const handleForgottenPwd = () => {
-    sendPasswordResetEmail(FB_AUTH, email).then(()=>alert('check t mail')).catch((error) => alert(error.message))
+    sendPasswordResetEmail(FB_AUTH, email).then(()=>Alert.alert('','check t mail')).catch((error) => alert(error.message))
   }
   return (
     <View style={styles.container}>
