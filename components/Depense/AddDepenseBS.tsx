@@ -127,6 +127,11 @@ const AddDepenseBS = () => {
     const allParticipant = [...receivers]
     if(!(allParticipant.includes(payeur))){allParticipant.push(payeur)}
     await addDoc(collection(FB_DB, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(value), giverID: payeur, receiversID: receivers, desc: title, concerned: allParticipant}).catch((error)=>{alert(error.message)})
+    closeBottomSheet();
+    setPayeur(null);
+    setReceivers([]);
+    setValue(null);
+    onChangeTitre(null)
   };
 
   const CustomScrollView = ({ children }) => {
@@ -212,7 +217,7 @@ const AddDepenseBS = () => {
              </View>
        </View>
  
-       <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); AddDepense(); setPayeur(null); setReceivers([]); handleAddDepense(); setValue(null); onChangeTitre(null)}} > 
+       <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);handleAddDepense(); }} > 
        <Plus/>
        <Text style={styles.buttonText}>Ajouter la dépense</Text>
        </TouchableOpacity>
