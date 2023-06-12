@@ -8,12 +8,16 @@ import { Colors, Drawer } from 'react-native-ui-lib';
 import * as Haptics from 'expo-haptics';
 import { collection, deleteDoc, doc, getDocs, limit, query, updateDoc, where } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
-import { UserContext } from '../../UserContext';
+import { ColocContext, UserContext } from '../../UserContext';
+import ParticipantCard from '../Reusable/ParticipantCard';
 
 // props.tache = tache
 const TacheCard = (props) => {
   const [loading, setLoading] = useState(false)
   const[user, setUser] = useContext(UserContext)
+  const [coloc, setColoc] = useContext(ColocContext)
+  const next = coloc.find(u => u.uuid === props.tache.nextOne)
+
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
   const bottomSheetModalRef = useRef(null);
 
@@ -69,7 +73,7 @@ const TacheCard = (props) => {
 
   const renderContent =() => {
     
-   
+      if(props.tache.nextOne == user.uuid){
       return(
         <View style={styles.body}>
         <Drawer
@@ -97,7 +101,33 @@ const TacheCard = (props) => {
     </View>
     </Drawer>
     </View>
-      )
+      )}
+    return (
+      <View style={styles.body}>
+        <Drawer
+        rightItems={loading ? [{text: 'Loading', background: Colors.red30}]:[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}      
+        style={styles.drawer}
+        >
+        <View style={[styles.global, Shadows.shadow]}>
+      <TouchableOpacity onPress={handlePresentPress}>
+        <View style={styles.container}>
+          <View style={styles.top}>
+            <Text style={styles.titre}>{props.tache ? props.tache.desc : 'loading...'}</Text>
+
+            <View style={styles.dateContainer}>
+              <Horloge width={17} height={17} />
+              <Text style={styles.date}>{props.tache ? renderDate(props.tache.date) : 'nodate'}</Text>
+            </View>
+          </View>
+
+          <Image style={styles.avatar1} source={next.avatarUrl ? {uri : next.avatarUrl, cache:'force-cache' } : require('../../assets/images/icon.png')}/>
+        </View>
+      </TouchableOpacity>
+      <InfoBottomSheet ref={bottomSheetModalRef} tache ={props.tache} onClose={() => handleDismissPress()}/>
+    </View>
+    </Drawer>
+    </View>
+    )
     
   }
   

@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 //props est name du frelon + url de sa pfp
+//props.nom et props.url
 const ParticipantCard = (props) => {
   const [participant, setstate] = useState(false);
   return (
