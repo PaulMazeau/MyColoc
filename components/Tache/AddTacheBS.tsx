@@ -109,22 +109,6 @@ const AddTacheBS = () => {
       </TouchableOpacity>)
   });}
 
-  const CustomScrollView = ({ children }) => {
-    if (Platform.OS === 'ios') {
-      return (
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="always"
-          showsVerticalScrollIndicator={false}
-        >
-          {children}
-        </KeyboardAwareScrollView>
-      );
-    } else {
-      return <ScrollView>{children}</ScrollView>;
-    }
-  };
-
-
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={openBottomSheet} style={styles.addButton}>
@@ -140,7 +124,6 @@ const AddTacheBS = () => {
         enableContentPanningGesture={true}
       >
         <View style={styles.contentContainer}>
-        <CustomScrollView>
             <Text style={styles.title}>Nouvelle tâche ménagère</Text>
 
             <View style={styles.inputContainer}>
@@ -212,7 +195,7 @@ const AddTacheBS = () => {
               <Plus />
               <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
             </TouchableOpacity>
-          </CustomScrollView>
+        
         </View>
       </BottomSheetModal>
     </View>
@@ -236,7 +219,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   contentContainer: {
-    flex: 1,
     backgroundColor: 'white',
     borderRadius: 35,
     justifyContent: 'space-between',
@@ -274,7 +256,7 @@ const styles = StyleSheet.create({
   participant: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    flex: 1,
+    
   },
   participantContainer: {
     flexGrow: 1,

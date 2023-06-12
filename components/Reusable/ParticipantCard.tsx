@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   nom: {
     fontWeight: '600',
     fontSize: 13,
-    marginTop: 7
+    marginTop: 7,
   },
 
   avatar1: {
