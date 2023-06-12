@@ -57,7 +57,9 @@ const AddListeCourseBS = () => {
     return(
       categorieList.map((c, index) => {
         return(
-            <ParticipantCard url={c.emojiUrl} key = {c.emojiUrl} nom={c.nom} onPress={() => {setEmoji(c.emojiUrl)}}/>
+            <TouchableOpacity onPress={() => {setEmoji(c.emojiUrl)}} key={c.emojiUrl}>
+            <ParticipantCard url={c.emojiUrl} key = {c.emojiUrl} nom={c.nom}/>
+            </TouchableOpacity>
         )
       })
     )
