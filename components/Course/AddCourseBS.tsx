@@ -52,9 +52,7 @@ const AddListeCourseBS = () => {
     return(
       categorieList.map((c, index) => {
         return(
-          <TouchableOpacity key={c.emojiUrl} onPress={() => {setEmoji(c.emojiUrl)}}>
-            <ParticipantCard url={c.emojiUrl} key = {c.emojiUrl} nom={c.nom}/>
-          </TouchableOpacity>
+            <ParticipantCard url={c.emojiUrl} key = {c.emojiUrl} nom={c.nom} onPress={() => {setEmoji(c.emojiUrl)}}/>
         )
       })
     )
@@ -187,6 +185,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: 13,
     marginRight: 13,
+    marginTop:10
   },
   participantContainer: {
     flexGrow: 1,
