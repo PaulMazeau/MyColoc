@@ -102,7 +102,7 @@ const AddDepenseBS = () => {
       );
     }
     if (title === 'rbrsmnt') {
-      Alert.alert('Change de titre');
+      Alert.alert('','Change de titre');
       return;
     }
 
