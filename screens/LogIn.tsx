@@ -13,9 +13,6 @@ import * as Haptics from 'expo-haptics';
 type Props = NativeStackScreenProps<AuthStackParams, 'Login'>;
 
 export default function LoginScreen({navigation}: Props) {
-  const handleButtonPress = (message: string) => {
-    console.log(message);
-  };
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const [loading, setLoading] = useState(false);
