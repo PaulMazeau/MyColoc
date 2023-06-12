@@ -1,10 +1,11 @@
 import React, { useCallback, useContext } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import Cross from '../../assets/icons/cross.svg'
 import { ColocContext } from '../../UserContext';
+import { useSafeAreaFrame } from 'react-native-safe-area-context';
 
 interface InfoDepenseBSProps {
   onClose: () => void;
@@ -26,8 +27,6 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
 
   const CustomBackgroundComponent = () => <View />;
   const [coloc, setColoc] = useContext(ColocContext);
-  const screenHeight = Dimensions.get('window').height;
-  const snapPoints = [screenHeight * 0.25, screenHeight * 0.40];
   const giver = coloc.find(u => u.uuid === props.transac.giverID)
   const participants = coloc.filter(c => props.transac.receiversID.includes(c.uuid) )
   const renderParticipant = () => {
@@ -42,13 +41,13 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
     <BottomSheetModal
       ref={ref}
       index={1}
-      snapPoints={snapPoints}
+      snapPoints={['25%', '49%']}
       backgroundComponent={CustomBackgroundComponent}
       handleComponent={null}
       backdropComponent={backdropComponent}
     >
-      <View style={styles.bottomSheet}>
-        
+      
+        <View style={styles.bottomSheet}>
         <View style={styles.header}>
             <Text style={styles.bottomSheetTitle}>{props.transac.desc}</Text>
             <TouchableOpacity style={styles.cross} onPress={props.onClose}>
@@ -80,18 +79,21 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
               {renderParticipant()}
             </ScrollView>
         </View>
-      </View>
+        </View>
+   
     </BottomSheetModal>
   );
 });
 
 const styles = StyleSheet.create({
   bottomSheet: {
+    flex: 1,
     backgroundColor: 'white', 
     margin: 16, 
     borderRadius: 35, 
     marginBottom: 16,
     padding: 16,
+
   },
   header:{
     flexDirection: 'row',
