@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
-import ParticipantCard from './ParticipantCard';
+import ParticipantCard from '../Reusable/ParticipantCard';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import Cross from '../../assets/icons/cross.svg'
 import { ColocContext } from '../../UserContext';
@@ -56,7 +56,7 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
     <BottomSheetModal
       ref={ref}
       index={1}
-      snapPoints={['25%', '55%']}
+      snapPoints={['25%', '40%']}
       backgroundComponent={CustomBackgroundComponent}
       handleComponent={null}
       backdropComponent={backdropComponent}

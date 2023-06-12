@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Horloge from '../../assets/icons/Horloge.svg';
 import { Shadows } from '../../constants/Shadow';
-import InfoBottomSheet from '../Reusable/InfoBottomSheet';
+import InfoBottomSheet from './InfoBottomSheet';
 import Valider from '../../assets/icons/Valider'
 import { Colors, Drawer } from 'react-native-ui-lib';
 import * as Haptics from 'expo-haptics';

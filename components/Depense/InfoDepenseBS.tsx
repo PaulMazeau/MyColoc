@@ -40,7 +40,7 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
     <BottomSheetModal
       ref={ref}
       index={1}
-      snapPoints={['25%', '55%']}
+      snapPoints={['25%', '40%']}
       backgroundComponent={CustomBackgroundComponent}
       handleComponent={null}
       backdropComponent={backdropComponent}
@@ -85,7 +85,6 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
 
 const styles = StyleSheet.create({
   bottomSheet: {
-    flex: 1, 
     backgroundColor: 'white', 
     margin: 16, 
     borderRadius: 35, 
@@ -121,7 +120,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: '400',
-    margin: 1,
     marginLeft: 8
   },
   freqtitle: {
