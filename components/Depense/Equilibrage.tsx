@@ -56,7 +56,7 @@ export default function Equilibrage() {
             showsVerticalScrollIndicator={false}
             >
             <View style={styles.scrollView}>
-            {/* <GraphiqueEquilibrage/> */}
+            <GraphiqueEquilibrage/>
             <Text style={styles.subTitle}>Comment équilibrer ?</Text>
             {renderEquilibrage()}
             </View>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { View, Text, Dimensions, StyleSheet, Image } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated';
 import { ColocContext } from '../../UserContext';
@@ -31,7 +31,7 @@ const GraphiqueEquilibrage = () => {
   //tri pr afficher par ordre croissant
   const data = unsortedData.sort((d1, d2) => (d1.value<d2.value) ? 1 : (d1.value>d2.value) ? -1 : 0);
   // Utilisation de useMemo pour le calcul de maxVal
-  const maxVal = useMemo(() => Math.max(...data.map((item) => Math.abs(item.value))), [data]);
+  const maxVal = Math.max(...data.map((item) => Math.abs(item.value)))
 
   // Utilisation d'une seule valeur partagée pour l'animation
   const animation = useSharedValue(0);
@@ -46,26 +46,31 @@ const GraphiqueEquilibrage = () => {
 
   //fonction pour afficher l'emptyGraphe
   const emptyGraph = () => {
-    return (
+    return(
       <View style={styles.emptyPageContainer}>
         <Image source={require('../../assets/images/EmptyDepense.png')} style={styles.emptyPageImage} />
         <Text style={styles.texte}>Oops, il n'y a encore aucune dépense</Text>
       </View>
-    );
+  )
   };
 
   return (
     <View style={styles.container}>
 
       {onlyZeros(coloc) ? emptyGraph(): data.map((item, index) => {
-        const animatedStyle = useAnimatedStyle(() => {
-          const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
-          return {
-            width: animation.value * (itemWidth / barWidth), //reglage la taille des bars par rapport aux valeurs
-            backgroundColor: item.value >= 0 ? 'green' : 'red',
-          };
-        });
-
+        // const animatedStyle = useAnimatedStyle(() => {
+        //   const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
+        //   return {
+        //     width: animation.value * (itemWidth / barWidth), //reglage la taille des bars par rapport aux valeurs
+        //     backgroundColor: item.value >= 0 ? 'green' : 'red',
+        //   };
+        // });
+        const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
+        const animatedStyle = {
+          width: 150 * (itemWidth / barWidth), //reglage la taille des bars par rapport aux valeurs
+          backgroundColor: item.value >= 0 ? 'green' : 'red',
+        };
+  
         return (
           <View key={index} style={styles.barContainer}>
             <Text style={styles.name}>{item.name}</Text>
