@@ -101,11 +101,14 @@ const AddTacheBS = () => {
     <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
   ), []);
 
+
+
   const renderParticipant = () => {
     return coloc.map((c) => {
+      const [selected, setSelected] = useState(null);
       return(
-      <TouchableOpacity key ={c.uuid} onPress = {() => {putInOrPutOut(c.uuid)}}>
-      <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} />
+      <TouchableOpacity key ={c.uuid} onPress = {() => {putInOrPutOut(c.uuid); setSelected(!selected)}}>
+      <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} selected={selected} />
       </TouchableOpacity>)
   });}
 

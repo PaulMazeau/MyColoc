@@ -49,11 +49,13 @@ const AddDepenseBS = () => {
 
   const renderParticipant = () => {
     return (
-      coloc.map((c) => (
-        <TouchableOpacity key={c.uuid} onPress={() => selectUser(c.uuid)}>
-          <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} />
-        </TouchableOpacity>
-      ))
+      coloc.map((c) => {
+        const [selected, setSelected] = useState(null);
+        return(
+        <TouchableOpacity key={c.uuid} onPress={() => {selectUser(c.uuid); setSelected(!selected)}}>
+          <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} selected={selected}/>
+        </TouchableOpacity>)
+      })
     );
   };
 
