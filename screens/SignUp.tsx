@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import BlueGradient from '../components/Reusable/BlueGradient';
 import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -24,7 +24,7 @@ export default function SignUpScreen({navigation}: Props) {
   const [loading, setLoading] = useState(false);
   const signUp = async () => {
     if(username==""){
-        alert("Rentre un nom d'utilisateur !");
+      Alert.alert('',"Rentre un nom d'utilisateur !");
         return
     }
     setLoading(true)

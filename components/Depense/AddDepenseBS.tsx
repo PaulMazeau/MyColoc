@@ -121,7 +121,7 @@ const AddDepenseBS = () => {
         )
       }
       if(title == "rbrsmnt"){
-        alert("Change de titre")
+        Alert.alert('',"Change de titre")
         return
       }
     const allParticipant = [...receivers]
