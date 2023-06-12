@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Alert } from 'react-native';
 import BlueGradient from '../components/Reusable/BlueGradient';
 import Header from '../components/Reusable/Header';
 import { main } from '../constants/Colors';
@@ -11,13 +11,20 @@ import TacheCard from '../components/Tache/TacheCard';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { FB_DB } from '../firebaseconfig';
 import GetNotificationPermission from '../GetNotificationPermission';
-
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParams, SettingsStackParams } from '..//App';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 const Appartement = require('../assets/images/Appartement.png');
+type RootStackNavigationProp = NativeStackNavigationProp<RootStackParams, 'SettingsStack'>;
+
 
 
 const AccueilScreen = () => {
+  const navigation = useNavigation<RootStackNavigationProp>();
   const [user, setUser] = useContext(UserContext);
   const [nextTask, setNextTask] = useState(null);
+  const [wentIn, setWentIn] = useState(false);
+  const [firstRender, setFirstRender] = useState(true);
   useEffect(()=>{
     const getTache = async () => {
       const q = query(collection(FB_DB, "Colocs/" + user.colocID + "/Taches"), where('nextOne', '==', user.uuid), orderBy('date', 'desc'), limit(1));
@@ -44,11 +51,23 @@ const AccueilScreen = () => {
       )
     }
   }
+  const avatar = () => {
+    if(firstRender){
+    setFirstRender(false)
+    if(!wentIn)
+    if(user.avatarUrl == ''){
+      Alert.alert('Choisis un avatar', 'Sélectionne un avatar parmis ceux disponible pour continuer !',
+      [{text :'OK', onPress : (()=>{navigation.navigate('SettingsStack', { screen: 'AvatarSettings' }); setWentIn(true)})}])
+      return(
+        <></>
+      )
+    }}}
   
   return (
     <View style={styles.container}>
       <BlueGradient />
       <GetNotificationPermission/>
+      {avatar()}
       <View style={styles.appartementContainer}>
         <Image source={Appartement} style={styles.AppartementImage}/>
       </View>

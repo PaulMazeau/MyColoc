@@ -17,11 +17,9 @@ const AvatarSettings: React.FC = (Props) => {
     useEffect(() => {
       const avatarListRef = ref(FB_STORE, 'AvatarsCompress/');
       list(avatarListRef).then((res => {
-        const urlSetter = []
         res.items.forEach((item) => {
-          getDownloadURL(item).then((url) => {urlSetter.push(url)})
+          getDownloadURL(item).then((url) => {setUrls((prev) => [...prev, url])})
         })
-        setUrls(urlSetter)
       }))
     }, [])
    
@@ -67,7 +65,7 @@ const AvatarSettings: React.FC = (Props) => {
             numColumns={4}
             showsVerticalScrollIndicator={false}
           />
-          <Button text='Enregistrer' colorBackGround={"#172ACE"} colorText={'white'} onPress={() => {navigation.goBack(); setSelectedImage(null); handleUpdateAvatar();}}/>
+          <Button text='Enregistrer' colorBackGround={"#172ACE"} colorText={'white'} onPress={() => {navigation.goBack(); setSelectedImage(null); handleUpdateAvatar(); setUrls([])}}/>
         </View>
       </View>
     )
