@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
   input: {
     height: 44,
     marginTop: 13,
-    marginLeft: 13,
-    marginRight: 13,
+    marginLeft: 10,
+    marginRight: 10,
     borderWidth: 1,
     borderColor: '#DDDDDD',
     padding: 10,
@@ -188,8 +188,8 @@ const styles = StyleSheet.create({
   participant: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: 13,
-    marginRight: 13,
+    marginLeft: 10,
+    marginRight: 10,
     marginTop:10
   },
   participantContainer: {
@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 13,
     marginTop: 20,
-    marginLeft: 13,
-    marginRight: 13,
+    marginLeft: 10,
+    marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
