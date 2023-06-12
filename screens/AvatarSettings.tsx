@@ -17,9 +17,11 @@ const AvatarSettings: React.FC = (Props) => {
     useEffect(() => {
       const avatarListRef = ref(FB_STORE, 'AvatarsCompress/');
       list(avatarListRef).then((res => {
+        const urlSetter = []
         res.items.forEach((item) => {
-          getDownloadURL(item).then((url) => {setUrls((prev) => [...prev, url])})
+          getDownloadURL(item).then((url) => {urlSetter.push(url)})
         })
+        setUrls(urlSetter)
       }))
     }, [])
    
