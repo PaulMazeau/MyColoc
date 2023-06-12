@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
@@ -42,6 +42,8 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
   const nextOne = coloc.find(u => u.uuid === props.tache.nextOne)
   const freq = recurrenceOptions.find(rec => rec.value === props.tache.recur)
   const participants = coloc.filter(c => props.tache.concerned.includes(c.uuid) )
+  const screenHeight = Dimensions.get('window').height;
+  const snapPoints = [screenHeight * 0.25, screenHeight * 0.40];
 
   const CustomBackgroundComponent = () => <View />;
   const renderParticipant = () => {
@@ -56,7 +58,7 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
     <BottomSheetModal
       ref={ref}
       index={1}
-      snapPoints={['25%', '40%']}
+      snapPoints={snapPoints}
       backgroundComponent={CustomBackgroundComponent}
       handleComponent={null}
       backdropComponent={backdropComponent}
