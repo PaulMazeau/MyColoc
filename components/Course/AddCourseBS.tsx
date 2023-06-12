@@ -37,12 +37,17 @@ const AddListeCourseBS = () => {
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
   };
+
+  const closeBottomSheet = () => {
+    bottomSheetRef.current?.close();
+  };
   
   const handleAddCourse = async () => {
     if(title.length == 0){alert('titre vide')}
     else{
       await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Courses'), {Nom: title, Image:{uri :emoji}, divers: []}).then(() =>{
         alert('course bien créee')
+        closeBottomSheet()
       }).catch((error)=>{alert('error.message')})
     }
     
