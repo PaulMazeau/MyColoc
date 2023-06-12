@@ -134,20 +134,20 @@ const AddDepenseBS = () => {
     onChangeTitre(null)
   };
 
-  const CustomScrollView = ({ children }) => {
-    if (Platform.OS === 'ios') {
-      return (
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="always"
-          showsVerticalScrollIndicator={false}
-        >
-          {children}
-        </KeyboardAwareScrollView>
-      );
-    } else {
-      return <ScrollView>{children}</ScrollView>;
-    }
-  };
+  // const CustomScrollView = ({ children }) => {
+  //   if (Platform.OS === 'ios') {
+  //     return (
+  //       <KeyboardAwareScrollView
+  //         keyboardShouldPersistTaps="always"
+  //         showsVerticalScrollIndicator={false}
+  //       >
+  //         {children}
+  //       </KeyboardAwareScrollView>
+  //     );
+  //   } else {
+  //     return <ScrollView>{children}</ScrollView>;
+  //   }
+  // };
 
   return (
     <View style={{flex: 1}}>
@@ -163,7 +163,7 @@ const AddDepenseBS = () => {
         enableHandlePanningGesture={true}
       >
         <View style={styles.contentContainer}>
-        <CustomScrollView>
+        {/* <CustomScrollView> */}
  <Text style={styles.Title}>Nouvelle dépense</Text>
      <View style={styles.depenseTitle}>
          <Text style={styles.subTitle}>Titre</Text>
@@ -221,7 +221,7 @@ const AddDepenseBS = () => {
        <Plus/>
        <Text style={styles.buttonText}>Ajouter la dépense</Text>
        </TouchableOpacity>
-       </CustomScrollView>
+       {/* </CustomScrollView> */}
         </View>
       </BottomSheetModal>
     </View>
