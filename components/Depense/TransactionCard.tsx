@@ -13,6 +13,7 @@ const TransactionCard = (props) => {
   const [user, setUser] = useContext(UserContext);
   const [transac, setTransac] = useContext(DepenseContext);
   const giver = coloc.find(u => u.uuid === props.transac.giverID)
+  const receiver = coloc.find(u => props.transac.receiversID.includes(u.uuid))
   const [loading, setLoading] = useState(false)
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
 const bottomSheetModalRef = useRef(null);
@@ -48,6 +49,20 @@ const handleDelete = async () => {
   }, []);
 
   const renderContent = () => {
+    if(props.transac.desc == 'rbrsmnt'){
+      <View style={styles.textContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.title}>{giver.nom}</Text>
+            <View style={styles.payeeContainer}>
+              <Text style={styles.subtitle}>a remboursé {receiver ? receiver.nom : 'Un ancien membre'}</Text>
+            </View>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.title}>{props.transac.amount.toFixed(2) + '€'}</Text>
+          </View>
+          <InfoDepenseBS ref={bottomSheetModalRef} transac = {props.transac}onClose={() => handleDismissPress()}/>
+        </View>
+    }
       return (
         <View style={styles.textContainer}>
           <View style={styles.leftContainer}>

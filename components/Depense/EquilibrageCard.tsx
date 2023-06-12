@@ -46,7 +46,7 @@ const EquilibrageCard = ({deveur, receveur, montant}) => {
           <Text style={styles.userName}>{receveur.nom}</Text>
         </View>
       </TouchableOpacity>
-      <RemboursementBS onDismiss={handleDismissPress} ref={bottomSheetModalRef}/>
+      <RemboursementBS onDismiss={handleDismissPress} ref={bottomSheetModalRef} deveur={deveur} receveur={receveur} montant={montant}/>
     
     </View>
     </Drawer>

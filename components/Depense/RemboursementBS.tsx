@@ -1,15 +1,36 @@
-import React, { useCallback } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useCallback, useContext, useState } from 'react';
+import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal, TouchableOpacity} from '@gorhom/bottom-sheet';
 import Remboursement from '../../assets/icons/Remboursement.svg'
 import { Shadows } from '../../constants/Shadow';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { FB_DB } from '../../firebaseconfig';
+import { UserContext } from '../../UserContext';
 
 type RemboursementBSProps = {
     onDismiss: () => void;
+    deveur : any;
+    receveur: any;
+    montant: any;
   };
 
 const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref) => {
-    
+    const [loading, setLoading] = useState(false);
+    const [user, setUser] = useContext(UserContext)
+    const handleRemboursement = async () => {
+    if(!loading){
+        setLoading(true)
+        const entry = {
+            timestamp: serverTimestamp(),
+            amount: Number(props.montant),
+            giverID: props.deveur.uuid,
+            receiversID: [props.receveur.uuid],
+            desc:'Remboursement',
+            concerned: [props.deveur.uuid, props.receveur.uuid]
+        }
+        await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Transactions'), entry).then(()=>{setLoading(false)}).catch((e)=>{alert(e.message); setLoading(false)})
+    }
+    }
  
     const BackdropComponent = useCallback((props) => {
         return (
@@ -38,23 +59,23 @@ const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref)
                 <Text style={styles.bottomSheetText}>Remboursement</Text>
                 <View style={styles.remboursementContainer}>
                     <View style={styles.Rembourseur}>
-                        <Image source={require('../../assets/images/icon.png')} style={styles.image} />
+                        <Image source={props.deveur.avatarUrl ? {uri: props.deveur.avatarUrl, cache:'force-cache'} : require('../../assets/images/icon.png')} style={styles.image} />
                         <View style={styles.leftContainer}>
-                            <Text style={styles.title}>Alexandre</Text>
+                            <Text style={styles.title}>{props.deveur.nom}</Text>
                         </View>
                     </View>
                     <Remboursement />
                     <View style={styles.Rembourseur}>
-                        <Image source={require('../../assets/images/icon.png')} style={styles.image} />
+                        <Image source={props.receveur.avatarUrl ? {uri: props.receveur.avatarUrl, cache:'force-cache'} : require('../../assets/images/icon.png')} style={styles.image} />
                         <View style={styles.leftContainer}>
-                            <Text style={styles.title}>Alexandre</Text>  
+                            <Text style={styles.title}>{props.receveur.nom}</Text>  
                         </View>
                     </View>
                 </View>
                 <View style={styles.bottomSection}>
-                    <Text style={styles.montantRemboursement}>28,38€</Text>
+                    <Text style={styles.montantRemboursement}>{props.montant.toFixed(2)}</Text>
                     <View style={styles.boutonStack}>
-                        <TouchableOpacity style={styles.boutonRembourser} onPress={() => props.onDismiss()}>
+                        <TouchableOpacity style={styles.boutonRembourser} onPress={() => {props.onDismiss(); handleRemboursement()}}>
                             <Text style={styles.boutonTextRembourser}>Rembourser</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.boutonAnnuler} onPress={() => props.onDismiss()}>
