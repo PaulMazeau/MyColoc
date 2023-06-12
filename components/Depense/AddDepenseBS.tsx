@@ -127,22 +127,27 @@ const AddDepenseBS = () => {
     const allParticipant = [...receivers]
     if(!(allParticipant.includes(payeur))){allParticipant.push(payeur)}
     await addDoc(collection(FB_DB, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(value), giverID: payeur, receiversID: receivers, desc: title, concerned: allParticipant}).catch((error)=>{alert(error.message)})
+    closeBottomSheet();
+    setPayeur(null);
+    setReceivers([]);
+    setValue(null);
+    onChangeTitre(null)
   };
 
-  const CustomScrollView = ({ children }) => {
-    if (Platform.OS === 'ios') {
-      return (
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="always"
-          showsVerticalScrollIndicator={false}
-        >
-          {children}
-        </KeyboardAwareScrollView>
-      );
-    } else {
-      return <ScrollView>{children}</ScrollView>;
-    }
-  };
+  // const CustomScrollView = ({ children }) => {
+  //   if (Platform.OS === 'ios') {
+  //     return (
+  //       <KeyboardAwareScrollView
+  //         keyboardShouldPersistTaps="always"
+  //         showsVerticalScrollIndicator={false}
+  //       >
+  //         {children}
+  //       </KeyboardAwareScrollView>
+  //     );
+  //   } else {
+  //     return <ScrollView>{children}</ScrollView>;
+  //   }
+  // };
 
   return (
     <View style={{flex: 1}}>
@@ -158,7 +163,7 @@ const AddDepenseBS = () => {
         enableHandlePanningGesture={true}
       >
         <View style={styles.contentContainer}>
-        <CustomScrollView>
+        {/* <CustomScrollView> */}
  <Text style={styles.Title}>Nouvelle dépense</Text>
      <View style={styles.depenseTitle}>
          <Text style={styles.subTitle}>Titre</Text>
@@ -212,11 +217,11 @@ const AddDepenseBS = () => {
              </View>
        </View>
  
-       <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); AddDepense(); setPayeur(null); setReceivers([]); handleAddDepense(); setValue(null); onChangeTitre(null)}} > 
+       <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);handleAddDepense(); }} > 
        <Plus/>
        <Text style={styles.buttonText}>Ajouter la dépense</Text>
        </TouchableOpacity>
-       </CustomScrollView>
+       {/* </CustomScrollView> */}
         </View>
       </BottomSheetModal>
     </View>
