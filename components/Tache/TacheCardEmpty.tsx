@@ -15,6 +15,7 @@ const TacheCardEmpty = ({ imageSource }) => {
   
               <View style={styles.dateContainer}>
                 <Horloge width={17} height={17} />
+                <Text style={styles.date}>Dim.</Text>
               </View>
             </View>
   
