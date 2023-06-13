@@ -69,7 +69,6 @@ const AddTacheBS = () => {
     if(!title){return Alert.alert("Comment s'intitule cette tâche","Rentre un titre pour cette tâche !")}
     if(concerned.length == 0){return Alert.alert("Qui est concerné par cette tâche ?","Selectionne les personnes concernées par cette tâche")}
     await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Taches'), {desc : title, colocID: user.colocID, date : date, concerned: concerned, recur: recur, nextOne: concerned[0]}).then(()=>{
-      Alert.alert('','Tache ajoutée')
     }).catch((error)=>{alert(error.message)})
     bottomSheetRef.current?.close();
     setTitle(null);
@@ -101,11 +100,14 @@ const AddTacheBS = () => {
     <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
   ), []);
 
+
+
   const renderParticipant = () => {
     return coloc.map((c) => {
+      const [selected, setSelected] = useState(null);
       return(
-      <TouchableOpacity key ={c.uuid} onPress = {() => {putInOrPutOut(c.uuid)}}>
-      <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} />
+      <TouchableOpacity key ={c.uuid} onPress = {() => {putInOrPutOut(c.uuid); setSelected(!selected)}}>
+      <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} selected={selected} />
       </TouchableOpacity>)
   });}
 
