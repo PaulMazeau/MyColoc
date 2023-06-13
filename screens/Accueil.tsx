@@ -8,6 +8,7 @@ import Suggestion from '../components/Accueil/Suggestions';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../UserContext';
 import TacheCard from '../components/Tache/TacheCard';
+import TacheCardEmpty from '../components/Tache/TacheCardEmpty';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { FB_DB } from '../firebaseconfig';
 import GetNotificationPermission from '../GetNotificationPermission';
@@ -31,7 +32,10 @@ const AccueilScreen = () => {
       const data = await getDocs(q)
       setNextTask(data)}
       getTache();
-    }, [])
+  }, [])
+
+  
+  
 
   const renderNextTache = () => {
     if(nextTask){
@@ -42,6 +46,11 @@ const AccueilScreen = () => {
               <TacheCard tache={doc.data()} key={doc.id}/>
             )
           })
+        )
+      }
+      else{
+        return(
+          <TacheCardEmpty imageSource={{uri: user.avatarUrl}}/>
         )
       }
     }
@@ -61,7 +70,8 @@ const AccueilScreen = () => {
       return(
         <></>
       )
-    }}}
+  }}}
+
   
   return (
     <View style={styles.container}>
