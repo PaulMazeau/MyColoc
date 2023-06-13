@@ -8,7 +8,7 @@ if(width <= 375) { // Pour les écrans plus petits comme iPhone SE
 } else if(width > 390 && width < 414) { // Pour les écrans de taille moyenne comme iPhone 7/8, iPhone X/XS
     padding = 30;
 } else if(width >= 414) { // Pour les écrans plus grands comme iPhone 7/8 Plus, iPhone 11 Pro Max
-    padding = 40;
+    padding = 30;
 }
 
 export const NavBarStyle = {
