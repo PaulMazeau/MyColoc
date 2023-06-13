@@ -5,29 +5,31 @@ import * as Crypto from 'expo-crypto';
 import { DepenseContext } from '../../UserContext';
 import AddDepenseBS from './AddDepenseBS';
 import { main } from '../../constants/Colors';
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
+import ContentLoader, { Rect } from 'react-content-loader/native'
 
 const MyLoader = () => (
     <View style={{marginHorizontal: 20}}>
     <ContentLoader 
-    speed={5}
+    speed={1}
     width={'100%'}
     height={456}
     backgroundColor="white"
     foregroundColor="#DDD"
     >
-    <Rect x="0" y="0" rx="5" ry="5" width="100%" height="200" /> 
-    <Rect x="0" y="216" rx="5" ry="5" width="100%" height="20" /> 
-    <Rect x="0" y="252" rx="5" ry="5" width="100%" height="60" /> 
-    <Rect x="0" y="324" rx="5" ry="5" width="100%" height="60" /> 
-    <Rect x="0" y="396" rx="5" ry="5" width="100%" height="60" /> 
+    <Rect x="0" y="0" rx="5" ry="5" width="100%" height="50" /> 
+    <Rect x="0" y="60" rx="5" ry="5" width="100%" height="50" /> 
+    <Rect x="0" y="120" rx="5" ry="5" width="100%" height="50" /> 
+    <Rect x="0" y="180" rx="5" ry="5" width="100%" height="50" /> 
+    <Rect x="0" y="240" rx="5" ry="5" width="100%" height="50" /> 
+    <Rect x="0" y="300" rx="5" ry="5" width="100%" height="50" /> 
+    <Rect x="0" y="360" rx="5" ry="5" width="100%" height="50" /> 
+    <Rect x="0" y="420" rx="5" ry="5" width="100%" height="50" /> 
     </ContentLoader>
     </View>
   )
 
 //props.transacs est la liste de toutes les transactions
 export default function ListeTransaction() {
-  const animation = React.useRef(new Animated.Value(0)).current;
   const [transac, setTransac] = useContext(DepenseContext)
   const [loading, setLoading] = useState(false);  // Ajoutez cet état
       
@@ -37,7 +39,7 @@ export default function ListeTransaction() {
      setLoading(true);
      setTimeout(() => {
          setLoading(false);
-     }, 2000);
+     }, 3000);
  };
 
  if(loading){
@@ -48,27 +50,7 @@ export default function ListeTransaction() {
      )
  }
 
-  const fadeIn = () => {
-    Animated.timing(animation, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  };
 
-  React.useEffect(() => {
-    fadeIn();
-  }, []);
-
-  //useMemo -> éviter de tout recalculer la distance en Y à chaque rendu
-  const translateY = React.useMemo(
-    () =>
-      animation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [50, 0],
-      }),
-    [animation]
-  );
 
   const renderTransaction = () => {
    
@@ -78,14 +60,7 @@ export default function ListeTransaction() {
       return (
         transac.map((t) => {
           return(
-            <Animated.View
-          style={[
-            { opacity: animation, transform: [{ translateY }] },
-          ]}
-          key={t.id}
-        >
           <TransactionCard transac={t.data()} key={t.id}/>
-        </Animated.View>
           )
         })
       )};

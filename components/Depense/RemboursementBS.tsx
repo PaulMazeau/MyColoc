@@ -6,6 +6,7 @@ import { Shadows } from '../../constants/Shadow';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
 import { UserContext } from '../../UserContext';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type RemboursementBSProps = {
     onDismiss: () => void;
@@ -50,12 +51,15 @@ const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref)
         <BottomSheetModal 
             ref={ref} 
             index={1} 
-            snapPoints={['25%', '50%']} 
+            snapPoints={['25%', '45%']} 
             backgroundComponent={CustomBackgroundComponent}
             handleComponent={null}
             backdropComponent={BackdropComponent}
         >
             <View style={[styles.bottomSheet, Shadows.shadow]}>
+                <ScrollView
+                showsVerticalScrollIndicator={false}
+                >
                 <Text style={styles.bottomSheetText}>Remboursement</Text>
                 <View style={styles.remboursementContainer}>
                     <View style={styles.Rembourseur}>
@@ -83,6 +87,7 @@ const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref)
                         </TouchableOpacity>
                     </View>
                 </View>
+                </ScrollView>
             </View>
         </BottomSheetModal>
     );
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
         textAlign: 'left',
-        marginTop: 28,
+        marginTop: 20,
         marginLeft: 16
     },
     montantRemboursement: {

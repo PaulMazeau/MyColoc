@@ -1,5 +1,5 @@
     import React, {useContext, useState} from 'react'
-    import { StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native'
+    import { StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native'
     import {UserContext} from '../UserContext'
     import { FB_AUTH, FB_DB } from '../firebaseconfig';
     import * as Crypto from 'expo-crypto';
@@ -67,11 +67,8 @@
           };
           
           return (
-            <KeyboardAvoidingView 
-            style={styles.container}
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={Platform.OS === "ios" ? 0 : -50}
-            >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView style={styles.container}>
             <View style={styles.content}>
                 <StatusBar style="light" />
                 <BlueGradient height={0.6} />
@@ -99,7 +96,7 @@
                   />
                 </View>
                 <Button
-                  title={selectedTabIndex === 0 ? "Rejoindre" : "C'est parti !"}
+                  title={selectedTabIndex === 0 ? "Rejoindre !" : "C'est parti !"}
                   onPress={
                     selectedTabIndex === 0 ? handleJoinColoc : handleCreateColoc
                   }
@@ -107,6 +104,7 @@
               </View>
         <TouchableOpacity style={styles.decoBouton} onPress={() => { FB_AUTH.signOut(); setUser(null);}}><Text style={styles.textDecoBouton}>Déconnexion</Text></TouchableOpacity>
       </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
           );
           
     }
