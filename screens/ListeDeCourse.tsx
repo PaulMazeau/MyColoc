@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, FlatList, KeyboardAvoidingView } from 'react-native';
 import { KeyboardAwareFlatList, KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Header from '../components/Reusable/Header';
@@ -53,15 +53,26 @@ const ListeDeCourse = ({route, navigation}: Props) => {
  }
   const isScrollEnabled = todos.length > 15; // nombre d'élément avant un scroll
 
+  const flatListRef = useRef<FlatList | null>(null); //Pour faire remonter le text input constament pendant la saisi
+
   const handleAddInput = async () => {
     if(input.length != 0){
       await updateDoc(doc(FB_DB, "Colocs/"+user.colocID+"/Courses", courseId), {divers: arrayUnion({item: input, selected: false})}).then(()=>{
-        setInput('')
+        setInput('');
+        flatListRef.current?.scrollToEnd({ animated: true });
       }).catch((error)=>{alert(error.message)})
     }
   }
-  return (
-    <View style={styles.body}>
+
+  
+  
+  
+  
+  return  (
+    <KeyboardAvoidingView
+      style={styles.body}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <Header/>
       <StatusBar style="auto" />
       <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
@@ -69,6 +80,8 @@ const ListeDeCourse = ({route, navigation}: Props) => {
         </TouchableOpacity>
       <View style={[styles.container, Shadows.shadow]}>
         <FlatList
+          ref={flatListRef}
+          style={styles.flatlist}
           data={course.divers}
           keyExtractor={item => item.item}
           scrollEnabled={true} 
@@ -96,7 +109,7 @@ const ListeDeCourse = ({route, navigation}: Props) => {
           }
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -106,6 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: main.BgColor  
   },
   container: {
+    maxHeight:'65%',
     height: "auto",
     backgroundColor: "white",
     width: "90%",
@@ -155,6 +169,9 @@ const styles = StyleSheet.create({
     fontSize: 18,  
     color: '#000',
   },
+  flatlist:{
+    
+  }
 });
 
 export default ListeDeCourse;
