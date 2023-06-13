@@ -72,7 +72,7 @@ const ListeDeCourse = ({route, navigation}: Props) => {
     <KeyboardAvoidingView
       style={styles.body}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      
+
     >
       <Header/>
       <StatusBar style="auto" />
@@ -87,6 +87,7 @@ const ListeDeCourse = ({route, navigation}: Props) => {
           data={course.divers}
           keyExtractor={item => item.item}
           scrollEnabled={true} 
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleCocher(item)}>
               <View style={[styles.item, item.selected && styles.completedItem]}>
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     width: "90%",
     marginHorizontal: "5%",
     borderRadius: 10,
-    padding: 10,
+    paddingHorizontal: 10,
   },
   listContainer: {
     flex: 1,
