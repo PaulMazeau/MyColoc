@@ -72,6 +72,7 @@ const ListeDeCourse = ({route, navigation}: Props) => {
     <KeyboardAvoidingView
       style={styles.body}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      
     >
       <Header/>
       <StatusBar style="auto" />
@@ -80,6 +81,7 @@ const ListeDeCourse = ({route, navigation}: Props) => {
         </TouchableOpacity>
       <View style={[styles.container, Shadows.shadow]}>
         <FlatList
+        removeClippedSubviews={false}
           ref={flatListRef}
           style={styles.flatlist}
           data={course.divers}
