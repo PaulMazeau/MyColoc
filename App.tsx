@@ -46,6 +46,7 @@ import AvatarSettings from './screens/AvatarSettings';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import FirstPage from './screens/FirstPage';
 import GetNotificationPermission from './GetNotificationPermission'
+import { Dimensions, Keyboard, Platform } from 'react-native';
 
 // Définition des types de paramètres pour chaque pile de navigation
 export type RootStackParams = {
@@ -132,7 +133,7 @@ export type MiniJeuStackParams = {
 
 // Création des piles de navigation
 const RootStack = createNativeStackNavigator<RootStackParams>();
-const MainNavigation = createBottomTabNavigator<RootStackParams>();
+export const MainNavigation = createBottomTabNavigator<RootStackParams>();
 const CourseStack = createNativeStackNavigator<CourseStackParams>(); 
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
 const AccueilStack = createNativeStackNavigator<AccueilStackParams>();
@@ -173,30 +174,78 @@ const RootNavigator = () => {
 }
 
 const MainNavigationScreenStack = () => {
- 
-  return(
-    
+  const [keyboardStatus, setKeyboardStatus] = useState(false);
+  const { height, width } = Dimensions.get('window');
+  let padding = 30;
 
- 
-  <MainNavigation.Navigator
-          initialRouteName="Accueil"
-          screenOptions={{ 
-            headerShown: false,
-            tabBarStyle: NavBarStyle,
-            tabBarActiveTintColor: "#172ACE",
-            tabBarInactiveTintColor: "grey",
-            tabBarLabel: () => null,
-            tabBarHideOnKeyboard: true
-          }}
-        >
-          <MainNavigation.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: ({color}) => <AccueilIcon color={color}/>}} />
-          <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} options={{tabBarIcon: ({color}) => <CourseIcon color={color} />}} />
-          <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: ({color}) => <TacheIcon color={color} />}}/>
-          <MainNavigation.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
-        </MainNavigation.Navigator>
-        
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => setKeyboardStatus(true)
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => setKeyboardStatus(false)
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  if(width <= 375) {
+    padding = 0;
+  } else if(width > 390 && width < 414) {
+    padding = 30;
+  } else if(width >= 414) {
+    padding = 30;
+  }
+
+  return(
+    <MainNavigation.Navigator
+      initialRouteName="Accueil"
+      screenOptions={{ 
+        headerShown: false,
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: (Platform.OS === 'android' && keyboardStatus) ? 0 : 30,
+          left: 20,
+          right: 20,
+          borderRadius: 15,
+          height: 51,
+          ...Platform.select({
+            ios: {
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.1,
+              shadowRadius: 3,
+              padding: padding,
+            },
+            android: {
+              elevation: 3,
+              shadowColor: '#808080',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.1,
+              shadowRadius: 3,
+            },
+          }),
+        },
+        tabBarActiveTintColor: "#172ACE",
+        tabBarInactiveTintColor: "grey",
+        tabBarLabel: () => null,
+        tabBarHideOnKeyboard: true
+      }}
+    >
+      <MainNavigation.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: ({color}) => <AccueilIcon color={color}/>}} />
+      <MainNavigation.Screen name="CourseStack" component={ListeDeCourseScreenStack} options={{tabBarIcon: ({color}) => <CourseIcon color={color} />}} />
+      <MainNavigation.Screen name="Tache" component={TacheScreen} options={{tabBarIcon: ({color}) => <TacheIcon color={color} />}}/>
+      <MainNavigation.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: ({color}) => <DepenseIcon color={color} />}}/>
+    </MainNavigation.Navigator>
   )
 }
+
 
 // Pile de navigation pour l'écran des settings 
 const SettingsNavigator = () => {
