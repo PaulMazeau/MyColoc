@@ -15,7 +15,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const AddDepenseBS = () => {
+const AddDepenseBS = ({ onAddDepense }) => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useContext(UserContext);
   const [payeur, setPayeur] = useState(null);
@@ -110,7 +110,8 @@ const AddDepenseBS = () => {
     if (!allParticipant.includes(payeur)) {
       allParticipant.push(payeur);
     }
-
+    
+    onAddDepense();
     await addDoc(collection(FB_DB, `Colocs/${user.colocID}/Transactions`), {
       timestamp: serverTimestamp(),
       amount: Number(value),

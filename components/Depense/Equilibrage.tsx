@@ -1,14 +1,50 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, ScrollView, View, Image } from 'react-native'
 import GraphiqueEquilibrage from './GraphiqueEquilibrage';
 import EquilibrageCard from './EquilibrageCard';
 import AddDepenseBS from './AddDepenseBS';
 import { ColocContext } from '../../UserContext';
 import { main } from '../../constants/Colors';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 
+const MyLoader = () => (
+    <View style={{marginHorizontal: 20}}>
+    <ContentLoader 
+    speed={5}
+    width={'100%'}
+    height={456}
+    backgroundColor="white"
+    foregroundColor="#DDD"
+    >
+    <Rect x="0" y="0" rx="5" ry="5" width="100%" height="200" /> 
+    <Rect x="0" y="216" rx="5" ry="5" width="100%" height="20" /> 
+    <Rect x="0" y="252" rx="5" ry="5" width="100%" height="60" /> 
+    <Rect x="0" y="324" rx="5" ry="5" width="100%" height="60" /> 
+    <Rect x="0" y="396" rx="5" ry="5" width="100%" height="60" /> 
+    </ContentLoader>
+    </View>
+  )
 
 export default function Equilibrage() {
     const [coloc, setColoc] = useContext(ColocContext);
+    const [loading, setLoading] = useState(false);  // Ajoutez cet état
+      
+
+     // Ajoutez cette fonction pour être appelée lorsque vous ajoutez une dépense
+     const handleAddDepense = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    };
+
+    if(loading){
+        return(
+          <View>
+            {MyLoader()}
+          </View>
+        )
+    }
 
     //Fonction d'affichage pour l'equilibrage empty
     const emptyEquilibrage = () => {
@@ -61,7 +97,7 @@ export default function Equilibrage() {
             {renderEquilibrage()}
             </View>
             </ScrollView>
-            <AddDepenseBS />
+            <AddDepenseBS onAddDepense={handleAddDepense}/>
         </View>
     )
 }
