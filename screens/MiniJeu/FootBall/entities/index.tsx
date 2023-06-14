@@ -7,7 +7,7 @@ export default restart => {
     let engine = Matter.Engine.create({enableSleeping: false})
 
     let world = engine.world
-    world.gravity.y = 0.8
+    world.gravity.y = 4
     engine.timing.timeScale = 1.2; // makes the time flow 20% faster
 
 

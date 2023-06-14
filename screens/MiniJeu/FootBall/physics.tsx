@@ -7,7 +7,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
     .forEach( t=> {
         Matter.Body.setVelocity(entities.FootBall.body, {
             x:0,
-            y:-20,
+            y:-50,
         })
     })
 
