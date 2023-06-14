@@ -10,6 +10,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MiniJeuStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
 
+import BackButton from '../components/Reusable/BackButton';
+
 const Space_Background=require('../assets/images/Space_Background.png');
 const Logo =require('../assets/images/Logo_Minijeu.png');
 
@@ -54,13 +56,18 @@ export default function MiniJeu() {
     >
       <SafeAreaView style={styles.global} edges={['top']} >
         <StatusBar style="light" />
-        <TouchableOpacity style={styles.quitter} onPress={() => navigation.goBack()}>
-              <Text style={styles.TextQuitter}>Quitter</Text>
-            </TouchableOpacity>
+        
         <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.topLign}>
+          <TouchableOpacity style={styles.quitter} onPress={() => navigation.goBack()}>
+              {/* <Text style={styles.TextQuitter}>Quitter</Text> */}
+              <BackButton/>
+          </TouchableOpacity>
           <View style={styles.logo}>
             <Image source={Logo} />
           </View>
+          </View>
+          
           <Carrousel gameCardData={gameCardData}/>
           <Text style={styles.text}>Salons ouverts</Text>
           <SalonCard />
@@ -81,6 +88,12 @@ const styles = StyleSheet.create({
   global: {
     flex: 1,
   },
+  
+  topLign:{
+    flexDirection:'row',
+    justifyContent : 'center',
+    width:'100%'
+  },
 
   imageBackground: {
     flex: 1,             
@@ -100,19 +113,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems:'center',
     width:windowWidth,
-    marginTop: -10
+    marginTop: -10,
   },
 
   logo:{
     margin:10,
+    marginTop:15
   },
 
   quitter: {
     backgroundColor: 'white',
-    height: 20,
-    padding: 'auto',
-    borderRadius: 4,
-    width: 52,
+    height: 30,
+    paddingRight: 4,
+    borderRadius: 30,
+    width: 30,
+    justifyContent:'center',
+    alignItems:'center',
+    marginLeft:10,
+    marginTop:25,
+    position:'absolute',
+    left:0
   },
   
   TextQuitter: {
