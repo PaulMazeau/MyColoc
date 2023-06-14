@@ -14,8 +14,8 @@ const BoutonMiniJeu = () => {
   const navigation = useNavigation<navigationProp>();
   return (
     <View style={[styles.global, Shadows.shadow]}>
-      {/* <TouchableOpacity onPress={() => {navigation.navigate('MiniJeuStack')}}> */}
-      <TouchableOpacity onPress={() => {Alert.alert('','Les minis jeux arrivent bientôt !')}}>
+      <TouchableOpacity onPress={() => {navigation.navigate('MiniJeuStack')}}>
+      {/* <TouchableOpacity onPress={() => {Alert.alert('','Les minis jeux arrivent bientôt !')}}> */}
         <ImageBackground 
           source={ImgBg} 
           resizeMode="cover" 

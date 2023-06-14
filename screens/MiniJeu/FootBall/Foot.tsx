@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { GameEngine } from "react-native-game-engine";
-import Entities from './Entities'
+import entities from './entities'
+import Physics from './physics'
 
 
 const Foot = () => {
+    const [running, setRunning] = useState(false)
+    
+    useEffect(() =>{
+        setRunning(true)
+    }, [])
 
     return (
         <View style={styles.global}>
             <GameEngine 
+            running={running}
+            systems={[Physics]}
             style={styles.gameEngine}
-            entities={Entities()}
+            entities={entities()}
             >
 
             </GameEngine>

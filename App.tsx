@@ -34,7 +34,7 @@ import AuPlusProcheWait from './screens/MiniJeu/AuPlusProcheWait';
 import Basket from './screens/MiniJeu/Basket';
 import ClassementBasket from './screens/MiniJeu/ClassementBasket';
 import ClassementFoot from './screens/MiniJeu/ClassementFoot';
-import Foot from './screens/MiniJeu/Foot';
+import Foot from './screens/MiniJeu/FootBall/Foot';
 import Guess from './screens/MiniJeu/Guess';
 import IncognitoWait from './screens/MiniJeu/IncognitoWait';
 import Result from './screens/MiniJeu/Result';
