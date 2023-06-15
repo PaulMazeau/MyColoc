@@ -3,6 +3,7 @@ import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
 import Physics from './physics'
+import BackButton from "../../../components/Reusable/BackButton";
 
 
 
@@ -10,6 +11,7 @@ const Foot = () => {
     const [running, setRunning] = useState(false)
     const [gameEngine, setGameEngine] = useState(null)
     const [currentScore, setCurrentScore] = useState(0)
+    const [currentBestScore, setCurrentBestScore] = useState(0)
     const [bestScore, setBestScore] = useState(0)
     
     useEffect(() =>{
@@ -30,8 +32,8 @@ const Foot = () => {
                     case 'game-over' :
                         setRunning(false);
                         gameEngine.swap(entities());
-                        if(currentScore>bestScore){
-                            setBestScore(currentScore)
+                        if(currentScore>currentBestScore){
+                            setCurrentBestScore(currentScore)
                         }
                     break;
                     case 'new-point' :
@@ -50,11 +52,19 @@ const Foot = () => {
                         setCurrentScore(0)
                         setRunning(true)
                     }}>
+                    <View style={styles.topLign}>
+                        <BackButton/>
+                        <View style={styles.bestScore}>
+                            <Text style={styles.text2}>Best</Text>
+                            <Text style={styles.text2}>80</Text>
+                        </View>
+                    </View>
                     <Text style={styles.text}>Current Best</Text>
-                    <Text style={[styles.Points]}>{bestScore}</Text>
+                    <Text style={[styles.Points]}>{currentBestScore}</Text>
                 </TouchableOpacity> 
                 : 
                 <Text style={[styles.Points, {color:"#bababa", marginTop:240}]}>{currentScore}</Text>
+                
             }
         </View>
     );
@@ -73,12 +83,23 @@ const styles = StyleSheet.create({
         right:0,
     },
 
+    topLign:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        width:'90%',
+        alignItems:'flex-end'
+    },
 
     Points:{
         textAlign:'center',
         fontSize:100,
         color:'#3489eb',
         fontWeight:'300'
+    },
+
+    bestScore:{
+        justifyContent:'center',
+        alignItems:'flex-end'
     },
     
     text:{
@@ -88,11 +109,16 @@ const styles = StyleSheet.create({
         fontWeight:'300',
         color:'#bababa'
     },
+    text2:{
+        textAlign:'center',
+        fontSize:16,
+        fontWeight:'500',
+    },
 
     menu:{
         flex:1,
         alignItems:'center',
-        marginTop:100,
+        marginTop:50,
 
     }
 });
