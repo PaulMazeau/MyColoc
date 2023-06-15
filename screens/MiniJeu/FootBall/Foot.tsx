@@ -9,7 +9,8 @@ import Physics from './physics'
 const Foot = () => {
     const [running, setRunning] = useState(false)
     const [gameEngine, setGameEngine] = useState(null)
-    const [currentPoint, setCurrentPoint] = useState(0)
+    const [currentScore, setCurrentScore] = useState(0)
+    const [bestScore, setBestScore] = useState(0)
     
     useEffect(() =>{
         setRunning(false)
@@ -25,9 +26,17 @@ const Foot = () => {
             style={styles.gameEngine}
             entities={entities()}
             onEvent={(e) => {
-                if(e.type === 'game-over'){
-                    setRunning(false);
-                    gameEngine.swap(entities());
+                switch (e.type) {
+                    case 'game-over' :
+                        setRunning(false);
+                        gameEngine.swap(entities());
+                        if(currentScore>bestScore){
+                            setBestScore(currentScore)
+                        }
+                    break;
+                    case 'new-point' :
+                        setCurrentScore(currentScore+1)
+                    break;
                 }
             }}
             >
@@ -38,14 +47,14 @@ const Foot = () => {
                 
                 <TouchableOpacity style={styles.menu}
                     onPress={() => {
-                        setCurrentPoint(0)
+                        setCurrentScore(0)
                         setRunning(true)
                     }}>
                     <Text style={styles.text}>Current Best</Text>
-                    <Text style={[styles.Points]}>{currentPoint}</Text>
+                    <Text style={[styles.Points]}>{bestScore}</Text>
                 </TouchableOpacity> 
                 : 
-                <Text style={[styles.Points, {color:"#bababa", marginTop:240}]}>{currentPoint}</Text>
+                <Text style={[styles.Points, {color:"#bababa", marginTop:240}]}>{currentScore}</Text>
             }
         </View>
     );

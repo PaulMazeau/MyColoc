@@ -34,6 +34,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
         if (distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position) < entities.FootBall.body.circleRadius) {
 
             console.log("true")
+            dispatch({type: 'new-point'})
             Matter.Body.setVelocity(entities.FootBall.body, {
                 x: 0,
                 y: -35,
