@@ -8,7 +8,6 @@ export default restart => {
 
     let world = engine.world
     world.gravity.y = 3
-    engine.timing.timeScale = 1.2; // makes the time flow 20% faster
 
 
     const { height, width } = RNDimensions.get('window');

@@ -28,15 +28,17 @@ const Physics = (entities, {touches, time, dispatch}) => {
     touches
     .filter(t => t.type === 'press')
     .forEach( t=> {
-        console.log(t.event.locationX)
-        console.log(t.event.locationY)
-        console.log(entities.FootBall.body.position)
-        //if (true/*distance([t.event.locationX,t.event.locationY],entities.FootBall.body.position) < entities.FootBall.body.circleRadius*/) {
+        console.log(distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position))
+        console.log(entities.FootBall.body.circleRadius)
+
+        if (distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position) < entities.FootBall.body.circleRadius) {
+
+            console.log("true")
             Matter.Body.setVelocity(entities.FootBall.body, {
                 x: 0,
                 y: -35,
             })
-        //}
+        }
     
     })
 
