@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
 import Physics from './physics'
@@ -9,6 +9,7 @@ import { color } from "react-native-reanimated";
 
 const Foot = () => {
     const [running, setRunning] = useState(false)
+    const [gameEngine, setGameEngine] = useState(null)
     const [currentPoint, setCurrentPoint] = useState(0)
     
     useEffect(() =>{
@@ -19,6 +20,7 @@ const Foot = () => {
         <View style={styles.global}>
             
             <GameEngine 
+            ref={(ref)=>{setGameEngine(ref)}}
             running={running}
             systems={[Physics]}
             style={styles.gameEngine}
@@ -28,10 +30,16 @@ const Foot = () => {
             </GameEngine>
 
             {!running ?
-                <View style={styles.menu}>
+                
+                <TouchableOpacity style={styles.menu}
+                    onPress={() => {
+                        setCurrentPoint(0)
+                        setRunning(true)
+                        gameEngine.swap(entities())
+                    }}>
                     <Text style={styles.text}>Current Best</Text>
                     <Text style={[styles.Points]}>{currentPoint}</Text>
-                </View> 
+                </TouchableOpacity> 
                 : 
                 <Text style={[styles.Points, {color:"#bababa", marginTop:240}]}>{currentPoint}</Text>
             }
