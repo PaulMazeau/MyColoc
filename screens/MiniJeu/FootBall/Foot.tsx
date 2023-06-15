@@ -3,7 +3,6 @@ import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
 import Physics from './physics'
-import { color } from "react-native-reanimated";
 
 
 
@@ -25,6 +24,12 @@ const Foot = () => {
             systems={[Physics]}
             style={styles.gameEngine}
             entities={entities()}
+            onEvent={(e) => {
+                if(e.type === 'game-over'){
+                    setRunning(false);
+                    gameEngine.swap(entities());
+                }
+            }}
             >
 
             </GameEngine>
@@ -35,7 +40,7 @@ const Foot = () => {
                     onPress={() => {
                         setCurrentPoint(0)
                         setRunning(true)
-                        gameEngine.swap(entities())
+                        gameEngine.dispatch({ type: "kick" })
                     }}>
                     <Text style={styles.text}>Current Best</Text>
                     <Text style={[styles.Points]}>{currentPoint}</Text>
