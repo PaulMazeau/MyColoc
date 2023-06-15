@@ -40,7 +40,6 @@ const Foot = () => {
                     onPress={() => {
                         setCurrentPoint(0)
                         setRunning(true)
-                        gameEngine.dispatch({ type: "kick" })
                     }}>
                     <Text style={styles.text}>Current Best</Text>
                     <Text style={[styles.Points]}>{currentPoint}</Text>
