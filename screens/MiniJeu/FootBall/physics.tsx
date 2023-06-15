@@ -17,7 +17,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
     if(start){
         Matter.Body.setVelocity(entities.FootBall.body, {
             x: 0,
-            y: -35,
+            y: -15,
         })
         start=false;
     }
@@ -31,13 +31,25 @@ const Physics = (entities, {touches, time, dispatch}) => {
         console.log(distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position))
         console.log(entities.FootBall.body.circleRadius)
 
-        if (distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position) < entities.FootBall.body.circleRadius) {
+        let touchPoint = {x: t.event.pageX, y: t.event.pageY};
+        let ballPosition = entities.FootBall.body.position;
+
+        if (distance(touchPoint, ballPosition) < entities.FootBall.body.circleRadius) {
+
+            // Create a vector from the touch point to the center of the ball
+            let vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
+
+            // Normalize the vector to a unit length, then multiply by the desired speed
+            let speed = 15;
+            let length = Math.sqrt(vector.x*vector.x + vector.y*vector.y);
+            vector.x = vector.x / length * speed;
+            vector.y = vector.y / length * speed;
 
             console.log("true")
             dispatch({type: 'new-point'})
             Matter.Body.setVelocity(entities.FootBall.body, {
-                x: 0,
-                y: -35,
+                x: vector.x,
+                y: vector.y,
             })
         }
     
