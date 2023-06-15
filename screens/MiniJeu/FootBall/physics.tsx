@@ -17,7 +17,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
     if(start){
         Matter.Body.setVelocity(entities.FootBall.body, {
             x: 0,
-            y: -35,
+            y: -30,
         })
         start=false;
     }
@@ -28,20 +28,20 @@ const Physics = (entities, {touches, time, dispatch}) => {
     touches
     .filter(t => t.type === 'press')
     .forEach( t=> {
-        console.log(distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position))
-        console.log(entities.FootBall.body.circleRadius)
+        //console.log(distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position))
+        //console.log(entities.FootBall.body.circleRadius)
 
         let touchPoint = {x: t.event.pageX, y: t.event.pageY};
         let ballPosition = entities.FootBall.body.position;
 
-        if (distance(touchPoint, ballPosition) < (entities.FootBall.body.circleRadius * 5)) {
-            console.log(true);
+        if (distance(touchPoint, ballPosition) < (entities.FootBall.body.circleRadius * 2.5)) {
+            //console.log(true);
 
             // Create a vector from the touch point to the center of the ball
             let vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
 
             // Normalize the vector to a unit length, then multiply by the desired speed
-            let speed = 35;
+            let speed = 30;
             let length = Math.sqrt(vector.x*vector.x + vector.y*vector.y);
             vector.x = vector.x / length * speed;
 

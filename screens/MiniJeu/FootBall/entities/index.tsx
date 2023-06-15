@@ -14,14 +14,14 @@ export default restart => {
     Matter.Body.set(ball.body, {restitution: 0.8});
 
     
-    const wallOptions = { isStatic: true, restitution: 1 };
-    const wallThickness = 50;
+    const wallOptions = { isStatic: true, restitution: 0.8 };
+    const wallThickness = 100;
     const walls = [
       
       // Left wall
-      Matter.Bodies.rectangle(-wallThickness / 2, height / 2, wallThickness, height, wallOptions),
+      Matter.Bodies.rectangle(-wallThickness / 2, height / 2, wallThickness, height*2.5, wallOptions),
       // Right wall
-      Matter.Bodies.rectangle(width + wallThickness / 2, height / 2, wallThickness, height, wallOptions)
+      Matter.Bodies.rectangle(width + wallThickness / 2, height / 2, wallThickness, height*2.5, wallOptions)
     ];
     Matter.World.add(world, walls);
 
