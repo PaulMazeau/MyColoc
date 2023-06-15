@@ -28,13 +28,14 @@ const Physics = (entities, {touches, time, dispatch}) => {
     touches
     .filter(t => t.type === 'press')
     .forEach( t=> {
-        //console.log(distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position))
-        //console.log(entities.FootBall.body.circleRadius)
+        console.log(distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position))
+        console.log(entities.FootBall.body.circleRadius)
 
         let touchPoint = {x: t.event.pageX, y: t.event.pageY};
         let ballPosition = entities.FootBall.body.position;
 
-        if (distance(touchPoint, ballPosition) < entities.FootBall.body.circleRadius) {
+        if (distance(touchPoint, ballPosition) < (entities.FootBall.body.circleRadius * 5)) {
+            console.log(true);
 
             // Create a vector from the touch point to the center of the ball
             let vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
@@ -43,19 +44,18 @@ const Physics = (entities, {touches, time, dispatch}) => {
             let speed = 35;
             let length = Math.sqrt(vector.x*vector.x + vector.y*vector.y);
             vector.x = vector.x / length * speed;
-            vector.y = vector.y / length * speed;
 
             dispatch({type: 'new-point'})
             Matter.Body.setVelocity(entities.FootBall.body, {
                 x: vector.x,
-                y: vector.y,
+                y: - speed,
             })
         }
     
     })
 
 
-    if(entities.FootBall.body.position.y > height){
+    if(entities.FootBall.body.position.y > (height*1.2)){
         dispatch({ type: 'game-over' })
         start=true
     }
