@@ -5,7 +5,7 @@ import { Dimensions as RNDimensions } from 'react-native';
 export default restart => {
     let engine = Matter.Engine.create({enableSleeping: false})
     let world = engine.world
-    world.gravity.y = 3
+    world.gravity.y = 6.81
 
     const { height, width } = RNDimensions.get('window');
 
