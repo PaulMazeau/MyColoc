@@ -18,7 +18,7 @@ const Score = () => {
 const styles = StyleSheet.create({
     scoreText: {
         position: 'absolute',
-        top: 230,
+        top: 282,
         left: 0,
         right: 0,
         backgroundColor: 'transparent',
