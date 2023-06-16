@@ -22,16 +22,16 @@ const Foot = () => {
 
     return (
         <View style={styles.global}>
+            <View style={styles.topLign}>
+                <BackButton/>
+                <View style={styles.bestScore}>
+                    <Text style={styles.text2}>Best</Text>
+                    <Text style={styles.text2}>80</Text>
+                </View>
+            </View>
 
             {!running ?
                 <View style={styles.menu}>
-                    <View style={styles.topLign}>
-                        <BackButton/>
-                        <View style={styles.bestScore}>
-                            <Text style={styles.text2}>Best</Text>
-                            <Text style={styles.text2}>80</Text>
-                        </View>
-                    </View>
                     <Text style={styles.text}>Current Best</Text>
                     <Text style={[styles.Points]}>{currentBestScore}</Text>
                     <TouchableOpacity style={styles.menu}
@@ -77,12 +77,8 @@ const Foot = () => {
                     break;
                 }
             }}
-            >
-
-            </GameEngine>
-                
-                //<Text style={[styles.Points, {color:"#bababa", marginTop:240}]}>{currentScore}</Text>
-                
+            />
+  
             }
         </View>
     );
@@ -90,7 +86,7 @@ const Foot = () => {
 
 const styles = StyleSheet.create({
     global: {
-        flex:1
+        flex:1,
     },
 
     gameEngine:{
@@ -104,8 +100,11 @@ const styles = StyleSheet.create({
     topLign:{
         flexDirection:'row',
         justifyContent:'space-between',
-        width:'90%',
-        alignItems:'flex-end'
+        width:'100%',
+        alignItems:'center',
+        paddingRight:20,
+        paddingLeft:20,
+        marginTop:50
     },
 
     Points:{
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
 
     bestScore:{
         justifyContent:'center',
-        alignItems:'flex-end'
+        alignItems:'flex-end',
     },
     
     text:{
