@@ -1,6 +1,20 @@
 import Matter from 'matter-js'
 import FootBall from '../Components/FootBall'
 import { Dimensions as RNDimensions } from 'react-native';
+import TouchIndicator from '../Components/TouchIndicator';
+
+export const TouchIndicatorEntity = (world, position, size) => {
+  let body = Matter.Bodies.circle(position.x, position.y, size / 2, { isStatic: true, isSensor: true });
+  Matter.World.add(world, body);
+  
+  return {
+    body: body,
+    size,
+    renderer: <TouchIndicator/>
+  };
+};
+
+
 
 export default restart => {
     let engine = Matter.Engine.create({enableSleeping: false})

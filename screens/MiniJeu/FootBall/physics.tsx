@@ -1,5 +1,7 @@
 import Matter from 'matter-js'
 import { Dimensions } from 'react-native';
+import TouchIndicator from './Components/TouchIndicator';
+import { TouchIndicatorEntity } from './entities';
 
 
 function distance(point1, point2) {
@@ -51,6 +53,12 @@ const Physics = (entities, {touches, time, dispatch}) => {
                 y: - speed,
             })
         }
+
+        let world = entities.physics.world;
+        entities.TouchIndicator = TouchIndicatorEntity(world, {x:touchPoint.x,y:touchPoint.y-150}, 50);;
+        setTimeout(() => {
+            delete entities.TouchIndicator;
+        }, 100);
     
     })
 
