@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet,TouchableOpacity, Image } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
 import Physics from './physics'
 import BackButton from "../../../components/Reusable/BackButton";
+import { Dimensions as RNDimensions } from 'react-native';
 
 
 
 const Foot = () => {
     const [running, setRunning] = useState(false)
+    const { height, width } = RNDimensions.get('window');
     const [gameEngine, setGameEngine] = useState(null)
     const [currentScore, setCurrentScore] = useState(0)
     const [currentBestScore, setCurrentBestScore] = useState(0)
@@ -20,8 +22,37 @@ const Foot = () => {
 
     return (
         <View style={styles.global}>
-            
-            <GameEngine 
+
+            {!running ?
+                <View style={styles.menu}>
+                    <View style={styles.topLign}>
+                        <BackButton/>
+                        <View style={styles.bestScore}>
+                            <Text style={styles.text2}>Best</Text>
+                            <Text style={styles.text2}>80</Text>
+                        </View>
+                    </View>
+                    <Text style={styles.text}>Current Best</Text>
+                    <Text style={[styles.Points]}>{currentBestScore}</Text>
+                    <TouchableOpacity style={styles.menu}
+                    onPress={() => {
+                        setCurrentScore(0)
+                        setRunning(true)
+                    }}>
+                    <Image
+                        style={{
+                            width: 60 * 2,
+                            height: 60 * 2,
+                            borderRadius: 60,
+                            marginTop:200
+                        }}
+                        source={require('./../../../assets/images/FootBall.png')} 
+                        />
+                    </TouchableOpacity> 
+                </View>
+                
+                : 
+                <GameEngine 
             ref={(ref)=>{setGameEngine(ref)}}
             running={running}
             systems={[Physics]}
@@ -32,39 +63,25 @@ const Foot = () => {
                     case 'game-over' :
                         setRunning(false);
                         gameEngine.swap(entities());
+                        global.updateScore(0);
                         if(currentScore>currentBestScore){
                             setCurrentBestScore(currentScore)
                         }
                     break;
                     case 'new-point' :
-                        setCurrentScore(currentScore+1)
-
+                        const newScore = currentScore+1;
+                        setCurrentScore(newScore);
+                        if (typeof global.updateScore === 'function') {
+                            global.updateScore(newScore);
+                        }
                     break;
                 }
             }}
             >
 
             </GameEngine>
-
-            {!running ?
                 
-                <TouchableOpacity style={styles.menu}
-                    onPress={() => {
-                        setCurrentScore(0)
-                        setRunning(true)
-                    }}>
-                    <View style={styles.topLign}>
-                        <BackButton/>
-                        <View style={styles.bestScore}>
-                            <Text style={styles.text2}>Best</Text>
-                            <Text style={styles.text2}>80</Text>
-                        </View>
-                    </View>
-                    <Text style={styles.text}>Current Best</Text>
-                    <Text style={[styles.Points]}>{currentBestScore}</Text>
-                </TouchableOpacity> 
-                : 
-                <Text style={[styles.Points, {color:"#bababa", marginTop:240}]}>{currentScore}</Text>
+                //<Text style={[styles.Points, {color:"#bababa", marginTop:240}]}>{currentScore}</Text>
                 
             }
         </View>

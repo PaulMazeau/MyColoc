@@ -19,7 +19,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
     if(start){
         Matter.Body.setVelocity(entities.FootBall.body, {
             x: 0,
-            y: -30,
+            y: -50,
         })
         start=false;
     }
@@ -43,7 +43,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
             let vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
 
             // Normalize the vector to a unit length, then multiply by the desired speed
-            let speed = 40;
+            let speed = 60;
             let length = Math.sqrt(vector.x*vector.x + vector.y*vector.y);
             vector.x = vector.x / length * speed/2;
 

@@ -2,6 +2,8 @@ import Matter from 'matter-js'
 import FootBall from '../Components/FootBall'
 import { Dimensions as RNDimensions } from 'react-native';
 import TouchIndicator from '../Components/TouchIndicator';
+import Score from '../Components/Score';
+
 
 export const TouchIndicatorEntity = (world, position, size) => {
   let body = Matter.Bodies.circle(position.x, position.y, size / 2, { isStatic: true, isSensor: true });
@@ -41,6 +43,14 @@ export default restart => {
 
     return {
         physics : {engine, world},
-        FootBall : ball
+        Score: { 
+          score: 0, 
+          renderer: <Score/>,
+          updateScore: function(newScore) {
+            this.score = newScore;
+          }
+        },
+
+        FootBall : ball,
     }
 }
