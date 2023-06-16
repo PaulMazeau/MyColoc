@@ -23,7 +23,7 @@ const Foot = () => {
     return (
         <View style={styles.global}>
             <View style={styles.topLign}>
-                <BackButton/>
+                {running ? <View/> : <BackButton/>}
                 <View style={styles.bestScore}>
                     <Text style={styles.text2}>Best</Text>
                     <Text style={styles.text2}>{bestScore}</Text>
