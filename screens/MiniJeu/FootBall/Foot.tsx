@@ -26,7 +26,7 @@ const Foot = () => {
                 <BackButton/>
                 <View style={styles.bestScore}>
                     <Text style={styles.text2}>Best</Text>
-                    <Text style={styles.text2}>80</Text>
+                    <Text style={styles.text2}>{bestScore}</Text>
                 </View>
             </View>
 
@@ -66,6 +66,9 @@ const Foot = () => {
                         global.updateScore(0);
                         if(currentScore>currentBestScore){
                             setCurrentBestScore(currentScore)
+                            if(currentScore>bestScore){
+                                setBestScore(currentScore)
+                            }
                         }
                     break;
                     case 'new-point' :
