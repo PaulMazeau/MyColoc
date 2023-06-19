@@ -4,6 +4,7 @@ import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
 import Physics from './physics'
 import BackButton from "../../../components/Reusable/BackButton";
+import { Animated } from 'react-native';
 
 
 
@@ -16,10 +17,23 @@ const Foot = () => {
     const [currentScore, setCurrentScore] = useState(0)
     const [currentBestScore, setCurrentBestScore] = useState(0)
     const [bestScore, setBestScore] = useState(0)
+    const [scale] = useState(new Animated.Value(0.1));
+
    
     useEffect(() =>{
         setRunning(false)
     }, [])
+
+    useEffect(() => {
+        scale.setValue(0.1);
+        Animated.spring(scale, {
+          toValue: 1,
+          friction: 10,
+          useNativeDriver: true,
+        }).start();
+    }, [currentScore, scale, running]);
+      
+      
 
 
     return (
@@ -33,8 +47,9 @@ const Foot = () => {
                     <Text style={styles.text2}>{bestScore}</Text>
                 </View>
             </View>
-            <Text style={styles.text}>{!running ? 'Current Best' : ''}</Text>
-            <Text style={[styles.Points, {color: !running? '#3489eb' : '#bababa'}]}>{!running ? currentBestScore : currentScore}</Text>
+            <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {!running ? 'Current Best' : ''} </Animated.Text>
+            <Animated.Text style={[ styles.Points, {transform: [{ scale: scale }], color: !running? '#3489eb':'#bababa'},]}> {!running ? currentBestScore : currentScore} </Animated.Text>
+
            
             <GameEngine
             ref={(ref)=>{setGameEngine(ref)}}
