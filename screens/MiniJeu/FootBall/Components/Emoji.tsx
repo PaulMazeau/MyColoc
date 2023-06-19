@@ -10,45 +10,48 @@ const images = [
 ];
 
 export const EmojiEntity = (position, size, image) => {
-    
     return {
-      position,
-      size,
-      image,
-      renderer: <Emoji/>
+        position,
+        size,
+        image,
+        renderer: <Emoji/>
     };
 };
 
 const Emoji = props => {
     const { position, size, image } = props;
-    const animVal = useRef(new Animated.Value(0)).current
+    const animVal = useRef(new Animated.Value(0)).current; 
 
     useEffect(() => {
-        Animated.timing(
+        Animated.spring(
             animVal,
             {
-                toValue: -100,
-                duration: 1000,
-                useNativeDriver: true
+                toValue: -75,
+                friction: 5,
+                tension: 90,
+                useNativeDriver: true,
             }
         ).start();
-    }, [animVal])
+    }, [animVal]);
 
     return (
-        <Animated.Image 
+        <Animated.View
             style={{
                 position: 'absolute',
                 top: position.y - size / 2,
                 left: position.x - size / 2,
-                width: size,
-                height: size,
-                padding:10,
-                transform: [{
-                    translateY: animVal
-                }]
+                transform: [{ translateY: animVal }],
             }}
-            source={image}
-        />
+        >
+            <Image
+                style={{
+                    width: size,
+                    height: size,
+                    padding: 10,
+                }}
+                source={image}
+            />
+        </Animated.View>
     );
 }
 
