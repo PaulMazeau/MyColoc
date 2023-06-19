@@ -1,10 +1,12 @@
 import Matter from 'matter-js'
 import { Dimensions } from 'react-native';
 import TouchIndicatorEntity from './Components/TouchIndicator';
+import EmojiEntity from './Components/Emoji';
 
 
 
 let start = true;
+
 
 function distance(point1, point2) {
     let a = point1.x - point2.x;
@@ -14,7 +16,18 @@ function distance(point1, point2) {
     return Math.sqrt( a*a + b*b );
 }
 
+const emojiWin = [
+    require('./../../../assets/images/Biceps_Emoji.png'),
+    require('./../../../assets/images/Clapping_Emoji.png'),
+    require('./../../../assets/images/High_Five_Emoji.png'),
+    require('./../../../assets/images/Thumbs_Up_Emoji.png'),
+];
 
+const emojiLose = [
+    require('./../../../assets/images/Sweat_Emoji.png'),
+    require('./../../../assets/images/Unamused_Emoji.png'),
+    require('./../../../assets/images/Flushed_Emoji.png'),
+];
 
 
 
@@ -38,23 +51,26 @@ const Physics = (entities, {touches, time, dispatch}) => {
     touches
     .filter(t => t.type === 'press')
     .forEach( t=> {
-        //console.log(distance({x: t.event.pageX, y: t.event.pageY}, entities.FootBall.body.position))
-        //console.log(entities.FootBall.body.circleRadius)
-
 
         let touchPoint = {x: t.event.pageX, y: t.event.pageY };
-        const touchIndicator = TouchIndicatorEntity(world,touchPoint, 50); // Make sure to define world
+        const touchIndicator = TouchIndicatorEntity(world,touchPoint, 50);
         entities.TouchIndicator = touchIndicator;
         setTimeout(() => {
             delete entities.TouchIndicator;
         }, 10);
+        
+        const image = emojiWin[Math.floor(Math.random() * emojiWin.length)];
+        const Emoji = EmojiEntity({x:touchPoint.x, y:touchPoint.y -100}, 35, image);
+        entities.Emoji = Emoji;
+        setTimeout(() => {
+            delete entities.Emoji;
+        }, 500);
 
 
         let ballPosition = entities.FootBall.body.position;
 
 
         if (distance(touchPoint, ballPosition) < (entities.FootBall.body.circleRadius * 1.5)) {
-            //console.log(true);
 
 
             // Create a vector from the touch point to the center of the ball
@@ -80,12 +96,21 @@ const Physics = (entities, {touches, time, dispatch}) => {
 
 
     if(entities.FootBall.body.position.y > (height*1.2)){
-        dispatch({ type: 'game-over' })
-        start=true
+        const index = Math.floor(entities.FootBall.body.position.x) % emojiLose.length;
+        const Emoji = EmojiEntity({x:entities.FootBall.body.position.x, y:entities.FootBall.body.position.y -200}, 35, emojiLose[index]);
+        entities.Emoji = Emoji;
+        setTimeout(() => {
+            delete entities.Emoji;
+            dispatch({ type: 'game-over' })
+            start=true
+        }, 500);
+        
+    }
+    else{
+        Matter.Engine.update(engine, time.delta)
     }
 
 
-    Matter.Engine.update(engine, time.delta)
    
     return entities;
 
