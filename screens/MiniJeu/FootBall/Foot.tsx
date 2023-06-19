@@ -27,10 +27,10 @@ const Foot = () => {
 
 
             <View style={styles.topLign}>
-                <BackButton/>
+                {!running?<BackButton/> : <View/>}
                 <View style={styles.bestScore}>
                     <Text style={styles.text2}>Best</Text>
-                    <Text style={styles.text2}>80</Text>
+                    <Text style={styles.text2}>{bestScore}</Text>
                 </View>
             </View>
             <Text style={styles.text}>{!running ? 'Current Best' : ''}</Text>
@@ -48,7 +48,10 @@ const Foot = () => {
                         setRunning(false);
                         gameEngine.swap(entities());
                         if(currentScore>currentBestScore){
-                            setCurrentBestScore(currentScore)
+                            setCurrentBestScore(currentScore);
+                            if(currentScore>bestScore){
+                                setBestScore(currentScore)
+                            }
                         }
                     break;
                     case 'new-point' :

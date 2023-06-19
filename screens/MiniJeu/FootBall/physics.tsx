@@ -1,8 +1,10 @@
 import Matter from 'matter-js'
 import { Dimensions } from 'react-native';
+import TouchIndicatorEntity from './Components/TouchIndicator';
 
 
 
+let start = true;
 
 function distance(point1, point2) {
     let a = point1.x - point2.x;
@@ -12,8 +14,6 @@ function distance(point1, point2) {
     return Math.sqrt( a*a + b*b );
 }
 
-
-let start = true;
 
 
 
@@ -29,7 +29,9 @@ const Physics = (entities, {touches, time, dispatch}) => {
     }
 
 
-    let engine = entities.physics.engine
+    let engine = entities.physics.engine;
+    let world = entities.physics.world;
+
     const { height } = Dimensions.get('window');
 
 
@@ -40,7 +42,14 @@ const Physics = (entities, {touches, time, dispatch}) => {
         //console.log(entities.FootBall.body.circleRadius)
 
 
-        let touchPoint = {x: t.event.pageX, y: t.event.pageY + 100 };
+        let touchPoint = {x: t.event.pageX, y: t.event.pageY };
+        const touchIndicator = TouchIndicatorEntity(world,touchPoint, 50); // Make sure to define world
+        entities.TouchIndicator = touchIndicator;
+        setTimeout(() => {
+            delete entities.TouchIndicator;
+        }, 10);
+
+
         let ballPosition = entities.FootBall.body.position;
 
 

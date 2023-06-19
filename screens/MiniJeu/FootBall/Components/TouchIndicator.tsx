@@ -1,6 +1,18 @@
 // TouchIndicator.tsx
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import Matter from 'matter-js'
+
+export const TouchIndicatorEntity = (world, position, size) => {
+    let body = Matter.Bodies.circle(position.x, position.y, size / 2, { isStatic: true, isSensor: true });
+    Matter.World.add(world, body);
+    
+    return {
+      body: body,
+      size,
+      renderer: <TouchIndicator/>
+    };
+};
 
 const TouchIndicator = props => {
     const radius = props.body.circleRadius; 
@@ -15,7 +27,7 @@ const TouchIndicator = props => {
                 left: x,
                 width: radius * 2,
                 height: radius * 2,
-                backgroundColor: 'rgba(0,0,0,0.15)',
+                backgroundColor: 'rgba(0,0,0,0.2)',
                 borderRadius: radius,
             }}
         />
@@ -23,4 +35,5 @@ const TouchIndicator = props => {
 }
 
 
-export default TouchIndicator;
+
+export default TouchIndicatorEntity;
