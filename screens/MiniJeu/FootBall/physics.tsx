@@ -2,10 +2,13 @@ import Matter from 'matter-js'
 import { Dimensions } from 'react-native';
 import TouchIndicatorEntity from './Components/TouchIndicator';
 import EmojiEntity from './Components/Emoji';
+import { loadSounds, playSound } from './SoundManager';
+import { debug } from 'react-native-reanimated';
 
 
 
 let start = true;
+let end =false;
 
 
 function distance(point1, point2) {
@@ -29,6 +32,7 @@ const emojiLose = [
     require('./../../../assets/images/Flushed_Emoji.png'),
 ];
 
+loadSounds();
 
 
 const Physics = (entities, {touches, time, dispatch}) => {
@@ -88,21 +92,29 @@ const Physics = (entities, {touches, time, dispatch}) => {
                 x: vector.x,
                 y: - speed,
             })
+
+            playSound('Drum')
         }
    
     })
 
 
 
-
+    
     if(entities.FootBall.body.position.y > (height*1.2)){
-        const index = Math.floor(entities.FootBall.body.position.x) % emojiLose.length;
-        const Emoji = EmojiEntity({x:entities.FootBall.body.position.x, y:entities.FootBall.body.position.y -200}, 35, emojiLose[index]);
-        entities.Emoji = Emoji;
+        if(end==false){
+            const index = Math.floor(entities.FootBall.body.position.x) % emojiLose.length;
+            const Emoji = EmojiEntity({x:entities.FootBall.body.position.x, y:entities.FootBall.body.position.y -200}, 35, emojiLose[index]);
+            entities.Emoji = Emoji;
+            playSound('Hi-Hat');            
+            end = true;
+        }
+        
         setTimeout(() => {
             delete entities.Emoji;
             dispatch({ type: 'game-over' })
             start=true
+            end = false
         }, 500);
         
     }

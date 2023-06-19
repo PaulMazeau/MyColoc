@@ -74,14 +74,10 @@ const Foot = () => {
                     break;
                 }
             }}
-            >
-
-
-            </GameEngine>
+            />
 
 
             {!running ?
-               
                 <TouchableOpacity style={styles.menu}
                     onPress={() => {
                         setCurrentScore(0)
@@ -90,8 +86,7 @@ const Foot = () => {
                    
                 </TouchableOpacity>
                 :
-                <View/>
-               
+                <View/> 
             }
         </View>
     );
