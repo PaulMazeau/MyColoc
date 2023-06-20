@@ -107,15 +107,9 @@ const Physics = (entities, {touches, time, dispatch}) => {
     
     if(entities.FootBall.body.position.y > (height*1.2)){
         if(end==false){
-            const index = Math.floor(entities.FootBall.body.position.x) % emojiLose.length;
-            const Emoji = EmojiEntity({x:entities.FootBall.body.position.x, y:entities.FootBall.body.position.y -200}, 35, emojiLose[index]);
-            entities.Emoji = Emoji;
             playSound('Hi-Hat');            
-            setTimeout(() => {
-                delete entities.Emoji;
-                dispatch({ type: 'game-over' })
-                start=true
-            }, 500);
+            dispatch({ type: 'game-over' })
+            start=true
             end = true;
         }
         
