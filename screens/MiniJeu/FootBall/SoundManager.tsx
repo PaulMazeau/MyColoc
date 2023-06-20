@@ -9,6 +9,10 @@ const sounds = [
     name: 'Drum',
     path: require('./../../../assets/sounds/Drum-Sticks.mp3'),
   },
+  {
+    name: 'Bubble',
+    path: require('./../../../assets/sounds/Bubble.mp3'),
+  },
   // Ajoutez d'autres sons si nécessaire
 ];
 
@@ -30,9 +34,12 @@ export const playSound = async (soundName) => {
   const soundObject = loadedSounds[soundName];
   if (soundObject) {
     try {
-      await soundObject.replayAsync();
+      await soundObject.unloadAsync(); // décharger le son existant
+      await soundObject.loadAsync(sounds.find(sound => sound.name === soundName).path); // recharger le son
+      await soundObject.playAsync(); // jouer le son
     } catch (error) {
       console.error(`Erreur lors de la lecture du son ${soundName}:`, error);
     }
   }
 };
+

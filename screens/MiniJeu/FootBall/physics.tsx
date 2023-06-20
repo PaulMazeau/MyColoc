@@ -37,6 +37,7 @@ loadSounds();
 const Physics = (entities, {touches, time, dispatch}) => {
    
     if(start){
+        playSound('Drum');
         Matter.Body.setVelocity(entities.FootBall.body, {
             x: 0,
             y: -30,

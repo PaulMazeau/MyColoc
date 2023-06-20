@@ -11,6 +11,7 @@ import { Animated } from 'react-native';
 
 
 
+
 const Foot = () => {
     const [running, setRunning] = useState(false)
     const [gameEngine, setGameEngine] = useState(null)
@@ -31,6 +32,7 @@ const Foot = () => {
           friction: 10,
           useNativeDriver: true,
         }).start();
+
     }, [currentScore, scale, running]);
       
       
