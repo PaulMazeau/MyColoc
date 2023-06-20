@@ -43,6 +43,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
             y: -30,
         })
         start=false;
+        end = false;
     }
 
 
@@ -112,7 +113,6 @@ const Physics = (entities, {touches, time, dispatch}) => {
                 delete entities.Emoji;
                 dispatch({ type: 'game-over' })
                 start=true
-                end = false
             }, 500);
             end = true;
         }

@@ -76,6 +76,7 @@ const Foot = () => {
                                 setBestScore(currentScore)
                             }
                         }
+                        setCurrentScore(0)
                     break;
                     case 'new-point' :
                         setCurrentScore(currentScore+1)
@@ -89,7 +90,6 @@ const Foot = () => {
             {!running ?
                 <TouchableOpacity style={styles.menu}
                     onPress={() => {
-                        setCurrentScore(0)
                         setRunning(true)
                     }}>
                    
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     menu:{
         flex:1,
         alignItems:'center',
-        marginTop:50,
+        margin:130,
 
 
     }
