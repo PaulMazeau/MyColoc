@@ -33,6 +33,7 @@ const emojiLose = [
 
 loadSounds();
 
+let vector = {x:0, y:0};
 
 const Physics = (entities, {touches, time, dispatch}) => {
    
@@ -49,6 +50,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
 
     let engine = entities.physics.engine;
     let world = entities.physics.world;
+    
 
     const { height } = Dimensions.get('window');
 
@@ -80,7 +82,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
         }, 500);
 
             // Create a vector from the touch point to the center of the ball
-            let vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
+            vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
 
 
             // Normalize the vector to a unit length, then multiply by the desired speed
@@ -100,7 +102,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
    
     })
 
-
+    entities.FootBall.angle += vector.x * 2;
 
     
     if(entities.FootBall.body.position.y > (height*1.2)){

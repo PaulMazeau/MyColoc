@@ -14,18 +14,27 @@ const FootBall = props => {
     const color = props.color
 
 
+
     return(
-        <Image
+        <View style={{
+            position: 'absolute',
+            left: xBody,
+            top: yBody,
+            width: radius * 2,
+            height: radius * 2,
+            borderRadius: radius
+        }}>
+            <Image
             style={{
-                position: 'absolute',
-                left: xBody,
-                top: yBody,
-                width: radius * 2,
-                height: radius * 2,
-                borderRadius: radius
+                height:'100%',
+                width:'100%',
+                transform: [{ rotate: `${props.angle}deg` }]
             }}
             source={require('./../../../../assets/images/FootBall.png')}
-        />
+            />
+        </View>
+        
+
     )
 }
 
@@ -45,6 +54,8 @@ export default (world, color, pos, radius) => {
         body: initialFootBall,
         color,
         pos,
+        angle: 0,  
         renderer: <FootBall/>
     }
+    
 }

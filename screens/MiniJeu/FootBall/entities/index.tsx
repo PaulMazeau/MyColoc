@@ -1,7 +1,6 @@
 import Matter from 'matter-js'
 import FootBall from '../Components/FootBall'
 import { Dimensions as RNDimensions } from 'react-native';
-import Light from '../Components/Light'; // importez Light ici
 
 export default restart => {
     let engine = Matter.Engine.create({enableSleeping: false})
