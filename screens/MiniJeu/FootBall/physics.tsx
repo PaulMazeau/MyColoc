@@ -3,7 +3,6 @@ import { Dimensions } from 'react-native';
 import TouchIndicatorEntity from './Components/TouchIndicator';
 import EmojiEntity from './Components/Emoji';
 import { loadSounds, playSound } from './SoundManager';
-import { debug } from 'react-native-reanimated';
 
 
 
@@ -107,15 +106,16 @@ const Physics = (entities, {touches, time, dispatch}) => {
             const Emoji = EmojiEntity({x:entities.FootBall.body.position.x, y:entities.FootBall.body.position.y -200}, 35, emojiLose[index]);
             entities.Emoji = Emoji;
             playSound('Hi-Hat');            
+            setTimeout(() => {
+                delete entities.Emoji;
+                dispatch({ type: 'game-over' })
+                start=true
+                end = false
+            }, 500);
             end = true;
         }
         
-        setTimeout(() => {
-            delete entities.Emoji;
-            dispatch({ type: 'game-over' })
-            start=true
-            end = false
-        }, 500);
+        
         
     }
     else{
