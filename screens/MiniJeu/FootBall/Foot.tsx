@@ -5,6 +5,7 @@ import entities from './entities'
 import Physics from './physics'
 import BackButton from "../../../components/Reusable/BackButton";
 import { Animated } from 'react-native';
+import Light from "./Components/Light";
 
 
 
@@ -41,6 +42,9 @@ const Foot = () => {
     return (
         <View style={styles.global}>
 
+            
+            <Light speed={5} leftOrRight={true}/>
+            <Light speed={5} leftOrRight={false}/>
 
             <View style={styles.topLign}>
                 {!running?<BackButton/> : <View/>}
@@ -77,6 +81,7 @@ const Foot = () => {
                 }
             }}
             />
+
 
 
             {!running ?
