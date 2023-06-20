@@ -57,6 +57,14 @@ const Physics = (entities, {touches, time, dispatch}) => {
     .forEach( t=> {
 
         let touchPoint = {x: t.event.pageX, y: t.event.pageY };
+        
+
+
+        let ballPosition = entities.FootBall.body.position;
+
+
+        if (distance(touchPoint, ballPosition) < (entities.FootBall.body.circleRadius * 1.5)) {
+
         const touchIndicator = TouchIndicatorEntity(world,touchPoint, 50);
         entities.TouchIndicator = touchIndicator;
         setTimeout(() => {
@@ -69,13 +77,6 @@ const Physics = (entities, {touches, time, dispatch}) => {
         setTimeout(() => {
             delete entities.Emoji;
         }, 500);
-
-
-        let ballPosition = entities.FootBall.body.position;
-
-
-        if (distance(touchPoint, ballPosition) < (entities.FootBall.body.circleRadius * 1.5)) {
-
 
             // Create a vector from the touch point to the center of the ball
             let vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
