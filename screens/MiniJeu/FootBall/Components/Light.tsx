@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { View, Dimensions } from 'react-native';
 import Svg, { Polygon } from 'react-native-svg';
-import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const Light = ({ speed, leftOrRight }) => {
+const Light = ({ speed, rightOrLeft }) => {
   const [offset, setOffset] = useState(0);
-  const maxOffset = 200; // valeur maximum de l'oscillation
+  const maxOffset = 30; // valeur maximum de l'oscillation
   const [direction, setDirection] = useState(1);
 
   useEffect(() => {
@@ -32,20 +32,48 @@ const Light = ({ speed, leftOrRight }) => {
     
   }, [offset]);
 
-  const points = leftOrRight
-    ? `${width + 20},${height} ${10 + offset},${-50} ${-50 + offset},${10}`
-    : `${-width + 400},${height} ${width + offset},${-50} ${width+ 40 + offset},${10}`;
+  const points = rightOrLeft ?
+  `${width},${height} ${30},${-50} ${-20},${10}`
+  : `${0},${height} ${width-30},${-50} ${width+20},${10}`;
 
+  const transform = rightOrLeft 
+  ? [
+      { translateX : width/2},
+      { translateY : height/2},
+      { rotate: `${offset}deg`},
+      { translateX : -width/2},
+      { translateY : -height/2},
+    ]
+  : [
+      { translateX : -width/2},
+      { translateY : height/2},
+      { rotate: `${offset}deg`},
+      { translateY : -height/2},
+      { translateX : width/2},
+    ];
+
+
+  
 
   return (
-    <Svg height="100%" width="100%" style={{ position: 'absolute' }}>
-      <Polygon
-        points={points}
-        fill="rgba(255, 251, 135, 0.5)"
-        stroke="rgba(255, 251, 135, 0.5)"
-        strokeWidth="1"
-      />
-    </Svg>
+    <View style={{ 
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      transform: transform,
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'flex-end'
+    }}>
+      <Svg height="100%" width="100%">
+        <Polygon
+          points={points}
+          fill="rgba(255, 251, 135, 0.5)"
+          stroke="rgba(255, 251, 135, 0.5)"
+          strokeWidth="1"
+        />
+      </Svg>
+    </View>
   );
 };
 

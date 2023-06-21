@@ -109,9 +109,8 @@ const Foot = () => {
     return (
         <View style={styles.global}>
 
-            
-            {currentScore >= 10 && <Light speed={currentScore/2} leftOrRight={true}/>}
-            {currentScore >= 20 && <Light speed={currentScore/2} leftOrRight={false}/>}
+            {currentScore >= 10 && <Light speed={currentScore/40} rightOrLeft={false}/>}
+            {currentScore >= 20 && <Light speed={currentScore/40} rightOrLeft={true}/>}
 
             <View style={styles.topLign}>
                 {!running?<BackButton/> : <View/>}
