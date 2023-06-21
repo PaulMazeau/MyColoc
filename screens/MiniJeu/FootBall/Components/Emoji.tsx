@@ -1,5 +1,5 @@
 // Emoji.tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Image, Animated } from 'react-native';
 
 const images = [
@@ -14,6 +14,7 @@ export const EmojiEntity = (position, size, image) => {
         position,
         size,
         image,
+        visible: false,
         renderer: <Emoji/>
     };
 };
@@ -21,6 +22,16 @@ export const EmojiEntity = (position, size, image) => {
 const Emoji = props => {
     const { position, size, image } = props;
     const animVal = useRef(new Animated.Value(0)).current; 
+    const [visible, setVisible] = useState(props.visible);
+  
+    useEffect(() => {
+      if (props.visible) {
+        setVisible(true);
+        setTimeout(() => {
+          setVisible(false);
+        }, 1000);
+      }
+    }, [props.visible]);
 
     useEffect(() => {
         Animated.spring(
@@ -33,6 +44,10 @@ const Emoji = props => {
             }
         ).start();
     }, [animVal]);
+
+    if (!props.visible) {
+        return null;
+    }
 
     return (
         <Animated.View
