@@ -22,7 +22,7 @@ const Light = ({ speed, leftOrRight }) => {
             setDirection(-1);
           }
         // Update offset
-        return prevOffset + direction * speed;
+        return prevOffset + direction * Math.min(speed, 50);
       });
     }, 20); // Update every 20 milliseconds
 

@@ -25,11 +25,6 @@ const emojiWin = [
     require('./../../../assets/images/Thumbs_Up_Emoji.png'),
 ];
 
-const emojiLose = [
-    require('./../../../assets/images/Sweat_Emoji.png'),
-    require('./../../../assets/images/Unamused_Emoji.png'),
-    require('./../../../assets/images/Flushed_Emoji.png'),
-];
 
 loadSounds();
 
@@ -62,11 +57,10 @@ const Physics = (entities, {touches, time, dispatch}) => {
         let touchPoint = {x: t.event.pageX, y: t.event.pageY };
         
 
-
         let ballPosition = entities.FootBall.body.position;
 
 
-        if (distance(touchPoint, ballPosition) < (entities.FootBall.body.circleRadius * 1.5)) {
+        if (distance({x : touchPoint.x, y : touchPoint.y + 60}, ballPosition) < (entities.FootBall.body.circleRadius * 1.5)) {
 
         const touchIndicator = TouchIndicatorEntity(world,touchPoint, 50);
         entities.TouchIndicator = touchIndicator;
@@ -102,7 +96,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
    
     })
 
-    entities.FootBall.angle += vector.x * 2;
+    entities.FootBall.angle += vector.x * 1.75;
 
     
     if(entities.FootBall.body.position.y > (height*1.2)){

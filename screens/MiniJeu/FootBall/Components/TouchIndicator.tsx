@@ -27,7 +27,7 @@ const TouchIndicator = props => {
                 left: x,
                 width: radius * 2,
                 height: radius * 2,
-                backgroundColor: 'rgba(0,0,0,0.1)',
+                backgroundColor: 'rgba(0,0,0,0.2)',
                 borderRadius: radius,
             }}
         />
