@@ -41,8 +41,8 @@ const Light = ({ speed, leftOrRight }) => {
     <Svg height="100%" width="100%" style={{ position: 'absolute' }}>
       <Polygon
         points={points}
-        fill="#fffb87"
-        stroke="#fffb87"
+        fill="rgba(255, 251, 135, 0.5)"
+        stroke="rgba(255, 251, 135, 0.5)"
         strokeWidth="1"
       />
     </Svg>

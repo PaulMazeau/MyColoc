@@ -1,3 +1,28 @@
+// import Matter from 'matter-js';
+
+// const Physics = (entities, { time }) => {
+//     let engine = entities.physics.engine;
+
+//         let footBall = entities.footBall;
+      
+//         if (!entities.physics.counter) {
+//           entities.physics.counter = 0;
+//         }
+      
+//         entities.physics.counter += 1;
+      
+//         if (entities.physics.counter >= 60) { // Pour un taux de rafraîchissement de 60 FPS, cela se produira toutes les secondes
+//           Matter.Body.applyForce(footBall.body, footBall.body.position, { x: 0, y: -0.2 });
+//           entities.physics.counter = 0;
+//         }
+
+//     Matter.Engine.update(engine, time.delta);
+//     return entities;
+// };
+
+// export default Physics;
+
+
 import Matter from 'matter-js'
 import { Dimensions } from 'react-native';
 import TouchIndicatorEntity from './Components/TouchIndicator';
@@ -101,13 +126,12 @@ const Physics = (entities, {touches, time, dispatch}) => {
     
     if(entities.FootBall.body.position.y > (height*1.2)){
         if(end==false){
+            vector = {x:0, y:0};
             playSound('Hi-Hat');            
             dispatch({ type: 'game-over' })
             start=true
             end = true;
         }
-        
-        
         
     }
     else{

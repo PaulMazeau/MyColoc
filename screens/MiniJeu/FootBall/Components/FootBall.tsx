@@ -59,3 +59,24 @@ export default (world, color, pos, radius) => {
     }
     
 }
+
+
+export const createFootBall = (world, color, pos, radius) => {
+ 
+    const initialFootBall = Matter.Bodies.circle(
+        pos.x,
+        pos.y,
+        radius,  
+        {label:'FootBall'}
+    )
+    Matter.World.add(world, initialFootBall)
+
+
+    return{
+        body: initialFootBall,
+        color,
+        pos,
+        angle: 0,  
+        renderer: <FootBall/>
+    } 
+}
