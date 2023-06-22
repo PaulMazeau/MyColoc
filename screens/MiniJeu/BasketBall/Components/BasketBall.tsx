@@ -11,9 +11,6 @@ const BasketBall = props => {
     const yBody = props.body.position.y - radius
 
 
-    const color = props.color
-
-
 
     return(
         <View style={{

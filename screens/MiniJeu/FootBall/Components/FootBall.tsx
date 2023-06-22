@@ -11,8 +11,6 @@ const FootBall = props => {
     const yBody = props.body.position.y - radius
 
 
-    const color = props.color
-
 
 
     return(

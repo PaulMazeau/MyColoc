@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     text:{
         textAlign:'center',
         fontSize:30,
-        marginTop:200,
+        marginTop:300,
         fontWeight:'300',
         color:'#bababa'
     },
