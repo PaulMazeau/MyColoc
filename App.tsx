@@ -31,7 +31,7 @@ import { FB_AUTH, FB_DB } from './firebaseconfig';
 import { QuerySnapshot, collection, doc, getDoc, onSnapshot, query, where } from 'firebase/firestore';
 import NoColoc from './screens/NoColoc';
 import AuPlusProcheWait from './screens/MiniJeu/AuPlusProcheWait';
-import Basket from './screens/MiniJeu/Basket';
+import Basket from './screens/MiniJeu/BasketBall/Basket';
 import ClassementBasket from './screens/MiniJeu/ClassementBasket';
 import ClassementFoot from './screens/MiniJeu/ClassementFoot';
 import Foot from './screens/MiniJeu/FootBall/Foot';
