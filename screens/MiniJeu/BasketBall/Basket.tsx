@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:100,
         color:'#3489eb',
-        fontWeight:'300'
+        fontWeight:'300',
+        lineHeight:110
     },
 
 
@@ -132,9 +133,9 @@ const styles = StyleSheet.create({
     text:{
         textAlign:'center',
         fontSize:30,
-        marginTop:300,
+        marginTop:320,
         fontWeight:'300',
-        color:'#bababa'
+        color:'#bababa',
     },
     text2:{
         textAlign:'center',
@@ -147,6 +148,8 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         margin:130,
+        marginTop:40,
+        marginBottom:150
 
 
     }
