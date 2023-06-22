@@ -6,12 +6,15 @@ import { loadSounds, playSound } from './SoundManager';
 
 let start = true;
 let end =false;
+let isEmojiVisible = false;
+let emojiId;
 
 function distance(point1, point2) {
     let a = point1.x - point2.x;
     let b = point1.y - point2.y;
     return Math.sqrt( a*a + b*b );
 }
+
 
 const emojiWin = [
     require('./../../../assets/images/Biceps_Emoji.png'),
@@ -26,6 +29,10 @@ let vector = {x:0, y:0};
 
 const Physics = (entities, {touches, time, dispatch}) => {
     if(start){
+        const touchIndicator = TouchIndicatorEntity({x:0,y:0}, 50);
+        entities.TouchIndicator = touchIndicator;
+        const emoji = EmojiEntity({x:0,y:0}, 50, null);
+        entities.emoji = emoji;
         playSound('Drum');
         Matter.Body.setVelocity(entities.FootBall.body, {
             x: 0,
@@ -36,14 +43,20 @@ const Physics = (entities, {touches, time, dispatch}) => {
     }
 
     let engine = entities.physics.engine;
-    let world = entities.physics.world;
     const { height } = Dimensions.get('window');
 
-    const touchIndicator = TouchIndicatorEntity({x:0,y:0}, 50);
-    entities.TouchIndicator = touchIndicator;
 
-    const emoji = EmojiEntity({x:0,y:0}, 50, null);
-    entities.emoji = emoji;
+    entities.TouchIndicator.visible = false;
+
+    if(isEmojiVisible){
+        entities.emoji.visible = true;
+        emojiId = setTimeout(() => {
+            entities.emoji.visible = false
+            isEmojiVisible =false;
+        },500)
+    }
+
+    
 
     touches
     .filter(t => t.type === 'press')
@@ -53,13 +66,14 @@ const Physics = (entities, {touches, time, dispatch}) => {
 
         if (distance({x : touchPoint.x, y : touchPoint.y + 60}, ballPosition) < (entities.FootBall.body.circleRadius * 1.5)) {
             
-            entities.TouchIndicator.visible = true;
             entities.TouchIndicator.position = touchPoint;
-            
+            entities.TouchIndicator.visible = true;
+
 
             entities.emoji.image = emojiWin[Math.floor(Math.random() * emojiWin.length)];
-            entities.emoji.visible = true;
             entities.emoji.position = touchPoint;
+            clearTimeout(emojiId);
+            isEmojiVisible= true;
 
             vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
             let speed = 30;

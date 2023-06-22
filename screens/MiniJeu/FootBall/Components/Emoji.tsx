@@ -14,7 +14,6 @@ export const EmojiEntity = (position, size, image) => {
         position,
         size,
         image,
-        visible: false,
         renderer: <Emoji/>
     };
 };
@@ -22,28 +21,22 @@ export const EmojiEntity = (position, size, image) => {
 const Emoji = props => {
     const { position, size, image } = props;
     const animVal = useRef(new Animated.Value(0)).current; 
-    const [visible, setVisible] = useState(props.visible);
   
-    useEffect(() => {
-      if (props.visible) {
-        setVisible(true);
-        setTimeout(() => {
-          setVisible(false);
-        }, 1000);
-      }
-    }, [props.visible]);
 
     useEffect(() => {
-        Animated.spring(
-            animVal,
-            {
-                toValue: -75,
-                friction: 5,
-                tension: 90,
-                useNativeDriver: true,
-            }
-        ).start();
-    }, [animVal]);
+        if (props.visible) {
+            animVal.setValue(0); // Reset the animation
+            Animated.spring(
+                animVal,
+                {
+                    toValue: -75,
+                    friction: 5,
+                    tension: 90,
+                    useNativeDriver: true,
+                }
+            ).start();
+        }
+    }, [props.visible, animVal]);
 
     if (!props.visible) {
         return null;

@@ -6,7 +6,6 @@ export const TouchIndicatorEntity = (position, size) => {
     return {
         position,
         size,
-        visible: false,
         renderer: <TouchIndicator/>
     };
 };
