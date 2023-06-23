@@ -22,7 +22,7 @@ const BasketBall = props => {
             borderRadius: radius,
             backgroundColor:'black',
             justifyContent:'center',
-            alignItems:'center'
+            alignItems:'center',
         }}>
             <Image
             style={{

@@ -5,7 +5,7 @@ import Matter from 'matter-js';
 let collisionCategory2 = 0x0002;
 
 const Hoop = (props) => {
-  const { bodies, ecart } = props;
+  const { bodies } = props;
   const { position: { x, y }, circleRadius } = bodies[0];
   
   return (

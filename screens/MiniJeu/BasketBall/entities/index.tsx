@@ -1,5 +1,6 @@
 import Matter from 'matter-js'
 import BasketBall from '../Components/BasketBall'
+import {RedLign} from '../Components/RedLign'
 import { createHoop } from '../Components/Hoop';
 import { Dimensions as RNDimensions } from 'react-native';
 
@@ -18,11 +19,23 @@ export default restart => {
 
     let hoop = createHoop(world, width * 0.5, height * 0.35, 3, 110);
 
+    const middleX = (hoop.bodies[0].position.x + hoop.bodies[1].position.x) / 2;
+    const middleY = (hoop.bodies[0].position.y + hoop.bodies[1].position.y) / 2;
+
+    let redLign = {
+        body: null, // Pas de corps physique nécessaire pour la ligne
+        size: [250, 10], // Définissez les dimensions de votre ligne
+        color: 'red',
+        hoopPos: {x: middleX, y: middleY}, // Passez la position du panier en tant que prop
+        renderer: <RedLign hoopPos={{x: middleX, y: middleY}}/>
+    };
+    
 
     return {
         physics: { engine, world },
         Hoop: hoop,
         BasketBall: ball,
+        RedLign: redLign
         
     }
 }

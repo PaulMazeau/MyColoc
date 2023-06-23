@@ -101,9 +101,11 @@ const Physics = (entities, {touches, time, dispatch}) => {
 
     if(isFalling){
         entities.BasketBall.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory2 };
+        entities.RedLign.isVisible = true;
     }
     else{
         entities.BasketBall.size -= 0.9;
+        entities.RedLign.isVisible = false;
     }
 
 
