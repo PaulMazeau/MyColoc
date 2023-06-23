@@ -7,6 +7,7 @@ let start = true;
 let end =false;
 let isEmojiVisible = false;
 let emojiId;
+let isFalling = false;
 
 function distance(point1, point2) {
     let a = point1.x - point2.x;
@@ -29,6 +30,8 @@ let vector = {x:0, y:0};
 let collisionCategory1 = 0x0001; 
 let collisionCategory2 = 0x0002; 
 
+let altitude = null;
+
 
 
 const Physics = (entities, {touches, time, dispatch}) => {
@@ -40,7 +43,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
         playSound('Drum');
         Matter.Body.setVelocity(entities.BasketBall.body, {
             x: 0,
-            y: -40,
+            y: -35,
         })
         start=false;
         end = false;
@@ -60,12 +63,12 @@ const Physics = (entities, {touches, time, dispatch}) => {
     }
 
     
+    let ballPosition = entities.BasketBall.body.position;
 
     touches
     .filter(t => t.type === 'press')
     .forEach( t=> {
         let touchPoint = {x: t.event.pageX, y: t.event.pageY };
-        let ballPosition = entities.BasketBall.body.position;
 
         if (distance({x : touchPoint.x, y : touchPoint.y + 60}, ballPosition) < (entities.BasketBall.body.circleRadius * 1.5)) {
 
@@ -91,11 +94,16 @@ const Physics = (entities, {touches, time, dispatch}) => {
         }
     })
 
-    entities.BasketBall.size -= 0.5;
-
-
     if(entities.BasketBall.body.velocity.y > 0){
+        isFalling=true; 
+        altitude = ballPosition.y;
+    }
+
+    if(isFalling){
         entities.BasketBall.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory2 };
+    }
+    else{
+        entities.BasketBall.size -= 0.9;
     }
 
 
@@ -108,6 +116,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
             dispatch({ type: 'game-over' })
             start=true
             end = true;
+            isFalling = false;
         }
     }
     else{

@@ -12,7 +12,7 @@ export default restart => {
 
     const { height, width } = RNDimensions.get('window');
    
-    let ball = BasketBall(world, 'black', { x: width * 0.5, y: height * 0.8 }, 48);
+    let ball = BasketBall(world, 'black', { x: width * 0.5, y: height * 0.8 }, 46);
     Matter.Body.set(ball.body, { restitution: 0.8 });
     ball.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory1 };
 
