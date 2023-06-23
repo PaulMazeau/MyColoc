@@ -15,16 +15,19 @@ const BasketBall = props => {
     return(
         <View style={{
             position: 'absolute',
-            left: xBody,
+            left: xBody ,
             top: yBody,
             width: radius * 2,
             height: radius * 2,
-            borderRadius: radius
+            borderRadius: radius,
+            backgroundColor:'black',
+            justifyContent:'center',
+            alignItems:'center'
         }}>
             <Image
             style={{
-                height:'100%',
-                width:'100%',
+                height: props.size ? props.size : 120,
+                width: props.size ? props.size : 120,
                 transform: [{ rotate: `${props.angle}deg` }]
             }}
             source={require('./../../../../assets/images/BasketBall.png')}
@@ -51,7 +54,8 @@ export default (world, color, pos, radius) => {
         body: initialBasketBall,
         color,
         pos,
-        angle: 0,  
+        angle: 0,
+        size:120,  
         renderer: <BasketBall/>
     }
     
@@ -74,6 +78,7 @@ export const createBasketBall = (world, color, pos, radius) => {
         color,
         pos,
         angle: 0,  
+        size:120,
         renderer: <BasketBall/>
     } 
 }

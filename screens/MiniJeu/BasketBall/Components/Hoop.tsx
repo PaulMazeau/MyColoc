@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 import Matter from 'matter-js';
 
+let collisionCategory2 = 0x0002;
 
 const Hoop = (props) => {
   const { bodies, ecart } = props;
@@ -41,6 +42,9 @@ const Hoop = (props) => {
 export const createHoop = (world, x, y, radius, ecart) => {
   const body1 = Matter.Bodies.circle(x - ecart / 2, y, radius, { isStatic: true });
   const body2 = Matter.Bodies.circle(x + ecart / 2, y, radius, { isStatic: true });
+  body1.collisionFilter.category = collisionCategory2;
+  body2.collisionFilter.category = collisionCategory2;
+
   Matter.World.add(world, [body1, body2]);
 
   return {

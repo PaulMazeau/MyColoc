@@ -26,14 +26,21 @@ loadSounds();
 
 let vector = {x:0, y:0};
 
+let collisionCategory1 = 0x0001; 
+let collisionCategory2 = 0x0002; 
+
+
+
 const Physics = (entities, {touches, time, dispatch}) => {
     if(start){
+
+        entities.BasketBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
         const emoji = EmojiEntity({x:0,y:0}, 50, null);
         entities.emoji = emoji;
         playSound('Drum');
         Matter.Body.setVelocity(entities.BasketBall.body, {
             x: 0,
-            y: -30,
+            y: -40,
         })
         start=false;
         end = false;
@@ -73,6 +80,8 @@ const Physics = (entities, {touches, time, dispatch}) => {
             let length = Math.sqrt(vector.x*vector.x + vector.y*vector.y);
             vector.x = vector.x / length * speed/2;
             dispatch({type: 'new-point'})
+
+            
             Matter.Body.setVelocity(entities.BasketBall.body, {
                 x: vector.x,
                 y: - speed,
@@ -81,6 +90,14 @@ const Physics = (entities, {touches, time, dispatch}) => {
             playSound('Drum')
         }
     })
+
+    entities.BasketBall.size -= 0.5;
+
+
+    if(entities.BasketBall.body.velocity.y > 0){
+        entities.BasketBall.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory2 };
+    }
+
 
     entities.BasketBall.angle += vector.x * 1.75;
 
