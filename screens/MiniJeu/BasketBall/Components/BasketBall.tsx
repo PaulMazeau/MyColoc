@@ -20,7 +20,7 @@ const BasketBall = props => {
             width: radius * 2,
             height: radius * 2,
             borderRadius: radius,
-            backgroundColor:'black',
+            //backgroundColor:'black',
             justifyContent:'center',
             alignItems:'center',
         }}>

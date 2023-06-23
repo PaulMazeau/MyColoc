@@ -5,15 +5,22 @@ import { loadSounds, playSound } from './SoundManager';
 
 let start = true;
 let end =false;
-let isEmojiVisible = false;
-let emojiId;
 let isFalling = false;
 
-function distance(point1, point2) {
-    let a = point1.x - point2.x;
-    let b = point1.y - point2.y;
-    return Math.sqrt( a*a + b*b );
+function isIn(ballPos, lignPos1, lignPos2) {
+    const errorMargin = 10;
+
+    // Check if ball's x-coordinate is within the line segment defined by lignPos1 and lignPos2
+    const withinX = (lignPos1.x <= ballPos.x && ballPos.x <= lignPos2.x) || 
+                    (lignPos2.x <= ballPos.x && ballPos.x <= lignPos1.x);
+
+    // Check if ball's y-coordinate is within the line segment defined by lignPos1 and lignPos2, with error margin
+    const withinY = (lignPos1.y - errorMargin <= ballPos.y && ballPos.y <= lignPos2.y + errorMargin) ||
+                    (lignPos2.y - errorMargin <= ballPos.y && ballPos.y <= lignPos1.y + errorMargin);
+
+    return withinX && withinY;
 }
+
 
 
 const emojiWin = [
@@ -36,15 +43,11 @@ let altitude = null;
 
 const Physics = (entities, {touches, time, dispatch}) => {
     if(start){
-
-        entities.BasketBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
-        const emoji = EmojiEntity({x:0,y:0}, 50, null);
-        entities.emoji = emoji;
-        playSound('Drum');
         Matter.Body.setVelocity(entities.BasketBall.body, {
             x: 0,
             y: -35,
         })
+        entities.BasketBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
         start=false;
         end = false;
     }
@@ -53,46 +56,8 @@ const Physics = (entities, {touches, time, dispatch}) => {
     const { height } = Dimensions.get('window');
 
 
-
-    if(isEmojiVisible){
-        entities.emoji.visible = true;
-        emojiId = setTimeout(() => {
-            entities.emoji.visible = false
-            isEmojiVisible =false;
-        },500)
-    }
-
     
     let ballPosition = entities.BasketBall.body.position;
-
-    touches
-    .filter(t => t.type === 'press')
-    .forEach( t=> {
-        let touchPoint = {x: t.event.pageX, y: t.event.pageY };
-
-        if (distance({x : touchPoint.x, y : touchPoint.y + 60}, ballPosition) < (entities.BasketBall.body.circleRadius * 1.5)) {
-
-
-            entities.emoji.image = emojiWin[Math.floor(Math.random() * emojiWin.length)];
-            entities.emoji.position = touchPoint;
-            clearTimeout(emojiId);
-            isEmojiVisible= true;
-
-            vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
-            let speed = 30;
-            let length = Math.sqrt(vector.x*vector.x + vector.y*vector.y);
-            vector.x = vector.x / length * speed/2;
-            dispatch({type: 'new-point'})
-
-            
-            Matter.Body.setVelocity(entities.BasketBall.body, {
-                x: vector.x,
-                y: - speed,
-            })
-
-            playSound('Drum')
-        }
-    })
 
     if(entities.BasketBall.body.velocity.y > 0){
         isFalling=true; 
@@ -102,6 +67,10 @@ const Physics = (entities, {touches, time, dispatch}) => {
     if(isFalling){
         entities.BasketBall.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory2 };
         entities.RedLign.isVisible = true;
+        if(isIn(entities.BasketBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
+            dispatch({ type: 'new-point'});
+            console.log("points")
+        }
     }
     else{
         entities.BasketBall.size -= 0.9;
@@ -113,8 +82,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
 
     if(entities.BasketBall.body.position.y > (height*1.2)){
         if(end==false){
-            vector = {x:0, y:0};
-            playSound('Hi-Hat');            
+            vector = {x:0, y:0};          
             dispatch({ type: 'game-over' })
             start=true
             end = true;
