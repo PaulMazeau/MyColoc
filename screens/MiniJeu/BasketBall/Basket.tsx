@@ -33,7 +33,7 @@ const Basket = () => {
           useNativeDriver: true,
         }).start();
 
-    }, [currentScore, scale, running]);
+    }, [currentScore, scale]);
 
     useEffect(() => {
         if (running && gameEngine) {
