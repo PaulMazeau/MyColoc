@@ -6,9 +6,10 @@ import { loadSounds, playSound } from './SoundManager';
 let start = true;
 let end =false;
 let isFalling = false;
+let isPoint = false;
 
 function isIn(ballPos, lignPos1, lignPos2) {
-    const errorMargin = 10;
+    const errorMargin = 20;
 
     // Check if ball's x-coordinate is within the line segment defined by lignPos1 and lignPos2
     const withinX = (lignPos1.x <= ballPos.x && ballPos.x <= lignPos2.x) || 
@@ -64,13 +65,18 @@ const Physics = (entities, {touches, time, dispatch}) => {
         altitude = ballPosition.y;
     }
 
+
     if(isFalling){
         entities.BasketBall.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory2 };
         entities.RedLign.isVisible = true;
-        if(isIn(entities.BasketBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
-            dispatch({ type: 'new-point'});
-            console.log("points")
+        if(!isPoint){
+            if(isIn(entities.BasketBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
+                dispatch({ type: 'new-point'});
+                console.log("points")
+                isPoint=true;
+            }
         }
+        
     }
     else{
         entities.BasketBall.size -= 0.9;
@@ -87,6 +93,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
             start=true
             end = true;
             isFalling = false;
+            isPoint = false;
         }
     }
     else{
