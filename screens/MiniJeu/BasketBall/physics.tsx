@@ -47,12 +47,21 @@ const Physics = (entities, {events, time, dispatch}) => {
     const { height } = Dimensions.get('window');
 
     if(start){
-        let force = {
-            x: entities.initialForce.x/14, 
-            y: Math.max(-37, Math.min(-32, entities.initialForce.y/6))
-        };
-          
-        console.log(force)
+        let force;
+        if(entities.initialForce.x == 0){
+            force = {
+                x: 0, 
+                y: -15,
+            };
+        }
+        else{
+            force = {
+                x: entities.initialForce.x/14, 
+                y: Math.max(-37, Math.min(-32, entities.initialForce.y/5.5))
+            };
+        }
+        
+
         Matter.Body.setVelocity(entities.BasketBall.body, force)
         entities.BasketBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
         start=false;
@@ -85,7 +94,6 @@ const Physics = (entities, {events, time, dispatch}) => {
         if(!isPoint){
             if(isIn(entities.BasketBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
                 dispatch({ type: 'new-point'});
-                console.log("points")
                 isPoint=true;
             }
         }

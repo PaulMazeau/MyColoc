@@ -46,7 +46,7 @@ const Basket = () => {
           onStartShouldSetPanResponder: () => true,
           onPanResponderGrant: () => {
             // This is where you could do something when the touch input starts
-            console.log('start')
+            force = {x: 0, y: 0};
           },
           onPanResponderMove: (_, gesture) => {
             // Here, you can get the swipe direction and calculate the force to apply to the ball
@@ -54,15 +54,11 @@ const Basket = () => {
     
             // Now, you can use the force to influence the ball in your physics system
             // You could do this by dispatching an event to the GameEngine
-            
-            console.log(force)
           },
           onPanResponderRelease: () => {
             // This is where you could do something when the touch input ends
             setRunning(true);
             //gameEngine.dispatch({ type: 'swipe', force });
-
-            console.log('release');
           },
         })
       ).current;
