@@ -1,6 +1,5 @@
 import Matter from 'matter-js'
 import { Dimensions } from 'react-native';
-import EmojiEntity from './Components/Emoji';
 import { loadSounds, playSound } from './SoundManager';
 
 let start = true;
@@ -42,19 +41,33 @@ let altitude = null;
 
 
 
-const Physics = (entities, {touches, time, dispatch}) => {
+const Physics = (entities, {events, time, dispatch}) => {
+
+    let engine = entities.physics.engine;
+    const { height } = Dimensions.get('window');
+
     if(start){
-        Matter.Body.setVelocity(entities.BasketBall.body, {
-            x: 0,
-            y: -35,
-        })
+        let force = {
+            x: entities.initialForce.x/14, 
+            y: Math.max(-37, Math.min(-32, entities.initialForce.y/6))
+        };
+          
+        console.log(force)
+        Matter.Body.setVelocity(entities.BasketBall.body, force)
         entities.BasketBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
         start=false;
         end = false;
     }
 
-    let engine = entities.physics.engine;
-    const { height } = Dimensions.get('window');
+    // events.forEach(event => {
+    //     if (event.type === "swipe") {
+    //       const force = event.force;
+    //       // Assurez-vous d'avoir une référence à la balle dans vos entités
+    //       let ball = entities.BasketBall;
+    //       // Appliquez la force à la balle dans la direction du swipe
+    //       Matter.Body.applyForce(ball.body, ball.body.position, force);
+    //     }
+    //   });
 
 
     

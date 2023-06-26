@@ -6,7 +6,7 @@ import { Dimensions as RNDimensions } from 'react-native';
 
 let collisionCategory1 = 0x0001;
 
-export default restart => {
+export default (initialForce) => {
     let engine = Matter.Engine.create({ enableSleeping: false })
     let world = engine.world
     world.gravity.y = 3
@@ -30,12 +30,11 @@ export default restart => {
         renderer: <RedLign hoopPos={{x: middleX, y: middleY}}/>
     };
     
-
     return {
         physics: { engine, world },
         Hoop: hoop,
         BasketBall: ball,
-        RedLign: redLign
-        
+        RedLign: redLign,
+        initialForce: initialForce 
     }
 }

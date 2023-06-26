@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
 import Physics from './physics'
 import BackButton from "../../../components/Reusable/BackButton";
 import { Animated } from 'react-native';
-import Timer from "./perf-timer"
+import Timer from "./perf-timer";
+import { PanResponder } from 'react-native';
 
+let force = {x:0,y:0}
 
 const Basket = () => {
 
@@ -31,12 +33,45 @@ const Basket = () => {
         }).start();
 
     }, [currentScore, scale, running]);
+
+    useEffect(() => {
+        if (running && gameEngine) {
+            gameEngine.swap(entities(force));
+        }
+    }, [running, gameEngine]);
+    
+    
+    const panResponder = useRef(
+        PanResponder.create({
+          onStartShouldSetPanResponder: () => true,
+          onPanResponderGrant: () => {
+            // This is where you could do something when the touch input starts
+            console.log('start')
+          },
+          onPanResponderMove: (_, gesture) => {
+            // Here, you can get the swipe direction and calculate the force to apply to the ball
+            force = {x: gesture.dx, y: gesture.dy};
+    
+            // Now, you can use the force to influence the ball in your physics system
+            // You could do this by dispatching an event to the GameEngine
+            
+            console.log(force)
+          },
+          onPanResponderRelease: () => {
+            // This is where you could do something when the touch input ends
+            setRunning(true);
+            //gameEngine.dispatch({ type: 'swipe', force });
+
+            console.log('release');
+          },
+        })
+      ).current;
       
       
 
 
     return (
-        <View style={styles.global}>
+        <View style={styles.global} {...panResponder.panHandlers}>
 
             <View style={styles.topLign}>
                 {!running?<BackButton/> : <View/>}
@@ -55,12 +90,12 @@ const Basket = () => {
             timer={new Timer()}
             systems={[Physics]}
             style={styles.gameEngine}
-            entities={entities()}
+            entities={entities(force)}
             onEvent={(e) => {
                 switch (e.type) {
                     case 'game-over' :
                         setRunning(false);
-                        gameEngine.swap(entities());
+                        gameEngine.swap(entities(force));
                         if(currentScore>currentBestScore){
                             setCurrentBestScore(currentScore);
                             if(currentScore>bestScore){
@@ -78,7 +113,7 @@ const Basket = () => {
 
 
 
-            {!running ?
+            {/* {!running ?
                 <TouchableOpacity style={styles.menu}
                     onPress={() => {
                         setRunning(true)
@@ -87,7 +122,7 @@ const Basket = () => {
                 </TouchableOpacity>
                 :
                 <View/> 
-            }
+            } */}
         </View>
     );
 };
