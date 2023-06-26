@@ -17,7 +17,7 @@ export default (initialForce) => {
     Matter.Body.set(ball.body, { restitution: 0.8 });
     ball.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory1 };
 
-    let hoop = createHoop(world, width * 0.5, height * 0.35, 3, 110);
+    let hoop = createHoop(world, width * 0.5, height * 0.25, 3, 110);
 
     const middleX = (hoop.bodies[0].position.x + hoop.bodies[1].position.x) / 2;
     const middleY = (hoop.bodies[0].position.y + hoop.bodies[1].position.y) / 2;

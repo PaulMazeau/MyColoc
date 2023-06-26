@@ -6,6 +6,8 @@ let start = true;
 let end =false;
 let isFalling = false;
 let isPoint = false;
+let currentPoint = 0;
+let previousPoint = 0;
 
 function isIn(ballPos, lignPos1, lignPos2) {
     const errorMargin = 20;
@@ -44,7 +46,7 @@ let altitude = null;
 const Physics = (entities, {events, time, dispatch}) => {
 
     let engine = entities.physics.engine;
-    const { height } = Dimensions.get('window');
+    const { width, height } = Dimensions.get('window');
 
     if(start){
         let force;
@@ -57,7 +59,7 @@ const Physics = (entities, {events, time, dispatch}) => {
         else{
             force = {
                 x: entities.initialForce.x/14, 
-                y: Math.max(-37, Math.min(-32, entities.initialForce.y/5.5))
+                y: Math.max(-38.5, Math.min(-34, entities.initialForce.y/5.5))
             };
         }
         
@@ -67,16 +69,6 @@ const Physics = (entities, {events, time, dispatch}) => {
         start=false;
         end = false;
     }
-
-    // events.forEach(event => {
-    //     if (event.type === "swipe") {
-    //       const force = event.force;
-    //       // Assurez-vous d'avoir une référence à la balle dans vos entités
-    //       let ball = entities.BasketBall;
-    //       // Appliquez la force à la balle dans la direction du swipe
-    //       Matter.Body.applyForce(ball.body, ball.body.position, force);
-    //     }
-    //   });
 
 
     
@@ -94,6 +86,7 @@ const Physics = (entities, {events, time, dispatch}) => {
         if(!isPoint){
             if(isIn(entities.BasketBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
                 dispatch({ type: 'new-point'});
+                currentPoint += 1;
                 isPoint=true;
             }
         }
@@ -108,14 +101,25 @@ const Physics = (entities, {events, time, dispatch}) => {
     entities.BasketBall.angle += vector.x * 1.75;
 
     if(entities.BasketBall.body.position.y > (height*1.2)){
-        if(end==false){
-            vector = {x:0, y:0};          
-            dispatch({ type: 'game-over' })
-            start=true
-            end = true;
+        if(currentPoint != previousPoint)
+        {
+            previousPoint = currentPoint;
+            start=true;
             isFalling = false;
             isPoint = false;
+            dispatch({ type: 'next-shoot' })
         }
+        else{
+            if(end==false){
+                vector = {x:0, y:0};          
+                dispatch({ type: 'game-over' })
+                start=true;
+                end = true;
+                isFalling = false;
+                isPoint = false;
+            }
+        }
+        
     }
     else{
         Matter.Engine.update(engine, time.delta)

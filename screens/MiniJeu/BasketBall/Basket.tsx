@@ -13,6 +13,7 @@ let force = {x:0,y:0}
 const Basket = () => {
 
     const [running, setRunning] = useState(false)
+    const [menu, setMenu] = useState(true)
     const [gameEngine, setGameEngine] = useState(null)
     const [currentScore, setCurrentScore] = useState(0)
     const [currentBestScore, setCurrentBestScore] = useState(0)
@@ -47,18 +48,15 @@ const Basket = () => {
           onPanResponderGrant: () => {
             // This is where you could do something when the touch input starts
             force = {x: 0, y: 0};
+            setMenu(false);
           },
           onPanResponderMove: (_, gesture) => {
             // Here, you can get the swipe direction and calculate the force to apply to the ball
             force = {x: gesture.dx, y: gesture.dy};
-    
-            // Now, you can use the force to influence the ball in your physics system
-            // You could do this by dispatching an event to the GameEngine
           },
           onPanResponderRelease: () => {
             // This is where you could do something when the touch input ends
             setRunning(true);
-            //gameEngine.dispatch({ type: 'swipe', force });
           },
         })
       ).current;
@@ -67,17 +65,20 @@ const Basket = () => {
 
 
     return (
-        <View style={styles.global} {...panResponder.panHandlers}>
+        <View style={styles.global} >
 
             <View style={styles.topLign}>
-                {!running?<BackButton/> : <View/>}
+                {menu?<BackButton/> : <View/>}
                 <View style={styles.bestScore}>
                     <Text style={styles.text2}>Best</Text>
                     <Text style={styles.text2}>{bestScore}</Text>
                 </View>
             </View>
-            <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {!running ? 'Current Best' : ''} </Animated.Text>
-            <Animated.Text style={[ styles.Points, {transform: [{ scale: scale }], color: !running? '#3489eb':'#bababa'},]}> {!running ? currentBestScore : currentScore} </Animated.Text>
+
+
+            <View {...panResponder.panHandlers}>
+            <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {menu ? 'Current Best' : ''} </Animated.Text>
+            <Animated.Text style={[ styles.Points, {transform: [{ scale: scale }], color: menu? '#3489eb':'#bababa'},]}> {menu ? currentBestScore : currentScore} </Animated.Text>
 
            
             <GameEngine
@@ -91,6 +92,7 @@ const Basket = () => {
                 switch (e.type) {
                     case 'game-over' :
                         setRunning(false);
+                        setMenu(true);
                         gameEngine.swap(entities(force));
                         if(currentScore>currentBestScore){
                             setCurrentBestScore(currentScore);
@@ -103,22 +105,16 @@ const Basket = () => {
                     case 'new-point' :
                         setCurrentScore(currentScore+1)
                     break;
+                    case 'next-shoot' :
+                        setRunning(false);
+                        gameEngine.swap(entities(force));
+                    break;
                 }
             }}
             />
 
-
-
-            {/* {!running ?
-                <TouchableOpacity style={styles.menu}
-                    onPress={() => {
-                        setRunning(true)
-                    }}>
-                   
-                </TouchableOpacity>
-                :
-                <View/> 
-            } */}
+            </View>
+            
         </View>
     );
 };
