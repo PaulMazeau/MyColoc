@@ -41,12 +41,52 @@ let collisionCategory2 = 0x0002;
 
 let altitude = null;
 
+let directionX = 1;
+let directionY = 1;
+let initialX, initialY;
+export function moveHoop(hoop, speed, maxWidth, maxHeight) {
+    // Calculating current positions
+    const currentX = (hoop.bodies[0].position.x + hoop.bodies[1].position.x) / 2;
+    const currentY = (hoop.bodies[0].position.y + hoop.bodies[1].position.y) / 2;
+
+    // If initial positions are not set, set them to current positions
+    if (initialX === undefined) initialX = currentX;
+    if (initialY === undefined) initialY = currentY;
+
+    // Calculating new positions
+    const newX = currentX + speed * directionX;
+    const newY = currentY + speed * directionY;
+
+    // Check if the hoop reaches the boundaries
+    if (newX >= initialX + maxWidth || newX <= initialX - maxWidth) {
+        directionX *= -1; // Change horizontal direction
+    }
+    if (newY >= initialY + maxHeight || newY <= initialY - maxHeight) {
+        directionY *= -1; // Change vertical direction
+    }
+
+    // Update hoop position
+    hoop.bodies.forEach(body => {
+        Matter.Body.setPosition(body, { 
+            x: body.position.x + speed * directionX, 
+            y: body.position.y + speed * directionY
+        });
+    });
+}
+
+
+
+
+
+
 
 
 const Physics = (entities, {events, time, dispatch}) => {
 
     let engine = entities.physics.engine;
     const { width, height } = Dimensions.get('window');
+
+    //engine.world.gravity.y = 0;
 
     if(start){
         let force;
@@ -69,6 +109,8 @@ const Physics = (entities, {events, time, dispatch}) => {
         start=false;
         end = false;
     }
+
+    //moveHoop(entities.Hoop,1,60,25);
 
 
     
