@@ -1,5 +1,6 @@
 import Matter from 'matter-js'
 import { Dimensions } from 'react-native';
+import EmojiEntity from './Components/Emoji';
 import { loadSounds, playSound } from './SoundManager';
 
 let start = false;
@@ -7,6 +8,8 @@ let isFalling = false;
 let isPoint = false;
 let currentPoint = 0;
 let previousPoint = 0;
+let isEmojiVisible = false;
+let emojiId;
 
 function isIn(ballPos, lignPos1, lignPos2) {
     const errorMargin = 20;
@@ -80,7 +83,7 @@ export function moveHoop(hoop, redLign, speed, maxWidth, maxHeight) {
 
 
 
-
+const emoji = EmojiEntity({x:0,y:0}, 50, null);
 
 const { width, height } = Dimensions.get('window');
 
@@ -89,6 +92,15 @@ const { width, height } = Dimensions.get('window');
 const Physics = (entities, {events, time, dispatch}) => {
 
     let engine = entities.physics.engine;
+    entities.emoji = emoji;
+
+    if(isEmojiVisible){
+        entities.emoji.visible = true;
+        emojiId = setTimeout(() => {
+            entities.emoji.visible = false
+            isEmojiVisible =false;
+        },500)
+    }
 
     events.forEach(event => {
         if (event.type === 'start') {
@@ -140,6 +152,10 @@ const Physics = (entities, {events, time, dispatch}) => {
             if(!isPoint){
                 if(isIn(entities.BasketBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
                     dispatch({ type: 'new-point'});
+                    entities.emoji.image = emojiWin[Math.floor(Math.random() * emojiWin.length)];
+                    entities.emoji.position = {x:(entities.Hoop.bodies[0].position.x + entities.Hoop.bodies[1].position.x)/2, y: (entities.Hoop.bodies[0].position.y + entities.Hoop.bodies[1].position.y)/2};
+                    clearTimeout(emojiId);
+                    isEmojiVisible= true;
                     currentPoint += 1;
                     isPoint=true;
                     playSound('Hi-Hat');
