@@ -9,7 +9,7 @@ let collisionCategory1 = 0x0001;
 export default (initialForce) => {
     let engine = Matter.Engine.create({ enableSleeping: false })
     let world = engine.world
-    world.gravity.y = 3
+    world.gravity.y = 0
 
     const { height, width } = RNDimensions.get('window');
    

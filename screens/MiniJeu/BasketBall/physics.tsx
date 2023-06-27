@@ -2,8 +2,7 @@ import Matter from 'matter-js'
 import { Dimensions } from 'react-native';
 import { loadSounds, playSound } from './SoundManager';
 
-let start = true;
-let end =false;
+let start = false;
 let isFalling = false;
 let isPoint = false;
 let currentPoint = 0;
@@ -33,8 +32,6 @@ const emojiWin = [
 ];
 
 loadSounds();
-
-let vector = {x:0, y:0};
 
 let collisionCategory1 = 0x0001; 
 let collisionCategory2 = 0x0002; 
@@ -83,36 +80,39 @@ export function moveHoop(hoop, redLign, speed, maxWidth, maxHeight) {
 
 
 
+const { width, height } = Dimensions.get('window');
 
 
 
 const Physics = (entities, {events, time, dispatch}) => {
 
     let engine = entities.physics.engine;
-    const { width, height } = Dimensions.get('window');
 
-
-    if(start){
-        let force;
-        if(entities.initialForce.x == 0){
-            force = {
-                x: 0, 
-                y: -15,
-            };
+    events.forEach(event => {
+        if (event.type === 'start') {
+            start = true;
+            engine.world.gravity.y = 3;
+            let force;
+            if(entities.initialForce.x == 0){
+                force = {
+                    x: 0, 
+                    y: -15,
+                };
+            }
+            else{
+                force = {
+                    x: entities.initialForce.x/14, 
+                    y: Math.max(-38.5, Math.min(-34, entities.initialForce.y/5.5))
+                };
+            }
+            
+    
+            Matter.Body.setVelocity(entities.BasketBall.body, force)
+            entities.BasketBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
         }
-        else{
-            force = {
-                x: entities.initialForce.x/14, 
-                y: Math.max(-38.5, Math.min(-34, entities.initialForce.y/5.5))
-            };
-        }
-        
+    });
+    
 
-        Matter.Body.setVelocity(entities.BasketBall.body, force)
-        entities.BasketBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
-        start=false;
-        end = false;
-    }
 
     //moveHoop(entities.Hoop, entities.RedLign, 1,60,25);
 
@@ -126,44 +126,44 @@ const Physics = (entities, {events, time, dispatch}) => {
     }
 
 
-    if(isFalling){
-        entities.BasketBall.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory2 };
-        entities.RedLign.isVisible = true;
-        if(!isPoint){
-            if(isIn(entities.BasketBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
-                dispatch({ type: 'new-point'});
-                currentPoint += 1;
-                isPoint=true;
+    if(start){
+        if(isFalling){
+            entities.BasketBall.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory2 };
+            entities.RedLign.isVisible = true;
+            if(!isPoint){
+                if(isIn(entities.BasketBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
+                    dispatch({ type: 'new-point'});
+                    currentPoint += 1;
+                    isPoint=true;
+                }
             }
+            
         }
-        
-    }
-    else{
-        entities.BasketBall.size -= 0.9;
-        entities.RedLign.isVisible = false;
+        else{
+            entities.BasketBall.size -= 0.9;
+            entities.RedLign.isVisible = false;
+        }
     }
 
 
-    entities.BasketBall.angle += vector.x * 1.75;
 
     if(entities.BasketBall.body.position.y > (height*1.2)){
+        Matter.Body.setVelocity(entities.BasketBall.body, {x:0, y:0})
+        Matter.Body.setPosition(entities.BasketBall.body, {x:width*0.5, y:height*0.8})
+        entities.BasketBall.size = 120;
+        start=false;
+        isFalling = false;
+        isPoint = false;
+        engine.world.gravity.y=0;
+        
         if(currentPoint != previousPoint)
         {
             previousPoint = currentPoint;
-            start=true;
-            isFalling = false;
-            isPoint = false;
-            dispatch({ type: 'next-shoot' })
         }
         else{
-            if(end==false){
-                vector = {x:0, y:0};          
-                dispatch({ type: 'game-over' })
-                start=true;
-                end = true;
-                isFalling = false;
-                isPoint = false;
-            }
+            currentPoint = 0;
+            previousPoint = 0;
+            dispatch({ type: 'game-over' })
         }
         
     }

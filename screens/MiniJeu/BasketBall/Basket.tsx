@@ -12,18 +12,12 @@ let force = {x:0,y:0}
 
 const Basket = () => {
 
-    const [running, setRunning] = useState(false)
     const [menu, setMenu] = useState(true)
-    const [gameEngine, setGameEngine] = useState(null)
+    const gameEngineRef = useRef(null);
     const [currentScore, setCurrentScore] = useState(0)
     const [currentBestScore, setCurrentBestScore] = useState(0)
     const [bestScore, setBestScore] = useState(0)
     const [scale] = useState(new Animated.Value(0.1));
-
-   
-    useEffect(() =>{
-        setRunning(false)
-    }, [])
 
     useEffect(() => {
         scale.setValue(0.1);
@@ -32,31 +26,26 @@ const Basket = () => {
           friction: 10,
           useNativeDriver: true,
         }).start();
-
     }, [currentScore, scale]);
 
-    useEffect(() => {
-        if (running && gameEngine) {
-            gameEngine.swap(entities(force));
-        }
-    }, [running, gameEngine]);
     
     
     const panResponder = useRef(
         PanResponder.create({
           onStartShouldSetPanResponder: () => true,
           onPanResponderGrant: () => {
-            // This is where you could do something when the touch input starts
             force = {x: 0, y: 0};
             setMenu(false);
           },
           onPanResponderMove: (_, gesture) => {
-            // Here, you can get the swipe direction and calculate the force to apply to the ball
             force = {x: gesture.dx, y: gesture.dy};
           },
           onPanResponderRelease: () => {
-            // This is where you could do something when the touch input ends
-            setRunning(true);
+            
+            if(gameEngineRef.current) {
+                gameEngineRef.current.swap(entities(force));
+                gameEngineRef.current.dispatch({ type: 'start'});
+            }
           },
         })
       ).current;
@@ -82,8 +71,7 @@ const Basket = () => {
 
            
             <GameEngine
-            ref={(ref)=>{setGameEngine(ref)}}
-            running={running}
+            ref={gameEngineRef}
             timer={new Timer()}
             systems={[Physics]}
             style={styles.gameEngine}
@@ -91,9 +79,8 @@ const Basket = () => {
             onEvent={(e) => {
                 switch (e.type) {
                     case 'game-over' :
-                        setRunning(false);
                         setMenu(true);
-                        gameEngine.swap(entities(force));
+                        gameEngineRef.current.swap(entities(force));
                         if(currentScore>currentBestScore){
                             setCurrentBestScore(currentScore);
                             if(currentScore>bestScore){
@@ -104,10 +91,6 @@ const Basket = () => {
                     break;
                     case 'new-point' :
                         setCurrentScore(currentScore+1)
-                    break;
-                    case 'next-shoot' :
-                        setRunning(false);
-                        gameEngine.swap(entities(force));
                     break;
                 }
             }}
