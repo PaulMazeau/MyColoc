@@ -15,6 +15,7 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'
 type ScoreType = {
   position: number;
   userImage: any;
+  name: string;
 };
 
 type ScoreBoardProps = {
@@ -27,7 +28,7 @@ const ScoreBoardScrollable = ({ scores, name, isScrollable }: ScoreBoardProps) =
     const renderScoreLines = (scores: ScoreType[]) => {
         return scores.map((score, index) => (
             <React.Fragment key={index}>
-                <ScoreLigne position={score.position} userImage={score.userImage}/>
+                <ScoreLigne position={score.position} userImage={score.userImage} name={score.name}/>
                 {index !== scores.length - 1 && <View style={styles.separator}/>}   
             </React.Fragment>
         ));
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundGradient:{
         borderRadius: 10,
         width : windowWidth*0.9,
-        padding : 10,
+        paddingHorizontal : 10,
     },
 
     firstRow:{
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     },
 
     text:{
+        marginTop:10,
         color : "white",
         fontWeight: '600',
         fontSize: 20,

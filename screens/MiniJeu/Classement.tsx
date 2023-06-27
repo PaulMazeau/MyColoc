@@ -14,16 +14,16 @@ const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 const windowWidth = Dimensions.get('window').width;
 
-//Tableau de scores de la partie AuPlusProche en cours 
+
 const scores = [
-    { position: 1, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 2, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 3, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 4, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 5, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 6, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 7, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 8, userImage: require('../../assets/images/profilIcon2.png') },
+    { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie' },
+    { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno' },
+    { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie' },
+    { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie' },
+    { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie' },
+    { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie' },
+    { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie' },
+    { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie' },
 ];
 
 export default function MiniJeu() {
@@ -45,7 +45,7 @@ export default function MiniJeu() {
                 <Text style={styles.text}>Classement</Text>
             </TouchableOpacity>
             <View style={styles.Classement1}>
-                <ClassementCardPodium scores={scores}/>
+                <ClassementCardPodium scores={scores} name={"Zacoloc"} isScrollable={true} scoreTotal={450}/>
             </View>
             <View style={styles.Classement2}>
                 <ClassementCardScrollable scores={scores} name={"National"} isScrollable={true}/>

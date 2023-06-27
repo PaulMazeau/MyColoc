@@ -10,9 +10,10 @@ const MedailleBronze = require('../../assets/images/MedailleBronze.png');
 interface ScoreLigneProps {
     position?: number;
     userImage?: NodeRequire;
+    name?: string;
 }
 
-const ScoreLigne: React.FC<ScoreLigneProps> = ({ position, userImage }) => {
+const ScoreLigne: React.FC<ScoreLigneProps> = ({ position, userImage, name }) => {
     const positionString = position !== undefined ? position.toString() : '';
     let imageSource = null;
     let couleur = "white";
@@ -40,7 +41,7 @@ const ScoreLigne: React.FC<ScoreLigneProps> = ({ position, userImage }) => {
                 <View style={styles.ImageContainer}>
                     <Image source={userImage} />
                 </View>
-                <Text style={styles.text1}> Julie </Text>
+                <Text style={styles.text1}> {name} </Text>
             </View>
 
             <Score score={1800} color={couleur}/>

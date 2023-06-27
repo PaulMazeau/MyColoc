@@ -14,21 +14,25 @@ const windowWidth = Dimensions.get('window').width;
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'>;
 
-interface Score {
+type ScoreType = {
   position: number;
-  userImage: any; 
-}
+  userImage: any;
+  name: string;
+};
 
-interface Props {
-  scores: Score[];
-}
+type ScoreBoardProps = {
+  scores: ScoreType[];
+  scoreTotal: number;
+  name?: string;
+  isScrollable: boolean;
+};
 
-const ScoreBoardPodium = ({ scores }: Props) => {
+const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal }: ScoreBoardProps) => {
   //Générer une ligne de score suivi d'un separateur
-  const renderScoreLines = (scores: Score[]) => {
+  const renderScoreLines = (scores: ScoreType[]) => {
     return scores.map((score, index) => (
       <React.Fragment key={index}>
-        <ScoreLigne position={score.position} userImage={score.userImage}/>
+        <ScoreLigne position={score.position} userImage={score.userImage} name={score.name}/>
         {/* Permet de ne pas afficher de séparateur sur le dernier score */}
         {index !== scores.length - 1 && <View style={styles.separator}/>}   
       </React.Fragment>
@@ -37,23 +41,28 @@ const ScoreBoardPodium = ({ scores }: Props) => {
 
   const navigation = useNavigation<navigationProp>();
 
+  const content = () => {
+    return (
+      <>
+        <Text style={styles.text1}>{name}</Text>
+        <View style={styles.lign1}>
+          <Text style={styles.text2}>Score total :</Text>
+          <Text style={styles.text2}>{scoreTotal}</Text>
+        </View>
+        <View style={styles.lign2}>
+          <UserBubble name={scores[0].name} userImage={scores[0].userImage} size={40}/>
+          <UserBubble name={scores[1].name} userImage={scores[1].userImage} size={80}/>
+          <UserBubble name={scores[0].name} userImage={scores[2].userImage} size={40}/>
+        </View>
+        {renderScoreLines(scores)}
+      </>
+    );
+  };
+
   return(
     <View style={styles.global}>
       <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
-        <ScrollView>
-            <Text style={styles.text1}>Zacoloc</Text>
-            <View style={styles.lign1}>
-             <Text style={styles.text2}>Score total :</Text>
-             <Text style={styles.text2}>450</Text>
-            </View>
-            
-            <View style={styles.lign2}>
-            <UserBubble name="Julie" userImage={scores[0].userImage} size={40}/>
-            <UserBubble name="Julie" userImage={scores[0].userImage} size={80}/>
-            <UserBubble name="Julie" userImage={scores[0].userImage} size={40}/>
-            </View>
-          {renderScoreLines(scores)}
-        </ScrollView>
+        {isScrollable ? <ScrollView>{content()}</ScrollView> : content()}
       </LinearGradient>
     </View>
   );
@@ -67,7 +76,7 @@ const styles = StyleSheet.create({
   backgroundGradient:{
     borderRadius: 10,
     width : windowWidth*0.9,
-    padding : 10,
+    paddingHorizontal : 10,
   },
 
   Row:{
@@ -79,6 +88,7 @@ const styles = StyleSheet.create({
   },
 
   text1:{
+    marginTop:10,
     color : "white",
     fontWeight: '600',
     fontSize: 20,
