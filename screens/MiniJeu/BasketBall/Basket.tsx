@@ -94,7 +94,6 @@ const Basket = () => {
                         setCurrentScore(currentScore+1)
                     break;
                     case 'new-shoot':
-                        console.log('yeah')
                         canShoot=true;
                     break;
                 }

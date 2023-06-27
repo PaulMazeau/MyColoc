@@ -57,7 +57,7 @@ const Guess = () => {
             </View>
 
             <View style={styles.classement}>
-                <ClassementCardScrollable scores={scores}/>
+                <ClassementCardScrollable scores={scores} isScrollable={true}/>
             </View>
             
             <View style={styles.brick}>

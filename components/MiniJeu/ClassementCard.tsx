@@ -46,7 +46,7 @@ const ScoreBoardScrollable = ({ scores, name, isScrollable }: ScoreBoardProps) =
     return(
         <View style={styles.global}>
             <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
-              {isScrollable ? <ScrollView>{content}</ScrollView> : content}
+              {isScrollable ? <ScrollView showsVerticalScrollIndicator={false}>{content}</ScrollView> : content}
             </LinearGradient>
         </View>
     );
