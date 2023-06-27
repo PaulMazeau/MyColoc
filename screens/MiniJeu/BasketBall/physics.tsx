@@ -179,6 +179,7 @@ const Physics = (entities, {events, time, dispatch}) => {
         isFalling = false;
         isPoint = false;
         engine.world.gravity.y=0;
+        dispatch({type: 'new-shoot'})
         
         if(currentPoint != previousPoint)
         {

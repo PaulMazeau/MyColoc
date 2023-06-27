@@ -9,6 +9,7 @@ import Timer from "./perf-timer";
 import { PanResponder } from 'react-native';
 
 let force = {x:0,y:0}
+let canShoot = true;
 
 const Basket = () => {
 
@@ -18,7 +19,7 @@ const Basket = () => {
     const [currentBestScore, setCurrentBestScore] = useState(0)
     const [bestScore, setBestScore] = useState(0)
     const [scale] = useState(new Animated.Value(0.1));
-    const [hoopPosition, setHoopPosition] = useState({x: 0, y: 0});
+
 
     useEffect(() => {
         scale.setValue(0.1);
@@ -33,7 +34,7 @@ const Basket = () => {
     
     const panResponder = useRef(
         PanResponder.create({
-          onStartShouldSetPanResponder: () => true,
+          onStartShouldSetPanResponder: () => canShoot,
           onPanResponderGrant: () => {
             force = {x: 0, y: 0};
             setMenu(false);
@@ -43,10 +44,10 @@ const Basket = () => {
           },
           onPanResponderRelease: () => {
             if(gameEngineRef.current) {
-              gameEngineRef.current.dispatch({ type: 'start', payload: force });
+                canShoot = false
+                gameEngineRef.current.dispatch({ type: 'start', payload: force });
             }
           },
-          
         })
       ).current;
       
@@ -91,6 +92,10 @@ const Basket = () => {
                     break;
                     case 'new-point' :
                         setCurrentScore(currentScore+1)
+                    break;
+                    case 'new-shoot':
+                        console.log('yeah')
+                        canShoot=true;
                     break;
                 }
             }}
