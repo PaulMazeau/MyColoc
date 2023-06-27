@@ -18,6 +18,7 @@ const Basket = () => {
     const [currentBestScore, setCurrentBestScore] = useState(0)
     const [bestScore, setBestScore] = useState(0)
     const [scale] = useState(new Animated.Value(0.1));
+    const [hoopPosition, setHoopPosition] = useState({x: 0, y: 0});
 
     useEffect(() => {
         scale.setValue(0.1);
@@ -41,12 +42,11 @@ const Basket = () => {
             force = {x: gesture.dx, y: gesture.dy};
           },
           onPanResponderRelease: () => {
-            
             if(gameEngineRef.current) {
-                gameEngineRef.current.swap(entities(force));
-                gameEngineRef.current.dispatch({ type: 'start'});
+              gameEngineRef.current.dispatch({ type: 'start', payload: force });
             }
           },
+          
         })
       ).current;
       

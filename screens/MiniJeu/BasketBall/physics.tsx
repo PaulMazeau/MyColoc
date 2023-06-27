@@ -66,12 +66,14 @@ export function moveHoop(hoop, redLign, speed, maxWidth, maxHeight) {
     const middleY = (hoop.bodies[0].position.y + hoop.bodies[1].position.y) / 2;
     redLign.hoopPos = {x: middleX, y: middleY};
     redLign.renderer.props.hoopPos = {x: middleX, y: middleY};
+
+    
     
     // Update hoop position
     hoop.bodies.forEach(body => {
         Matter.Body.setPosition(body, { 
             x: body.position.x + speed * directionX, 
-            y: body.position.y + speed * directionY
+            y: body.position.y + speed * directionY * (maxHeight == 0 ? 0 : 1)
         });
     });
 }
@@ -93,7 +95,7 @@ const Physics = (entities, {events, time, dispatch}) => {
             start = true;
             engine.world.gravity.y = 3;
             let force;
-            if(entities.initialForce.x == 0){
+            if(event.payload.x == 0){
                 force = {
                     x: 0, 
                     y: -15,
@@ -101,20 +103,24 @@ const Physics = (entities, {events, time, dispatch}) => {
             }
             else{
                 force = {
-                    x: entities.initialForce.x/14, 
-                    y: Math.max(-38.5, Math.min(-34, entities.initialForce.y/5.5))
+                    x: event.payload.x/14, 
+                    y: Math.max(-38.5, Math.min(-34, event.payload.y/5.5))
                 };
             }
-            
     
             Matter.Body.setVelocity(entities.BasketBall.body, force)
             entities.BasketBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
         }
     });
     
+    
 
-
-    //moveHoop(entities.Hoop, entities.RedLign, 1,60,25);
+    if(5<=currentPoint&&currentPoint<15){
+        moveHoop(entities.Hoop, entities.RedLign,Math.min(1.5,0.5 + ((currentPoint - 5) / (15 - 5) * (1.5 - 0.5))) ,60,0);
+    }
+    if(15<=currentPoint){
+        moveHoop(entities.Hoop, entities.RedLign, Math.min(2,0.5 + ((currentPoint - 15) / (30 - 15) * (2 - 0.5))) ,60,40);
+    }
 
 
     
