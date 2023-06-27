@@ -10,9 +10,13 @@ const sounds = [
     path: require('./../../../assets/sounds/Drum-Sticks.mp3'),
   },
   {
-    name: 'Bubble',
-    path: require('./../../../assets/sounds/Bubble.mp3'),
+    name: 'Laser',
+    path: require('./../../../assets/sounds/Laser.mp3'),
   },
+  // {
+  //   name: 'Bubble',
+  //   path: require('./../../../assets/sounds/Bubble.mp3'),
+  // },
   // Ajoutez d'autres sons si nécessaire
 ];
 
@@ -42,4 +46,5 @@ export const playSound = async (soundName) => {
     }
   }
 };
+
 

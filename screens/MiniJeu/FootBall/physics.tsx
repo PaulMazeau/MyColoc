@@ -94,7 +94,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
     if(entities.FootBall.body.position.y > (height*1.2)){
         if(end==false){
             vector = {x:0, y:0};
-            playSound('Hi-Hat');            
+            playSound('Laser');            
             dispatch({ type: 'game-over' })
             start=true
             end = true;

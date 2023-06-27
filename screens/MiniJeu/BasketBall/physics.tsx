@@ -110,6 +110,7 @@ const Physics = (entities, {events, time, dispatch}) => {
     
             Matter.Body.setVelocity(entities.BasketBall.body, force)
             entities.BasketBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
+            playSound('Drum');
         }
     });
     
@@ -141,6 +142,7 @@ const Physics = (entities, {events, time, dispatch}) => {
                     dispatch({ type: 'new-point'});
                     currentPoint += 1;
                     isPoint=true;
+                    playSound('Hi-Hat');
                 }
             }
             
@@ -169,6 +171,7 @@ const Physics = (entities, {events, time, dispatch}) => {
         else{
             currentPoint = 0;
             previousPoint = 0;
+            playSound('Laser');
             dispatch({ type: 'game-over' })
         }
         
