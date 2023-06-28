@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
 import Regles from './../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,6 +18,7 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Guess'>;
 
 const AuPlusProcheWait = () => {
     const navigation = useNavigation<navigationProp>();
+    const [userIsOwner, setUserIsOwner] = useState(false);
 
     return (
         <ImageBackground 
@@ -35,7 +36,9 @@ const AuPlusProcheWait = () => {
                 <Button text={'Créer un salon'} colorText={'white'} colorBackGround={'blue'} onPress={() => {}}/>
             </View>
             <View style={styles.container}>
-                <WaitingCard userIsOwner={true} onPress={() => navigation.navigate('Guess')}/>
+                <WaitingCard userIsOwner={userIsOwner} onPress={() => 
+                    {userIsOwner? navigation.navigate('Guess') : navigation.navigate('Guess')}
+                }/>
                 <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
             </View>
         </View>
