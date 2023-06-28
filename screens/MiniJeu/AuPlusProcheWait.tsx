@@ -18,7 +18,7 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Guess'>;
 
 const AuPlusProcheWait = () => {
     const navigation = useNavigation<navigationProp>();
-    const [userIsOwner, setUserIsOwner] = useState(false);
+    const [userIsOwner, setUserIsOwner] = useState(true);
 
     return (
         <ImageBackground 
