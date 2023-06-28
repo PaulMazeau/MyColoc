@@ -8,6 +8,8 @@ import { Animated } from 'react-native';
 import Light from "./Components/Light";
 import Timer from "./perf-timer"
 import { UserContext } from "../../../UserContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { FB_DB } from "../../../firebaseconfig";
 
 
 
@@ -19,10 +21,13 @@ const Foot = () => {
     const [gameEngine, setGameEngine] = useState(null)
     const [currentScore, setCurrentScore] = useState(0)
     const [currentBestScore, setCurrentBestScore] = useState(0)
-    const [bestScore, setBestScore] = useState(0)
+    const [bestScore, setBestScore] = useState(user.footBestScore ? user.footBestScore : 0)
     const [scale] = useState(new Animated.Value(0.1));
 
-   
+    const handleSetBestScore = async (score) => {
+        setBestScore(score)
+        await updateDoc(doc(FB_DB, 'Users', user.uuid), {footBestScore : score})
+    } 
     useEffect(() =>{
         setRunning(false)
     }, [])
@@ -59,7 +64,7 @@ const Foot = () => {
             <View style={styles.topLign}>
                 {!running?<BackButton/> : <View/>}
                 <View style={styles.bestScore}>
-                    <Text style={styles.text2}>Best</Text>
+                    <Text style={styles.text2}>All time Best</Text>
                     <Text style={styles.text2}>{bestScore}</Text>
                 </View>
             </View>
@@ -87,7 +92,7 @@ const Foot = () => {
                         if(currentScore>currentBestScore){
                             setCurrentBestScore(currentScore);
                             if(currentScore>bestScore){
-                                setBestScore(currentScore)
+                                handleSetBestScore(currentScore)
                             }
                         }
                         setCurrentScore(0)
