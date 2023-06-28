@@ -25,7 +25,7 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, c
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.text}>{gameTitle}</Text>
-            <Score score={scoreUser} color={"white"}/>
+            {scoreUser==null?<View/>:<Score score={scoreUser} color={"white"}/>}
           </View>
           
           <ImageBackground source={backgroundImageSource} resizeMode="contain">
