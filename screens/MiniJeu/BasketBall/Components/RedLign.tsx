@@ -16,7 +16,7 @@ export const RedLign = (props) => {
           left: pos.x - 52,
           top: pos.y+0.4,
           width: 110,
-          height: 4.5,
+          height: 5,
           backgroundColor: 'red',
           borderRadius:20,
           display: props.isVisible?'flex':'none',

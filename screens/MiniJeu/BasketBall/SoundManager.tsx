@@ -35,10 +35,21 @@ export const loadSounds = async () => {
 };
 
 export const playSound = async (soundName) => {
+  // Parcourir et décharger tous les sons
+  for (let key in loadedSounds) {
+    if (loadedSounds.hasOwnProperty(key)) {
+      try {
+        await loadedSounds[key].unloadAsync();
+      } catch (error) {
+        console.error(`Erreur lors du déchargement du son ${key}:`, error);
+      }
+    }
+  }
+
+  // Continuer avec le code existant
   const soundObject = loadedSounds[soundName];
   if (soundObject) {
     try {
-      await soundObject.unloadAsync(); // décharger le son existant
       await soundObject.loadAsync(sounds.find(sound => sound.name === soundName).path); // recharger le son
       await soundObject.playAsync(); // jouer le son
     } catch (error) {
@@ -46,5 +57,6 @@ export const playSound = async (soundName) => {
     }
   }
 };
+
 
 

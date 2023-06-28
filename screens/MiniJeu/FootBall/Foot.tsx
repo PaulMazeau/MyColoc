@@ -130,7 +130,9 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         width:'100%',
         paddingHorizontal:20,
-        marginTop:40
+        marginTop:50,
+        position:'absolute',
+        zIndex:2
     },
 
 
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
 
     bestScore:{
         justifyContent:'center',
-        alignItems:'flex-end'
+        alignItems:'flex-end',
     },
    
     text:{
