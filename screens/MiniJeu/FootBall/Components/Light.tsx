@@ -33,8 +33,8 @@ const Light = ({ speed, rightOrLeft }) => {
   }, [offset]);
 
   const points = rightOrLeft ?
-  `${width},${height} ${30},${-50} ${-20},${10}`
-  : `${0},${height} ${width-30},${-50} ${width+20},${10}`;
+  `${width},${height-30} ${30},${-50} ${-20},${10}`
+  : `${0},${height-30} ${width-30},${-10} ${width+20},${10}`;
 
   const transform = rightOrLeft 
   ? [

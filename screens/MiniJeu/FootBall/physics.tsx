@@ -36,7 +36,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
         playSound('Drum');
         Matter.Body.setVelocity(entities.FootBall.body, {
             x: 0,
-            y: -30,
+            y: -23,
         })
         start=false;
         end = false;
@@ -64,7 +64,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
         let touchPoint = {x: t.event.pageX, y: t.event.pageY };
         let ballPosition = entities.FootBall.body.position;
 
-        if (distance({x : touchPoint.x, y : touchPoint.y + 60}, ballPosition) < (entities.FootBall.body.circleRadius * 1.5)) {
+        if (distance({x : touchPoint.x, y : touchPoint.y + 60}, ballPosition) < (entities.FootBall.body.circleRadius * 1.75)) {
             
             entities.TouchIndicator.position = touchPoint;
             entities.TouchIndicator.visible = true;
@@ -76,9 +76,9 @@ const Physics = (entities, {touches, time, dispatch}) => {
             isEmojiVisible= true;
 
             vector = {x: ballPosition.x - touchPoint.x, y: ballPosition.y - touchPoint.y};
-            let speed = 30;
+            let speed = 23;
             let length = Math.sqrt(vector.x*vector.x + vector.y*vector.y);
-            vector.x = vector.x / length * speed/2;
+            vector.x = vector.x / length * speed/2.3;
             dispatch({type: 'new-point'})
             Matter.Body.setVelocity(entities.FootBall.body, {
                 x: vector.x,
@@ -89,7 +89,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
         }
     })
 
-    entities.FootBall.angle += vector.x * 1.75;
+    entities.FootBall.angle += vector.x * 1.6;
 
     if(entities.FootBall.body.position.y > (height*1.2)){
         if(end==false){

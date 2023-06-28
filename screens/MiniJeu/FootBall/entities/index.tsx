@@ -9,7 +9,7 @@ export default restart => {
 
     const { height, width } = RNDimensions.get('window');
    
-    let ball = FootBall(world,'black',{x:width*0.5,y:height*0.8},60)
+    let ball = FootBall(world,'black',{x:width*0.5,y:height*0.7},60)
     Matter.Body.set(ball.body, {restitution: 0.8});
 
     const wallOptions = { isStatic: true, restitution: 0.8 };

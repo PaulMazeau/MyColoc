@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import { View, Text, StyleSheet,TouchableOpacity, PanResponder } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
 import Physics from './physics'
@@ -35,14 +35,24 @@ const Foot = () => {
 
     }, [currentScore, scale, running]);
       
-      
+    const panResponder = useRef(
+        PanResponder.create({
+          onStartShouldSetPanResponder: () => true,
+          onPanResponderGrant: () => {
+            setRunning(true);
+          },
+          onPanResponderMove: (_, gesture) => {
+            
+          },
+          onPanResponderRelease: () => {
+            setRunning(true);
+          },
+        })
+      ).current;
 
 
     return (
         <View style={styles.global}>
-
-            {currentScore >= 10 && <Light speed={currentScore/40} rightOrLeft={false}/>}
-            {currentScore >= 20 && <Light speed={currentScore/40} rightOrLeft={true}/>}
 
             <View style={styles.topLign}>
                 {!running?<BackButton/> : <View/>}
@@ -51,6 +61,11 @@ const Foot = () => {
                     <Text style={styles.text2}>{bestScore}</Text>
                 </View>
             </View>
+
+            <View style={{flex:1}}{...panResponder.panHandlers}>
+            {currentScore >= 10 && <Light speed={Math.min(2,(currentScore/40))} rightOrLeft={false}/>}
+            {currentScore >= 20 && <Light speed={Math.min(2,(currentScore/40))} rightOrLeft={true}/>}
+
             <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {!running ? 'Current Best' : ''} </Animated.Text>
             <Animated.Text style={[ styles.Points, {transform: [{ scale: scale }], color: !running? '#3489eb':'#bababa'},]}> {!running ? currentBestScore : currentScore} </Animated.Text>
 
@@ -84,16 +99,8 @@ const Foot = () => {
 
 
 
-            {!running ?
-                <TouchableOpacity style={styles.menu}
-                    onPress={() => {
-                        setRunning(true)
-                    }}>
-                   
-                </TouchableOpacity>
-                :
-                <View/> 
-            }
+
+            </View>
         </View>
     );
 };
@@ -102,6 +109,10 @@ const Foot = () => {
 const styles = StyleSheet.create({
     global: {
         flex:1
+    },
+
+    game:{
+        backgroundColor:'green'
     },
 
 
@@ -153,8 +164,9 @@ const styles = StyleSheet.create({
     menu:{
         flex:1,
         alignItems:'center',
-        margin:130,
-
+        width:'50%',
+        height:'50%',
+        backgroundColor:'blue'
 
     }
 });
