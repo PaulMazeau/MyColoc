@@ -39,7 +39,7 @@ const Foot = () => {
         PanResponder.create({
           onStartShouldSetPanResponder: () => true,
           onPanResponderGrant: () => {
-            setRunning(true);
+            
           },
           onPanResponderMove: (_, gesture) => {
             
