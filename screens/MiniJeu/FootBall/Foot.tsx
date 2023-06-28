@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { View, Text, StyleSheet,TouchableOpacity, PanResponder } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
@@ -7,12 +7,14 @@ import BackButton from "../../../components/Reusable/BackButton";
 import { Animated } from 'react-native';
 import Light from "./Components/Light";
 import Timer from "./perf-timer"
+import { UserContext } from "../../../UserContext";
 
 
 
 
 
 const Foot = () => {
+    const [user, setUser] = useContext(UserContext);
     const [running, setRunning] = useState(false)
     const [gameEngine, setGameEngine] = useState(null)
     const [currentScore, setCurrentScore] = useState(0)

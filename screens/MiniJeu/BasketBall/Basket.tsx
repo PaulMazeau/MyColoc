@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
@@ -7,19 +7,26 @@ import BackButton from "../../../components/Reusable/BackButton";
 import { Animated } from 'react-native';
 import Timer from "./perf-timer";
 import { PanResponder } from 'react-native';
+import { UserContext } from "../../../UserContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { FB_DB } from "../../../firebaseconfig";
 
 let force = {x:0,y:0}
 let canShoot = true;
 
 const Basket = () => {
-
+    const [user, setUser] = useContext(UserContext)
     const [menu, setMenu] = useState(true)
     const gameEngineRef = useRef(null);
     const [currentScore, setCurrentScore] = useState(0)
     const [currentBestScore, setCurrentBestScore] = useState(0)
-    const [bestScore, setBestScore] = useState(0)
+    const [bestScore, setBestScore] = useState(user.basketBestScore ? user.basketBestScore : 0)
     const [scale] = useState(new Animated.Value(0.1));
 
+    const handleSetBestScore = async (score) => {
+        setBestScore(score)
+        await updateDoc(doc(FB_DB, 'Users', user.uuid), {basketBestScore : score})
+    } 
 
     useEffect(() => {
         scale.setValue(0.1);
@@ -60,7 +67,7 @@ const Basket = () => {
             <View style={styles.topLign}>
                 {menu?<BackButton/> : <View/>}
                 <View style={styles.bestScore}>
-                    <Text style={styles.text2}>Best</Text>
+                    <Text style={styles.text2}>All time Best</Text>
                     <Text style={styles.text2}>{bestScore}</Text>
                 </View>
             </View>
@@ -85,7 +92,7 @@ const Basket = () => {
                         if(currentScore>currentBestScore){
                             setCurrentBestScore(currentScore);
                             if(currentScore>bestScore){
-                                setBestScore(currentScore)
+                                handleSetBestScore(currentScore)
                             }
                         }
                         setCurrentScore(0)
