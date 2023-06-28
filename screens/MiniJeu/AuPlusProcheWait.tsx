@@ -8,6 +8,7 @@ import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
+import Button from "../../components/Reusable/ButtonColor";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -31,13 +32,10 @@ const AuPlusProcheWait = () => {
                 <Image source={Logo} />
             </View>
             <View style={styles.title}>
-                <Text style={styles.text}>Au Plus Proche</Text>
+                <Button text={'Créer un salon'} colorText={'white'} colorBackGround={'blue'} onPress={() => {}}/>
             </View>
             <View style={styles.container}>
-                <WaitingCard/>
-                <TouchableOpacity style={{alignItems:'center'}} onPress={() => {navigation.navigate('Guess')}}>
-                    <Text style={styles.text}>Clique ici</Text>    
-                </TouchableOpacity>
+                <WaitingCard userIsOwner={true} onPress={() => navigation.navigate('Guess')}/>
                 <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
             </View>
         </View>
@@ -54,6 +52,7 @@ const styles = StyleSheet.create({
     },
 
     container:{
+        alignItems:'center',
         justifyContent:'space-between',
         flex:1,
         paddingBottom:40,
@@ -63,8 +62,8 @@ const styles = StyleSheet.create({
     title:{
         justifyContent:'flex-start',
         width:'100%',
-        paddingLeft:20,
-        marginTop:20
+        paddingHorizontal:20,
+        marginTop:50,
     },
 
     text: {

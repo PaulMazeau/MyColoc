@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { main } from '../../constants/Colors';
 
 
 const windowWidth = Dimensions.get('window').width;
 
-const WaitingCard = () => {
+const WaitingCard = ({ userIsOwner, onPress }) => {
+
+
+    
 
     //Liste des images des user
     const imageSources = [
@@ -28,13 +32,41 @@ const WaitingCard = () => {
 
     return(
         <View style={styles.global}>
+            {!userIsOwner?
+            <TouchableOpacity style={styles.container} onPress={onPress}>
+                <View style = {styles.firstLign}>
+                    <Text style={styles.text1}>Salon de Julie</Text>
+                    {
+                        userIsOwner?
+                        <TouchableOpacity onPress={onPress}>
+                        <View style={styles.container2}>
+                            <Text style={styles.text2}>Commencer</Text>
+                        </View>
+                        </TouchableOpacity>
+                        :
+                        <View/>
+                    }
+
+                </View>
+
+                <View style = {styles.secondLign}>
+                    {renderImages(imageSources)}
+                </View>
+            </TouchableOpacity>
+            :
             <View style={styles.container}>
                 <View style = {styles.firstLign}>
-                    <Text style={styles.text1}>En attente des joueurs</Text>
-
-                    <View style={styles.container2}>
-                        <Text style={styles.text2}>4/8</Text>
-                    </View>
+                    <Text style={styles.text1}>Salon de Julie</Text>
+                    {
+                        userIsOwner?
+                        <TouchableOpacity onPress={onPress}>
+                        <View style={styles.container2}>
+                            <Text style={styles.text2}>Commencer</Text>
+                        </View>
+                        </TouchableOpacity>
+                        :
+                        <View/>
+                    }
 
                 </View>
 
@@ -43,6 +75,8 @@ const WaitingCard = () => {
                 </View>
                 
             </View>
+            }
+            
         </View>
     );
 };
