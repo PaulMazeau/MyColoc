@@ -13,10 +13,10 @@ export const RedLign = (props) => {
       <View
         style={{
           position: 'absolute',
-          left: pos.x - 55,
-          top: pos.y-1,
-          width: 116,
-          height: 7,
+          left: pos.x - 52,
+          top: pos.y+0.4,
+          width: 110,
+          height: 4.5,
           backgroundColor: 'red',
           borderRadius:20,
           display: props.isVisible?'flex':'none',

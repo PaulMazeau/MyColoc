@@ -132,7 +132,7 @@ const Physics = (entities, {events, time, dispatch}) => {
         moveHoop(entities.Hoop, entities.RedLign,Math.min(1.5,0.5 + ((currentPoint - 5) / (15 - 5) * (1.5 - 0.5))) ,60,0);
     }
     if(15<=currentPoint){
-        moveHoop(entities.Hoop, entities.RedLign, Math.min(2,0.5 + ((currentPoint - 15) / (30 - 15) * (2 - 0.5))) ,60,40);
+        moveHoop(entities.Hoop, entities.RedLign, Math.min(1.6,0.5 + ((currentPoint - 15) / (30 - 15) * (2 - 0.5))) ,60,40);
     }
 
 
