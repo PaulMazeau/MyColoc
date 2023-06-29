@@ -11,9 +11,10 @@ interface ScoreLigneProps {
     position?: number;
     userImage?: NodeRequire;
     name?: string;
+    score:number;
 }
 
-const ScoreLigne: React.FC<ScoreLigneProps> = ({ position, userImage, name }) => {
+const ScoreLigne: React.FC<ScoreLigneProps> = ({ position, userImage, name, score }) => {
     const positionString = position !== undefined ? position.toString() : '';
     let imageSource = null;
     let couleur = "white";
@@ -44,7 +45,7 @@ const ScoreLigne: React.FC<ScoreLigneProps> = ({ position, userImage, name }) =>
                 <Text style={styles.text1}> {name} </Text>
             </View>
 
-            <Score score={1800} color={couleur}/>
+            <Score score={score} color={couleur}/>
         </View>
     );
 };

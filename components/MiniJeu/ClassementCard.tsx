@@ -16,6 +16,7 @@ type ScoreType = {
   position: number;
   userImage: any;
   name: string;
+  score:number;
 };
 
 type ScoreBoardProps = {
@@ -28,7 +29,7 @@ const ScoreBoardScrollable = ({ scores, name, isScrollable }: ScoreBoardProps) =
     const renderScoreLines = (scores: ScoreType[]) => {
         return scores.map((score, index) => (
             <React.Fragment key={index}>
-                <ScoreLigne position={score.position} userImage={score.userImage} name={score.name}/>
+                <ScoreLigne position={score.position} userImage={score.userImage} name={score.name} score={score.score}/>
                 {index !== scores.length - 1 && <View style={styles.separator}/>}   
             </React.Fragment>
         ));

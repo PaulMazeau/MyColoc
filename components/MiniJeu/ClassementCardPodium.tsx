@@ -18,6 +18,7 @@ type ScoreType = {
   position: number;
   userImage: any;
   name: string;
+  score:number;
 };
 
 type ScoreBoardProps = {
@@ -32,7 +33,7 @@ const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal }: ScoreBoard
   const renderScoreLines = (scores: ScoreType[]) => {
     return scores.map((score, index) => (
       <React.Fragment key={index}>
-        <ScoreLigne position={score.position} userImage={score.userImage} name={score.name}/>
+        <ScoreLigne position={score.position} userImage={score.userImage} name={score.name} score={score.score}/>
         {/* Permet de ne pas afficher de séparateur sur le dernier score */}
         {index !== scores.length - 1 && <View style={styles.separator}/>}   
       </React.Fragment>
@@ -52,7 +53,7 @@ const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal }: ScoreBoard
         <View style={styles.lign2}>
           <UserBubble name={scores[0].name} userImage={scores[0].userImage} size={40}/>
           <UserBubble name={scores[1].name} userImage={scores[1].userImage} size={80}/>
-          <UserBubble name={scores[0].name} userImage={scores[2].userImage} size={40}/>
+          <UserBubble name={scores[2].name} userImage={scores[2].userImage} size={40}/>
         </View>
         {renderScoreLines(scores)}
       </>
