@@ -11,6 +11,7 @@ import { UserContext } from "../../../UserContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { FB_DB } from "../../../firebaseconfig";
 import ScoreCard from './../../../components/MiniJeu/ScoreCard'
+import {Shadows} from './../../../constants/Shadow'
 
 let force = {x:0,y:0}
 let canShoot = true;
@@ -67,7 +68,9 @@ const Basket = () => {
 
             <View style={styles.topLign}>
                 {menu?<BackButton/> : <View/>}
+                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]}>
                 <ScoreCard score={bestScore} userImage={user.avatarUrl}/>
+                </TouchableOpacity>
             </View>
 
 
@@ -129,6 +132,7 @@ const styles = StyleSheet.create({
     topLign:{
         flexDirection:'row',
         justifyContent:'space-between',
+        alignItems:'center',
         width:'100%',
         height:'7%',
         paddingHorizontal:20,
@@ -146,8 +150,8 @@ const styles = StyleSheet.create({
 
 
     bestScore:{
-        justifyContent:'center',
-        alignItems:'flex-end'
+        width:'38%',
+        borderRadius:10
     },
    
     text:{

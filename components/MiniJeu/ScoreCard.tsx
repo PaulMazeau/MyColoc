@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 10,
         backgroundColor:main.LightWhite,
-        width: '40%',
-        padding: 4,
+        padding: 5,
         paddingHorizontal:15,
         alignItems: 'center',
         justifyContent: 'center',
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     },
 
     Image: {
-        height: '80%',
+        height: '100%',
         width: '40%',
         borderRadius:10
       },
