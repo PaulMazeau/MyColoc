@@ -35,7 +35,7 @@ const AuPlusProcheWait = () => {
             </View>
             <View style={styles.title}>
                 <BackButton color="white"/>
-                <Text style={styles.text}>Incognito</Text>
+                <Text style={styles.text}>Au plus proche</Text>
             </View>
             <View style={styles.Button}>
                 <Button text={'Créer un salon'} colorText={'white'} colorBackGround={'blue'} onPress={() => {}}/>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         flex:1,
         paddingBottom:40,
-        paddingTop:20
+        paddingTop:15
     },
 
     Button:{
