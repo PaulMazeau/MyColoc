@@ -12,9 +12,14 @@ import { doc, updateDoc } from "firebase/firestore";
 import { FB_DB } from "../../../firebaseconfig";
 import ScoreCard from './../../../components/MiniJeu/ScoreCard'
 import {Shadows} from './../../../constants/Shadow'
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { MiniJeuStackParams } from '../../../App';
 
 let force = {x:0,y:0}
 let canShoot = true;
+
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'ClassementBasket'>;
 
 const Basket = () => {
     const [user, setUser] = useContext(UserContext)
@@ -61,14 +66,14 @@ const Basket = () => {
       ).current;
       
       
-
+      const navigation = useNavigation<navigationProp>();
 
     return (
         <View style={styles.global} >
 
             <View style={styles.topLign}>
                 {menu?<BackButton/> : <View/>}
-                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]}>
+                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]} onPress={() => navigation.navigate('ClassementBasket')}>
                 <ScoreCard score={bestScore} userImage={user.avatarUrl}/>
                 </TouchableOpacity>
             </View>

@@ -12,9 +12,11 @@ import { doc, updateDoc } from "firebase/firestore";
 import { FB_DB } from "../../../firebaseconfig";
 import ScoreCard from "../../../components/MiniJeu/ScoreCard";
 import {Shadows} from './../../../constants/Shadow'
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { MiniJeuStackParams } from '../../../App';
 
-
-
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'ClassementFoot'>;
 
 const Foot = () => {
     const [user, setUser] = useContext(UserContext);
@@ -58,13 +60,14 @@ const Foot = () => {
         })
       ).current;
 
+      const navigation = useNavigation<navigationProp>();
 
     return (
         <View style={styles.global}>
 
             <View style={styles.topLign}>
                 {!running?<BackButton/> : <View/>}
-                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]}>
+                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]} onPress={() => navigation.navigate('ClassementFoot')}>
                 <ScoreCard score={bestScore} userImage={user.avatarUrl}/>
                 </TouchableOpacity>
             </View>
