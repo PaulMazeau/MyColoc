@@ -36,17 +36,6 @@ const WaitingCard = ({ userIsOwner, onPress }) => {
             <TouchableOpacity style={styles.container} onPress={onPress}>
                 <View style = {styles.firstLign}>
                     <Text style={styles.text1}>Salon de Julie</Text>
-                    {
-                        userIsOwner?
-                        <TouchableOpacity onPress={onPress}>
-                        <View style={styles.container2}>
-                            <Text style={styles.text2}>Commencer</Text>
-                        </View>
-                        </TouchableOpacity>
-                        :
-                        <View/>
-                    }
-
                 </View>
 
                 <View style = {styles.secondLign}>
@@ -57,17 +46,11 @@ const WaitingCard = ({ userIsOwner, onPress }) => {
             <View style={styles.container}>
                 <View style = {styles.firstLign}>
                     <Text style={styles.text1}>Salon de Julie</Text>
-                    {
-                        userIsOwner?
                         <TouchableOpacity onPress={onPress}>
                         <View style={styles.container2}>
                             <Text style={styles.text2}>Commencer</Text>
                         </View>
                         </TouchableOpacity>
-                        :
-                        <View/>
-                    }
-
                 </View>
 
                 <View style = {styles.secondLign}>
@@ -95,7 +78,7 @@ const styles = StyleSheet.create({
 
 
     container2:{
-        backgroundColor:'#9E92F7',
+        backgroundColor:'#62C435',
         borderRadius : 10,
         padding : 8,
         marginLeft : 5
@@ -125,7 +108,7 @@ const styles = StyleSheet.create({
     },
 
     text2:{
-        color : main.TextColor,
+        color : main.LightWhite,
         fontWeight: '600',
         fontSize: 16,
     },
