@@ -1,30 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Trophy from '../../assets/icons/Trophy.svg';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { main } from '../../constants/Colors';
 
 interface ScoreProps {
     score: number;
-    color: string;
+    userImage: any;
 }
 
-const ScoreCard: React.FC<ScoreProps> = ({ score, color }) => {
-    const dynamicStyles = StyleSheet.create({
-        container: {
-            backgroundColor: color,
-            borderRadius: 10,
-            width: '30%',
-            padding: 2,
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'row',
-        },
-    });
+const ScoreCard: React.FC<ScoreProps> = ({ score, userImage }) => {
+    
 
     return (
-        <View style={[styles.container, dynamicStyles.container]}>
-            <Trophy />
-            <Text style={styles.text}>{score}</Text>
+        <View style={styles.container}>
+            <Image source={{ uri: userImage }} style={styles.Image}/>
+            <View style={styles.bestScore}>
+                    <Text style={styles.text2}>Meilleur score</Text>
+                    <Text style={styles.text1}>{score}</Text>
+                </View>
         </View>
     );
 };
@@ -32,18 +24,38 @@ const ScoreCard: React.FC<ScoreProps> = ({ score, color }) => {
 const styles = StyleSheet.create({
     container: {
         borderRadius: 10,
-        width: '30%',
-        padding: 2,
+        backgroundColor:main.LightWhite,
+        width: '40%',
+        padding: 4,
+        paddingHorizontal:15,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
     },
-
-    text: {
-        color: main.TextColor,
-        fontWeight: '600',
-        fontSize: 15,
+    bestScore:{
+        justifyContent:'center',
+        alignItems:'flex-start',
+        marginLeft:5,
     },
+   
+    
+    text2:{
+        textAlign:'center',
+        fontSize:12,
+        fontWeight:'400',
+    },
+
+    text1: {
+        textAlign:'center',
+        fontSize:18,
+        fontWeight:'500',
+    },
+
+    Image: {
+        height: '80%',
+        width: '40%',
+        borderRadius:10
+      },
 });
 
 export default ScoreCard;

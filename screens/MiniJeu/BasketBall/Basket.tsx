@@ -67,11 +67,7 @@ const Basket = () => {
 
             <View style={styles.topLign}>
                 {menu?<BackButton/> : <View/>}
-                <ScoreCard score={bestScore} color={'yellow'}/>
-                <View style={styles.bestScore}>
-                    <Text style={styles.text2}>All time Best</Text>
-                    <Text style={styles.text2}>{bestScore}</Text>
-                </View>
+                <ScoreCard score={bestScore} userImage={user.avatarUrl}/>
             </View>
 
 
@@ -134,6 +130,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         width:'100%',
+        height:'7%',
         paddingHorizontal:20,
         marginTop:50
     },
