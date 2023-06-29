@@ -10,6 +10,7 @@ import { PanResponder } from 'react-native';
 import { UserContext } from "../../../UserContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { FB_DB } from "../../../firebaseconfig";
+import ScoreCard from './../../../components/MiniJeu/ScoreCard'
 
 let force = {x:0,y:0}
 let canShoot = true;
@@ -66,6 +67,7 @@ const Basket = () => {
 
             <View style={styles.topLign}>
                 {menu?<BackButton/> : <View/>}
+                <ScoreCard score={bestScore} color={'yellow'}/>
                 <View style={styles.bestScore}>
                     <Text style={styles.text2}>All time Best</Text>
                     <Text style={styles.text2}>{bestScore}</Text>
