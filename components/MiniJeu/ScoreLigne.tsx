@@ -9,7 +9,7 @@ const MedailleBronze = require('../../assets/images/MedailleBronze.png');
 
 interface ScoreLigneProps {
     position?: number;
-    userImage?: NodeRequire;
+    userImage: any;
     name?: string;
     score:number;
 }
@@ -18,7 +18,6 @@ const ScoreLigne: React.FC<ScoreLigneProps> = ({ position, userImage, name, scor
     const positionString = position !== undefined ? position.toString() : '';
     let imageSource = null;
     let couleur = "white";
-
     //Permet de choisir une medaille et une couleur selon la position du User
     if (position === 1) {
         imageSource = MedailleOr;

@@ -3,10 +3,11 @@ import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard';
 import ClassementCardPodium from '../../components/MiniJeu/ClassementCardPodium';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import BackIcon from '../../assets/icons/BackIcon'
+import { ColocContext, UserContext } from '../../UserContext';
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -15,16 +16,16 @@ const Logo =require('../../assets/images/Logo_Minijeu.png');
 const windowWidth = Dimensions.get('window').width;
 
 
-const scores = [
-    { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
-    { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno', score:1800 },
-    { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-];
+// const scores = [
+//     { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
+//     { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno', score:1800 },
+//     { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+// ];
 
 const scoresNational = [
   { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Zacoloc', score:1800 },
@@ -39,6 +40,34 @@ const scoresNational = [
 
 export default function MiniJeu() {
     const navigation = useNavigation();
+  const [user, setUser] = useContext(UserContext)
+  const [coloc, setColoc] = useContext(ColocContext);
+  const colocFormated = coloc.map((c)=> {if(c.footBestScore && c.basketBestScore){return c}else if(c.footBestScore && !c.basketBestScore){
+    var rObj = c
+    rObj.basketBestScore = 0
+    return rObj
+  }else if(!c.footBestScore && c.basketBestScore){
+    var rObj = c
+    rObj.footBestScore = 0
+    return rObj
+  }else{
+    var rObj = c
+    rObj.footBestScore = 0
+    rObj.basketBestScore = 0
+    return rObj
+  }
+})
+  colocFormated.sort((c1, c2)=> c2.footBestScore+c2.footBestScore - c1.footBestScore - c1.basketBestScore)
+  const scores = colocFormated.map((c, index)=>{
+    var rObj = {}
+    rObj['position'] = index +1
+    rObj['userImage'] = {uri: c.avatarUrl}
+    rObj['name'] = c.nom
+    rObj['score'] = c.footBestScore+c.basketBestScore
+    return rObj
+  }) 
+  const totalScoreArray = colocFormated.map((c)=>c.footBestScore+c.basketBestScore)
+  const totalScore = totalScoreArray.reduce((a, b)=>a+b, 0)
   return (
     <ImageBackground 
       source={Space_Background} 
@@ -56,7 +85,7 @@ export default function MiniJeu() {
                 <Text style={styles.text}>Classement</Text>
             </TouchableOpacity>
             <View style={styles.Classement1}>
-                <ClassementCardPodium scores={scores} name={"Zacoloc"} isScrollable={true} scoreTotal={450}/>
+                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} scoreTotal={totalScore}/>
             </View>
             <View style={styles.Classement2}>
                 <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true}/>

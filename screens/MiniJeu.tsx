@@ -11,7 +11,7 @@ import { MiniJeuStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
 
 import BackButton from '../components/Reusable/BackButton';
-import { UserContext } from '../UserContext';
+import { ColocContext, UserContext } from '../UserContext';
 
 const Space_Background=require('../assets/images/Space_Background.png');
 const Logo =require('../assets/images/Logo_Minijeu.png');
@@ -23,16 +23,16 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'
 const windowWidth = Dimensions.get('window').width;
 
 //Tableau de scores de la Colloc
-const scores = [
-  { position: 1, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-  { position: 2, userImage: require('../assets/images/profilIcon2.png'), name:'Bruno' },
-  { position: 3, userImage: require('../assets/images/profilIcon2.png'), name:'Patrick' },
-  { position: 4, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-  { position: 5, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-  { position: 6, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-  { position: 7, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-  { position: 8, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-];
+// const scores = [
+//   { position: 1, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
+//   { position: 2, userImage: require('../assets/images/profilIcon2.png'), name:'Bruno' },
+//   { position: 3, userImage: require('../assets/images/profilIcon2.png'), name:'Patrick' },
+//   { position: 4, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
+//   { position: 5, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
+//   { position: 6, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
+//   { position: 7, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
+//   { position: 8, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
+// ];
 
 // const userData =[
 //   {ScoreTotal:1800, ScoreFoot:1500, ScoreBasket:1300}
@@ -59,6 +59,32 @@ export default function MiniJeu() {
     { title: "Incognito", backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2, screen:'IncognitoWait'},
     { title: "Au plus proche", backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'AuPlusProcheWait'},
   ];
+
+  const [coloc, setColoc] = useContext(ColocContext);
+  const colocFormated = coloc.map((c)=> {if(c.footBestScore && c.basketBestScore){return c}else if(c.footBestScore && !c.basketBestScore){
+    var rObj = c
+    rObj.basketBestScore = 0
+    return rObj
+  }else if(!c.footBestScore && c.basketBestScore){
+    var rObj = c
+    rObj.footBestScore = 0
+    return rObj
+  }else{
+    var rObj = c
+    rObj.footBestScore = 0
+    rObj.basketBestScore = 0
+    return rObj
+  }
+})
+  colocFormated.sort((c1, c2)=> c2.footBestScore+c2.footBestScore - c1.footBestScore - c1.basketBestScore)
+  const scores = colocFormated.map((c, index)=>{
+    var rObj = {}
+    rObj['position'] = index +1
+    rObj['userImage'] = {uri: c.avatarUrl}
+    rObj['name'] = c.nom
+    rObj['score'] = c.footBestScore+c.basketBestScore
+    return rObj
+  }) 
   return (
     <ImageBackground 
       source={Space_Background} 
