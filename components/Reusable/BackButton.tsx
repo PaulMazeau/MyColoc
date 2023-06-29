@@ -4,14 +4,18 @@ import { TouchableHighlight } from 'react-native-gesture-handler'
 import BackIcon from '../../assets/icons/BackIcon'
 import { useNavigation } from '@react-navigation/core'
 
-const BackButton = () => {
+type ScoreBoardProps = {
+  color?:string
+};
+
+const BackButton = ({color }: ScoreBoardProps) => {
   const navigation = useNavigation()
 
   return <View style={styles.container}>
     <TouchableHighlight style={styles.backButton} onPress={() => {
       navigation.goBack()
     }}>
-      <BackIcon color="#333" size={28} />
+      <BackIcon color={color || "#333"} size={28} />
     </TouchableHighlight>
   </View>
 }

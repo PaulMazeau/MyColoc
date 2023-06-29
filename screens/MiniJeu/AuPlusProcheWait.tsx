@@ -9,6 +9,7 @@ import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import Button from "../../components/Reusable/ButtonColor";
+import BackButton from "../../components/Reusable/BackButton";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -33,6 +34,10 @@ const AuPlusProcheWait = () => {
                 <Image source={Logo} />
             </View>
             <View style={styles.title}>
+                <BackButton color="white"/>
+                <Text style={styles.text}>Incognito</Text>
+            </View>
+            <View style={styles.Button}>
                 <Button text={'Créer un salon'} colorText={'white'} colorBackGround={'blue'} onPress={() => {}}/>
             </View>
             <View style={styles.container}>
@@ -54,6 +59,15 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
 
+    title:{
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        width:'100%',
+        marginLeft:20,
+        alignItems:'center',
+        marginTop:50,
+    },
+
     container:{
         alignItems:'center',
         justifyContent:'space-between',
@@ -62,17 +76,18 @@ const styles = StyleSheet.create({
         paddingTop:20
     },
 
-    title:{
+    Button:{
         justifyContent:'flex-start',
         width:'100%',
         paddingHorizontal:20,
-        marginTop:50,
+        marginTop:20,
     },
 
     text: {
         color: main.LightWhite,
         fontWeight: '600',
         fontSize: 20,
+        marginLeft:10
     },
 
     imageBackground: {
