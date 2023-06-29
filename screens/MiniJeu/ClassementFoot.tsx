@@ -1,28 +1,29 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, Touchable} from 'react-native';
 import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import BackIcon from '../../assets/icons/BackIcon'
 import ClassementCardPodium from '../../components/MiniJeu/ClassementCardPodium';
 import { useNavigation } from '@react-navigation/native';
+import { ColocContext, UserContext } from '../../UserContext';
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 const windowWidth = Dimensions.get('window').width;
 
-const scores = [
-    { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
-    { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno', score:1800 },
-    { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-];
+// const scores = [
+//     { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
+//     { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno', score:1800 },
+//     { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+// ];
 
 const scoresNational = [
     { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
@@ -38,6 +39,22 @@ const scoresNational = [
 
 const Classement = () => {
     const navigation = useNavigation();
+    const [coloc, setColoc] = useContext(ColocContext);
+    const [user, setUser] = useContext(UserContext);
+    const colocFormated = coloc.map((c)=> {if(c.footBestScore){return c}else{
+      var rObj = c
+      rObj.footBestScore = 0
+      return rObj
+    }})
+    colocFormated.sort((c1, c2)=> c2.footBestScore - c1.footBestScore)
+    const scores = colocFormated.map((c, index)=>{
+      var rObj = {}
+      rObj['position'] = index +1
+      rObj['userImage'] = {uri: c.avatarUrl}
+      rObj['name'] = c.nom
+      rObj['score'] = c.footBestScore
+      return rObj
+    }) 
     return (
         <ImageBackground 
       source={Space_Background} 
