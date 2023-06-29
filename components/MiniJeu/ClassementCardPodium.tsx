@@ -23,7 +23,7 @@ type ScoreType = {
 
 type ScoreBoardProps = {
   scores: ScoreType[];
-  scoreTotal: number;
+  scoreTotal?: number;
   name?: string;
   isScrollable: boolean;
 };
@@ -46,10 +46,14 @@ const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal }: ScoreBoard
     return (
       <>
         <Text style={styles.text1}>{name}</Text>
-        <View style={styles.lign1}>
+        {
+          scoreTotal==null?
+          <View/>
+          :
+          <View style={styles.lign1}>
           <Text style={styles.text2}>Score total :</Text>
           <Text style={styles.text2}>{scoreTotal}</Text>
-        </View>
+        </View>}
         <View style={styles.lign2}>
           <UserBubble name={scores[0].name} userImage={scores[0].userImage} size={40}/>
           <UserBubble name={scores[1].name} userImage={scores[1].userImage} size={80}/>
