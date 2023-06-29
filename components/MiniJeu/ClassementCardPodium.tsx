@@ -55,8 +55,8 @@ const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal }: ScoreBoard
           <Text style={styles.text2}>{scoreTotal}</Text>
         </View>}
         <View style={styles.lign2}>
-          <UserBubble name={scores[0].name} userImage={scores[0].userImage} size={40}/>
-          <UserBubble name={scores[1].name} userImage={scores[1].userImage} size={80}/>
+          <UserBubble name={scores[1].name} userImage={scores[1].userImage} size={40}/>
+          <UserBubble name={scores[0].name} userImage={scores[0].userImage} size={80}/>
           <UserBubble name={scores[2].name} userImage={scores[2].userImage} size={40}/>
         </View>
         {renderScoreLines(scores)}
