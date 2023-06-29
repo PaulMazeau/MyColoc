@@ -10,7 +10,8 @@ import Timer from "./perf-timer"
 import { UserContext } from "../../../UserContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { FB_DB } from "../../../firebaseconfig";
-
+import ScoreCard from "../../../components/MiniJeu/ScoreCard";
+import {Shadows} from './../../../constants/Shadow'
 
 
 
@@ -63,10 +64,9 @@ const Foot = () => {
 
             <View style={styles.topLign}>
                 {!running?<BackButton/> : <View/>}
-                <View style={styles.bestScore}>
-                    <Text style={styles.text2}>All time Best</Text>
-                    <Text style={styles.text2}>{bestScore}</Text>
-                </View>
+                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]}>
+                <ScoreCard score={bestScore} userImage={user.avatarUrl}/>
+                </TouchableOpacity>
             </View>
 
             <View style={{flex:1}}{...panResponder.panHandlers}>
@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
 
 
     bestScore:{
-        justifyContent:'center',
-        alignItems:'flex-end',
+        width:'38%',
+        borderRadius:10
     },
    
     text:{

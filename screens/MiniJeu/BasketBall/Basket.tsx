@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
         width:'100%',
         height:'7%',
         paddingHorizontal:20,
-        marginTop:50
+        marginTop:50,
+        zIndex:2
     },
 
 
