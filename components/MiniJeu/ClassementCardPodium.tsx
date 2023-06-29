@@ -26,9 +26,10 @@ type ScoreBoardProps = {
   scoreTotal?: number;
   name?: string;
   isScrollable: boolean;
+  imageCorner?: any;
 };
 
-const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal }: ScoreBoardProps) => {
+const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal, imageCorner }: ScoreBoardProps) => {
   //Générer une ligne de score suivi d'un separateur
   const renderScoreLines = (scores: ScoreType[]) => {
     return scores.map((score, index) => (
@@ -45,7 +46,11 @@ const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal }: ScoreBoard
   const content = () => {
     return (
       <>
+        <View style={styles.lign}>
         <Text style={styles.text1}>{name}</Text>
+        <Image source={imageCorner} style={styles.Image}/>
+        </View>
+        
         {
           scoreTotal==null?
           <View/>
@@ -111,6 +116,13 @@ const styles = StyleSheet.create({
     marginHorizontal:0,
   },
 
+  lign:{
+    justifyContent:'space-between',
+    alignItems:'center',
+    flexDirection:'row',
+    height:'10%',
+  },
+
   lign1:{
     justifyContent:'flex-start',
     flexDirection:'row'
@@ -131,8 +143,9 @@ const styles = StyleSheet.create({
   },
 
   Image:{
-    height:'100%',
-    width:"100%"
+    height:55,
+    width:55,
+    marginTop:10
   },
 
   separator: {

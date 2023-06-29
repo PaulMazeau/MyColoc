@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
 import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
@@ -23,9 +23,10 @@ type ScoreBoardProps = {
   scores: ScoreType[];
   name?: string;
   isScrollable: boolean;
+  imageCorner?: any;
 };
 
-const ScoreBoardScrollable = ({ scores, name, isScrollable }: ScoreBoardProps) => {
+const ScoreBoardScrollable = ({ scores, name, isScrollable, imageCorner }: ScoreBoardProps) => {
     const renderScoreLines = (scores: ScoreType[]) => {
         return scores.map((score, index) => (
             <React.Fragment key={index}>
@@ -39,7 +40,11 @@ const ScoreBoardScrollable = ({ scores, name, isScrollable }: ScoreBoardProps) =
 
     const content = (
       <>
-        {name && <Text style={styles.text}>{name}</Text>}
+        <View style={styles.lign}>
+        {name && <Text style={styles.text1}>{name}</Text>}
+        <Image source={imageCorner} style={styles.Image}/>
+        </View>
+        
         {renderScoreLines(scores)}
       </>
     );
@@ -84,13 +89,25 @@ const styles = StyleSheet.create({
         marginBottom:10
     },
 
-    ImageContainer: {
-        height: 40,
-        width: 40,
-        overflow: 'hidden',
-        borderRadius: 20,
-        marginRight: 10,
+    text1:{
+        marginTop:10,
+        color : "white",
+        fontWeight: '600',
+        fontSize: 20,
     },
+
+    lign:{
+        justifyContent:'space-between',
+        alignItems:'center',
+        flexDirection:'row',
+        height:'10%',
+    },
+
+    Image:{
+        height:55,
+        width:55,
+        marginTop:10
+      },
 
     separator: {
         height : 1,

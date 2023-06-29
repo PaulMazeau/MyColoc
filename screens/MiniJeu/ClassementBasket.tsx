@@ -72,10 +72,10 @@ const ClassementBasket = () => {
                 <Text style={styles.text}>Classement</Text>
             </TouchableOpacity>
             <View style={styles.Classement1}>
-                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true}/>
+                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../assets/images/BasketBall.png')}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true}/>
+                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true} imageCorner={require('./../../assets/images/BasketBall.png')}/>
             </View>
         </View>
       </SafeAreaView>
