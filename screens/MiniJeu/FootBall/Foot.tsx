@@ -16,7 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MiniJeuStackParams } from '../../../App';
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'ClassementFoot'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'ClassementFootBall'>;
 
 const Foot = () => {
     const [user, setUser] = useContext(UserContext);
@@ -67,7 +67,7 @@ const Foot = () => {
 
             <View style={styles.topLign}>
                 {!running?<BackButton/> : <View/>}
-                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]} onPress={() => navigation.navigate('ClassementFoot')}>
+                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]} onPress={() => navigation.navigate('ClassementFootBall')}>
                 <ScoreCard score={bestScore} userImage={user.avatarUrl}/>
                 </TouchableOpacity>
             </View>

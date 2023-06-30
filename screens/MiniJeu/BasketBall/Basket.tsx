@@ -19,7 +19,7 @@ import { MiniJeuStackParams } from '../../../App';
 let force = {x:0,y:0}
 let canShoot = true;
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'ClassementBasket'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'ClassementBasketBall'>;
 
 const Basket = () => {
     const [user, setUser] = useContext(UserContext)
@@ -73,7 +73,7 @@ const Basket = () => {
 
             <View style={styles.topLign}>
                 {menu?<BackButton/> : <View/>}
-                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]} onPress={() => navigation.navigate('ClassementBasket')}>
+                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]} onPress={() => navigation.navigate('ClassementBasketBall')}>
                 <ScoreCard score={bestScore} userImage={user.avatarUrl}/>
                 </TouchableOpacity>
             </View>

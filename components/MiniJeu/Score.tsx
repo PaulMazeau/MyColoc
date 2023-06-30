@@ -13,7 +13,7 @@ const Score: React.FC<ScoreProps> = ({ score, color }) => {
         container: {
             backgroundColor: color,
             borderRadius: 10,
-            width: '30%',
+            width: 100,
             padding: 2,
             alignItems: 'center',
             justifyContent: 'center',

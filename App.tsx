@@ -32,8 +32,8 @@ import { QuerySnapshot, collection, doc, getDoc, onSnapshot, query, where } from
 import NoColoc from './screens/NoColoc';
 import AuPlusProcheWait from './screens/MiniJeu/AuPlusProcheWait';
 import Basket from './screens/MiniJeu/BasketBall/Basket';
-import ClassementBasket from './screens/MiniJeu/ClassementBasket';
-import ClassementFoot from './screens/MiniJeu/ClassementFoot';
+import ClassementBasketBall from './screens/MiniJeu/ClassementBasketBall';
+import ClassementFootBall from './screens/MiniJeu/ClassementFootBall';
 import Foot from './screens/MiniJeu/FootBall/Foot';
 import Guess from './screens/MiniJeu/Guess';
 import IncognitoWait from './screens/MiniJeu/IncognitoWait';
@@ -71,9 +71,9 @@ export type RootStackParams = {
   Role: undefined;
   Result: undefined;
   Foot: undefined;
-  ClassementFoot: undefined;
+  ClassementFootBall: undefined;
   Basket: undefined;
-  ClassementBasket: undefined;
+  ClassementBasketBall: undefined;
   Classement: undefined;
   ColocationSettings: undefined,
   FirstPage: undefined;
@@ -125,9 +125,9 @@ export type MiniJeuStackParams = {
   Role: undefined;
   Result: undefined;
   Foot: undefined;
-  ClassementFoot: undefined;
+  ClassementFootBall: undefined;
   Basket: undefined;
-  ClassementBasket: undefined;
+  ClassementBasketBall: undefined;
   Classement: undefined;
 };
 
@@ -304,9 +304,9 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="Role" component={Role} />
       <MiniJeuStack.Screen name="Result" component={Result} />
       <MiniJeuStack.Screen name="Foot" component={Foot} />
-      <MiniJeuStack.Screen name="ClassementFoot" component={ClassementFoot} />
+      <MiniJeuStack.Screen name="ClassementFootBall" component={ClassementFootBall} />
       <MiniJeuStack.Screen name="Basket" component={Basket} />
-      <MiniJeuStack.Screen name="ClassementBasket" component={ClassementBasket} />
+      <MiniJeuStack.Screen name="ClassementBasketBall" component={ClassementBasketBall} />
     </MiniJeuStack.Navigator>
   );
 };

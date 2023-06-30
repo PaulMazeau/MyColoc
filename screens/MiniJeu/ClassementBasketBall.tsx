@@ -37,7 +37,7 @@ const scoresNational = [
 ];
 
 
-const ClassementBasket = () => {
+const ClassementBasketBall = () => {
     const navigation = useNavigation();
     const [coloc, setColoc] = useContext(ColocContext);
     const [user, setUser] = useContext(UserContext);
@@ -136,4 +136,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ClassementBasket;
+export default ClassementBasketBall;

@@ -97,7 +97,6 @@ export default function MiniJeu() {
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.topLign}>
           <TouchableOpacity style={styles.quitter} onPress={() => navigation.goBack()}>
-              {/* <Text style={styles.TextQuitter}>Quitter</Text> */}
               <BackButton/>
           </TouchableOpacity>
           <View style={styles.logo}>
