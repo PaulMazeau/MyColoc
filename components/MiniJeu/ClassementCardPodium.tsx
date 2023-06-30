@@ -30,8 +30,10 @@ type ScoreBoardProps = {
 };
 
 const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal, imageCorner }: ScoreBoardProps) => {
+
   //Générer une ligne de score suivi d'un separateur
   const renderScoreLines = (scores: ScoreType[]) => {
+
     return scores.map((score, index) => (
       <React.Fragment key={index}>
         <ScoreLigne position={score.position} userImage={score.userImage} name={score.name} score={score.score}/>

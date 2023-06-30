@@ -106,12 +106,12 @@ export default function MiniJeu() {
           </View>
           
           <Carrousel gameCardData={gameCardData}/>
-          <Text style={styles.text}>Salons ouverts</Text>
-          <SalonCard />
+          {/* <Text style={styles.text}>Salons ouverts</Text>
+          <SalonCard /> */}
           <Text style={styles.text}>Classement</Text>
           <View style={{flex:1}}>
             <TouchableOpacity onPress={() => {navigation.navigate('Classement')}}>
-              <ClassementCardScrollable scores={scores} isScrollable={false}/>
+              <ClassementCardScrollable scores={scores} isScrollable={false} name={user.nomColoc}/>
             </TouchableOpacity>
           </View>
         </ScrollView>

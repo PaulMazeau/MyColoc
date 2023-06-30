@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, ImageSourcePropType } from 'react-native';
 import Score from './Score';
 import { MiniJeuColor } from "../../constants/Colors";
 
@@ -7,14 +7,14 @@ const MedailleOr = require('../../assets/images/MedailleOr.png');
 const MedailleArgent = require('../../assets/images/MedailleArgent.png');
 const MedailleBronze = require('../../assets/images/MedailleBronze.png');
 
-interface ScoreLigneProps {
+interface UserProps {
     position?: number;
-    userImage: any;
+    userImage?: ImageSourcePropType;
     name?: string;
     score:number;
 }
 
-const ScoreLigne: React.FC<ScoreLigneProps> = ({ position, userImage, name, score }) => {
+const ScoreLigne: React.FC<UserProps> = ({ position, userImage, name, score }) => {
     const positionString = position !== undefined ? position.toString() : '';
     let imageSource = null;
     let couleur = "white";
@@ -39,7 +39,8 @@ const ScoreLigne: React.FC<ScoreLigneProps> = ({ position, userImage, name, scor
                     </View>
                 </ImageBackground>
                 <View style={styles.ImageContainer}>
-                    <Image source={userImage} />
+                    <Image source={userImage} style={styles.Image} />
+
                 </View>
                 <Text style={styles.text1}> {name} </Text>
             </View>
@@ -70,6 +71,11 @@ const styles = StyleSheet.create({
         margin: 5,
         marginTop:15
     },
+
+    Image: {
+        height: '100%',
+        width: '100%',
+    },      
 
     firstColumn: {
         flexDirection: 'row',
