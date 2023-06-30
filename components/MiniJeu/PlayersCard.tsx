@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, FlatList } from "react-native";
 import { main } from '../../constants/Colors';
 import Button from '../Reusable/ButtonColor';
 import ParticipantCard from '../Reusable/ParticipantCard';
+import { ColocContext, UserContext } from '../../UserContext';
 
 // Définition du type de données
 interface Player {
@@ -11,57 +12,45 @@ interface Player {
     photo: any;
 }
 
-//Render d'un joueur dans la flatlist
-const Item = ({ name, photo }) => (
-  <ParticipantCard name={name}/>
-);
+
 
 const PlayersCard = () => {
-    // ici je prends des données fictives, remplacez-les par vos vraies données
-    const players = [
-        { id: '1', name: 'Joueur 1', photo: 'https://example.com/photo1.png' },
-        { id: '2', name: 'Joueur 2', photo: 'https://example.com/photo2.png' },
-        { id: '1', name: 'Joueur 1', photo: 'https://example.com/photo1.png' },
-        { id: '2', name: 'Joueur 2', photo: 'https://example.com/photo2.png' },
-        { id: '1', name: 'Joueur 1', photo: 'https://example.com/photo1.png' },
-        { id: '2', name: 'Joueur 2', photo: 'https://example.com/photo2.png' },
-        { id: '1', name: 'Joueur 1', photo: 'https://example.com/photo1.png' },
-        { id: '2', name: 'Joueur 2', photo: 'https://example.com/photo2.png' },
-        { id: '2', name: 'Joueur 2', photo: 'https://example.com/photo2.png' },
-        { id: '1', name: 'Joueur 1', photo: 'https://example.com/photo1.png' },
-        { id: '2', name: 'Joueur 2', photo: 'https://example.com/photo2.png' },
-        { id: '1', name: 'Joueur 1', photo: 'https://example.com/photo1.png' },
-        { id: '2', name: 'Joueur 2', photo: 'https://example.com/photo2.png' },
-        { id: '1', name: 'Joueur 1', photo: 'https://example.com/photo1.png' },
-        { id: '2', name: 'Joueur 2', photo: 'https://example.com/photo2.png' },
-        // ...
-    ];
+    const [coloc, setColoc] = useContext(ColocContext);
+
+    // Convert coloc data to the correct format
+    const data = coloc.map((c, index) => ({
+        id: index.toString(),
+        name: c.nom,
+        photo: c.avatarUrl,
+    }));
 
     const renderItem = ({ item }: { item: Player }) => (
-        <Item name={item.name} photo={item.photo} />
+        <View style={{marginBottom:35}}>
+            <ParticipantCard nom={item.name} url={item.photo}/>
+        </View>
     );
 
     return (
       <View style={styles.global}>
-            <View style={styles.flatlist}>
-            <FlatList
-                data={players}
-                renderItem={renderItem}
-                keyExtractor={(item: Player, index) => item.id + item.name + index}
-                ListHeaderComponent={
-                <View style={styles.lign}>
-                    <Text style={styles.text}>Qui joue ?</Text>
-                    <Button text='Commencer' colorBackGround='#62C435' colorText='white' onPress={() => {}} height={40}/>
-                </View>
-                }
-                numColumns={3}
-                columnWrapperStyle={{justifyContent:'space-around'}}
-            />
-
-            </View>
+        <View style={styles.flatlist}>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item: Player) => item.id}
+            ListHeaderComponent={
+              <View style={styles.lign}>
+                  <Text style={styles.text}>Qui joue ?</Text>
+                  <Button text='Commencer' colorBackGround='#62C435' colorText='white' onPress={() => {}} height={40}/>
+              </View>
+            }
+            numColumns={4}
+            columnWrapperStyle={{justifyContent:'space-around'}}
+          />
+        </View>
       </View>
     );
 }
+
 
 const styles = StyleSheet.create({
     global: {
@@ -90,6 +79,7 @@ const styles = StyleSheet.create({
 
     flatlist:{
       borderRadius: 10,
+      paddingHorizontal:10
     },
 
     player: {
