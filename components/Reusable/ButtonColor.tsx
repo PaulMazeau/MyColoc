@@ -16,8 +16,9 @@ const Button = ({ text, colorBackGround, colorText, onPress, height }: ButtonPro
             borderRadius: 10,
             justifyContent: 'center',
             alignItems: 'center',
-            height: 48,
-            marginBottom: 12
+            height: height? height:48,
+            marginBottom: 12,
+            paddingHorizontal:10
         },
         text: {
             fontWeight: '600',

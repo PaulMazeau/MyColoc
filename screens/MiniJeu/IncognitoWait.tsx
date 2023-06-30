@@ -3,11 +3,12 @@ import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from
 import Regles from './../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import WaitingCard from "../../components/MiniJeu/WaitingCard";
 import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
+import BackButton from "../../components/Reusable/BackButton";
+import PlayersCard from "../../components/MiniJeu/PlayersCard";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -30,13 +31,11 @@ const IncognitoWait = () => {
                 <Image source={Logo} />
             </View>
             <View style={styles.title}>
+                <BackButton color="white"/>
                 <Text style={styles.text}>Incognito</Text>
             </View>
             <View style={styles.container}>
-                <WaitingCard/>
-                <TouchableOpacity style={{alignItems:'center'}} onPress={() => {navigation.navigate('Role')}}>
-                    <Text style={styles.text}>Clique ici</Text>    
-                </TouchableOpacity>
+                <PlayersCard/>
                 <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
             </View>
         </View>
@@ -61,6 +60,8 @@ const styles = StyleSheet.create({
 
     title:{
         justifyContent:'flex-start',
+        alignItems:'center',
+        flexDirection:'row',
         width:'100%',
         paddingLeft:20,
         marginTop:20
