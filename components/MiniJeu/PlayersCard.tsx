@@ -55,7 +55,6 @@ const PlayersCard = () => {
 const styles = StyleSheet.create({
     global: {
         flex:1,
-        backgroundColor:'white',
         borderRadius:10,
         marginBottom:20
     },
@@ -79,7 +78,8 @@ const styles = StyleSheet.create({
 
     flatlist:{
       borderRadius: 10,
-      paddingHorizontal:10
+      paddingHorizontal:10,
+      backgroundColor:'white',
     },
 
     player: {
