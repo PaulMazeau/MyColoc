@@ -25,7 +25,7 @@ const PlayersCard = () => {
     }));
 
     const renderItem = ({ item }: { item: Player }) => (
-        <View style={{marginBottom:35}}>
+        <View style={{marginTop:20}}>
             <ParticipantCard nom={item.name} url={item.photo} height={95} width={80}/>
         </View>
     );
@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        padding:15
+        padding:15,
+        paddingBottom:-5,
     },
 
     text:{
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       paddingHorizontal:10,
       backgroundColor:'white',
+      paddingBottom:15
     },
 
     player: {
