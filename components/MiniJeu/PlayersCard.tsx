@@ -4,6 +4,7 @@ import { main } from '../../constants/Colors';
 import Button from '../Reusable/ButtonColor';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import { ColocContext, UserContext } from '../../UserContext';
+import AddButton from '../../assets/icons/AddButtonGrey.svg';
 
 // Définition du type de données
 interface Player {
@@ -29,8 +30,12 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
         photo: c.avatarUrl,
     }));
 
-    const handlePress = (player) => {
+    data.push({
+      id: "buttonAdd",
+    });
 
+    const handlePress = (player) => {
+      if (player.id === "buttonAdd") return;
       if (selectedPlayers.find(p => p.id === player.id)) {
           setSelectedPlayers(selectedPlayers.filter(p => p.id !== player.id));
       } else {
@@ -38,11 +43,21 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
       }
     };
   
-  const renderItem = ({ item }: { item: Player }) => (
-      <TouchableOpacity style={{marginTop:20}} onPress={() => handlePress(item)}>
-          <ParticipantCard nom={item.name} url={item.photo} height={95} width={80} selected={selectedPlayers.find(p => p.id === item.id)}/>
-      </TouchableOpacity>
-  );
+    const renderItem = ({ item }: { item: Player }) => {
+      if (item.id === "buttonAdd") {
+          return (
+            <TouchableOpacity>
+              <AddButton style={{marginTop:30}}/>
+            </TouchableOpacity>
+          );
+      }
+      return (
+          <TouchableOpacity style={{marginTop:20}} onPress={() => handlePress(item)}>
+              <ParticipantCard nom={item.name} url={item.photo} height={95} width={80} selected={selectedPlayers.find(p => p.id === item.id)}/>
+          </TouchableOpacity>
+      );
+  };
+  
   
 
     return (
