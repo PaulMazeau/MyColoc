@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, Dimensions } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions } from "react-native";
+import VoteCard from "../../components/MiniJeu/VoteCard";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
@@ -7,18 +8,16 @@ import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { useNavigation } from "@react-navigation/native";
-import Button from "../../components/Reusable/ButtonColor";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
+const Card =require('../../assets/images/Card.png');
 const windowHeight = Dimensions.get('window').height;
 
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Role'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Mot'>;
 
-
-const PassPhone = () => {
-    
+const Mot = () => {
     const navigation = useNavigation<navigationProp>();
     return (
         <ImageBackground 
@@ -33,10 +32,19 @@ const PassPhone = () => {
                 <Image source={Logo} />
             </View>
             <View style={styles.container}>
-                <View style={styles.containerText}>
-                    <Text style={styles.text1}>Passe le téléphone à Paul, son môt va être dévoilé</Text>
+                <View style={styles.title}>
+                    <Text style={styles.text1}>Romain commence</Text>
                 </View>
-                <Button text="Réveler le mot" colorBackGround={main.MainColor} colorText="white" onPress={() => {navigation.navigate('Role')}}/>
+                <ImageBackground 
+                source={Card} 
+                resizeMode="contain"
+                style={styles.card}
+                >
+                    <View style={styles.word}>
+                        <Text style={styles.text2}>Marseille</Text>
+                    </View>
+                </ImageBackground>
+                <VoteCard/>
             </View>
         </View>
         </SafeAreaView>
@@ -55,23 +63,33 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         flex:1,
         paddingBottom:40,
-        paddingTop:20,
-        paddingHorizontal:10
+        paddingTop:20
+    },
+
+    title:{
+        justifyContent:'flex-start',
+        width:'100%',
+        paddingLeft:20,
+        marginTop:20
     },
 
     text1: {
         color: main.LightWhite,
         fontWeight: '600',
         fontSize: 20,
-        textAlign:'center'
     },
 
-    containerText:{
-        
-        flex:1,
-        height:'100%',
+    text2: {
+        color: main.TextColor,
+        fontWeight: '600',
+        fontSize: 35,
+    },
+
+    word:{
+        justifyContent:'center',
         alignItems:'center',
-        justifyContent:'center'
+        flex:1,
+
     },
 
     imageBackground: {
@@ -90,4 +108,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default PassPhone;
+export default Mot;

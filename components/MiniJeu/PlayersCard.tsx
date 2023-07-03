@@ -23,16 +23,16 @@ type Props = {
 const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
     const [coloc, setColoc] = useContext(ColocContext);
 
-    // Convert coloc data to the correct format
     const data = coloc.map((c, index) => ({
         id: index.toString(),
         name: c.nom,
         photo: c.avatarUrl,
     }));
 
-    data.push({
-      id: "buttonAdd",
-    });
+    //Permet de reveler le bouton addPlayer
+    // data.push({
+    //   id: "buttonAdd",
+    // });
 
     const handlePress = (player) => {
       if (player.id === "buttonAdd") return;

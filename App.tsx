@@ -37,6 +37,7 @@ import ClassementFootBall from './screens/MiniJeu/ClassementFootBall';
 import Foot from './screens/MiniJeu/FootBall/Foot';
 import Guess from './screens/MiniJeu/Guess';
 import IncognitoSetUp from './screens/MiniJeu/IncognitoSetUp';
+import Mot from './screens/MiniJeu/Mot';
 import Result from './screens/MiniJeu/Result';
 import PassPhone from './screens/MiniJeu/PassPhone';
 import Answer from './screens/MiniJeu/Answer';
@@ -129,6 +130,7 @@ export type MiniJeuStackParams = {
   Basket: undefined;
   ClassementBasketBall: undefined;
   Classement: undefined;
+  Mot: undefined;  
 };
 
 // Création des piles de navigation
@@ -302,6 +304,7 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="Answer" component={Answer} />
       <MiniJeuStack.Screen name="IncognitoSetUp" component={IncognitoSetUp} />
       <MiniJeuStack.Screen name="PassPhone" component={PassPhone} />
+      <MiniJeuStack.Screen name="Mot" component={Mot} />
       <MiniJeuStack.Screen name="Result" component={Result} />
       <MiniJeuStack.Screen name="Foot" component={Foot} />
       <MiniJeuStack.Screen name="ClassementFootBall" component={ClassementFootBall} />
