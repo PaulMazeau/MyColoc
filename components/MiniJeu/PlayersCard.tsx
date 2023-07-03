@@ -26,7 +26,7 @@ const PlayersCard = () => {
 
     const renderItem = ({ item }: { item: Player }) => (
         <View style={{marginBottom:35}}>
-            <ParticipantCard nom={item.name} url={item.photo}/>
+            <ParticipantCard nom={item.name} url={item.photo} height={95} width={80}/>
         </View>
     );
 
@@ -37,13 +37,14 @@ const PlayersCard = () => {
             data={data}
             renderItem={renderItem}
             keyExtractor={(item: Player) => item.id}
+            showsVerticalScrollIndicator={false}
             ListHeaderComponent={
               <View style={styles.lign}>
                   <Text style={styles.text}>Qui joue ?</Text>
                   <Button text='Commencer' colorBackGround='#62C435' colorText='white' onPress={() => {}} height={40}/>
               </View>
             }
-            numColumns={4}
+            numColumns={3}
             columnWrapperStyle={{justifyContent:'space-around'}}
           />
         </View>
