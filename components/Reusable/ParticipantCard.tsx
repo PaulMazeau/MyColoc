@@ -22,12 +22,12 @@ const ParticipantCard = ({ width = 64, height = 80, ...props }) => {
 
   return (
     <View>
-      <TouchableOpacity onPress={() => {props.onPress; setSelected(!selected);}}>
+      {/* <TouchableOpacity onPress={() => {props.onPress; setSelected(!selected);}}> */}
         <View style={[props.selected ? styles.participant_valid : styles.participant_invalid, customStyle]}>
             <Image style={avatarStyle} source={props.url ? {uri : props.url, cache:'force-cache' } : require('../../assets/images/icon.png')}/>
             <Text style={styles.nom} numberOfLines={1}>{props.nom ? props.nom : 'Nom par défaut'}</Text>
         </View>
-      </TouchableOpacity>
+      {/* </TouchableOpacity> */}
     </View>
   );
 };

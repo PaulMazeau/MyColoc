@@ -36,7 +36,7 @@ import ClassementBasketBall from './screens/MiniJeu/ClassementBasketBall';
 import ClassementFootBall from './screens/MiniJeu/ClassementFootBall';
 import Foot from './screens/MiniJeu/FootBall/Foot';
 import Guess from './screens/MiniJeu/Guess';
-import IncognitoWait from './screens/MiniJeu/IncognitoWait';
+import IncognitoWait from './screens/MiniJeu/IncognitoSetUp';
 import Result from './screens/MiniJeu/Result';
 import Role from './screens/MiniJeu/Role';
 import Answer from './screens/MiniJeu/Answer';

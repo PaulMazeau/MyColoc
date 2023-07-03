@@ -12,9 +12,13 @@ interface Player {
     photo: any;
 }
 
+type Props = {
+  selectedPlayers: Player[];
+  setSelectedPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
+};
 
 
-const PlayersCard = () => {
+const PlayersCard = ({selectedPlayers, setSelectedPlayers}: Props) => {
     const [coloc, setColoc] = useContext(ColocContext);
 
     // Convert coloc data to the correct format
@@ -24,11 +28,21 @@ const PlayersCard = () => {
         photo: c.avatarUrl,
     }));
 
-    const renderItem = ({ item }: { item: Player }) => (
-        <View style={{marginTop:20}}>
-            <ParticipantCard nom={item.name} url={item.photo} height={95} width={80}/>
-        </View>
-    );
+    const handlePress = (player) => {
+
+      if (selectedPlayers.find(p => p.id === player.id)) {
+          setSelectedPlayers(selectedPlayers.filter(p => p.id !== player.id));
+      } else {
+          setSelectedPlayers([...selectedPlayers, player]);
+      }
+    };
+  
+  const renderItem = ({ item }: { item: Player }) => (
+      <TouchableOpacity style={{marginTop:20}} onPress={() => handlePress(item)}>
+          <ParticipantCard nom={item.name} url={item.photo} height={95} width={80} selected={selectedPlayers.find(p => p.id === item.id)}/>
+      </TouchableOpacity>
+  );
+  
 
     return (
       <View style={styles.global}>

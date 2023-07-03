@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
-import Regles from './../../components/MiniJeu/Regles';
+import Regles from '../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
@@ -18,6 +18,9 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Role'>;
 
 const IncognitoWait = () => {
     const navigation = useNavigation<navigationProp>();
+
+    
+    const [selectedPlayers, setSelectedPlayers] = useState([]);
     return (
         <ImageBackground 
         source={Space_Background} 
@@ -35,7 +38,7 @@ const IncognitoWait = () => {
                 <Text style={styles.text}>Incognito</Text>
             </View>
             <View style={styles.container}>
-                <PlayersCard/>
+                <PlayersCard selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers}/>
                 <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
             </View>
         </View>
