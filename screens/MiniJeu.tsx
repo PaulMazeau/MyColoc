@@ -32,7 +32,7 @@ export default function MiniJeu() {
   const gameCardData = [
     { title: "BasketBall", scoreUser: userData[0].ScoreBasket, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'Basket'},
     { title: "FootBall", scoreUser: userData[0].ScoreFoot, backgroundImageSource: require('../assets/images/FootBall_Background.png'), colorGradient1: MiniJeuColor.RedGradientColor1, colorGradient2: MiniJeuColor.RedGradientColor2, screen:'Foot'},
-    { title: "Incognito", backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2, screen:'IncognitoWait'},
+    { title: "Incognito", backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2, screen:'IncognitoSetUp'},
     { title: "Au plus proche", backgroundImageSource: require('../assets/images/Au_Plus_Proche_Background.png'), colorGradient1: MiniJeuColor.GreenGRadientColor1, colorGradient2: MiniJeuColor.GreenGRadientColor2, screen:'AuPlusProcheWait'},
   ];
 

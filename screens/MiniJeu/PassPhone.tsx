@@ -1,26 +1,23 @@
-import React, { useState } from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
-import Regles from '../../components/MiniJeu/Regles';
+import React from "react";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions } from "react-native";
+import VoteCard from "../../components/MiniJeu/VoteCard";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { useNavigation } from "@react-navigation/native";
-import BackButton from "../../components/Reusable/BackButton";
-import PlayersCard from "../../components/MiniJeu/PlayersCard";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
+const Card =require('../../assets/images/Card.png');
+const windowHeight = Dimensions.get('window').height;
 
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'PassPhone'>;
 
-const IncognitoSetUp = () => {
-    const navigation = useNavigation<navigationProp>();
-
+const PassPhone = () => {
     
-    const [selectedPlayers, setSelectedPlayers] = useState([]);
     return (
         <ImageBackground 
         source={Space_Background} 
@@ -33,13 +30,20 @@ const IncognitoSetUp = () => {
             <View style={styles.logo}>
                 <Image source={Logo} />
             </View>
-            <View style={styles.title}>
-                <BackButton color="white"/>
-                <Text style={styles.text}>Incognito</Text>
-            </View>
             <View style={styles.container}>
-                <PlayersCard selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} onPress={() => {navigation.navigate('PassPhone')}}/>
-                <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
+                <View style={styles.title}>
+                    <Text style={styles.text1}>Romain commence</Text>
+                </View>
+                <ImageBackground 
+                source={Card} 
+                resizeMode="contain"
+                style={styles.card}
+                >
+                    <View style={styles.word}>
+                        <Text style={styles.text2}>Marseille</Text>
+                    </View>
+                </ImageBackground>
+                <VoteCard/>
             </View>
         </View>
         </SafeAreaView>
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
     global: {
         flex:1,
         width:'100%',
-        alignItems:'center'
+        alignItems:'center',
     },
 
     container:{
@@ -63,17 +67,28 @@ const styles = StyleSheet.create({
 
     title:{
         justifyContent:'flex-start',
-        alignItems:'center',
-        flexDirection:'row',
         width:'100%',
         paddingLeft:20,
         marginTop:20
     },
 
-    text: {
+    text1: {
         color: main.LightWhite,
         fontWeight: '600',
         fontSize: 20,
+    },
+
+    text2: {
+        color: main.TextColor,
+        fontWeight: '600',
+        fontSize: 35,
+    },
+
+    word:{
+        justifyContent:'center',
+        alignItems:'center',
+        flex:1,
+
     },
 
     imageBackground: {
@@ -85,7 +100,11 @@ const styles = StyleSheet.create({
 
     logo:{
         margin:10
+    },
+
+    card:{
+        height:windowHeight*0.35,
     }
 });
 
-export default IncognitoSetUp;
+export default PassPhone;

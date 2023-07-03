@@ -14,7 +14,7 @@ const CardIncognito =require('../../assets/images/Card.png');
 const CardCivil =require('../../assets/images/Card.png');
 const windowHeight = Dimensions.get('window').height;
 
-type navigationProp1 = NativeStackNavigationProp<MiniJeuStackParams, 'IncognitoWait'>;
+type navigationProp1 = NativeStackNavigationProp<MiniJeuStackParams, 'IncognitoSetUp'>;
 type navigationProp2 = NativeStackNavigationProp<MiniJeuStackParams, 'MiniJeu'>;
 
 const Result = () => {
@@ -49,7 +49,7 @@ const Result = () => {
                 <View style={styles.word}>
                 <Text style={styles.text2}>{isIncognito ? "Tu étais l'incognito" : "Tu étais un civil"}</Text>
                 </View>
-                <Button text={"Recommencer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> navigation1.navigate('IncognitoWait')}/>
+                <Button text={"Recommencer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> navigation1.navigate('IncognitoSetUp')}/>
                 <Button text={"Lobby"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> navigation2.navigate('MiniJeu')}/>
             </View>
         </View>

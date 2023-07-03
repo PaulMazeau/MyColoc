@@ -15,10 +15,11 @@ interface Player {
 type Props = {
   selectedPlayers: Player[];
   setSelectedPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
+  onPress: () => void
 };
 
 
-const PlayersCard = ({selectedPlayers, setSelectedPlayers}: Props) => {
+const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
     const [coloc, setColoc] = useContext(ColocContext);
 
     // Convert coloc data to the correct format
@@ -55,7 +56,7 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers}: Props) => {
             ListHeaderComponent={
               <View style={styles.lign}>
                   <Text style={styles.text}>Qui joue ?</Text>
-                  <Button text='Commencer' colorBackGround='#62C435' colorText='white' onPress={() => {}} height={40}/>
+                  <Button text='Commencer' colorBackGround='#62C435' colorText='white' onPress={() => {onPress()}} height={40}/>
               </View>
             }
             numColumns={3}

@@ -36,9 +36,9 @@ import ClassementBasketBall from './screens/MiniJeu/ClassementBasketBall';
 import ClassementFootBall from './screens/MiniJeu/ClassementFootBall';
 import Foot from './screens/MiniJeu/FootBall/Foot';
 import Guess from './screens/MiniJeu/Guess';
-import IncognitoWait from './screens/MiniJeu/IncognitoSetUp';
+import IncognitoSetUp from './screens/MiniJeu/IncognitoSetUp';
 import Result from './screens/MiniJeu/Result';
-import Role from './screens/MiniJeu/Role';
+import PassPhone from './screens/MiniJeu/PassPhone';
 import Answer from './screens/MiniJeu/Answer';
 import Classement from './screens/MiniJeu/Classement';
 import ColocationSettingsScreen from './screens/ColocationSettings';
@@ -67,8 +67,8 @@ export type RootStackParams = {
   AuPlusProcheWait: undefined;
   Guess: undefined;
   Answer: undefined;
-  IncognitoWait: undefined;
-  Role: undefined;
+  IncognitoSetUp: undefined;
+  PassPhone: undefined;
   Result: undefined;
   Foot: undefined;
   ClassementFootBall: undefined;
@@ -121,8 +121,8 @@ export type MiniJeuStackParams = {
   AuPlusProcheWait: undefined;
   Guess: undefined;
   Answer: undefined;
-  IncognitoWait: undefined;
-  Role: undefined;
+  IncognitoSetUp: undefined;
+  PassPhone: undefined;
   Result: undefined;
   Foot: undefined;
   ClassementFootBall: undefined;
@@ -300,8 +300,8 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="AuPlusProcheWait" component={AuPlusProcheWait} />
       <MiniJeuStack.Screen name="Guess" component={Guess} />
       <MiniJeuStack.Screen name="Answer" component={Answer} />
-      <MiniJeuStack.Screen name="IncognitoWait" component={IncognitoWait} />
-      <MiniJeuStack.Screen name="Role" component={Role} />
+      <MiniJeuStack.Screen name="IncognitoSetUp" component={IncognitoSetUp} />
+      <MiniJeuStack.Screen name="PassPhone" component={PassPhone} />
       <MiniJeuStack.Screen name="Result" component={Result} />
       <MiniJeuStack.Screen name="Foot" component={Foot} />
       <MiniJeuStack.Screen name="ClassementFootBall" component={ClassementFootBall} />
