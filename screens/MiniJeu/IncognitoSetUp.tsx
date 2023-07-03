@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
 import Regles from '../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,9 +18,31 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'PassPhone'>
 
 const IncognitoSetUp = () => {
     const navigation = useNavigation<navigationProp>();
-
     
     const [selectedPlayers, setSelectedPlayers] = useState([]);
+    const [gameState, setGameState] = useState([]);
+
+    // Function to assign roles
+    const assignRoles = () => {
+        // choose a random index for the 'incognito' player
+        const incognitoIndex = Math.floor(Math.random() * selectedPlayers.length);
+
+        const newGameState = selectedPlayers.map((player, index) => ({
+            player,
+            role: index === incognitoIndex ? 'incognito' : 'civil',
+            alive: true,
+        }));
+
+        setGameState(newGameState);
+    }
+
+    useEffect(() => {
+        if (selectedPlayers.length > 0) {
+            assignRoles();
+        }
+    }, [selectedPlayers])
+
+    
     return (
         <ImageBackground 
         source={Space_Background} 
