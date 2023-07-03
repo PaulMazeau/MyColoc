@@ -14,7 +14,7 @@ const Logo =require('../../assets/images/Logo_Minijeu.png');
 const windowHeight = Dimensions.get('window').height;
 
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Role'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Mot'>;
 
 
 const PassPhone = () => {
@@ -36,7 +36,7 @@ const PassPhone = () => {
                 <View style={styles.containerText}>
                     <Text style={styles.text1}>Passe le téléphone à Paul, son môt va être dévoilé</Text>
                 </View>
-                <Button text="Réveler le mot" colorBackGround={main.MainColor} colorText="white" onPress={() => {navigation.navigate('Role')}}/>
+                <Button text="Réveler le mot" colorBackGround={main.MainColor} colorText="white" onPress={() => {navigation.navigate('Mot')}}/>
             </View>
         </View>
         </SafeAreaView>
