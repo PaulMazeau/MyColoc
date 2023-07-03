@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, TouchableOpacity} from 'react-native';
-import SalonCard from '../components/MiniJeu/SalonCard';
 import ClassementCardScrollable from '../components/MiniJeu/ClassementCard';
 import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
@@ -22,29 +21,6 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'
 
 const windowWidth = Dimensions.get('window').width;
 
-//Tableau de scores de la Colloc
-// const scores = [
-//   { position: 1, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-//   { position: 2, userImage: require('../assets/images/profilIcon2.png'), name:'Bruno' },
-//   { position: 3, userImage: require('../assets/images/profilIcon2.png'), name:'Patrick' },
-//   { position: 4, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-//   { position: 5, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-//   { position: 6, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-//   { position: 7, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-//   { position: 8, userImage: require('../assets/images/profilIcon2.png'), name:'Julie' },
-// ];
-
-// const userData =[
-//   {ScoreTotal:1800, ScoreFoot:1500, ScoreBasket:1300}
-// ]
-
-//Contient les informations necessaires a faire une gameCard dans le caroussel, incluant le nom du screen vers lequel naviguer
-// const gameCardData = [
-//   { title: "BasketBall", scoreUser: userData[0].ScoreBasket, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'Basket'},
-//   { title: "FootBall", scoreUser: userData[0].ScoreFoot, backgroundImageSource: require('../assets/images/FootBall_Background.png'), colorGradient1: MiniJeuColor.RedGradientColor1, colorGradient2: MiniJeuColor.RedGradientColor2, screen:'Foot'},
-//   { title: "Incognito", backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2, screen:'IncognitoWait'},
-//   { title: "Au plus proche", backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'AuPlusProcheWait'},
-// ];
 
 
 export default function MiniJeu() {
@@ -57,7 +33,7 @@ export default function MiniJeu() {
     { title: "BasketBall", scoreUser: userData[0].ScoreBasket, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'Basket'},
     { title: "FootBall", scoreUser: userData[0].ScoreFoot, backgroundImageSource: require('../assets/images/FootBall_Background.png'), colorGradient1: MiniJeuColor.RedGradientColor1, colorGradient2: MiniJeuColor.RedGradientColor2, screen:'Foot'},
     { title: "Incognito", backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2, screen:'IncognitoWait'},
-    { title: "Au plus proche", backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'AuPlusProcheWait'},
+    { title: "Au plus proche", backgroundImageSource: require('../assets/images/Au_Plus_Proche_Background.png'), colorGradient1: MiniJeuColor.GreenGRadientColor1, colorGradient2: MiniJeuColor.GreenGRadientColor2, screen:'AuPlusProcheWait'},
   ];
 
   const [coloc, setColoc] = useContext(ColocContext);
@@ -105,8 +81,6 @@ export default function MiniJeu() {
           </View>
           
           <Carrousel gameCardData={gameCardData}/>
-          {/* <Text style={styles.text}>Salons ouverts</Text>
-          <SalonCard /> */}
           <Text style={styles.text}>Classement</Text>
           <View style={{flex:1}}>
             <TouchableOpacity onPress={() => {navigation.navigate('Classement')}}>
