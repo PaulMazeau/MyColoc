@@ -3,6 +3,8 @@ import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { MiniJeuStackParams } from "../../App";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -10,8 +12,11 @@ const Podium =require('../../assets/images/Podium.png');
 const Brick =require('../../assets/images/Brick.png');
 
 
+type Props = NativeStackScreenProps<MiniJeuStackParams, 'Vote'>;
 
-const Vote = () => {
+const Vote = ({route}:Props) => {
+    const {gameStateCopy} = route.params
+
     return (
         <ImageBackground 
         source={Space_Background} 

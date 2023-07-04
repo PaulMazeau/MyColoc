@@ -20,9 +20,8 @@ type Props = NativeStackScreenProps<MiniJeuStackParams, 'Mot'>;
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'PassPhone'>;
 
 const Mot = ({route}: Props) => {
-    const {playerInfo, updatedGameState} = route.params;
+    const {playerInfo, updatedGameState, gameStateCopy} = route.params;
     const gameState = updatedGameState;
-    
     
 
     const navigation = useNavigation<navigationProp>();
@@ -51,7 +50,7 @@ const Mot = ({route}: Props) => {
                         <Text style={styles.text2}>{playerInfo.mot}</Text>
                     </View>
                 </ImageBackground>
-                <Button text="Continuer" colorText="white" colorBackGround="blue" onPress={() => {(updatedGameState.length<= 0)? navigation.navigate('Vote'):navigation.navigate('PassPhone', {gameState})}}/>
+                <Button text="Continuer" colorText="white" colorBackGround="blue" onPress={() => {(updatedGameState.length<= 0)? navigation.navigate('Vote', {gameStateCopy}):navigation.navigate('PassPhone', {gameState, gameStateCopy})}}/>
             </View>
         </View>
         </SafeAreaView>

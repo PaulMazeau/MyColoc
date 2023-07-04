@@ -121,11 +121,13 @@ export type MiniJeuStackParams = {
   BoutonMiniJeu: undefined,
   MiniJeu: undefined;
   AuPlusProcheWait: undefined;
-  Vote: undefined;
+  Vote: {gameStateCopy:any[]};
   Guess: undefined;
   Answer: undefined;
   IncognitoSetUp: undefined;
-  PassPhone: {gameState:any[]};
+  PassPhone: {
+    gameState:any[]
+    gameStateCopy:any[]};
   Result: undefined;
   Foot: undefined;
   ClassementFootBall: undefined;
@@ -134,6 +136,7 @@ export type MiniJeuStackParams = {
   Classement: undefined;
   Mot: {
     updatedGameState:any[]
+    gameStateCopy:any[]
     playerInfo:any};  
 };
 

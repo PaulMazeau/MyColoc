@@ -29,6 +29,7 @@ const IncognitoSetUp = () => {
     
     const [selectedPlayers, setSelectedPlayers] = useState([]);
     const [gameState, setGameState] = useState([]);
+    const [gameStateCopy, setGameStateCopy] = useState([]);
 
     // Function to assign roles
     const assignRoles = () => {
@@ -47,6 +48,7 @@ const IncognitoSetUp = () => {
         }));
 
         setGameState(newGameState);
+        setGameStateCopy(newGameState)
     }
 
     useEffect(() => {
@@ -55,7 +57,7 @@ const IncognitoSetUp = () => {
         }
     }, [selectedPlayers])
 
-    
+    console.log(gameStateCopy)
     return (
         <ImageBackground 
         source={Space_Background} 
@@ -73,7 +75,7 @@ const IncognitoSetUp = () => {
                 <Text style={styles.text}>Incognito</Text>
             </View>
             <View style={styles.container}>
-                <PlayersCard selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} onPress={() => {navigation.navigate('PassPhone', {gameState})}}/>
+                <PlayersCard selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} onPress={() => {navigation.navigate('PassPhone', {gameState, gameStateCopy})}}/>
                 <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
             </View>
         </View>
