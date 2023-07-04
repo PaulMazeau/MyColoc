@@ -3,10 +3,6 @@ import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
-import { MiniJeuStackParams } from '../../App';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from "@react-navigation/native";
-import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard'
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -14,18 +10,6 @@ const Podium =require('../../assets/images/Podium.png');
 const Brick =require('../../assets/images/Brick.png');
 
 
-
-//Tableau de scores de la partie AuPlusProche en cours 
-const scores = [
-    { position: 1, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 2, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 3, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 4, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 5, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 6, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 7, userImage: require('../../assets/images/profilIcon2.png') },
-    { position: 8, userImage: require('../../assets/images/profilIcon2.png') },
-];
 
 const Vote = () => {
     return (
@@ -42,29 +26,7 @@ const Vote = () => {
             </View>
 
 
-            <View style={styles.podium}>
-                <ImageBackground 
-                source={Podium} 
-                resizeMode="stretch"
-                style={styles.podiumImage}
-                >
-                    <Text style={styles.text1}>La bonne</Text>
-                    <Text style={styles.text2}>réponse est</Text>
-                    <Text style={styles.text3}>300 000 km</Text>
-                </ImageBackground>
-            </View>
 
-            
-            <View style={styles.brick}>
-                <ImageBackground 
-                source={Brick} 
-                resizeMode="stretch"
-                style={styles.brickImage}
-                >
-                    <Text style={styles.text4}>Prochaine question dans</Text>
-                    <Text style={styles.text5}>20:00s</Text>
-                </ImageBackground>
-            </View>
         </View>
         </SafeAreaView>
       </ImageBackground>
