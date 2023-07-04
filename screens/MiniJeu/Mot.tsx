@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Button from "../../components/Reusable/ButtonColor";
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -33,7 +34,7 @@ const Mot = () => {
             </View>
             <View style={styles.container}>
                 <View style={styles.title}>
-                    <Text style={styles.text1}>Romain commence</Text>
+                    <Text style={styles.text1}>Romain ton mot est :</Text>
                 </View>
                 <ImageBackground 
                 source={Card} 
@@ -44,7 +45,7 @@ const Mot = () => {
                         <Text style={styles.text2}>Marseille</Text>
                     </View>
                 </ImageBackground>
-                <VoteCard/>
+                <Button text="Continuer" colorText="white" colorBackGround="blue" onPress={() => {}}/>
             </View>
         </View>
         </SafeAreaView>
@@ -61,16 +62,16 @@ const styles = StyleSheet.create({
 
     container:{
         justifyContent:'space-between',
+        width:'80%',
         flex:1,
-        paddingBottom:40,
-        paddingTop:20
+        paddingTop:20,
+        paddingBottom:40
     },
 
     title:{
         justifyContent:'flex-start',
         width:'100%',
-        paddingLeft:20,
-        marginTop:20
+        marginTop:80
     },
 
     text1: {
@@ -104,7 +105,9 @@ const styles = StyleSheet.create({
     },
 
     card:{
-        height:windowHeight*0.35,
+        flex:1,
+        width:'100%',
+        marginBottom:80
     }
 });
 
