@@ -22,6 +22,13 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Mot'>;
 const PassPhone = ({route}: Props) => {
     const {gameState} = route.params;
     const navigation = useNavigation<navigationProp>();
+
+    const nonIncognitoPlayers = gameState.filter((player) => player.role !== 'incognito');
+    const randomPlayerIndex = Math.floor(Math.random() * nonIncognitoPlayers.length);
+    const randomPlayer = nonIncognitoPlayers[randomPlayerIndex].player;
+    const updatedGameState = nonIncognitoPlayers.filter((_, index) => index !== randomPlayerIndex);
+
+
     return (
         <ImageBackground 
         source={Space_Background} 
@@ -36,7 +43,7 @@ const PassPhone = ({route}: Props) => {
             </View>
             <View style={styles.container}>
                 <View style={styles.containerText}>
-                    <Text style={styles.text1}>Passe le téléphone à Paul, son môt va être dévoilé</Text>
+                    <Text style={styles.text1}>Passe le téléphone à {randomPlayer.name}, son môt va être dévoilé</Text>
                 </View>
                 <Button text="Réveler le mot" colorBackGround={main.MainColor} colorText="white" onPress={() => {navigation.navigate('Mot'); console.log(gameState)}}/>
             </View>
