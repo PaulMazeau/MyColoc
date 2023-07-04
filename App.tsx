@@ -130,7 +130,9 @@ export type MiniJeuStackParams = {
   Basket: undefined;
   ClassementBasketBall: undefined;
   Classement: undefined;
-  Mot: undefined;  
+  Mot: {
+    updatedGameState:any[]
+    playerInfo:any};  
 };
 
 // Création des piles de navigation

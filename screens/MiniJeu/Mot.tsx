@@ -1,11 +1,10 @@
 import React from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions } from "react-native";
-import VoteCard from "../../components/MiniJeu/VoteCard";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import Button from "../../components/Reusable/ButtonColor";
 
 import { useNavigation } from "@react-navigation/native";
@@ -15,10 +14,14 @@ const Logo =require('../../assets/images/Logo_Minijeu.png');
 const Card =require('../../assets/images/Card.png');
 const windowHeight = Dimensions.get('window').height;
 
+type Props = NativeStackScreenProps<MiniJeuStackParams, 'Mot'>;
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Mot'>;
 
-const Mot = () => {
+const Mot = ({route}: Props) => {
+    const {playerInfo, updatedGameState} = route.params;
+    
+
     const navigation = useNavigation<navigationProp>();
     return (
         <ImageBackground 
@@ -34,7 +37,7 @@ const Mot = () => {
             </View>
             <View style={styles.container}>
                 <View style={styles.title}>
-                    <Text style={styles.text1}>Romain ton mot est :</Text>
+                    <Text style={styles.text1}>{playerInfo.player.name} ton mot est :</Text>
                 </View>
                 <ImageBackground 
                 source={Card} 
@@ -42,7 +45,7 @@ const Mot = () => {
                 style={styles.card}
                 >
                     <View style={styles.word}>
-                        <Text style={styles.text2}>Marseille</Text>
+                        <Text style={styles.text2}>{playerInfo.mot}</Text>
                     </View>
                 </ImageBackground>
                 <Button text="Continuer" colorText="white" colorBackGround="blue" onPress={() => {}}/>

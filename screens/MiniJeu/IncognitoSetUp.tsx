@@ -13,6 +13,14 @@ import PlayersCard from "../../components/MiniJeu/PlayersCard";
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 
+const wordPairs = [
+    ['chat', 'chaton'],
+    ['maison', 'villa'],
+    ['voiture', 'automobile'],
+    ['pomme', 'poire'],
+    ['chien', 'chiot'],
+];
+
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'PassPhone'>;
 
@@ -24,6 +32,10 @@ const IncognitoSetUp = () => {
 
     // Function to assign roles
     const assignRoles = () => {
+
+        const randomWordPair = wordPairs[Math.floor(Math.random() * wordPairs.length)];
+
+
         // choose a random index for the 'incognito' player
         const incognitoIndex = Math.floor(Math.random() * selectedPlayers.length);
 
@@ -31,6 +43,7 @@ const IncognitoSetUp = () => {
             player,
             role: index === incognitoIndex ? 'incognito' : 'civil',
             alive: true,
+            mot: index === incognitoIndex ? randomWordPair[1] : randomWordPair[0]
         }));
 
         setGameState(newGameState);
