@@ -50,7 +50,7 @@ const Mot = ({route}: Props) => {
                         <Text style={styles.text2}>{playerInfo.mot}</Text>
                     </View>
                 </ImageBackground>
-                <Button text="Continuer" colorText="white" colorBackGround="blue" onPress={() => {(updatedGameState.length<= 0)? navigation.navigate('Vote', {gameStateCopy}):navigation.navigate('PassPhone', {gameState, gameStateCopy})}}/>
+                <Button text="Continuer" colorText="white" colorBackGround={main.MainColor} onPress={() => {(updatedGameState.length<= 0)? navigation.navigate('Vote', {gameStateCopy}):navigation.navigate('PassPhone', {gameState, gameStateCopy})}}/>
             </View>
         </View>
         </SafeAreaView>

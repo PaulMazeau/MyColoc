@@ -57,7 +57,6 @@ const IncognitoSetUp = () => {
         }
     }, [selectedPlayers])
 
-    console.log(gameStateCopy)
     return (
         <ImageBackground 
         source={Space_Background} 

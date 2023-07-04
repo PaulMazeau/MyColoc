@@ -1,92 +1,134 @@
-import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import React, { useState, useEffect, useContext } from 'react'
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, FlatList } from "react-native";
 import { main } from '../../constants/Colors';
-import Button from "../Reusable/ButtonColor";
-import ParticipantCardPurcentFilled from "../Reusable/ParticipantCardPurcentFilled";
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MiniJeuStackParams } from '../../App';
-import { useNavigation } from "@react-navigation/native";
+import Button from '../Reusable/ButtonColor';
+import ParticipantCard from '../Reusable/ParticipantCard';
+import { ColocContext, UserContext } from '../../UserContext';
+import AddButton from '../../assets/icons/AddButtonGrey.svg';
 
-const windowWidth = Dimensions.get('window').width;
+// Définition du type de données
+interface Player {
+    id: string;
+    name: string;
+    photo: any;
+}
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Result'>;
+type Props = {
+  selectedPlayers: Player[];
+  setSelectedPlayers?: React.Dispatch<React.SetStateAction<Player[]>>;
+  onPress: () => void
+};
 
-const VoteCard = () => {
 
-    //Liste des participants
-    const participants = [
-        { text: 'Julie', percent: 70, imageSource: require('../../assets/images/profilIcon.png') },
-        { text: 'Mehdi', percent: 10, imageSource: require('../../assets/images/profilIcon.png') },
-        { text: 'Clara', percent: 0, imageSource: require('../../assets/images/profilIcon.png') },
-        { text: 'Max', percent: 20, imageSource: require('../../assets/images/profilIcon.png') },
-    ];
+const VoteCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
+    const [coloc, setColoc] = useContext(ColocContext);
 
-    //Génère les ParticipantCardPurcentFilled
-    const renderParticipants = (participants) => {
-        return participants.map((participant, index) => (
-            <ParticipantCardPurcentFilled 
-                key={index} 
-                text={participant.text} 
-                percent={participant.percent} 
-                imageSource={participant.imageSource}
-            />
-        ));
+    const data = coloc.map((c, index) => ({
+        id: index.toString(),
+        name: c.nom,
+        photo: c.avatarUrl,
+    }));
+
+    //Permet de reveler le bouton addPlayer
+    // data.push({
+    //   id: "buttonAdd",
+    // });
+
+    const handlePress = (player) => {
+      if (player.id === "buttonAdd") return;
+      if (selectedPlayers.find(p => p.id === player.id)) {
+          setSelectedPlayers(selectedPlayers.filter(p => p.id !== player.id));
+      } else {
+          setSelectedPlayers([...selectedPlayers, player]);
+      }
     };
-
-    const navigation = useNavigation<navigationProp>();
+  
+    const renderItem = ({ item }: { item: Player }) => {
+      if (item.id === "buttonAdd") {
+          return (
+            <TouchableOpacity>
+              <AddButton style={{marginTop:30}}/>
+            </TouchableOpacity>
+          );
+      }
+      return (
+          <TouchableOpacity style={{marginTop:20}} onPress={() => handlePress(item)}>
+              <ParticipantCard nom={item.name} url={item.photo} height={95} width={80} selected={selectedPlayers.find(p => p.id === item.id)}/>
+          </TouchableOpacity>
+      );
+  };
+  
+  
 
     return (
-        <View style={styles.global}>
-            <View style={styles.firstLign}>
-                <Text style={styles.text1}>Vote contre l'incognito</Text>
-            </View>
-            <View style={styles.secondLign}>
-                {renderParticipants(participants)}
-            </View>
-            <View style={styles.thirdLign}>
-                <Button text={"Voter"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={() => navigation.navigate('Result')}/>
-            </View>
+      <View style={styles.global}>
+        <View style={styles.flatlist}>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item: Player) => item.id}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={
+              <View style={styles.lign}>
+                  <Text style={styles.text}>Qui sort ?</Text>
+              </View>
+            }
+            numColumns={3}
+            columnWrapperStyle={{justifyContent:'space-around'}}
+          />
         </View>
+      </View>
     );
-};
+}
+
 
 const styles = StyleSheet.create({
     global: {
-        backgroundColor: "#EDF0FA",
-        borderRadius: 10,
-        justifyContent: 'space-between',
-        width:windowWidth * 0.9,
-        padding:10,
-        height:'38%',
-        marginBottom:10
+        flex:1,
+        borderRadius:10,
     },
 
-    firstLign: {
-        alignItems:'flex-start',
-        width:'100%',
-        height:'15%'
+    container:{
+        flex:1
     },
 
-    secondLign:{
+    lign:{
         flexDirection:'row',
-        height:'40%',
+        alignItems:'center',
+        justifyContent:'space-between',
+        padding:15,
+        paddingBottom:-5,
     },
 
-    thirdLign:{
-        height:'20%'
-    },
-
-    text1: {
-        fontWeight: '600',
-        fontSize: 20,
+    text:{
         color: main.TextColor,
-    },
-
-    text2: {
         fontWeight: '600',
         fontSize: 20,
-        color: "white"
-    }
+    },
+
+    flatlist:{
+      borderRadius: 10,
+      paddingHorizontal:10,
+      backgroundColor:'white',
+      paddingBottom:15
+    },
+
+    player: {
+      alignItems: 'center',
+      margin: 6
+    },
+
+    ImageContainer: {
+      height: 90,
+      width: 90,
+      borderRadius: 4
+    },
+
+    Image: {
+      height: '100%',
+      width: '100%',
+      borderRadius: 5,
+    },
 });
 
-export default VoteCard;
+export default VoteCard

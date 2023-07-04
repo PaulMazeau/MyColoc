@@ -5,11 +5,11 @@ import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MiniJeuStackParams } from "../../App";
+import VoteCard from "../../components/MiniJeu/VoteCard";
+import Button from "../../components/Reusable/ButtonColor";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
-const Podium =require('../../assets/images/Podium.png');
-const Brick =require('../../assets/images/Brick.png');
 
 
 type Props = NativeStackScreenProps<MiniJeuStackParams, 'Vote'>;
@@ -29,9 +29,13 @@ const Vote = ({route}:Props) => {
             <View style={styles.Logo}>
                 <Image source={Logo} />
             </View>
-
-
-
+            <View style={styles.container}>
+                <Text style={styles.text1}>Enoncez chacun un indice puis désignez quelqu'un à éliminier</Text>
+                <View style={styles.voteCard}>
+                    <VoteCard selectedPlayers={gameStateCopy} onPress={() => {}}/>
+                </View>
+                <Button text="Voter" colorBackGround={main.MainColor} colorText="white" onPress={() => {}}/>
+            </View>
         </View>
         </SafeAreaView>
       </ImageBackground>
@@ -46,44 +50,21 @@ const styles = StyleSheet.create({
 
     },
 
+    voteCard:{
+        flex:0.7,
+    },
+
     classement:{
         flex:0.8,
         paddingBottom:20,
         paddingTop:30,
     },
 
-    podium:{
-        marginTop:20,
-        width:"80%",
-        height:"20%"
-    },
-
-    podiumImage:{
-        height:'100%',
-        width:'100%',
-        justifyContent:'space-between',
-        alignItems:'center',
-    },
-
-    brick:{
-        width:"80%",
-        height:"15%",
-        marginTop:10
-    },
-
-    brickImage:{
-        height:'100%',
-        width:'100%',
-        justifyContent:'space-between',
-        alignItems:'center',
-    },
-
-    inputContainer:{
-        width:'90%',
-        height:'20%',
-        backgroundColor:main.BgColor,
-        borderRadius:10,
-        marginTop:15
+    container:{
+        width:'80%',
+        flex:1,
+        marginBottom:40,
+        justifyContent:'space-around'
     },
 
     textInput:{
@@ -109,26 +90,6 @@ const styles = StyleSheet.create({
         fontSize: 27,
     },
 
-    text3: {
-        color: main.LightWhite,
-        fontWeight: '600',
-        fontSize: 40,
-        marginBottom:10
-    },
-
-    text4: {
-        color: main.LightWhite,
-        fontWeight: '600',
-        fontSize: 20,
-        marginTop:20
-    },
-
-    text5: {
-        color: main.LightWhite,
-        fontWeight: '600',
-        fontSize: 40,
-        marginBottom:10
-    },
 
     imageBackground: {
         flex: 1,             
