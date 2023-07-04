@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { useNavigation } from "@react-navigation/native";
 import Button from "../../components/Reusable/ButtonColor";
@@ -13,12 +13,14 @@ const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 const windowHeight = Dimensions.get('window').height;
 
+type Props = NativeStackScreenProps<MiniJeuStackParams, 'PassPhone'>;
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Mot'>;
 
 
-const PassPhone = () => {
-    
+
+const PassPhone = ({route}: Props) => {
+    const {gameState} = route.params;
     const navigation = useNavigation<navigationProp>();
     return (
         <ImageBackground 
@@ -36,7 +38,7 @@ const PassPhone = () => {
                 <View style={styles.containerText}>
                     <Text style={styles.text1}>Passe le téléphone à Paul, son môt va être dévoilé</Text>
                 </View>
-                <Button text="Réveler le mot" colorBackGround={main.MainColor} colorText="white" onPress={() => {navigation.navigate('Mot')}}/>
+                <Button text="Réveler le mot" colorBackGround={main.MainColor} colorText="white" onPress={() => {navigation.navigate('Mot'); console.log(gameState)}}/>
             </View>
         </View>
         </SafeAreaView>

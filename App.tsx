@@ -123,7 +123,7 @@ export type MiniJeuStackParams = {
   Guess: undefined;
   Answer: undefined;
   IncognitoSetUp: undefined;
-  PassPhone: undefined;
+  PassPhone: {gameState:any[]};
   Result: undefined;
   Foot: undefined;
   ClassementFootBall: undefined;
