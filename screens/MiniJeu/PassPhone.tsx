@@ -24,10 +24,10 @@ const PassPhone = ({route}: Props) => {
     
     const navigation = useNavigation<navigationProp>();
 
-    const nonIncognitoPlayers = gameState.filter((player) => player.role !== 'incognito');
-    const randomPlayerIndex = Math.floor(Math.random() * nonIncognitoPlayers.length);
-    const playerInfo = nonIncognitoPlayers[randomPlayerIndex];
-    const updatedGameState = nonIncognitoPlayers.filter((_, index) => index !== randomPlayerIndex);
+    //tir un joueur au pif parmis les restant, puis retire ce joueur de la liste
+    const randomPlayerIndex = Math.floor(Math.random() * gameState.length);
+    const playerInfo = gameState[randomPlayerIndex];
+    const updatedGameState = gameState.filter((_, index) => index !== randomPlayerIndex);
 
 
     return (
