@@ -40,6 +40,7 @@ import IncognitoSetUp from './screens/MiniJeu/IncognitoSetUp';
 import Mot from './screens/MiniJeu/Mot';
 import Result from './screens/MiniJeu/Result';
 import PassPhone from './screens/MiniJeu/PassPhone';
+import Vote from './screens/MiniJeu/Vote';
 import Answer from './screens/MiniJeu/Answer';
 import Classement from './screens/MiniJeu/Classement';
 import ColocationSettingsScreen from './screens/ColocationSettings';
@@ -120,6 +121,7 @@ export type MiniJeuStackParams = {
   BoutonMiniJeu: undefined,
   MiniJeu: undefined;
   AuPlusProcheWait: undefined;
+  Vote: undefined;
   Guess: undefined;
   Answer: undefined;
   IncognitoSetUp: undefined;
@@ -306,6 +308,7 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="Answer" component={Answer} />
       <MiniJeuStack.Screen name="IncognitoSetUp" component={IncognitoSetUp} />
       <MiniJeuStack.Screen name="PassPhone" component={PassPhone} />
+      <MiniJeuStack.Screen name="Vote" component={Vote} />
       <MiniJeuStack.Screen name="Mot" component={Mot} />
       <MiniJeuStack.Screen name="Result" component={Result} />
       <MiniJeuStack.Screen name="Foot" component={Foot} />
