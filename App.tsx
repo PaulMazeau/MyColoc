@@ -118,12 +118,14 @@ export type SettingsStackParams = {
   AvatarSettings: undefined,
 };
 
+
+
 export type MiniJeuStackParams = {
   BoutonMiniJeu: undefined,
   MiniJeu: undefined;
   AuPlusProcheWait: undefined;
   Vote: {gameStateCopy:any[]};
-  RevealRole:undefined;
+  RevealRole:{selectedPlayer:any};
   Guess: undefined;
   Answer: undefined;
   IncognitoSetUp: undefined;

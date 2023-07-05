@@ -17,7 +17,25 @@ const windowHeight = Dimensions.get('window').height;
 type navigationProp1 = NativeStackNavigationProp<MiniJeuStackParams, 'IncognitoSetUp'>;
 type navigationProp2 = NativeStackNavigationProp<MiniJeuStackParams, 'MiniJeu'>;
 
-const RevealRole = () => {
+interface Player {
+    id: string;
+    name: string;
+    photo: any;
+    alive: boolean;
+}
+
+interface PlayerInfo {
+  player: Player;
+  role: string;
+  alive: boolean;
+  mot: string;
+}
+
+type Props ={
+    playerInfo : PlayerInfo;
+}
+
+const RevealRole = ({playerInfo}:Props) => {
     const navigation1 = useNavigation<navigationProp1>();
     const navigation2 = useNavigation<navigationProp2>();
     

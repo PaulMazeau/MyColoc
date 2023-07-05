@@ -53,7 +53,7 @@ const Vote = ({route}:Props) => {
                 <View style={styles.voteCard}>
                     <VoteCard selectedPlayers={gameStateCopy} selectedPlayer={selectedPlayer} onPress={setSelectedPlayer} />
                 </View>
-                <Button text="Voter" colorBackGround={main.MainColor} colorText="white" onPress={() => {selectedPlayer!=null?navigation.navigate('RevealRole'):console.log('choisissez un joueur')}}/>
+                <Button text="Voter" colorBackGround={main.MainColor} colorText="white" onPress={() => {selectedPlayer!=null?navigation.navigate('RevealRole', {selectedPlayer}):console.log('choisissez un joueur')}}/>
             </View>
         </View>
         </SafeAreaView>

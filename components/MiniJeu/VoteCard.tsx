@@ -1,29 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React from 'react'
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, FlatList } from "react-native";
 import { main } from '../../constants/Colors';
-import Button from '../Reusable/ButtonColor';
 import ParticipantCard from '../Reusable/ParticipantCard';
-import { ColocContext, UserContext } from '../../UserContext';
-import AddButton from '../../assets/icons/AddButtonGrey.svg';
 
-// Définition du type de données
-interface Player {
-    id: string;
-    name: string;
-    photo: any;
-    alive: boolean;
-}
 
-interface PlayerInfo {
-  player: Player;
-  role: string;
-  alive: boolean;
-  mot: string;
-}
 
 type Props = {
   selectedPlayers: any[];
-  selectedPlayer: PlayerInfo | null;
+  selectedPlayer: any | null;
   onPress: (int) => void
 };
 
@@ -35,7 +19,7 @@ const VoteCard = ({selectedPlayers, selectedPlayer, onPress}: Props) => {
   }));
 
   
-  const renderItem = ({ item }: { item: PlayerInfo }) => {
+  const renderItem = ({ item }: { item: any }) => {
     const isSelected = selectedPlayer?.player.id === item.player.id;
     return (
         <TouchableOpacity style={{marginTop:20}} onPress={() => {onPress(item)}}>
