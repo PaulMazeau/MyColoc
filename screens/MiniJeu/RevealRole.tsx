@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, Dimensions } from "react-native";
 import Button from "../../components/Reusable/ButtonColor";
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,6 +7,7 @@ import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
+import { GameStateContext } from "./GameStateContext";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -24,7 +25,7 @@ const RevealRole = ({route}:Props) => {
     const navigation1 = useNavigation<navigationProp1>();
     const navigation2 = useNavigation<navigationProp2>();
     const { selectedPlayer } = route.params;
-    const {gameStateCopy} = route.params
+    const [gameState, setGameState] = useContext(GameStateContext);
     
     //Variable qui permet de set à gagné, raté ou perdu
     const [isWinner, setIsWinner] = useState('Raté');
@@ -38,9 +39,13 @@ const RevealRole = ({route}:Props) => {
             setIsWinner('Gagné')
         }
     }, [selectedPlayer]); // Exécutez ceci uniquement lorsque selectedPlayer change
+
+
+
     
 
     return (
+        
         <ImageBackground 
         source={Space_Background} 
         resizeMode="cover"
@@ -63,10 +68,13 @@ const RevealRole = ({route}:Props) => {
                 <Text style={styles.text2}>{isIncognito ? `${selectedPlayer.player.name} était l'incognito` : `${selectedPlayer.player.name} était un civil`}</Text>
                 </View>
                 <Button text={"Continuer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> {
-                    isIncognito?
-                    navigation1.navigate('IncognitoSetUp')
-                    :
-                    navigation2.navigate('Vote', {gameStateCopy})
+                    if(isIncognito){
+                        setGameState([])
+                        navigation1.navigate('IncognitoSetUp')
+                    }
+                    else{
+                        navigation2.navigate('Vote')
+                    }
                     }}/>
             </View>
         </View>

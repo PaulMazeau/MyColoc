@@ -42,6 +42,7 @@ import RevealRole from './screens/MiniJeu/RevealRole';
 import Result from './screens/MiniJeu/Result';
 import PassPhone from './screens/MiniJeu/PassPhone';
 import Vote from './screens/MiniJeu/Vote';
+import { GameStateProvider } from "./screens/MiniJeu/GameStateContext";
 import Answer from './screens/MiniJeu/Answer';
 import Classement from './screens/MiniJeu/Classement';
 import ColocationSettingsScreen from './screens/ColocationSettings';
@@ -124,16 +125,14 @@ export type MiniJeuStackParams = {
   BoutonMiniJeu: undefined,
   MiniJeu: undefined;
   AuPlusProcheWait: undefined;
-  Vote: {gameStateCopy:any[]};
+  Vote: undefined;
   RevealRole:{
-    selectedPlayer:any
-    gameStateCopy:any[]};
+    selectedPlayer:any};
   Guess: undefined;
   Answer: undefined;
   IncognitoSetUp: undefined;
   PassPhone: {
-    gameState:any[]
-    gameStateCopy:any[]};
+    gameState:any[]};
   Result: undefined;
   Foot: undefined;
   ClassementFootBall: undefined;
@@ -142,7 +141,6 @@ export type MiniJeuStackParams = {
   Classement: undefined;
   Mot: {
     updatedGameState:any[]
-    gameStateCopy:any[]
     playerInfo:any};  
 };
 
@@ -309,6 +307,7 @@ const DepenseScreenStack = () => {
 // Pile de navigation pour l'écran MiniJeu
 const MiniJeuScreenStack = () => {
   return (
+    <GameStateProvider>
     <MiniJeuStack.Navigator initialRouteName="MiniJeu" screenOptions={{ headerShown: false }}>
       <MiniJeuStack.Screen name="MiniJeu" component={MiniJeu} />
       <MiniJeuStack.Screen name="Classement" component={Classement} />
@@ -326,6 +325,7 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="Basket" component={Basket} />
       <MiniJeuStack.Screen name="ClassementBasketBall" component={ClassementBasketBall} />
     </MiniJeuStack.Navigator>
+    </GameStateProvider>
   );
 };
 

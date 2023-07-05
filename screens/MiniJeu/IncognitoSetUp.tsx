@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
 import Regles from '../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,9 +6,11 @@ import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from '@react-navigation/native';
 import BackButton from "../../components/Reusable/BackButton";
 import PlayersCard from "../../components/MiniJeu/PlayersCard";
+import { GameStateContext } from './GameStateContext';
+
 
 
 
@@ -30,8 +32,7 @@ const IncognitoSetUp = () => {
     const navigation = useNavigation<navigationProp>();
     
     const [selectedPlayers, setSelectedPlayers] = useState([]);
-    const [gameState, setGameState] = useState([]);
-    const [gameStateCopy, setGameStateCopy] = useState([]);
+    const [gameState, setGameState] = useContext(GameStateContext);
 
     // Function to assign roles
     const assignRoles = () => {
@@ -50,7 +51,6 @@ const IncognitoSetUp = () => {
         }));
 
         setGameState(newGameState);
-        setGameStateCopy(newGameState)
     }
 
     useEffect(() => {
@@ -58,9 +58,22 @@ const IncognitoSetUp = () => {
             assignRoles();
         }
     }, [selectedPlayers])
-    
-    
 
+
+    const route = useRoute();
+    
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            if (route.name === 'IncognitoSetUp') {
+                setSelectedPlayers([]);
+            }
+        });
+    
+        return unsubscribe;
+    }, [navigation, route]);
+
+
+    
     return (
         <ImageBackground 
         source={Space_Background} 
@@ -78,7 +91,12 @@ const IncognitoSetUp = () => {
                 <Text style={styles.text}>Incognito</Text>
             </View>
             <View style={styles.container}>
-                <PlayersCard selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} onPress={() => {selectedPlayers.length<=2? console.log('choisissez au moins 3 joueurs'):navigation.navigate('PassPhone', {gameState, gameStateCopy})}}/>
+                <PlayersCard selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} onPress={() => {
+                    selectedPlayers.length<=2? 
+                    console.log('choisissez au moins 3 joueurs')
+                    :
+                    navigation.navigate('PassPhone', {gameState})
+                    }}/>
                 <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
             </View>
         </View>
