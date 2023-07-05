@@ -14,30 +14,35 @@ interface Player {
     alive: boolean;
 }
 
+interface PlayerInfo {
+  player: Player;
+  role: string;
+  alive: boolean;
+  mot: string;
+}
+
 type Props = {
   selectedPlayers: any[];
-  selectedPlayer:any;
+  selectedPlayer: PlayerInfo | null;
   onPress: (int) => void
 };
 
 
 const VoteCard = ({selectedPlayers, selectedPlayer, onPress}: Props) => {
 
-    const data = selectedPlayers.map((c, index) => ({
-        id: index.toString(),
-        name: c.player.name,
-        photo: c.player.photo,
-        alive: c.alive
-    }));
+  const data = selectedPlayers.map((c) => ({
+    ...c // on inclut toutes les propriétés de chaque élément de selectedPlayers
+  }));
+
   
-    const renderItem = ({ item }: { item: Player }) => {
-      const isSelected = selectedPlayer === item.id;
-      return (
-          <TouchableOpacity style={{marginTop:20}} onPress={() => {onPress(item.id)}}>
-              <ParticipantCard nom={item.name} url={item.photo} height={95} width={80} selected={isSelected} />
-          </TouchableOpacity>
-      );
-    };
+  const renderItem = ({ item }: { item: PlayerInfo }) => {
+    const isSelected = selectedPlayer?.player.id === item.player.id;
+    return (
+        <TouchableOpacity style={{marginTop:20}} onPress={() => {onPress(item)}}>
+            <ParticipantCard nom={item.player.name} url={item.player.photo} height={95} width={80} selected={isSelected} />
+        </TouchableOpacity>
+    );
+  };
   
   
   
@@ -48,7 +53,7 @@ const VoteCard = ({selectedPlayers, selectedPlayer, onPress}: Props) => {
           <FlatList
             data={data}
             renderItem={renderItem}
-            keyExtractor={(item: Player) => item.id}
+            keyExtractor={(item: PlayerInfo) => item.player.id}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={
               <View style={styles.lign}>

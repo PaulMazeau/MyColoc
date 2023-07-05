@@ -17,9 +17,23 @@ const Logo =require('../../assets/images/Logo_Minijeu.png');
 type Props = NativeStackScreenProps<MiniJeuStackParams, 'Vote'>;
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'RevealRole'>;
 
+interface Player {
+    id: string;
+    name: string;
+    photo: any;
+}
+
+interface PlayerInfo {
+    player: Player;
+    role: string;
+    alive: boolean;
+    mot: string;
+}
+
+
 const Vote = ({route}:Props) => {
     const {gameStateCopy} = route.params
-    const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
+    const [selectedPlayer, setSelectedPlayer] = useState<PlayerInfo | null>(null);
     const navigation = useNavigation<navigationProp>();
     
     return (
