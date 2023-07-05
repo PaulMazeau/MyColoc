@@ -10,6 +10,8 @@ import { useNavigation } from "@react-navigation/native";
 import BackButton from "../../components/Reusable/BackButton";
 import PlayersCard from "../../components/MiniJeu/PlayersCard";
 
+
+
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 
@@ -56,6 +58,8 @@ const IncognitoSetUp = () => {
             assignRoles();
         }
     }, [selectedPlayers])
+    
+    
 
     return (
         <ImageBackground 

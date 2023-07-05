@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, Dimensions } from "react-native";
 import Button from "../../components/Reusable/ButtonColor";
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -32,10 +32,13 @@ const RevealRole = ({route}:Props) => {
     //Variable qui permet de set l'ecran Incognito si true ou Civil si false
     const [isIncognito, setIsIncognito] = useState(false);
 
-    if(selectedPlayer.role == 'incognito'){
-        setIsIncognito(true);
-        setIsWinner('Gagné')
-    }
+    useEffect(() => {
+        if(selectedPlayer.role == 'incognito'){
+            setIsIncognito(true);
+            setIsWinner('Gagné')
+        }
+    }, [selectedPlayer]); // Exécutez ceci uniquement lorsque selectedPlayer change
+    
 
     return (
         <ImageBackground 
