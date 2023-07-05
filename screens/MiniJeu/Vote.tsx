@@ -3,21 +3,25 @@ import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MiniJeuStackParams } from "../../App";
 import VoteCard from "../../components/MiniJeu/VoteCard";
 import Button from "../../components/Reusable/ButtonColor";
+import { useNavigation } from "@react-navigation/native";
+import RevealRole from "./RevealRole";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 
 type Props = NativeStackScreenProps<MiniJeuStackParams, 'Vote'>;
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'RevealRole'>;
 
 const Vote = ({route}:Props) => {
     const {gameStateCopy} = route.params
     const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
-
+    const navigation = useNavigation<navigationProp>();
+    
     return (
         <ImageBackground 
         source={Space_Background} 
@@ -35,7 +39,7 @@ const Vote = ({route}:Props) => {
                 <View style={styles.voteCard}>
                     <VoteCard selectedPlayers={gameStateCopy} selectedPlayer={selectedPlayer} onPress={setSelectedPlayer} />
                 </View>
-                <Button text="Voter" colorBackGround={main.MainColor} colorText="white" onPress={() => {}}/>
+                <Button text="Voter" colorBackGround={main.MainColor} colorText="white" onPress={() => {selectedPlayer!=null?navigation.navigate('RevealRole'):console.log('choisissez un joueur')}}/>
             </View>
         </View>
         </SafeAreaView>

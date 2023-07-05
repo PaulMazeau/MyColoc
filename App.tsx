@@ -38,6 +38,7 @@ import Foot from './screens/MiniJeu/FootBall/Foot';
 import Guess from './screens/MiniJeu/Guess';
 import IncognitoSetUp from './screens/MiniJeu/IncognitoSetUp';
 import Mot from './screens/MiniJeu/Mot';
+import RevealRole from './screens/MiniJeu/RevealRole';
 import Result from './screens/MiniJeu/Result';
 import PassPhone from './screens/MiniJeu/PassPhone';
 import Vote from './screens/MiniJeu/Vote';
@@ -122,6 +123,7 @@ export type MiniJeuStackParams = {
   MiniJeu: undefined;
   AuPlusProcheWait: undefined;
   Vote: {gameStateCopy:any[]};
+  RevealRole:undefined;
   Guess: undefined;
   Answer: undefined;
   IncognitoSetUp: undefined;
@@ -313,6 +315,7 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="PassPhone" component={PassPhone} />
       <MiniJeuStack.Screen name="Vote" component={Vote} />
       <MiniJeuStack.Screen name="Mot" component={Mot} />
+      <MiniJeuStack.Screen name="RevealRole" component={RevealRole} />
       <MiniJeuStack.Screen name="Result" component={Result} />
       <MiniJeuStack.Screen name="Foot" component={Foot} />
       <MiniJeuStack.Screen name="ClassementFootBall" component={ClassementFootBall} />
