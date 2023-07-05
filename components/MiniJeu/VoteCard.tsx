@@ -11,37 +11,23 @@ interface Player {
     id: string;
     name: string;
     photo: any;
+    alive: boolean;
 }
 
 type Props = {
-  selectedPlayers: Player[];
-  setSelectedPlayers?: React.Dispatch<React.SetStateAction<Player[]>>;
-  onPress: () => void
+  selectedPlayers: any[];
+
 };
 
 
-const VoteCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
-    const [coloc, setColoc] = useContext(ColocContext);
+const VoteCard = ({selectedPlayers}: Props) => {
 
-    const data = coloc.map((c, index) => ({
+    const data = selectedPlayers.map((c, index) => ({
         id: index.toString(),
-        name: c.nom,
-        photo: c.avatarUrl,
+        name: c.player.name,
+        photo: c.player.photo,
+        alive: c.alive
     }));
-
-    //Permet de reveler le bouton addPlayer
-    // data.push({
-    //   id: "buttonAdd",
-    // });
-
-    const handlePress = (player) => {
-      if (player.id === "buttonAdd") return;
-      if (selectedPlayers.find(p => p.id === player.id)) {
-          setSelectedPlayers(selectedPlayers.filter(p => p.id !== player.id));
-      } else {
-          setSelectedPlayers([...selectedPlayers, player]);
-      }
-    };
   
     const renderItem = ({ item }: { item: Player }) => {
       if (item.id === "buttonAdd") {
@@ -52,7 +38,7 @@ const VoteCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
           );
       }
       return (
-          <TouchableOpacity style={{marginTop:20}} onPress={() => handlePress(item)}>
+          <TouchableOpacity style={{marginTop:20}} onPress={() => {}}>
               <ParticipantCard nom={item.name} url={item.photo} height={95} width={80} selected={selectedPlayers.find(p => p.id === item.id)}/>
           </TouchableOpacity>
       );

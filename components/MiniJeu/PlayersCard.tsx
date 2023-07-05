@@ -29,6 +29,7 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
         photo: c.avatarUrl,
     }));
 
+
     //Permet de reveler le bouton addPlayer
     // data.push({
     //   id: "buttonAdd",
