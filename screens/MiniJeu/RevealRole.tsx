@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
@@ -15,35 +15,27 @@ const CardCivil =require('../../assets/images/Card.png');
 const windowHeight = Dimensions.get('window').height;
 
 type navigationProp1 = NativeStackNavigationProp<MiniJeuStackParams, 'IncognitoSetUp'>;
-type navigationProp2 = NativeStackNavigationProp<MiniJeuStackParams, 'MiniJeu'>;
+type navigationProp2 = NativeStackNavigationProp<MiniJeuStackParams, 'Vote'>;
+type Props = NativeStackScreenProps<MiniJeuStackParams, 'RevealRole'>;
 
-interface Player {
-    id: string;
-    name: string;
-    photo: any;
-    alive: boolean;
-}
 
-interface PlayerInfo {
-  player: Player;
-  role: string;
-  alive: boolean;
-  mot: string;
-}
 
-type Props ={
-    playerInfo : PlayerInfo;
-}
-
-const RevealRole = ({playerInfo}:Props) => {
+const RevealRole = ({route}:Props) => {
     const navigation1 = useNavigation<navigationProp1>();
     const navigation2 = useNavigation<navigationProp2>();
+    const { selectedPlayer } = route.params;
+    const {gameStateCopy} = route.params
     
-    //Variable qui permet de set l'ecran gagné si true ou l'ecran perdu si false
-    const [isWinner, setIsWinner] = useState(true);
+    //Variable qui permet de set à gagné, raté ou perdu
+    const [isWinner, setIsWinner] = useState('Raté');
     
     //Variable qui permet de set l'ecran Incognito si true ou Civil si false
-    const [isIncognito, setIsIncognito] = useState(true);
+    const [isIncognito, setIsIncognito] = useState(false);
+
+    if(selectedPlayer.role == 'incognito'){
+        setIsIncognito(true);
+        setIsWinner('Gagné')
+    }
 
     return (
         <ImageBackground 
@@ -59,16 +51,20 @@ const RevealRole = ({playerInfo}:Props) => {
             </View>
             <View style={styles.container}>
                 <View style={styles.word}>
-                    <Text style={styles.text1}>{isWinner ? "Gagné" : "Perdu"}</Text>
+                    <Text style={styles.text1}>{isWinner}</Text>
                 </View>
                 <View style={styles.card}>
                 <Image source={isIncognito ? CardIncognito : CardCivil} />
                 </View>
                 <View style={styles.word}>
-                <Text style={styles.text2}>{isIncognito ? "Tu étais l'incognito" : "Tu étais un civil"}</Text>
+                <Text style={styles.text2}>{isIncognito ? `${selectedPlayer.player.name} était l'incognito` : `${selectedPlayer.player.name} était un civil`}</Text>
                 </View>
-                <Button text={"Recommencer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> navigation1.navigate('IncognitoSetUp')}/>
-                <Button text={"Lobby"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> navigation2.navigate('MiniJeu')}/>
+                <Button text={"Continuer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> {
+                    isIncognito?
+                    navigation1.navigate('IncognitoSetUp')
+                    :
+                    navigation2.navigate('Vote', {gameStateCopy})
+                    }}/>
             </View>
         </View>
         </SafeAreaView>

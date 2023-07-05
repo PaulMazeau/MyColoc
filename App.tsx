@@ -125,7 +125,9 @@ export type MiniJeuStackParams = {
   MiniJeu: undefined;
   AuPlusProcheWait: undefined;
   Vote: {gameStateCopy:any[]};
-  RevealRole:{selectedPlayer:any};
+  RevealRole:{
+    selectedPlayer:any
+    gameStateCopy:any[]};
   Guess: undefined;
   Answer: undefined;
   IncognitoSetUp: undefined;
