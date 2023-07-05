@@ -16,11 +16,12 @@ interface Player {
 
 type Props = {
   selectedPlayers: any[];
-
+  selectedPlayer:any;
+  onPress: (int) => void
 };
 
 
-const VoteCard = ({selectedPlayers}: Props) => {
+const VoteCard = ({selectedPlayers, selectedPlayer, onPress}: Props) => {
 
     const data = selectedPlayers.map((c, index) => ({
         id: index.toString(),
@@ -30,19 +31,14 @@ const VoteCard = ({selectedPlayers}: Props) => {
     }));
   
     const renderItem = ({ item }: { item: Player }) => {
-      if (item.id === "buttonAdd") {
-          return (
-            <TouchableOpacity>
-              <AddButton style={{marginTop:30}}/>
-            </TouchableOpacity>
-          );
-      }
+      const isSelected = selectedPlayer === item.id;
       return (
-          <TouchableOpacity style={{marginTop:20}} onPress={() => {}}>
-              <ParticipantCard nom={item.name} url={item.photo} height={95} width={80} selected={selectedPlayers.find(p => p.id === item.id)}/>
+          <TouchableOpacity style={{marginTop:20}} onPress={() => {onPress(item.id)}}>
+              <ParticipantCard nom={item.name} url={item.photo} height={95} width={80} selected={isSelected} />
           </TouchableOpacity>
       );
-  };
+    };
+  
   
   
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -16,6 +16,7 @@ type Props = NativeStackScreenProps<MiniJeuStackParams, 'Vote'>;
 
 const Vote = ({route}:Props) => {
     const {gameStateCopy} = route.params
+    const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
 
     return (
         <ImageBackground 
@@ -32,7 +33,7 @@ const Vote = ({route}:Props) => {
             <View style={styles.container}>
                 <Text style={styles.text1}>Enoncez chacun un indice puis désignez quelqu'un à éliminier</Text>
                 <View style={styles.voteCard}>
-                    <VoteCard selectedPlayers={gameStateCopy} onPress={() => {}}/>
+                    <VoteCard selectedPlayers={gameStateCopy} selectedPlayer={selectedPlayer} onPress={setSelectedPlayer} />
                 </View>
                 <Button text="Voter" colorBackGround={main.MainColor} colorText="white" onPress={() => {}}/>
             </View>
