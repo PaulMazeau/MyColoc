@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions, BackHandler } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
@@ -25,6 +25,19 @@ const Mot = ({route}: Props) => {
     const gameState = updatedGameState
 
     const navigation = useNavigation<navigationProp>();
+
+    //Permet de ne pas revenir en arriere avec un swipe natif android
+    useEffect(() => {
+        const backAction = () => {
+          return true;
+        };
+      
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+      
+        return () => backHandler.remove();
+    }, []);
+
+    
     return (
         <ImageBackground 
         source={Space_Background} 

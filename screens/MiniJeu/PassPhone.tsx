@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, Dimensions } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { View, Image, StyleSheet, ImageBackground, Text, Dimensions, BackHandler } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
@@ -30,6 +30,18 @@ const PassPhone = ({route}: Props) => {
     const randomPlayerIndex = Math.floor(Math.random() * gameState.length);
     const playerInfo = gameState[randomPlayerIndex];
     const updatedGameState = gameState.filter((_, index) => index !== randomPlayerIndex);
+
+    //Permet de ne pas revenir en arriere avec un swipe natif android
+    useEffect(() => {
+        const backAction = () => {
+          return true;
+        };
+      
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+      
+        return () => backHandler.remove();
+    }, []);
+
 
     return (
         <ImageBackground 

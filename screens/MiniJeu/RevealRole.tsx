@@ -8,6 +8,7 @@ import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { GameStateContext } from "./GameStateContext";
+import { BackHandler } from 'react-native';
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -36,6 +37,17 @@ const RevealRole = ({route}:Props) => {
     const [isIncognito, setIsIncognito] = useState(false);
 
     const [incognitoName, setIncognitoName] = useState('');
+
+    //Permet de ne pas revenir en arriere avec un swipe natif android
+    useEffect(() => {
+        const backAction = () => {
+          return true;
+        };
+      
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+      
+        return () => backHandler.remove();
+    }, []);
 
 
     useEffect(() => {
