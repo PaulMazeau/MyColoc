@@ -44,6 +44,18 @@ const Vote = () => {
 
     const handleVote = () => {
         if (selectedPlayer) {
+            //Met a jour le gameState avec la personne eliminée
+            const newGameState = gameState.map(player => {
+            if (player.player.id === selectedPlayer.player.id) {
+              return {
+                ...player,
+                alive: false,
+              }
+            }
+    
+            return player;
+          });
+          setGameState(newGameState);
           navigation.navigate('RevealRole', {selectedPlayer});
         } else {
           console.log('choisissez un joueur')
