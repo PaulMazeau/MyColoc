@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Alert } from "react-native";
 import Regles from '../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -93,7 +93,7 @@ const IncognitoSetUp = () => {
             <View style={styles.container}>
                 <PlayersCard selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} onPress={() => {
                     selectedPlayers.length<=2? 
-                    console.log('choisissez au moins 3 joueurs')
+                    Alert.alert("Il manque des joueurs","Sélectionne au moins trois joueurs !")
                     :
                     navigation.navigate('PassPhone', {gameState})
                     }}/>

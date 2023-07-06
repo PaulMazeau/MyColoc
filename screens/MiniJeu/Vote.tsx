@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, BackHandler } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, BackHandler, Alert } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
@@ -58,7 +58,7 @@ const Vote = () => {
           setGameState(newGameState);
           navigation.navigate('RevealRole', {selectedPlayer});
         } else {
-          console.log('choisissez un joueur')
+            Alert.alert("Aucune sélection","Sélectionne le joueur que vous souhaitez exclure")
         }
     };
 
