@@ -41,7 +41,20 @@ const RevealRole = ({route}:Props) => {
     }, [selectedPlayer]); // Exécutez ceci uniquement lorsque selectedPlayer change
 
 
-
+    const Elimination = () => {
+        // modifie le gameState avec le joueur voté isAlive=false
+        const newGameState = gameState.map(player => {
+            if (player.player.id === selectedPlayer.player.id) {
+              return {
+                ...player,
+                alive: false,
+              }
+            }
+  
+            return player;
+          });
+          setGameState(newGameState);
+    };
     
 
     return (
@@ -69,10 +82,10 @@ const RevealRole = ({route}:Props) => {
                 </View>
                 <Button text={"Continuer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> {
                     if(isIncognito){
-                        setGameState([])
                         navigation1.navigate('IncognitoSetUp')
                     }
                     else{
+                        Elimination();
                         navigation2.navigate('Vote')
                     }
                     }}/>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -16,7 +16,6 @@ const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 
-type Props = NativeStackScreenProps<MiniJeuStackParams, 'Vote'>;
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'RevealRole'>;
 
 interface Player {
@@ -33,10 +32,23 @@ interface PlayerInfo {
 }
 
 
-const Vote = ({route}:Props) => {
+const Vote = () => {
     const [selectedPlayer, setSelectedPlayer] = useState<PlayerInfo | null>(null);
     const [gameState, setGameState] = useContext(GameStateContext)
     const navigation = useNavigation<navigationProp>();
+
+    let data = gameState.map((c) => ({
+        ...c // on inclut toutes les propriétés de chaque élément de selectedPlayers
+    }));
+
+
+    const handleVote = () => {
+        if (selectedPlayer) {
+          navigation.navigate('RevealRole', {selectedPlayer});
+        } else {
+          console.log('choisissez un joueur')
+        }
+    };
     
     return (
         <ImageBackground 
@@ -53,13 +65,9 @@ const Vote = ({route}:Props) => {
             <View style={styles.container}>
                 <Text style={styles.text1}>Enoncez chacun un indice puis désignez quelqu'un à éliminier</Text>
                 <View style={styles.voteCard}>
-                    <VoteCard selectedPlayers={gameState} selectedPlayer={selectedPlayer} onPress={setSelectedPlayer} />
+                    <VoteCard data={data} selectedPlayer={selectedPlayer} onPress={setSelectedPlayer} />
                 </View>
-                <Button text="Voter" colorBackGround={main.MainColor} colorText="white" onPress={() => {
-                    selectedPlayer!=null?navigation.navigate('RevealRole', {selectedPlayer})
-                    :
-                    console.log('choisissez un joueur')}}
-                    />
+                <Button text="Voter" colorBackGround={main.MainColor} colorText="white" onPress={() => handleVote()}/>
             </View>
         </View>
         </SafeAreaView>

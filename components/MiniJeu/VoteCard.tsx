@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, FlatList } from "react-native";
 import { main } from '../../constants/Colors';
 import ParticipantCard from '../Reusable/ParticipantCard';
@@ -6,26 +6,33 @@ import ParticipantCard from '../Reusable/ParticipantCard';
 
 
 type Props = {
-  selectedPlayers: any[];
+  data:any;
   selectedPlayer: any | null;
   onPress: (int) => void
 };
 
 
-const VoteCard = ({selectedPlayers, selectedPlayer, onPress}: Props) => {
-
-  const data = selectedPlayers.map((c) => ({
-    ...c // on inclut toutes les propriétés de chaque élément de selectedPlayers
-  }));
+const VoteCard = ({ data, selectedPlayer, onPress}: Props) => {
 
   
   const renderItem = ({ item }: { item: any }) => {
     const isSelected = selectedPlayer?.player.id === item.player.id;
-    return (
+  
+    if(item.alive){
+      return (
         <TouchableOpacity style={{marginTop:20}} onPress={() => {onPress(item)}}>
             <ParticipantCard nom={item.player.name} url={item.player.photo} height={95} width={80} selected={isSelected} />
         </TouchableOpacity>
-    );
+      );
+    } else {
+      return (
+        <View style={ styles.participant_valid}>
+            <Image style={styles.AvatarStyle} source={{uri : item.player.photo, cache:'force-cache' }}/>
+            <Image source={require('./../../assets/images/Cross.png')} style={{position:'absolute', top:15}}/>
+            <Text style={styles.nom} numberOfLines={1}>{item.player.name}</Text>
+        </View>
+      );
+    }
   };
   
   
@@ -99,6 +106,33 @@ const styles = StyleSheet.create({
       height: '100%',
       width: '100%',
       borderRadius: 5,
+    },
+
+    participant_valid : {
+      marginTop:20,
+      backgroundColor: 'rgba(214,46,46, .5)',
+      borderRadius: 10,
+      alignItems: 'center',
+      borderWidth: 0,
+      borderColor: '#172ACE',
+      justifyContent: 'center',
+      marginRight: 8,
+      padding: 5,
+      width:80,
+      height:95
+    },
+
+    AvatarStyle : {
+      opacity:0.4,
+      width: 55,
+      height: 55,
+      borderRadius: 50,
+    },
+
+    nom: {
+      fontWeight: '600',
+      fontSize: 13,
+      marginTop: 7,
     },
 });
 
