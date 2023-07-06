@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       paddingHorizontal:10,
       backgroundColor:'white',
-      paddingBottom:15
+      paddingBottom:25,
     },
 
     player: {
