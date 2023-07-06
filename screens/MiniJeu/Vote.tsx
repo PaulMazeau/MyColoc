@@ -56,7 +56,10 @@ const Vote = () => {
             return player;
           });
           setGameState(newGameState);
-          navigation.navigate('RevealRole', {selectedPlayer});
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'RevealRole', params: {selectedPlayer} }],
+          });
         } else {
             Alert.alert("Aucune sélection","Sélectionne le joueur que vous souhaitez exclure")
         }
