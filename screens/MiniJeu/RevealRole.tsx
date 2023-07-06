@@ -11,9 +11,10 @@ import { GameStateContext } from "./GameStateContext";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
-const CardIncognito =require('../../assets/images/Card.png');
-const CardCivil =require('../../assets/images/Card.png');
+const CardIncognito =require('../../assets/images/detective.png');
+const CardCivil =require('../../assets/images/civil.png');
 const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 
 type UniversalNavigationProp = NativeStackNavigationProp<MiniJeuStackParams, keyof MiniJeuStackParams>;
 type Props = NativeStackScreenProps<MiniJeuStackParams, 'RevealRole'>;
@@ -56,6 +57,11 @@ const RevealRole = ({route}:Props) => {
         }
     },[gameState])
 
+    const colorMapping = {
+        'Perdu': '#B21A1A',
+        'Raté': '#C5A656',
+        'Gagné': '#8FBA7A'
+    };
     
 
     return (
@@ -75,8 +81,8 @@ const RevealRole = ({route}:Props) => {
                 <View style={styles.word}>
                     <Text style={styles.text1}>{isWinner}</Text>
                 </View>
-                <View style={styles.card}>
-                <Image source={isIncognito ? CardIncognito : CardCivil} />
+                <View style={[styles.card, {backgroundColor: colorMapping[isWinner]}]}>
+                <Image source={isWinner==='Raté' ? CardCivil : CardIncognito} />
                 </View>
                 <View style={styles.word}>
                 <Text style={styles.text2}>{isIncognito ? `${selectedPlayer.player.name} était l'incognito` : `${selectedPlayer.player.name} était un civil`}</Text>
@@ -134,6 +140,11 @@ const styles = StyleSheet.create({
 
     card:{
         height:windowHeight*0.35,
+        width:windowWidth*0.7,
+        backgroundColor:'#8FBA7A',
+        borderRadius:10,
+        justifyContent:'center',
+        alignItems:'center'
     }
 });
 
