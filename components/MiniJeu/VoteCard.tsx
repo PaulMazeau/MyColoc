@@ -5,6 +5,7 @@ import ParticipantCard from '../Reusable/ParticipantCard';
 
 
 
+
 type Props = {
   data:any;
   selectedPlayer: any | null;

@@ -97,7 +97,7 @@ const IncognitoSetUp = () => {
                     :
                     navigation.navigate('PassPhone', {gameState})
                     }}/>
-                <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
+                <Regles text="Tous les joueurs obtiennent un mot identique, sauf un ! Démasquez l'Incognito en donnant chacun votre tour un indice sur votre mot, puis votez. L'Incognito gagne s'il survit et qu'il nereste que 2 joueurs."/>
             </View>
         </View>
         </SafeAreaView>

@@ -87,7 +87,7 @@ const Vote = () => {
                 <Image source={Logo} />
             </View>
             <View style={styles.container}>
-                <Text style={styles.text1}>Enoncez chacun un indice puis désignez quelqu'un à éliminier</Text>
+                <Text style={styles.text1}>Énoncez chacun un indice puis désignez quelqu'un à éliminier</Text>
                 <View style={styles.voteCard}>
                     <VoteCard data={data} selectedPlayer={selectedPlayer} onPress={setSelectedPlayer} />
                 </View>
