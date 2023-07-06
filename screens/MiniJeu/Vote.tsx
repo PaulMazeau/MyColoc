@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     },
 
     container:{
-        width:'80%',
+        width:'90%',
         flex:1,
         marginBottom:40,
         justifyContent:'space-around'
