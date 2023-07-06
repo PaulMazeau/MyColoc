@@ -15,17 +15,18 @@ const CardIncognito =require('../../assets/images/Card.png');
 const CardCivil =require('../../assets/images/Card.png');
 const windowHeight = Dimensions.get('window').height;
 
-type navigationProp1 = NativeStackNavigationProp<MiniJeuStackParams, 'IncognitoSetUp'>;
-type navigationProp2 = NativeStackNavigationProp<MiniJeuStackParams, 'Vote'>;
+type UniversalNavigationProp = NativeStackNavigationProp<MiniJeuStackParams, keyof MiniJeuStackParams>;
 type Props = NativeStackScreenProps<MiniJeuStackParams, 'RevealRole'>;
 
 
 
 const RevealRole = ({route}:Props) => {
-    const navigation1 = useNavigation<navigationProp1>();
-    const navigation2 = useNavigation<navigationProp2>();
+    const navigation = useNavigation<UniversalNavigationProp>();
     const { selectedPlayer } = route.params;
     const [gameState, setGameState] = useContext(GameStateContext);
+    type Screen = "Vote" | "IncognitoSetUp";
+    const [navigateTo, setNavigateTo] = useState<Screen>('Vote');
+
     
     //Variable qui permet de set à gagné, raté ou perdu
     const [isWinner, setIsWinner] = useState('Raté');
@@ -33,12 +34,30 @@ const RevealRole = ({route}:Props) => {
     //Variable qui permet de set l'ecran Incognito si true ou Civil si false
     const [isIncognito, setIsIncognito] = useState(false);
 
+    const [incognitoName, setIncognitoName] = useState('');
+
     useEffect(() => {
+        Elimination()
         if(selectedPlayer.role == 'incognito'){
             setIsIncognito(true);
             setIsWinner('Gagné')
+            setNavigateTo('IncognitoSetUp')
         }
+        
     }, [selectedPlayer]); // Exécutez ceci uniquement lorsque selectedPlayer change
+
+    useEffect(() => {
+
+        const aliveCount = gameState.filter(player => player.alive).length;
+        const incognito = gameState.find(player => player.alive && player.role === 'incognito');
+
+        // Si seulement 2 joueurs restent et qu'il y a un incognito, naviguer vers 'IncognitoSetUp', sinon naviguer vers 'Vote'
+        if (aliveCount === 2 && incognito) {
+            setIsWinner('Perdu')
+            setNavigateTo('IncognitoSetUp')
+            setIncognitoName(incognito.player.name)
+        }
+    },[gameState])
 
 
     const Elimination = () => {
@@ -79,16 +98,9 @@ const RevealRole = ({route}:Props) => {
                 </View>
                 <View style={styles.word}>
                 <Text style={styles.text2}>{isIncognito ? `${selectedPlayer.player.name} était l'incognito` : `${selectedPlayer.player.name} était un civil`}</Text>
+                {isWinner === 'Perdu' && <Text style={styles.text2}>{`${incognitoName} était l'incognito`}</Text>}
                 </View>
-                <Button text={"Continuer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> {
-                    if(isIncognito){
-                        navigation1.navigate('IncognitoSetUp')
-                    }
-                    else{
-                        Elimination();
-                        navigation2.navigate('Vote')
-                    }
-                    }}/>
+                <Button text={"Continuer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> {navigation.navigate(navigateTo)}}/>
             </View>
         </View>
         </SafeAreaView>
