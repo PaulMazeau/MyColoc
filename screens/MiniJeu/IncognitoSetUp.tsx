@@ -65,7 +65,11 @@ const IncognitoSetUp = () => {
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             if (route.name === 'IncognitoSetUp') {
-                setSelectedPlayers([]);
+                const newGameState = gameState.map(playerState => ({
+                    ...playerState,
+                    alive: true,
+                }));
+                setGameState(newGameState);
             }
         });
     

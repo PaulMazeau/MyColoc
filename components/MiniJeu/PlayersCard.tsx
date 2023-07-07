@@ -5,6 +5,8 @@ import Button from '../Reusable/ButtonColor';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import { ColocContext, UserContext } from '../../UserContext';
 import AddButton from '../../assets/icons/AddButtonGrey.svg';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 // Définition du type de données
 interface Player {
@@ -22,6 +24,13 @@ type Props = {
 
 const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
     const [coloc, setColoc] = useContext(ColocContext);
+    const [extraPlayer, setExtraPlayer] = useState([]);
+
+    const extraData = extraPlayer.map((e, index) => ({ 
+        id: e.id,
+        name: e.nom,
+        photo: e.avatarUrl,
+    }));
 
     const data = coloc.map((c, index) => ({
         id: index.toString(),
@@ -29,25 +38,41 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
         photo: c.avatarUrl,
     }));
 
-
     //Permet de reveler le bouton addPlayer
-    // data.push({
-    //   id: "buttonAdd",
-    // });
+    data.push({
+      id: "buttonAdd",
+    });
+
+    const players = [...extraData, ...data];
+
 
     const handlePress = (player) => {
       if (player.id === "buttonAdd") return;
+      if(0 < Number(player.id) && Number(player.id) < 1){
+        setExtraPlayer(extraPlayer.filter(p => p.id !== player.id));
+        setSelectedPlayers(selectedPlayers.filter(p => p.id !== player.id));
+      }
       if (selectedPlayers.find(p => p.id === player.id)) {
           setSelectedPlayers(selectedPlayers.filter(p => p.id !== player.id));
       } else {
           setSelectedPlayers([...selectedPlayers, player]);
       }
+      };
+
+     const addPlayer = () => {
+      const newPlayer = {
+        id: Math.random().toString(),
+        name: "New Player",
+        photo: null,
+      };
+      setExtraPlayer([...extraPlayer, newPlayer]);
+      setSelectedPlayers([...selectedPlayers, newPlayer]);
     };
   
     const renderItem = ({ item }: { item: Player }) => {
       if (item.id === "buttonAdd") {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={addPlayer}>
               <AddButton style={{marginTop:30}}/>
             </TouchableOpacity>
           );
@@ -57,15 +82,19 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
               <ParticipantCard nom={item.name} url={item.photo} height={95} width={80} selected={selectedPlayers.find(p => p.id === item.id)}/>
           </TouchableOpacity>
       );
-  };
+    };
   
+    useFocusEffect(
+      React.useCallback(() => {
+      }, [])
+    );
   
 
     return (
       <View style={styles.global}>
         <View style={styles.flatlist}>
           <FlatList
-            data={data}
+            data={players}
             renderItem={renderItem}
             keyExtractor={(item: Player) => item.id}
             showsVerticalScrollIndicator={false}
