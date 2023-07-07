@@ -130,7 +130,7 @@ export type MiniJeuStackParams = {
     selectedPlayer:any};
   Guess: undefined;
   Answer: undefined;
-  IncognitoSetUp: undefined;
+  IncognitoSetUp: { fromRevealRole?: boolean };
   PassPhone: {
     gameState:any[]};
   Result: undefined;

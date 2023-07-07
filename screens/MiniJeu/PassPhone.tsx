@@ -23,6 +23,7 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Mot'>;
 const PassPhone = ({route}: Props) => {
 
     const {gameState} = route.params;
+    console.log(gameState)
     
     const navigation = useNavigation<navigationProp>();
 

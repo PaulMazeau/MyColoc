@@ -54,8 +54,8 @@ const RevealRole = ({route}:Props) => {
 
         if(selectedPlayer.role == 'incognito'){
             setIsIncognito(true);
-            setIsWinner('Gagné')
-            setNavigateTo('IncognitoSetUp')
+            setIsWinner('Gagné');
+            setNavigateTo('IncognitoSetUp');
         }
 
         const aliveCount = gameState.filter(player => player.alive).length;
@@ -65,7 +65,6 @@ const RevealRole = ({route}:Props) => {
         if (aliveCount === 2 && incognito) {
             setIsWinner('Perdu')
             setNavigateTo('IncognitoSetUp')
-            setIncognitoName(incognito.player.name)
         }
     },[gameState])
 
@@ -100,7 +99,15 @@ const RevealRole = ({route}:Props) => {
                 <Text style={styles.text2}>{isIncognito ? `${selectedPlayer.player.name} était l'incognito` : `${selectedPlayer.player.name} était un civil`}</Text>
                 {isWinner === 'Perdu' && <Text style={styles.text2}>{`${incognitoName} était l'incognito`}</Text>}
                 </View>
-                <Button text={"Continuer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> {navigation.navigate(navigateTo)}}/>
+                <Button text={"Continuer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> {
+                    if(navigateTo=='IncognitoSetUp'){
+                    const newGameState = gameState.map(playerState => ({
+                        ...playerState,
+                        alive: true,
+                    }));
+                    setGameState(newGameState);}
+                    navigation.navigate(navigateTo)
+                    }}/>
             </View>
         </View>
         </SafeAreaView>
