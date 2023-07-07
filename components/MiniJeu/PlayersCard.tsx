@@ -6,6 +6,7 @@ import ParticipantCard from '../Reusable/ParticipantCard';
 import { ColocContext, UserContext } from '../../UserContext';
 import AddButton from '../../assets/icons/AddButtonGrey.svg';
 import { useFocusEffect } from '@react-navigation/native';
+import AddPlayerBS from './AddPlayerBS';
 
 
 // Définition du type de données
@@ -59,11 +60,15 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
       }
       };
 
-     const addPlayer = () => {
+     const addPlayer = (player) => {
+      console.log(player.name)
+      console.log(player.photo)
       const newPlayer = {
         id: Math.random().toString(),
-        name: "New Player",
-        photo: null,
+        nom: player.name,
+        avatarUrl: player.photo,
+        name:player.name,
+        photo:player.photo
       };
       setExtraPlayer([...extraPlayer, newPlayer]);
       setSelectedPlayers([...selectedPlayers, newPlayer]);
@@ -72,9 +77,10 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
     const renderItem = ({ item }: { item: Player }) => {
       if (item.id === "buttonAdd") {
           return (
-            <TouchableOpacity onPress={addPlayer}>
-              <AddButton style={{marginTop:30}}/>
-            </TouchableOpacity>
+            // <TouchableOpacity onPress={addPlayer}>
+            //   <AddButton style={{marginTop:30}}/>
+            // </TouchableOpacity>
+            <AddPlayerBS addPlayer={addPlayer}/>
           );
       }
       return (
