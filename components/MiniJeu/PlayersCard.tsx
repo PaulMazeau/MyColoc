@@ -61,8 +61,6 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
       };
 
      const addPlayer = (player) => {
-      console.log(player.name)
-      console.log(player.photo)
       const newPlayer = {
         id: Math.random().toString(),
         nom: player.name,
