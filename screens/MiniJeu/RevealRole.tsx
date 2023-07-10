@@ -52,12 +52,6 @@ const RevealRole = ({route}:Props) => {
 
     useEffect(() => {
 
-        if(selectedPlayer.role == 'incognito'){
-            setIsIncognito(true);
-            setIsWinner('Gagné');
-            setNavigateTo('IncognitoSetUp');
-        }
-
         const aliveCount = gameState.filter(player => player.alive).length;
         const incognito = gameState.find(player => player.role === 'incognito');
         setIncognitoName(incognito.player.name)
@@ -66,6 +60,12 @@ const RevealRole = ({route}:Props) => {
         if (aliveCount === 2 && incognito) {
             setIsWinner('Perdu')
             setNavigateTo('IncognitoSetUp')
+        }
+
+        if(selectedPlayer.role == 'incognito'){
+            setIsIncognito(true);
+            setIsWinner('Gagné');
+            setNavigateTo('IncognitoSetUp');
         }
     },[gameState])
 
