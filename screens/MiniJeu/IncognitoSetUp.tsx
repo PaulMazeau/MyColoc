@@ -10,6 +10,8 @@ import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/nativ
 import BackButton from "../../components/Reusable/BackButton";
 import PlayersCard from "../../components/MiniJeu/PlayersCard";
 import { GameStateContext } from './GameStateContext';
+import { wordPairs } from './IncognitoWords';
+
 
 
 
@@ -17,13 +19,6 @@ import { GameStateContext } from './GameStateContext';
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 
-const wordPairs = [
-    ['chat', 'chaton'],
-    ['maison', 'villa'],
-    ['voiture', 'automobile'],
-    ['pomme', 'poire'],
-    ['chien', 'chiot'],
-];
 
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'PassPhone'>;
@@ -50,6 +45,7 @@ const IncognitoSetUp = () => {
             mot: index === incognitoIndex ? randomWordPair[1] : randomWordPair[0]
         }));
 
+        //console.log(newGameState)
         setGameState(newGameState);
     }
 
@@ -59,16 +55,6 @@ const IncognitoSetUp = () => {
         }
     }, [selectedPlayers])
 
-
-    //Permet de remelanger les roles et les mots si on garde les memes joueurs
-    useFocusEffect(
-        React.useCallback(() => {
-            assignRoles()
-        }, [])
-    );
-
-
-    const route = useRoute();
 
 
     

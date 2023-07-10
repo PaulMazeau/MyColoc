@@ -75,9 +75,6 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
     const renderItem = ({ item }: { item: Player }) => {
       if (item.id === "buttonAdd") {
           return (
-            // <TouchableOpacity onPress={addPlayer}>
-            //   <AddButton style={{marginTop:30}}/>
-            // </TouchableOpacity>
             <AddPlayerBS addPlayer={addPlayer}/>
           );
       }
@@ -90,8 +87,10 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
   
     useFocusEffect(
       React.useCallback(() => {
+        setSelectedPlayers(selectedPlayers)
       }, [])
     );
+
   
 
     return (
