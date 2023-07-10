@@ -59,7 +59,7 @@ const RevealRole = ({route}:Props) => {
         }
 
         const aliveCount = gameState.filter(player => player.alive).length;
-        const incognito = gameState.find(player => player.alive && player.role === 'incognito');
+        const incognito = gameState.find(player => player.role === 'incognito');
         setIncognitoName(incognito.player.name)
 
         // Si seulement 2 joueurs restent et qu'il y a un incognito, naviguer vers 'IncognitoSetUp', sinon naviguer vers 'Vote'
@@ -74,6 +74,8 @@ const RevealRole = ({route}:Props) => {
         'Raté': '#C5A656',
         'Gagné': '#8FBA7A'
     };
+
+
     
 
     return (
@@ -101,12 +103,6 @@ const RevealRole = ({route}:Props) => {
                 {isWinner === 'Perdu' && <Text style={styles.text2}>{`${incognitoName} était l'incognito`}</Text>}
                 </View>
                 <Button text={"Continuer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> {
-                    if(navigateTo=='IncognitoSetUp'){
-                    const newGameState = gameState.map(playerState => ({
-                        ...playerState,
-                        alive: true,
-                    }));
-                    setGameState(newGameState);}
                     navigation.navigate(navigateTo)
                     }}/>
             </View>

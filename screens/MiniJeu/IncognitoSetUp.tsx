@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { main } from '../../constants/Colors';
 import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import BackButton from "../../components/Reusable/BackButton";
 import PlayersCard from "../../components/MiniJeu/PlayersCard";
 import { GameStateContext } from './GameStateContext';
@@ -39,7 +39,7 @@ const IncognitoSetUp = () => {
 
         const randomWordPair = wordPairs[Math.floor(Math.random() * wordPairs.length)];
 
-
+        
         // choose a random index for the 'incognito' player
         const incognitoIndex = Math.floor(Math.random() * selectedPlayers.length);
 
@@ -58,6 +58,14 @@ const IncognitoSetUp = () => {
             assignRoles();
         }
     }, [selectedPlayers])
+
+
+    //Permet de remelanger les roles et les mots si on garde les memes joueurs
+    useFocusEffect(
+        React.useCallback(() => {
+            assignRoles()
+        }, [])
+    );
 
 
     const route = useRoute();
