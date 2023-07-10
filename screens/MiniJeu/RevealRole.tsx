@@ -60,6 +60,7 @@ const RevealRole = ({route}:Props) => {
 
         const aliveCount = gameState.filter(player => player.alive).length;
         const incognito = gameState.find(player => player.alive && player.role === 'incognito');
+        setIncognitoName(incognito.player.name)
 
         // Si seulement 2 joueurs restent et qu'il y a un incognito, naviguer vers 'IncognitoSetUp', sinon naviguer vers 'Vote'
         if (aliveCount === 2 && incognito) {
