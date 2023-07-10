@@ -85,11 +85,7 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
       );
     };
   
-    useFocusEffect(
-      React.useCallback(() => {
-        setSelectedPlayers(selectedPlayers)
-      }, [])
-    );
+    
 
   
 

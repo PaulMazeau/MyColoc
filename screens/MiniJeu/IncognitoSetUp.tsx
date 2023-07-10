@@ -45,7 +45,7 @@ const IncognitoSetUp = () => {
             mot: index === incognitoIndex ? randomWordPair[1] : randomWordPair[0]
         }));
 
-        //console.log(newGameState)
+        
         setGameState(newGameState);
     }
 
@@ -79,6 +79,7 @@ const IncognitoSetUp = () => {
                     selectedPlayers.length<=2? 
                     Alert.alert("Il manque des joueurs","Sélectionne au moins trois joueurs !")
                     :
+                    assignRoles()
                     navigation.navigate('PassPhone', {gameState})
                     }}/>
                 <Regles text="Tous les joueurs obtiennent un mot identique, sauf un ! Démasquez l'Incognito en donnant chacun votre tour un indice sur votre mot, puis votez. L'Incognito gagne s'il survit et qu'il ne reste que 2 joueurs."/>
