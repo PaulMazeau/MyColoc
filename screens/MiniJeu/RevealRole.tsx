@@ -12,8 +12,10 @@ import { BackHandler } from 'react-native';
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
-const CardIncognito =require('../../assets/images/detective.png');
-const CardCivil =require('../../assets/images/civil.png');
+const CardIncognito =require('../../assets/images/IncognitoIcon.png');
+const CardCivil =require('../../assets/images/Civil1Icon.png');
+const CardCivil2 = require('../../assets/images/Civil2Icon.png');
+
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
@@ -38,8 +40,18 @@ const RevealRole = ({route}:Props) => {
 
     const [incognitoName, setIncognitoName] = useState('');
 
+    const [randomCardCivil, setRandomCardCivil] = useState(CardCivil);
+
     //Permet de ne pas revenir en arriere avec un swipe natif android
     useEffect(() => {
+
+        if (Math.random() < 0.5) {
+            setRandomCardCivil(CardCivil);
+        } else {
+            setRandomCardCivil(CardCivil2);
+        }
+
+
         const backAction = () => {
           return true;
         };
@@ -47,6 +59,7 @@ const RevealRole = ({route}:Props) => {
         const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
       
         return () => backHandler.remove();
+        
     }, []);
 
 
@@ -75,7 +88,7 @@ const RevealRole = ({route}:Props) => {
         'Gagné': '#8FBA7A'
     };
 
-
+    
     
 
     return (
@@ -96,8 +109,9 @@ const RevealRole = ({route}:Props) => {
                     <Text style={styles.text1}>{isWinner}</Text>
                 </View>
                 <View style={[styles.card, {backgroundColor: colorMapping[isWinner]}]}>
-                <Image source={isWinner==='Raté' ? CardCivil : CardIncognito} />
+                    <Image source={isWinner==='Raté' ? randomCardCivil : CardIncognito} style={{height:210, width:210}}/>
                 </View>
+
                 <View style={styles.word}>
                 <Text style={styles.text2}>{isIncognito ? `${selectedPlayer.player.name} était l'incognito` : `${selectedPlayer.player.name} était un civil`}</Text>
                 {isWinner === 'Perdu' && <Text style={styles.text2}>{`${incognitoName} était l'incognito`}</Text>}
@@ -160,7 +174,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#8FBA7A',
         borderRadius:10,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
     }
 });
 
