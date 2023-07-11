@@ -1,5 +1,5 @@
   import React, { useContext, useState } from 'react'
-  import { View, StyleSheet, Text, FlatList, Alert, ActivityIndicator, Image } from 'react-native'
+  import { View, StyleSheet, Text, FlatList, Alert, ActivityIndicator, Image, Dimensions } from 'react-native'
   import { SafeAreaView } from 'react-native-safe-area-context';
   import ScreenTitle from '../components/Reusable/ScreenTitle'
   import { main } from '../constants/Colors';
@@ -15,6 +15,8 @@
   import { ScrollView } from 'react-native-gesture-handler';
 
   type Props = NativeStackScreenProps<SettingsStackParams, 'ColocationSettings'>;
+
+  const windowHeight = Dimensions.get('window').height;
 
   // Définition du type de données
   interface Colocataire {
@@ -41,7 +43,7 @@
       const [user, setUser] = useContext(UserContext)
       const [loading, setLoading] = useState(false)
 
-      
+
       const data = coloc.map((c)=>{ //data dans le dropdown
         var rObj = {}
         rObj['id'] = c.nom
@@ -126,6 +128,7 @@
       backgroundColor: '#172ACE',
       borderRadius: 10,
       padding:10,
+      height:windowHeight*0.5
     },
     colocataire: {
       alignItems: 'center',

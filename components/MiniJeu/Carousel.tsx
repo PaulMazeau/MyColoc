@@ -18,7 +18,7 @@ type GameCardDataType = {
 };
 
 type CarrouselProps = {
-  gameCardData: GameCardDataType[];
+  gameCardData: any;
 };
 
 function Carrousel({ gameCardData }: CarrouselProps) {
