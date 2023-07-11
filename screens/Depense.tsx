@@ -68,7 +68,7 @@ export default function DepenseScreen() {
               selectedTabIndex === 1 && styles.activeTabButtonText,
             ]}
           >
-            Transactions
+            Historique
           </Text>
         </TouchableOpacity>
       </View>
