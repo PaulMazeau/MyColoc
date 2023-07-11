@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
         color: main.TextColor,
         fontWeight: '600',
         fontSize: 35,
+        maxWidth:220,
+        textAlign:'center'
     },
 
     word:{
