@@ -6,10 +6,12 @@ import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/typ
 import Cross from '../../assets/icons/cross.svg'
 import { ColocContext } from '../../UserContext';
 import { useSafeAreaFrame } from 'react-native-safe-area-context';
+import Button from '../Reusable/ButtonColor';
 
 interface InfoDepenseBSProps {
   onClose: () => void;
   transac: any;
+  onDelete: () => void;
 }
 
 const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSProps>((props, ref) => {
@@ -78,6 +80,9 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled'>
               {renderParticipant()}
             </ScrollView>
+        </View>
+        <View style={{marginTop:10}}>
+          <Button text='Supprimer la tâche' colorBackGround='red' colorText='white' onPress={() => props.onDelete()}/>
         </View>
         </View>
    

@@ -5,11 +5,14 @@ import ParticipantCard from '../Reusable/ParticipantCard';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import Cross from '../../assets/icons/cross.svg'
 import { ColocContext } from '../../UserContext';
+import Button from '../Reusable/ButtonColor';
 
 interface InfoTacheBSProps {
   onClose: () => void;
   tache: any;
+  onDelete: () => void;
 }
+
 const recurrenceOptions = [
   { label: 'Aucune', value: '0' },
   { label: '1 jour', value: '1' },
@@ -92,6 +95,10 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled'>
               {renderParticipant()}
             </ScrollView>
+        </View>
+
+        <View style={{marginTop:10}}>
+          <Button text='Supprimer la tâche' colorBackGround='red' colorText='white' onPress={() => props.onDelete()}/>
         </View>
       </View>
     </BottomSheetModal>

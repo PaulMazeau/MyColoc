@@ -97,7 +97,7 @@ const TacheCard = (props) => {
               </TouchableOpacity>
         </View>
       </TouchableOpacity>
-      <InfoBottomSheet ref={bottomSheetModalRef} tache ={props.tache} onClose={() => handleDismissPress()}/>
+      <InfoBottomSheet ref={bottomSheetModalRef} tache ={props.tache} onClose={() => handleDismissPress()} onDelete={handleDelete}/>
     </View>
     </Drawer>
     </View>
@@ -123,7 +123,7 @@ const TacheCard = (props) => {
           <Image style={styles.avatar1} source={next.avatarUrl ? {uri : next.avatarUrl, cache:'force-cache' } : require('../../assets/images/icon.png')}/>
         </View>
       </TouchableOpacity>
-      <InfoBottomSheet ref={bottomSheetModalRef} tache ={props.tache} onClose={() => handleDismissPress()}/>
+      <InfoBottomSheet ref={bottomSheetModalRef} tache ={props.tache} onClose={() => handleDismissPress()} onDelete={handleDelete}/>
     </View>
     </Drawer>
     </View>
