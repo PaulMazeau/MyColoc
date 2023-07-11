@@ -32,28 +32,27 @@ const IncognitoSetUp = () => {
     // Function to assign roles
     const assignRoles = () => {
 
-        const randomWordPair = wordPairs[Math.floor(Math.random() * wordPairs.length)];
+            const randomWordPair = wordPairs[Math.floor(Math.random() * wordPairs.length)];
+    
+            
+            // choose a random index for the 'incognito' player
+            const incognitoIndex = Math.floor(Math.random() * selectedPlayers.length);
+    
+            const newGameState = selectedPlayers.map((player, index) => ({
+                player,
+                role: index === incognitoIndex ? 'incognito' : 'civil',
+                alive: true,
+                mot: index === incognitoIndex ? randomWordPair[1] : randomWordPair[0]
+            }));
+    
+            setGameState(newGameState);
+    
+            // Navigate to the new screen with the new game state
+            navigation.navigate('PassPhone', { gameState: newGameState });
 
-        
-        // choose a random index for the 'incognito' player
-        const incognitoIndex = Math.floor(Math.random() * selectedPlayers.length);
-
-        const newGameState = selectedPlayers.map((player, index) => ({
-            player,
-            role: index === incognitoIndex ? 'incognito' : 'civil',
-            alive: true,
-            mot: index === incognitoIndex ? randomWordPair[1] : randomWordPair[0]
-        }));
-
-        
-        setGameState(newGameState);
     }
+    
 
-    useEffect(() => {
-        if (selectedPlayers.length > 0) {
-            assignRoles();
-        }
-    }, [selectedPlayers])
 
 
 
@@ -80,7 +79,6 @@ const IncognitoSetUp = () => {
                     Alert.alert("Il manque des joueurs","Sélectionne au moins trois joueurs !")
                     :
                     assignRoles()
-                    navigation.navigate('PassPhone', {gameState})
                     }}/>
                 <Regles text="Tous les joueurs obtiennent un mot identique, sauf un ! Démasquez l'Incognito en donnant chacun votre tour un indice sur votre mot, puis votez. L'Incognito gagne s'il survit et qu'il ne reste que 2 joueurs."/>
             </View>
