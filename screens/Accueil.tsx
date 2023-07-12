@@ -29,20 +29,23 @@ const AccueilScreen = () => {
   const [nextTask, setNextTask] = useState(null);
   const [wentIn, setWentIn] = useState(false);
   const [firstRender, setFirstRender] = useState(true);
+
+  const getTache = async () => {
+    const q = query(collection(FB_DB, "Colocs/" + user.colocID + "/Taches"), where('nextOne', '==', user.uuid), orderBy('date', 'desc'), limit(1));
+    const data = await getDocs(q);
+    setNextTask(data);
+  };
+
+
   useFocusEffect(
     React.useCallback(() => {
-      const getTache = async () => {
-        const q = query(collection(FB_DB, "Colocs/" + user.colocID + "/Taches"), where('nextOne', '==', user.uuid), orderBy('date', 'desc'), limit(1));
-        const data = await getDocs(q);
-        setNextTask(data);
-      };
       getTache();
-
-      return () => {
-        // facultatif : vous pouvez ajouter ici un nettoyage en cas d'annulation de la tâche
-      };
     }, [])
-);
+  );
+
+  const onDelete = () => {
+    getTache();
+  };
 
   
   
@@ -53,7 +56,7 @@ const AccueilScreen = () => {
         return(
           nextTask.docs.map((doc)=>{
             return(
-              <TacheCard tache={doc.data()} key={doc.id}/>
+              <TacheCard tache={doc.data()} key={doc.id} onDelete={onDelete}/>
             )
           })
         )

@@ -52,7 +52,17 @@ const TacheCard = (props) => {
     const q = query(collection(FB_DB, 'Colocs/'+user.colocID+'/Taches'), where('date', '==', props.tache.date), limit(1))
     const data = await getDocs(q)
     const id = data.docs[0].id
-    deleteDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Taches', id)).then(() => {setLoading(false)}).catch((err) => {alert(err.message); setLoading(false)})
+    deleteDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Taches', id))
+      .then(() => {
+        setLoading(false);
+        if(props.onDelete){
+          props.onDelete();
+        }
+      })
+      .catch((err) => {
+        alert(err.message); 
+        setLoading(false)
+      });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
   }
   const handleDone = async () => {
