@@ -4,8 +4,6 @@ import { main } from '../../constants/Colors';
 import Button from '../Reusable/ButtonColor';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import { ColocContext, UserContext } from '../../UserContext';
-import AddButton from '../../assets/icons/AddButtonGrey.svg';
-import { useFocusEffect } from '@react-navigation/native';
 import AddPlayerBS from './AddPlayerBS';
 
 

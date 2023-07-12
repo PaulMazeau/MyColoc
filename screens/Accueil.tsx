@@ -16,6 +16,8 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParams, SettingsStackParams } from '..//App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useFocusEffect } from '@react-navigation/native';
+import React from 'react';
 const Appartement = require('../assets/images/Appartement.png');
 type RootStackNavigationProp = NativeStackNavigationProp<RootStackParams, 'SettingsStack'>;
 
@@ -27,13 +29,20 @@ const AccueilScreen = () => {
   const [nextTask, setNextTask] = useState(null);
   const [wentIn, setWentIn] = useState(false);
   const [firstRender, setFirstRender] = useState(true);
-  useEffect(()=>{
-    const getTache = async () => {
-      const q = query(collection(FB_DB, "Colocs/" + user.colocID + "/Taches"), where('nextOne', '==', user.uuid), orderBy('date', 'desc'), limit(1));
-      const data = await getDocs(q)
-      setNextTask(data)}
+  useFocusEffect(
+    React.useCallback(() => {
+      const getTache = async () => {
+        const q = query(collection(FB_DB, "Colocs/" + user.colocID + "/Taches"), where('nextOne', '==', user.uuid), orderBy('date', 'desc'), limit(1));
+        const data = await getDocs(q);
+        setNextTask(data);
+      };
       getTache();
-  }, [])
+
+      return () => {
+        // facultatif : vous pouvez ajouter ici un nettoyage en cas d'annulation de la tâche
+      };
+    }, [])
+);
 
   
   
