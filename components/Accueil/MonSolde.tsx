@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import { Shadows } from '../../constants/Shadow';
 import { UserContext } from '../../UserContext';
 
-const MonSolde = () => {
+const MonSolde = ({onPress}) => {
   const [user, setUser] = useContext(UserContext)
   const renderNumber = (number) => {
     const fixed = number.toFixed(2)
@@ -14,7 +14,7 @@ const MonSolde = () => {
   }
   return (
     <View style={[styles.container, Shadows.shadow]}>
-      <TouchableOpacity onPress={() => console.log('DepenseStack')}>
+      <TouchableOpacity onPress={() => {onPress()}}>
         <View style={styles.innerContainer}>
           <View style={styles.ImageContainer}>
           <Image source={user.avatarUrl ? {uri: user.avatarUrl, cache:'force-cache'} : require('../../assets/images/icon.png')} style={styles.Image}/>

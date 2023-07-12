@@ -15,6 +15,7 @@ import GetNotificationPermission from '../GetNotificationPermission';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParams, SettingsStackParams } from '..//App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const Appartement = require('../assets/images/Appartement.png');
 type RootStackNavigationProp = NativeStackNavigationProp<RootStackParams, 'SettingsStack'>;
 
@@ -91,11 +92,13 @@ const AccueilScreen = () => {
           <Text style={styles.TitreCategorie1}>La selection du mois</Text>
           <Suggestion />
           <View style={styles.row}>
-            <MonSolde/>
+            <MonSolde onPress={() => {navigation.navigate('DepenseStack')}}/>
             <BoutonMiniJeu/>
           </View>
           <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Tache')}>
           {renderNextTache()}
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
