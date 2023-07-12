@@ -98,7 +98,7 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
         </View>
 
         <View style={{marginTop:10}}>
-          <Button text='Supprimer la tâche' colorBackGround='red' colorText='white' onPress={() => props.onDelete()}/>
+          <Button text='Supprimer la tâche' colorBackGround='#fa1e1e' colorText='white' onPress={() => props.onDelete()}/>
         </View>
       </View>
     </BottomSheetModal>
