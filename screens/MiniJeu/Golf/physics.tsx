@@ -110,8 +110,8 @@ const Physics = (entities, {events, time, dispatch}) => {
             }
             else{
                 force = {
-                    x: event.payload.x/14, 
-                    y: Math.max(-38.5, Math.min(-34, event.payload.y/5.5))
+                    x: -event.payload.x/5, 
+                    y: -event.payload.y/5
                 };
             }
     
