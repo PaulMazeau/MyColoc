@@ -42,9 +42,6 @@ const ScoreBoardScrollable = ({ bestNational, name, scoreColoc}: ScoreBoardProps
         <View style={styles.lign}>
             <Text style={styles.text1}>{name}</Text>
         </View>
-        <View style={styles.containerWhite}>
-         <ScoreLigne position={240} userImage={scoreColoc.userImage} name={scoreColoc.name} score={scoreColoc.score} isLighten={true}/>
-        </View>
         {renderScoreLines(bestNational)}
         <View style={[styles.separator, {marginBottom:10}]}/>
         <View style={styles.whiteDot}/>
