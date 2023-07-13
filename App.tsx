@@ -32,6 +32,8 @@ import { QuerySnapshot, collection, doc, getDoc, onSnapshot, query, where } from
 import NoColoc from './screens/NoColoc';
 import AuPlusProcheWait from './screens/MiniJeu/AuPlusProcheWait';
 import Basket from './screens/MiniJeu/BasketBall/Basket';
+import Golf from './screens/MiniJeu/Golf/Golf';
+import ClassementGolf from './screens/MiniJeu/ClassementGolf';
 import ClassementBasketBall from './screens/MiniJeu/ClassementBasketBall';
 import ClassementFootBall from './screens/MiniJeu/ClassementFootBall';
 import Foot from './screens/MiniJeu/FootBall/Foot';
@@ -78,6 +80,8 @@ export type RootStackParams = {
   ClassementFootBall: undefined;
   Basket: undefined;
   ClassementBasketBall: undefined;
+  Golf: undefined;
+  ClassementGolf: undefined;
   Classement: undefined;
   ColocationSettings: undefined,
   FirstPage: undefined;
@@ -138,6 +142,8 @@ export type MiniJeuStackParams = {
   ClassementFootBall: undefined;
   Basket: undefined;
   ClassementBasketBall: undefined;
+  Golf: undefined;
+  ClassementGolf: undefined;
   Classement: undefined;
   Mot: {
     updatedGameState:any[]
@@ -324,6 +330,8 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="ClassementFootBall" component={ClassementFootBall} />
       <MiniJeuStack.Screen name="Basket" component={Basket} />
       <MiniJeuStack.Screen name="ClassementBasketBall" component={ClassementBasketBall} />
+      <MiniJeuStack.Screen name="Golf" component={Golf} />
+      <MiniJeuStack.Screen name="ClassementGolf" component={ClassementGolf} />
     </MiniJeuStack.Navigator>
     </GameStateProvider>
   );

@@ -13,8 +13,10 @@ export const MiniJeuColor = {
   RedGradientColor2:'#D04445',
   OrangeGradientColor1:'#F3B168',
   OrangeGradientColor2:'#EC675B',
-  GreenGRadientColor1:'#94AAF8',
-  GreenGRadientColor2:'#7573E2',
+  BlueGRadientColor1:'#94AAF8',
+  BlueGRadientColor2:'#7573E2',
+  GreenGRadientColor1:'#A2D6A7',
+  GreenGRadientColor2:'#5a915f',
   Or:'#FFD603',
   Argent:'#DCDCDC',
   Bronze:'#C65A56'
