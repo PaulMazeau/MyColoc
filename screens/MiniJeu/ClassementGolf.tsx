@@ -41,18 +41,18 @@ const Classement = () => {
     const navigation = useNavigation();
     const [coloc, setColoc] = useContext(ColocContext);
     const [user, setUser] = useContext(UserContext);
-    const colocFormated = coloc.map((c)=> {if(c.footBestScore){return c}else{
+    const colocFormated = coloc.map((c)=> {if(c.golfBestScore){return c}else{
       var rObj = c
-      rObj.footBestScore = 0
+      rObj.golfBestScore = 0
       return rObj
     }})
-    colocFormated.sort((c1, c2)=> c2.footBestScore - c1.footBestScore)
+    colocFormated.sort((c1, c2)=> c2.golfBestScore - c1.golfBestScore)
     const scores = colocFormated.map((c, index)=>{
       var rObj = {}
       rObj['position'] = index +1
       rObj['userImage'] = {uri: c.avatarUrl}
       rObj['name'] = c.nom
-      rObj['score'] = c.footBestScore
+      rObj['score'] = c.golfBestScore
       return rObj
     }) 
     return (

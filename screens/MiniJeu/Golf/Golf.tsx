@@ -27,12 +27,12 @@ const Golf = () => {
     const gameEngineRef = useRef(null);
     const [currentScore, setCurrentScore] = useState(0)
     const [currentBestScore, setCurrentBestScore] = useState(0)
-    const [bestScore, setBestScore] = useState(user.GolfBestScore ? user.GolfBestScore : 0)
+    const [bestScore, setBestScore] = useState(user.golfBestScore ? user.golfBestScore : 0)
     const [scale] = useState(new Animated.Value(0.1));
 
     const handleSetBestScore = async (score) => {
         setBestScore(score)
-        await updateDoc(doc(FB_DB, 'Users', user.uuid), {GolfBestScore : score})
+        await updateDoc(doc(FB_DB, 'Users', user.uuid), {golfBestScore : score})
     } 
 
     useEffect(() => {
