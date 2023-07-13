@@ -86,6 +86,7 @@ const { width, height } = Dimensions.get('window');
 
 const Physics = (entities, {events, time, dispatch}) => {
 
+
     let engine = entities.physics.engine;
     entities.emoji = emoji;
 
@@ -100,7 +101,6 @@ const Physics = (entities, {events, time, dispatch}) => {
     events.forEach(event => {
         if (event.type === 'start') {
             start = true;
-            engine.world.gravity.y = 3;
             let force;
             if(event.payload.x == 0){
                 force = {
@@ -157,21 +157,19 @@ const Physics = (entities, {events, time, dispatch}) => {
             }
             
         }
-        else{
-            entities.GolfBall.size -= 0.9;
-        }
     }
 
 
+    let velocity = entities.GolfBall.body.velocity;
+    let speed = Math.sqrt(Math.pow(velocity.x, 2) + Math.pow(velocity.y, 2));
 
-    if(entities.GolfBall.body.position.y > (height*1.2)){
+    if((speed < 0.1) && (start)){
         Matter.Body.setVelocity(entities.GolfBall.body, {x:0, y:0})
         Matter.Body.setPosition(entities.GolfBall.body, {x:width*0.5, y:height*0.8})
-        entities.GolfBall.size = 120;
+        entities.GolfBall.size = 4;
         start=false;
         isFalling = false;
         isPoint = false;
-        engine.world.gravity.y=0;
         dispatch({type: 'new-shoot'})
         
         if(currentPoint != previousPoint)
