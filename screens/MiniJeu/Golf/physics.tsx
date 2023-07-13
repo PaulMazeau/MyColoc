@@ -44,7 +44,7 @@ let altitude = null;
 let directionX = 1;
 let directionY = 1;
 let initialX, initialY;
-export function moveHoop(hoop, redLign, speed, maxWidth, maxHeight) {
+export function moveHoop(hoop, speed, maxWidth, maxHeight) {
     // Calculating current positions
     const currentX = (hoop.bodies[0].position.x + hoop.bodies[1].position.x) / 2;
     const currentY = (hoop.bodies[0].position.y + hoop.bodies[1].position.y) / 2;
@@ -64,11 +64,6 @@ export function moveHoop(hoop, redLign, speed, maxWidth, maxHeight) {
     if (newY >= initialY + maxHeight || newY <= initialY - maxHeight) {
         directionY *= -1; // Change vertical direction
     }
-
-    const middleX = (hoop.bodies[0].position.x + hoop.bodies[1].position.x) / 2;
-    const middleY = (hoop.bodies[0].position.y + hoop.bodies[1].position.y) / 2;
-    redLign.hoopPos = {x: middleX, y: middleY};
-    redLign.renderer.props.hoopPos = {x: middleX, y: middleY};
 
     
     
@@ -129,10 +124,10 @@ const Physics = (entities, {events, time, dispatch}) => {
     
 
     if(5<=currentPoint&&currentPoint<15){
-        moveHoop(entities.Hoop, entities.RedLign,Math.min(1.5,0.5 + ((currentPoint - 5) / (15 - 5) * (1.5 - 0.5))) ,60,0);
+        moveHoop(entities.Hoop, Math.min(1.5,0.5 + ((currentPoint - 5) / (15 - 5) * (1.5 - 0.5))) ,60,0);
     }
     if(15<=currentPoint){
-        moveHoop(entities.Hoop, entities.RedLign, Math.min(1.6,0.5 + ((currentPoint - 15) / (30 - 15) * (2 - 0.5))) ,60,40);
+        moveHoop(entities.Hoop, Math.min(1.6,0.5 + ((currentPoint - 15) / (30 - 15) * (2 - 0.5))) ,60,40);
     }
 
 
@@ -148,7 +143,6 @@ const Physics = (entities, {events, time, dispatch}) => {
     if(start){
         if(isFalling){
             entities.GolfBall.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory2 };
-            entities.RedLign.isVisible = true;
             if(!isPoint){
                 if(isIn(entities.GolfBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
                     dispatch({ type: 'new-point'});
@@ -165,7 +159,6 @@ const Physics = (entities, {events, time, dispatch}) => {
         }
         else{
             entities.GolfBall.size -= 0.9;
-            entities.RedLign.isVisible = false;
         }
     }
 

@@ -22,19 +22,11 @@ export default (initialForce) => {
     const middleX = (hoop.bodies[0].position.x + hoop.bodies[1].position.x) / 2;
     const middleY = (hoop.bodies[0].position.y + hoop.bodies[1].position.y) / 2;
 
-    let redLign = {
-        body: null, // Pas de corps physique nécessaire pour la ligne
-        size: [250, 10], // Définissez les dimensions de votre ligne
-        color: 'red',
-        hoopPos: {x: middleX, y: middleY}, // Passez la position du panier en tant que prop
-        renderer: <RedLign hoopPos={{x: middleX, y: middleY}}/>
-    };
     
     return {
         physics: { engine, world },
         Hoop: hoop,
         GolfBall: ball,
-        RedLign: redLign,
         initialForce: initialForce 
     }
 }
