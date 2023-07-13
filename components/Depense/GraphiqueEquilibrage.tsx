@@ -86,7 +86,7 @@ const GraphiqueEquilibrage = () => {
                 ]}
               />
               <Text style={[styles.value, item.value >= 0 ? styles.valueLeft : styles.valueRight]}>
-                {item.value} €
+                {item.value.toFixed(2)} €
               </Text>
             </View>
           </View>

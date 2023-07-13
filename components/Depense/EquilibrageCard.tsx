@@ -38,7 +38,7 @@ const EquilibrageCard = ({deveur, receveur, montant}) => {
         
         <View style={styles.reminderContainer}>
           <Text style={styles.reminder}>doit rembourser à</Text>
-          <Text style={styles.amount}>{montant} €</Text>
+          <Text style={styles.amount}>{montant.toFixed(2)} €</Text>
         </View>
         
         <View style={styles.userContainer}>
