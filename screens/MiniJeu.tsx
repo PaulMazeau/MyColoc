@@ -29,13 +29,14 @@ export default function MiniJeu() {
   const [user, setUser] = useContext(UserContext);
   const scoreFoot = user.footBestScore ? user.footBestScore : 0
   const scoreBasket = user.basketBestScore ? user.basketBestScore : 0
-  const userData = [{ScoreTotal: Number(scoreFoot)+Number(scoreBasket), ScoreFoot:Number(scoreFoot), ScoreBasket:Number(scoreBasket)}]
+  const scoreGolf = user.golfBestScore ? user.golfBestScore : 0
+  const userData = [{ScoreTotal: Number(scoreFoot)+Number(scoreBasket)+Number(scoreGolf), ScoreFoot:Number(scoreFoot), ScoreBasket:Number(scoreBasket), ScoreGolf:Number(scoreGolf)}]
   const gameCardData = [
     { title: "BasketBall", scoreUser: userData[0].ScoreBasket, backgroundImageSource: require('../assets/images/BasketBall_Background.png'), colorGradient1: MiniJeuColor.VioletGradientColor1, colorGradient2: MiniJeuColor.VioletGradientColor2, screen:'Basket'},
     { title: "FootBall", scoreUser: userData[0].ScoreFoot, backgroundImageSource: require('../assets/images/FootBall_Background.png'), colorGradient1: MiniJeuColor.RedGradientColor1, colorGradient2: MiniJeuColor.RedGradientColor2, screen:'Foot'},
     { title: "Incognito", backgroundImageSource: require('../assets/images/Incognito_Background.png'), colorGradient1: MiniJeuColor.OrangeGradientColor1, colorGradient2: MiniJeuColor.OrangeGradientColor2, screen:'IncognitoSetUp'},
     { title: "Au plus proche", backgroundImageSource: require('../assets/images/Au_Plus_Proche_Background.png'), colorGradient1: MiniJeuColor.BlueGRadientColor1, colorGradient2: MiniJeuColor.BlueGRadientColor2, screen:'AuPlusProcheWait'},
-    { title: "Golf", backgroundImageSource: require('../assets/images/Golf_Background.png'), colorGradient1: MiniJeuColor.GreenGRadientColor1, colorGradient2: MiniJeuColor.GreenGRadientColor2, screen:'Golf'},
+    { title: "Golf", scoreUser: userData[0].ScoreGolf, backgroundImageSource: require('../assets/images/Golf_Background.png'), colorGradient1: MiniJeuColor.GreenGRadientColor1, colorGradient2: MiniJeuColor.GreenGRadientColor2, screen:'Golf'},
   ];
 
   const [coloc, setColoc] = useContext(ColocContext);
