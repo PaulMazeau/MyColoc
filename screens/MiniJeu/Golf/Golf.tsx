@@ -1,39 +1,39 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
-import { View, Text, StyleSheet,TouchableOpacity, PanResponder } from "react-native";
+import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from './entities'
 import Physics from './physics'
 import BackButton from "../../../components/Reusable/BackButton";
 import { Animated } from 'react-native';
-import Light from "./Components/Light";
-import Timer from "./perf-timer"
+import Timer from "./perf-timer";
+import { PanResponder } from 'react-native';
 import { UserContext } from "../../../UserContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { FB_DB } from "../../../firebaseconfig";
-import ScoreCard from "../../../components/MiniJeu/ScoreCard";
+import ScoreCard from '../../../components/MiniJeu/ScoreCard'
 import {Shadows} from '../../../constants/Shadow'
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MiniJeuStackParams } from '../../../App';
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'ClassementFootBall'>;
+let force = {x:0,y:0}
+let canShoot = true;
+
+type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'ClassementGolf'>;
 
 const Golf = () => {
-    const [user, setUser] = useContext(UserContext);
-    const [running, setRunning] = useState(false)
-    const [gameEngine, setGameEngine] = useState(null)
+    const [user, setUser] = useContext(UserContext)
+    const [menu, setMenu] = useState(true)
+    const gameEngineRef = useRef(null);
     const [currentScore, setCurrentScore] = useState(0)
     const [currentBestScore, setCurrentBestScore] = useState(0)
-    const [bestScore, setBestScore] = useState(user.footBestScore ? user.footBestScore : 0)
+    const [bestScore, setBestScore] = useState(user.GolfBestScore ? user.GolfBestScore : 0)
     const [scale] = useState(new Animated.Value(0.1));
 
     const handleSetBestScore = async (score) => {
         setBestScore(score)
-        await updateDoc(doc(FB_DB, 'Users', user.uuid), {footBestScore : score})
+        await updateDoc(doc(FB_DB, 'Users', user.uuid), {GolfBestScore : score})
     } 
-    useEffect(() =>{
-        setRunning(false)
-    }, [])
 
     useEffect(() => {
         scale.setValue(0.1);
@@ -42,56 +42,59 @@ const Golf = () => {
           friction: 10,
           useNativeDriver: true,
         }).start();
+    }, [currentScore, scale]);
 
-    }, [currentScore, scale, running]);
-      
+    
+    
     const panResponder = useRef(
         PanResponder.create({
-          onStartShouldSetPanResponder: () => true,
+          onStartShouldSetPanResponder: () => canShoot,
           onPanResponderGrant: () => {
-            
+            force = {x: 0, y: 0};
+            setMenu(false);
           },
           onPanResponderMove: (_, gesture) => {
-            
+            force = {x: gesture.dx, y: gesture.dy};
           },
           onPanResponderRelease: () => {
-            setRunning(true);
+            if(gameEngineRef.current) {
+                canShoot = false
+                gameEngineRef.current.dispatch({ type: 'start', payload: force });
+            }
           },
         })
       ).current;
-
+      
+      
       const navigation = useNavigation<navigationProp>();
 
     return (
-        <View style={styles.global}>
+        <View style={styles.global} >
 
             <View style={styles.topLign}>
-                {!running?<BackButton/> : <View/>}
-                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]} onPress={() => navigation.navigate('ClassementFootBall')}>
+                {menu?<BackButton/> : <View/>}
+                <TouchableOpacity style={[styles.bestScore, Shadows.shadow]} onPress={() => navigation.navigate('ClassementGolf')}>
                 <ScoreCard score={bestScore} userImage={user.avatarUrl}/>
                 </TouchableOpacity>
             </View>
 
-            <View style={{flex:1}}{...panResponder.panHandlers}>
-            {currentScore >= 10 && <Light speed={Math.min(2,(currentScore/40))} rightOrLeft={false}/>}
-            {currentScore >= 20 && <Light speed={Math.min(2,(currentScore/40))} rightOrLeft={true}/>}
 
-            <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {!running ? 'Current Best' : ''} </Animated.Text>
-            <Animated.Text style={[ styles.Points, {transform: [{ scale: scale }], color: !running? '#3489eb':'#bababa'},]}> {!running ? currentBestScore : currentScore} </Animated.Text>
+            <View {...panResponder.panHandlers}>
+            <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {menu ? 'Current Best' : ''} </Animated.Text>
+            <Animated.Text style={[ styles.Points, {transform: [{ scale: scale }], color: menu? '#3489eb':'#bababa'},]}> {menu ? currentBestScore : currentScore} </Animated.Text>
 
            
             <GameEngine
-            ref={(ref)=>{setGameEngine(ref)}}
-            running={running}
+            ref={gameEngineRef}
             timer={new Timer()}
             systems={[Physics]}
             style={styles.gameEngine}
-            entities={entities()}
+            entities={entities(force)}
             onEvent={(e) => {
                 switch (e.type) {
                     case 'game-over' :
-                        setRunning(false);
-                        gameEngine.swap(entities());
+                        setMenu(true);
+                        gameEngineRef.current.swap(entities(force));
                         if(currentScore>currentBestScore){
                             setCurrentBestScore(currentScore);
                             if(currentScore>bestScore){
@@ -103,26 +106,22 @@ const Golf = () => {
                     case 'new-point' :
                         setCurrentScore(currentScore+1)
                     break;
+                    case 'new-shoot':
+                        canShoot=true;
+                    break;
                 }
             }}
             />
 
-
-
-
             </View>
+            
         </View>
     );
 };
 
-
 const styles = StyleSheet.create({
     global: {
         flex:1
-    },
-
-    game:{
-        backgroundColor:'green'
     },
 
 
@@ -138,10 +137,11 @@ const styles = StyleSheet.create({
     topLign:{
         flexDirection:'row',
         justifyContent:'space-between',
+        alignItems:'center',
         width:'100%',
+        height:'7%',
         paddingHorizontal:20,
         marginTop:50,
-        position:'absolute',
         zIndex:2
     },
 
@@ -150,7 +150,8 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:100,
         color:'#3489eb',
-        fontWeight:'300'
+        fontWeight:'300',
+        lineHeight:110
     },
 
 
@@ -162,9 +163,9 @@ const styles = StyleSheet.create({
     text:{
         textAlign:'center',
         fontSize:30,
-        marginTop:200,
+        marginTop:320,
         fontWeight:'300',
-        color:'#bababa'
+        color:'#bababa',
     },
     text2:{
         textAlign:'center',
@@ -176,12 +177,12 @@ const styles = StyleSheet.create({
     menu:{
         flex:1,
         alignItems:'center',
-        width:'50%',
-        height:'50%',
-        backgroundColor:'blue'
+        margin:130,
+        marginTop:40,
+        marginBottom:150
+
 
     }
 });
-
 
 export default Golf;

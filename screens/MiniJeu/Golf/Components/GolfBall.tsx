@@ -12,26 +12,25 @@ const GolfBall = props => {
 
 
 
-
     return(
         <View style={{
             position: 'absolute',
-            left: xBody,
+            left: xBody ,
             top: yBody,
             width: radius * 2,
             height: radius * 2,
             borderRadius: radius,
-            backgroundColor:'green'
+            //backgroundColor:'black',
+            justifyContent:'center',
+            alignItems:'center',
         }}>
             <Image
             style={{
-                height:'190%',
-                width:'190%',
-                left:-55,
-                top:-55,
+                height: props.size ? props.size : 120,
+                width: props.size ? props.size : 120,
                 transform: [{ rotate: `${props.angle}deg` }]
             }}
-            source={require('./../../../../assets/images/FootBall.png')}
+            source={require('./../../../../assets/images/BasketBall.png')}
             />
         </View>
         
@@ -42,42 +41,44 @@ const GolfBall = props => {
 
 export default (world, color, pos, radius) => {
  
-    const initialFootBall = Matter.Bodies.circle(
+    const initialGolfBall = Matter.Bodies.circle(
         pos.x,
         pos.y,
         radius,  
-        {label:'FootBall'}
+        {label:'GolfBall'}
     )
-    Matter.World.add(world, initialFootBall)
+    Matter.World.add(world, initialGolfBall)
 
 
     return{
-        body: initialFootBall,
+        body: initialGolfBall,
         color,
         pos,
-        angle: 0,  
+        angle: 0,
+        size:120,  
         renderer: <GolfBall/>
     }
     
 }
 
 
-export const createFootBall = (world, color, pos, radius) => {
+export const createGolfBall = (world, color, pos, radius) => {
  
-    const initialFootBall = Matter.Bodies.circle(
+    const initialGolfBall = Matter.Bodies.circle(
         pos.x,
         pos.y,
         radius,  
-        {label:'FootBall'}
+        {label:'GolfBall'}
     )
-    Matter.World.add(world, initialFootBall)
+    Matter.World.add(world, initialGolfBall)
 
 
     return{
-        body: initialFootBall,
+        body: initialGolfBall,
         color,
         pos,
         angle: 0,  
+        size:120,
         renderer: <GolfBall/>
     } 
 }
