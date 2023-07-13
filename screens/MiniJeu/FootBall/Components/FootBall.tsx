@@ -20,12 +20,15 @@ const FootBall = props => {
             top: yBody,
             width: radius * 2,
             height: radius * 2,
-            borderRadius: radius
+            borderRadius: radius,
+            backgroundColor:'green'
         }}>
             <Image
             style={{
-                height:'100%',
-                width:'100%',
+                height:'190%',
+                width:'190%',
+                left:-55,
+                top:-55,
                 transform: [{ rotate: `${props.angle}deg` }]
             }}
             source={require('./../../../../assets/images/FootBall.png')}
