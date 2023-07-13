@@ -6,9 +6,10 @@ import { main } from '../../constants/Colors';
 interface ScoreProps {
     score: number;
     color: string;
+    borderWidth?:any;
 }
 
-const Score: React.FC<ScoreProps> = ({ score, color }) => {
+const Score: React.FC<ScoreProps> = ({ score, color, borderWidth = 0 }) => {
     const dynamicStyles = StyleSheet.create({
         container: {
             backgroundColor: color,
@@ -18,6 +19,8 @@ const Score: React.FC<ScoreProps> = ({ score, color }) => {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
+            borderColor:'black',
+            borderWidth:borderWidth
         },
     });
 

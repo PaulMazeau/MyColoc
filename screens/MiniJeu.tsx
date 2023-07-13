@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, TouchableOpacity} from 'react-native';
 import ClassementCardScrollable from '../components/MiniJeu/ClassementCard';
+import ClassementCardPodium from '../components/MiniJeu/ClassementCardPodium'
 import {MiniJeuColor} from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext } from 'react';

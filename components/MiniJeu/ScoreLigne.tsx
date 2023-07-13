@@ -11,11 +11,13 @@ interface UserProps {
     position?: number;
     userImage?: ImageSourcePropType;
     name?: string;
-    score:number;
+    score: number;
+    isLighten?: boolean;
 }
 
-const ScoreLigne: React.FC<UserProps> = ({ position, userImage, name, score }) => {
+const ScoreLigne: React.FC<UserProps> = ({ position, userImage, name, score, isLighten = false }) => {
     const positionString = position !== undefined ? position.toString() : '';
+    const textColor = isLighten ? "black" : "white";
     let imageSource = null;
     let couleur = "white";
     //Permet de choisir une medaille et une couleur selon la position du User
@@ -33,7 +35,7 @@ const ScoreLigne: React.FC<UserProps> = ({ position, userImage, name, score }) =
     return (
         <View style={styles.global}>
             <View style={styles.firstColumn}>
-                <ImageBackground source={imageSource}>
+                <ImageBackground source={imageSource} style={isLighten?styles.MedailleLighten:null}>
                     <View style={styles.Medaille}>
                         <Text>{positionString}</Text>
                     </View>
@@ -42,10 +44,10 @@ const ScoreLigne: React.FC<UserProps> = ({ position, userImage, name, score }) =
                     <Image source={userImage} style={styles.Image} />
 
                 </View>
-                <Text style={styles.text1}> {name} </Text>
+                <Text style={[styles.text1, {color: textColor}]}> {name} </Text>
             </View>
 
-            <Score score={score} color={couleur}/>
+            <Score score={score} color={couleur} borderWidth={isLighten?0.5:0}/>
         </View>
     );
 };
@@ -69,7 +71,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         margin: 5,
-        marginTop:15
+        marginTop:15,
+        width:'100%',
     },
 
     Image: {
@@ -84,7 +87,6 @@ const styles = StyleSheet.create({
     },
 
     text1: {
-        color: "white",
         fontWeight: '600',
         fontSize: 16,
     },
@@ -103,6 +105,14 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         paddingTop: 5,
         paddingBottom: 5
+    },
+
+    MedailleLighten:{
+        borderColor:'black',
+        borderWidth:0.5,
+        borderRadius:100,
+        height:45,
+        justifyContent:'center'
     }
 })
 

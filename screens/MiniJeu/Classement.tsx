@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, Touchable} from 'react-native';
-import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard';
+import ClassementCardGap from '../../components/MiniJeu/ClassementCardGap';
 import ClassementCardPodium from '../../components/MiniJeu/ClassementCardPodium';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
@@ -27,19 +27,17 @@ const windowWidth = Dimensions.get('window').width;
 //     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
 // ];
 
-const scoresNational = [
+const bestNational = [
   { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Zacoloc', score:1800 },
   { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'trucloc', score:1800 },
   { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'trucloc', score:1800 },
-  { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'trucloc', score:1800 },
-  { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'trucloc', score:1800 },
-  { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'trucloc', score:1800 },
-  { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'trucloc', score:1800 },
-  { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'trucloc', score:1800 },
 ];
 
+const scoreColoc = { position: 240, userImage: require('../../assets/images/profilIcon2.png'), name:'Zacoloc', score:1800 }
+
+
 export default function MiniJeu() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   const [user, setUser] = useContext(UserContext)
   const [coloc, setColoc] = useContext(ColocContext);
   const colocFormated = coloc.map((c)=> {if(c.footBestScore && c.basketBestScore){return c}else if(c.footBestScore && !c.basketBestScore){
@@ -88,7 +86,7 @@ export default function MiniJeu() {
                 <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} scoreTotal={totalScore}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true}/>
+                <ClassementCardGap bestNational={bestNational} name={"National"} scoreColoc={scoreColoc}/>
             </View>
         </View>
       </SafeAreaView>
