@@ -30,7 +30,7 @@ const GolfBall = props => {
                 width: props.size ? props.size : 120,
                 transform: [{ rotate: `${props.angle}deg` }]
             }}
-            source={require('./../../../../assets/images/BasketBall.png')}
+            source={require('./../../../../assets/images/GolfBall.png')}
             />
         </View>
         
