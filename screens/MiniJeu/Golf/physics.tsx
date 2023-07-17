@@ -46,11 +46,31 @@ const emoji = EmojiEntity({x:0,y:0}, 50, null);
 
 const { width, height } = Dimensions.get('window');
 
+let holeDirection = 1; // Initial direction (1 for right, -1 for left)
+const holeSpeed = 0.25; // Speed of the hole's movement
+const holeLimitRight = width - 50; // Limit of hole's right movement
+const holeLimitLeft = 50; // Limit of hole's left movement
 
+function moveHole(holeEntity) {
+    if (currentPoint >= 3) {
+        let holePosition = holeEntity.position.x;
+
+        // Change direction if the hole has reached the left or right limit
+        if (holePosition >= holeLimitRight) {
+            holeDirection = -1;
+        } else if (holePosition <= holeLimitLeft) {
+            holeDirection = 1;
+        }
+
+        // Update the hole's position
+        holePosition += holeDirection * holeSpeed;
+        holeEntity.position.x = holePosition;
+    }
+}
 
 const Physics = (entities, {events, time, dispatch}) => {
 
-
+    moveHole(entities.Hole);
 
 
     let engine = entities.physics.engine;
