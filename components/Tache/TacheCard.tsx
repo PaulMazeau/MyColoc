@@ -17,9 +17,7 @@ const TacheCard = (props) => {
   const[user, setUser] = useContext(UserContext)
   const [coloc, setColoc] = useContext(ColocContext)
   const next = coloc.find(u => u.uuid === props.tache.nextOne)
-  if(!next){
-    return
-  }
+ 
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
   const bottomSheetModalRef = useRef(null);
 
@@ -142,7 +140,9 @@ const TacheCard = (props) => {
     )
     
   }
-  
+  if(!next){
+    return
+  }
   return (
     <View>
     {renderContent()}
