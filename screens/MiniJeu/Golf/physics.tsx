@@ -11,8 +11,11 @@ let previousPoint = 0;
 let isEmojiVisible = false;
 let emojiId;
 
-function isIn(ballPos, lignPos1, lignPos2) {
+function isIn(ballPos, holePos) {
     const errorMargin = 20;
+
+    let lignPos1 = {x:holePos.x +25, y:holePos.y}
+    let lignPos2 = {x:holePos.x -25, y:holePos.y}
 
     // Check if ball's x-coordinate is within the line segment defined by lignPos1 and lignPos2
     const withinX = (lignPos1.x <= ballPos.x && ballPos.x <= lignPos2.x) || 
@@ -46,6 +49,8 @@ const { width, height } = Dimensions.get('window');
 
 
 const Physics = (entities, {events, time, dispatch}) => {
+
+
 
 
     let engine = entities.physics.engine;
@@ -87,16 +92,21 @@ const Physics = (entities, {events, time, dispatch}) => {
 
     if(start){
             if(!isPoint){
-                if(isIn(entities.GolfBall.body.position, entities.Hole.position, entities.Hole.position)){
-                    console.log('yeahhh')
+                if(isIn(entities.GolfBall.body.position, entities.Hole.position)){
                     dispatch({ type: 'new-point'});
                     entities.emoji.image = emojiWin[Math.floor(Math.random() * emojiWin.length)];
-                    entities.emoji.position = {x:entities.Hole.body.position.x, y: entities.Hole.body.position.y};
+                    entities.emoji.position = {x:entities.Hole.position.x, y: entities.Hole.position.y};
                     clearTimeout(emojiId);
                     isEmojiVisible= true;
                     currentPoint += 1;
                     isPoint=true;
                     playSound('Hi-Hat');
+                    Matter.Body.setVelocity(entities.GolfBall.body, {x:0, y:0})
+                    Matter.Body.setPosition(entities.GolfBall.body, {x:width*0.5, y:height*0.7})
+                    start=false;
+                    isFalling = false;
+                    isPoint = false;
+                    dispatch({type: 'new-shoot'})
                 }
             }
     }
@@ -105,25 +115,18 @@ const Physics = (entities, {events, time, dispatch}) => {
     let velocity = entities.GolfBall.body.velocity;
     let speed = Math.sqrt(Math.pow(velocity.x, 2) + Math.pow(velocity.y, 2));
 
+
     if((speed < 0.1) && (start)){
+       
         Matter.Body.setVelocity(entities.GolfBall.body, {x:0, y:0})
-        Matter.Body.setPosition(entities.GolfBall.body, {x:width*0.5, y:height*0.8})
-        entities.GolfBall.size = 4;
+        Matter.Body.setPosition(entities.GolfBall.body, {x:width*0.5, y:height*0.7})
         start=false;
         isFalling = false;
         isPoint = false;
-        dispatch({type: 'new-shoot'})
-        
-        if(currentPoint != previousPoint)
-        {
-            previousPoint = currentPoint;
-        }
-        else{
-            currentPoint = 0;
-            previousPoint = 0;
-            playSound('Laser');
-            dispatch({ type: 'game-over' })
-        }
+        currentPoint = 0;
+        previousPoint = 0;
+        playSound('Laser');
+        dispatch({ type: 'game-over' })
         
     }
     else{

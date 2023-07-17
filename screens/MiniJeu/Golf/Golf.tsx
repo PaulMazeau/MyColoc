@@ -94,6 +94,7 @@ const Golf = () => {
                 switch (e.type) {
                     case 'game-over' :
                         setMenu(true);
+                        canShoot=true;
                         gameEngineRef.current.swap(entities(force));
                         if(currentScore>currentBestScore){
                             setCurrentBestScore(currentScore);
