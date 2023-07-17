@@ -12,7 +12,7 @@ export default (initialForce) => {
     const { height, width } = RNDimensions.get('window');
    
     let ball = GolfBall(world, 'black', { x: width * 0.5, y: height * 0.7 }, 3);
-    Matter.Body.set(ball.body, { restitution: 0.8, frictionAir : 0.05 });
+    Matter.Body.set(ball.body, { restitution: 0.8, frictionAir : 0.025 });
 
 
     let hole = {

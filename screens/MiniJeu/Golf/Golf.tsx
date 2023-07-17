@@ -90,8 +90,6 @@
             onPanResponderMove: (_, gesture) => {
                 force = {x: gesture.dx, y: gesture.dy};
                 setArrowEnd({x: gesture.moveX, y: gesture.moveY});
-                console.log('start',arrowStart)
-                console.log('ende',arrowEnd)
             },
             onPanResponderRelease: () => {
                 if(gameEngineRef.current) {
