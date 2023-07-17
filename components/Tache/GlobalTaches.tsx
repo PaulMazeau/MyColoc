@@ -5,7 +5,6 @@ import AddTacheBS from './AddTacheBS';
 import { main } from '../../constants/Colors';
 //props.task = list all task
 export default function GlobalTaches(props) {
-    
     const EmptyPage = () => {
         return (
           <View style={styles.emptyPageContainer}>
@@ -21,7 +20,7 @@ export default function GlobalTaches(props) {
             return(
             props.task.map(t => {
                 return(
-                <TacheCard key={t.date} tache={t}/>
+                <TacheCard key={t.data} tache={t}/>
                 )
             })
         )}

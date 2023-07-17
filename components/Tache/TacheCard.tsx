@@ -17,7 +17,7 @@ const TacheCard = (props) => {
   const[user, setUser] = useContext(UserContext)
   const [coloc, setColoc] = useContext(ColocContext)
   const next = coloc.find(u => u.uuid === props.tache.nextOne)
-
+ 
   //Gestion de la BottomSheet pour l'affiche des informations d'une tâche
   const bottomSheetModalRef = useRef(null);
 
@@ -130,7 +130,7 @@ const TacheCard = (props) => {
             </View>
           </View>
 
-          <Image style={styles.avatar1} source={next.avatarUrl ? {uri : next.avatarUrl, cache:'force-cache' } : require('../../assets/images/icon.png')}/>
+          <Image style={styles.avatar1} source={next ? {uri : next.avatarUrl, cache:'force-cache' } : require('../../assets/images/icon.png')}/>
         </View>
       </TouchableOpacity>
       <InfoBottomSheet ref={bottomSheetModalRef} tache ={props.tache} onClose={() => handleDismissPress()} onDelete={handleDelete}/>
@@ -140,7 +140,9 @@ const TacheCard = (props) => {
     )
     
   }
-  
+  if(!next){
+    return
+  }
   return (
     <View>
     {renderContent()}

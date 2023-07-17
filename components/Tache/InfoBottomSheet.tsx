@@ -82,7 +82,7 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
         <View style={styles.section}>
           <Text style={styles.title}>Prochain concerné : </Text>
           <View style={styles.card}>                
-            <Image source={nextOne.avatarUrl ? {uri : nextOne.avatarUrl, cache:'force-cache'} :require('../../assets/images/icon.png')} style={styles.avatar}/> 
+            <Image source={nextOne ? {uri : nextOne.avatarUrl, cache:'force-cache'} :require('../../assets/images/icon.png')} style={styles.avatar}/> 
             <View>
               <Text style={styles.text}> {nextOne.nom} </Text>
               <Text style={styles.text}> {renderDate(props.tache.date)} </Text>
