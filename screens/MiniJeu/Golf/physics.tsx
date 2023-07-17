@@ -39,42 +39,6 @@ loadSounds();
 let collisionCategory1 = 0x0001; 
 let collisionCategory2 = 0x0002; 
 
-let altitude = null;
-
-let directionX = 1;
-let directionY = 1;
-let initialX, initialY;
-export function moveHoop(hoop, speed, maxWidth, maxHeight) {
-    // Calculating current positions
-    const currentX = (hoop.bodies[0].position.x + hoop.bodies[1].position.x) / 2;
-    const currentY = (hoop.bodies[0].position.y + hoop.bodies[1].position.y) / 2;
-
-    // If initial positions are not set, set them to current positions
-    if (initialX === undefined) initialX = currentX;
-    if (initialY === undefined) initialY = currentY;
-
-    // Calculating new positions
-    const newX = currentX + speed * directionX;
-    const newY = currentY + speed * directionY;
-
-    // Check if the hoop reaches the boundaries
-    if (newX >= initialX + maxWidth || newX <= initialX - maxWidth) {
-        directionX *= -1; // Change horizontal direction
-    }
-    if (newY >= initialY + maxHeight || newY <= initialY - maxHeight) {
-        directionY *= -1; // Change vertical direction
-    }
-
-    
-    
-    // Update hoop position
-    hoop.bodies.forEach(body => {
-        Matter.Body.setPosition(body, { 
-            x: body.position.x + speed * directionX, 
-            y: body.position.y + speed * directionY * (maxHeight == 0 ? 0 : 1)
-        });
-    });
-}
 
 
 
@@ -116,33 +80,15 @@ const Physics = (entities, {events, time, dispatch}) => {
             }
     
             Matter.Body.setVelocity(entities.GolfBall.body, force)
-            entities.GolfBall.body.collisionFilter = { category: collisionCategory2, mask: collisionCategory1 };
             playSound('Drum');
         }
     });
     
-    
-
-    if(5<=currentPoint&&currentPoint<15){
-        moveHoop(entities.Hoop, Math.min(1.5,0.5 + ((currentPoint - 5) / (15 - 5) * (1.5 - 0.5))) ,60,0);
-    }
-    if(15<=currentPoint){
-        moveHoop(entities.Hoop, Math.min(1.6,0.5 + ((currentPoint - 15) / (30 - 15) * (2 - 0.5))) ,60,40);
-    }
 
 
-    
-    let ballPosition = entities.GolfBall.body.position;
-
-    if(entities.GolfBall.body.velocity.y > 0){
-        isFalling=true; 
-        altitude = ballPosition.y;
-    }
 
 
     if(start){
-        if(isFalling){
-            entities.GolfBall.body.collisionFilter = { category: collisionCategory1, mask: collisionCategory2 };
             if(!isPoint){
                 if(isIn(entities.GolfBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
                     dispatch({ type: 'new-point'});
@@ -155,8 +101,6 @@ const Physics = (entities, {events, time, dispatch}) => {
                     playSound('Hi-Hat');
                 }
             }
-            
-        }
     }
 
 
