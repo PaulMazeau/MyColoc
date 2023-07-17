@@ -1,57 +1,27 @@
 import React from 'react';
 import { View, ImageBackground } from 'react-native';
-import Matter from 'matter-js';
 
-let collisionCategory2 = 0x0002;
 
-const Hole = (props) => {
-  const { bodies } = props;
-  const { position: { x, y }, circleRadius } = bodies[0];
+export const Hole = (props) => {
+  const [pos, setPos] = React.useState(props.position);
+  
+    // Update the line position whenever the hole position changes
+    React.useEffect(() => {
+      setPos(props.position);
+  }, [props.position]);
+  
   
   return (
     <ImageBackground
-      source={require('./../../../../assets/images/Basket_Hole.png')}
+      source={require('./../../../../assets/images/Golf_Flag.png')}
       style={{
         position: 'absolute',
-        left: x -67,
-        top: y -179,
-        width: 250,
-        height: 250,
+        left: pos.x -10,
+        top: pos.y - 120,
+        width: 55,
+        height: 150,
       }}
-    >
-      {bodies.map((body, i) => (
-        <View
-          key={i}
-          style={{
-            position: 'absolute',
-            left: body.position.x - x + 67,
-            top: body.position.y - y +179,
-            width: circleRadius * 2,
-            height: circleRadius * 2,
-            borderRadius: circleRadius,
-            borderWidth: 1,
-            borderColor: 'red',
-            backgroundColor: 'transparent',
-          }}
-        />
-      ))}
-    </ImageBackground>
+    />
   );
 };
 
-export const createHole = (world, x, y, radius, ecart) => {
-  const body1 = Matter.Bodies.circle(x - ecart / 2, y, radius, { isStatic: true });
-  const body2 = Matter.Bodies.circle(x + ecart / 2, y, radius, { isStatic: true });
-  body1.collisionFilter.category = collisionCategory2;
-  body2.collisionFilter.category = collisionCategory2;
-
-  Matter.World.add(world, [body1, body2]);
-
-  return {
-    bodies: [body1, body2],
-    ecart,
-    renderer: <Hole bodies={[body1, body2]} ecart={ecart} />,
-  };
-};
-
-export default Hole;

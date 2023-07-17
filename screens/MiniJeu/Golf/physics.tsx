@@ -36,9 +36,6 @@ const emojiWin = [
 
 loadSounds();
 
-let collisionCategory1 = 0x0001; 
-let collisionCategory2 = 0x0002; 
-
 
 
 
@@ -90,10 +87,11 @@ const Physics = (entities, {events, time, dispatch}) => {
 
     if(start){
             if(!isPoint){
-                if(isIn(entities.GolfBall.body.position, entities.Hoop.bodies[0].position, entities.Hoop.bodies[1].position)){
+                if(isIn(entities.GolfBall.body.position, entities.Hole.position, entities.Hole.position)){
+                    console.log('yeahhh')
                     dispatch({ type: 'new-point'});
                     entities.emoji.image = emojiWin[Math.floor(Math.random() * emojiWin.length)];
-                    entities.emoji.position = {x:(entities.Hoop.bodies[0].position.x + entities.Hoop.bodies[1].position.x)/2, y: (entities.Hoop.bodies[0].position.y + entities.Hoop.bodies[1].position.y)/2};
+                    entities.emoji.position = {x:entities.Hole.body.position.x, y: entities.Hole.body.position.y};
                     clearTimeout(emojiId);
                     isEmojiVisible= true;
                     currentPoint += 1;

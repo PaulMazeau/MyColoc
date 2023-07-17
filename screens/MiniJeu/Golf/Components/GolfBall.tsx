@@ -17,17 +17,17 @@ const GolfBall = props => {
             position: 'absolute',
             left: xBody ,
             top: yBody,
-            width: radius * 2,
-            height: radius * 2,
+            width: radius * 3,
+            height: radius * 3,
             borderRadius: radius,
-            backgroundColor:'black',
+            //backgroundColor:'black',
             justifyContent:'center',
             alignItems:'center'
         }}>
             <Image
             style={{
-                height: props.size ? props.size : 20,
-                width: props.size ? props.size : 20,
+                height: props.size ? props.size : 30,
+                width: props.size ? props.size : 30,
                 transform: [{ rotate: `${props.angle}deg` }]
             }}
             source={require('./../../../../assets/images/GolfBall.png')}
@@ -55,7 +55,7 @@ export default (world, color, pos, radius) => {
         color,
         pos,
         angle: 0,
-        size:20,  
+        size:30,  
         renderer: <GolfBall/>
     }
     
@@ -78,7 +78,7 @@ export const createGolfBall = (world, color, pos, radius) => {
         color,
         pos,
         angle: 0,  
-        size:20,
+        size:30,
         renderer: <GolfBall/>
     } 
 }
