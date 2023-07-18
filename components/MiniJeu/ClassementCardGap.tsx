@@ -25,7 +25,6 @@ type ScoreBoardProps = {
 };
 
 const ScoreBoardScrollable = ({ bestNational, name, scoreColoc}: ScoreBoardProps) => {
-    console.log(scoreColoc)
     const renderScoreLines = (bestNational: ScoreType[]) => {
         return bestNational.map((score, index) => (
             <React.Fragment key={index}>
