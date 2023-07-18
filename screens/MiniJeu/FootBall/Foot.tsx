@@ -43,20 +43,29 @@ const Foot = () => {
         }
         return res
     }
+    const getGolfPointsColoc = () => {
+        var res = 0
+        for(var i=0; i<coloc.length; i++){
+            const golf = coloc[i].golfBestScore ? coloc[i].golfBestScore : 0
+            res = res + golf
+        }
+        return res
+    }
 
     const handleSetBestScore = async (score) => {
         const newPoints = score - bestScore;
         setBestScore(score)
-        await updateDoc(doc(FB_DB, 'Users', user.uuid), {footBestScore : score})
+        await updateDoc(doc(FB_DB, 'Users', user.uuid), {golfBestScore : score})
         const basketPointsColoc = getBasketPointsColoc()
         const footPointsColoc = getFootPointsColoc()
+        const golfPointsColoc = getGolfPointsColoc()
         const res = await getDoc(doc(FB_DB, 'Classements', 'total'))
         const oldScores = res.data().results
         const index = oldScores.findIndex((elt) => elt.colocID == user.colocID)
         if(index ==-1){
-            oldScores.push({colocID: user.colocID, basket: basketPointsColoc ,foot: footPointsColoc+newPoints ,nom: user.nomColoc})
+            oldScores.push({colocID: user.colocID, basket: basketPointsColoc ,foot: footPointsColoc+newPoints,golf: golfPointsColoc+newPoints ,nom: user.nomColoc})
         }else{
-            oldScores[index] = {colocID: user.colocID, basket: basketPointsColoc ,foot: footPointsColoc+newPoints, nom: user.nomColoc}
+            oldScores[index] = {colocID: user.colocID, basket: basketPointsColoc ,foot: footPointsColoc+newPoints,golf: golfPointsColoc+newPoints, nom: user.nomColoc}
         }
         await updateDoc(doc(FB_DB, 'Classements', 'total'), {results: oldScores})
 

@@ -30,7 +30,7 @@ const ScoreBoardScrollable = ({ scores, name, isScrollable, imageCorner }: Score
     const renderScoreLines = (scores: ScoreType[]) => {
         return scores.map((score, index) => (
             <React.Fragment key={index}>
-                <ScoreLigne position={score.position} userImage={score.userImage} name={score.name} score={score.score}/>
+                <ScoreLigne position={score.position} userImage={score.userImage?score.userImage:require('./../../assets/images/house.png')} name={score.name} score={score.score}/>
                 {index !== scores.length - 1 && <View style={styles.separator}/>}   
             </React.Fragment>
         ));

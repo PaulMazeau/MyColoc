@@ -69,7 +69,7 @@ const Classement = () => {
           return rObj
         })
         bestNationalSetter.sort((a, b)=> b.score - a.score)
-        bestNationalSetter = bestNationalSetter.map((r, index)=>{var rObj = {}; rObj['position'] = index+1; rObj['name']=r.name; rObj['score']=r.score;rObj['userImage']=require('../../assets/images/profilIcon2.png'); return rObj})
+        bestNationalSetter = bestNationalSetter.map((r, index)=>{var rObj = {}; rObj['position'] = index+1; rObj['name']=r.name; rObj['score']=r.score; return rObj})
         setScoresNational(bestNationalSetter)
       }
       getClassement()
