@@ -26,10 +26,11 @@ type ScoreBoardProps = {
 };
 
 const ScoreBoardScrollable = ({ bestNational, name, scoreColoc}: ScoreBoardProps) => {
+    console.log(scoreColoc)
     const renderScoreLines = (bestNational: ScoreType[]) => {
         return bestNational.map((score, index) => (
             <React.Fragment key={index}>
-                <ScoreLigne position={score.position} userImage={score.userImage} name={score.name} score={score.score}/>
+                <ScoreLigne position={score.position} userImage={require('./../../assets/images/house.png')} name={score.name} score={score.score}/>
                 {index !== bestNational.length - 1 && <View style={styles.separator}/>}   
             </React.Fragment>
         ));
@@ -48,7 +49,7 @@ const ScoreBoardScrollable = ({ bestNational, name, scoreColoc}: ScoreBoardProps
         <View style={styles.whiteDot}/>
         <View style={styles.whiteDot}/>
         <View style={styles.separator}/>
-        <ScoreLigne position={240} userImage={scoreColoc.userImage} name={scoreColoc.name} score={scoreColoc.score}/>
+        <ScoreLigne position={240} userImage={require('./../../assets/images/house.png')} name={scoreColoc.name} score={scoreColoc.score}/>
       </View>
     );
 
