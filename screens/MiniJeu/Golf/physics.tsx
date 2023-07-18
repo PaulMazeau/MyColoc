@@ -119,18 +119,11 @@ const Physics = (entities, {events, time, dispatch}) => {
     let velocity = entities.GolfBall.body.velocity;
     let speed = Math.sqrt(Math.pow(velocity.x, 2) + Math.pow(velocity.y, 2));
 
-    // Define the min and max sizes of the ball and the max speed
-    const maxSize = 30;
-    const minSize = 10;
-    const maxSpeed = 15;
-
 
     if(start){
-        // Map the speed to the size using a linear scale
-        //entities.GolfBall.size = minSize + (maxSize - minSize) * (speed / maxSpeed);
             if(!isPoint){
                 if(isIn(entities.GolfBall.body.position, entities.Hole.position)){
-                    //entities.GolfBall.size = 30;
+                    entities.GolfBall.size = 30;
                     dispatch({ type: 'new-point'});
                     entities.emoji.image = emojiWin[Math.floor(Math.random() * emojiWin.length)];
                     entities.emoji.position = {x:entities.Hole.position.x, y: entities.Hole.position.y};
@@ -147,6 +140,13 @@ const Physics = (entities, {events, time, dispatch}) => {
                     dispatch({type: 'new-shoot'})
                 }
             }
+            const y1 = height*0.7, size1 = 30;
+            const y2 = 45, size2 = 15;
+            const a = (size1 - size2) / (y1 - y2);
+            const b = size1 - a * y1;
+            entities.GolfBall.size = a * entities.GolfBall.body.position.y + b;
+
+        
     }
 
 
