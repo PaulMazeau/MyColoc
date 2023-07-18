@@ -7,7 +7,6 @@ let start = false;
 let isFalling = false;
 let isPoint = false;
 let currentPoint = 0;
-let previousPoint = 0;
 let isEmojiVisible = false;
 let emojiId;
 
@@ -52,6 +51,13 @@ const holeLimitRight = width - 50; // Limit of hole's right movement
 const holeLimitLeft = 50; // Limit of hole's left movement
 
 function moveHole(holeEntity) {
+    let baseSpeed = 0.25; // Base speed
+
+
+    let adjustedMultiplier = (currentPoint % 10) +1; 
+
+    let adjustedSpeed = baseSpeed * (adjustedMultiplier/2.5); // Adjusted speed
+    
     if (currentPoint >= 3) {
         let holePosition = holeEntity.position.x;
 
@@ -63,10 +69,13 @@ function moveHole(holeEntity) {
         }
 
         // Update the hole's position
-        holePosition += holeDirection * holeSpeed;
+        holePosition += holeDirection * adjustedSpeed;
         holeEntity.position.x = holePosition;
     }
 }
+
+
+
 
 const Physics = (entities, {events, time, dispatch}) => {
 
