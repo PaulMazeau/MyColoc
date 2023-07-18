@@ -25,8 +25,8 @@ export default (initialForce) => {
     
     return {
         physics: { engine, world },
-        Hole: hole,
         GolfBall: ball,
+        Hole: hole,
         initialForce: initialForce 
     }
 }

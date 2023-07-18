@@ -11,14 +11,14 @@ let isEmojiVisible = false;
 let emojiId;
 
 function isIn(ballPos, holePos) {
-    const errorMargin = 20;
+    const errorMargin = 0;
 
     let lignPos1 = {x:holePos.x +25, y:holePos.y}
     let lignPos2 = {x:holePos.x -25, y:holePos.y}
 
     // Check if ball's x-coordinate is within the line segment defined by lignPos1 and lignPos2
-    const withinX = (lignPos1.x <= ballPos.x && ballPos.x <= lignPos2.x) || 
-                    (lignPos2.x <= ballPos.x && ballPos.x <= lignPos1.x);
+    const withinX = (lignPos1.x - errorMargin <= ballPos.x && ballPos.x <= lignPos2.x + errorMargin) || 
+                    (lignPos2.x - errorMargin <= ballPos.x && ballPos.x <= lignPos1.x + errorMargin);
 
     // Check if ball's y-coordinate is within the line segment defined by lignPos1 and lignPos2, with error margin
     const withinY = (lignPos1.y - errorMargin <= ballPos.y && ballPos.y <= lignPos2.y + errorMargin) ||
