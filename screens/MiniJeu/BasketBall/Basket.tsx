@@ -31,26 +31,35 @@ const Basket = () => {
     const [scale] = useState(new Animated.Value(0.1));
     const [coloc, setColoc] = useContext(ColocContext)
 
-    const getTotalPointsColoc = () => {
+    const getBasketPointsColoc = () => {
         var res = 0
         for(var i=0; i<coloc.length; i++){
             const basket = coloc[i].basketBestScore ? coloc[i].basketBestScore : 0
+            res = res + basket
+        }
+        return res
+    }
+    const getFootPointsColoc = () => {
+        var res = 0
+        for(var i=0; i<coloc.length; i++){
             const foot = coloc[i].footBestScore ? coloc[i].footBestScore : 0
-            res = res + basket + foot
+            res = res + foot
         }
         return res
     }
     const handleSetBestScore = async (score) => { 
         const newPoints = score - bestScore;
         setBestScore(score)
-        const totalPointsColoc = getTotalPointsColoc()
+        await updateDoc(doc(FB_DB, 'Users', user.uuid), {basketBestScore: score})
+        const basketPointsColoc = getBasketPointsColoc()
+        const footPointsColoc = getFootPointsColoc()
         const res = await getDoc(doc(FB_DB, 'Classements', 'total'))
         const oldScores = res.data().results
         const index = oldScores.findIndex((elt) => elt.colocID == user.colocID)
         if(index ==-1){
-            oldScores.push({colocID: user.colocID, points: totalPointsColoc + newPoints, nom: user.nomColoc})
+            oldScores.push({colocID: user.colocID, basket: basketPointsColoc + newPoints,foot: footPointsColoc ,nom: user.nomColoc})
         }else{
-            oldScores[index] = {colocID: user.colocID, points: totalPointsColoc + newPoints, nom: user.nomColoc}
+            oldScores[index] = {colocID: user.colocID, basket: basketPointsColoc + newPoints,foot: footPointsColoc, nom: user.nomColoc}
         }
         await updateDoc(doc(FB_DB, 'Classements', 'total'), {results: oldScores})
     } 

@@ -77,7 +77,7 @@ export default function MiniJeu() {
       var bestNationalSetter = data.data().results.map((r)=>{
         var rObj = {}
         rObj['name'] = r.nom
-        rObj['score'] = r.points
+        rObj['score'] = r.basket + r.foot
         return rObj
       })
       bestNationalSetter.sort((a, b)=> b.score - a.score)
