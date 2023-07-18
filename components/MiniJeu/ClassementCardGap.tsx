@@ -14,7 +14,6 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'
 
 type ScoreType = {
   position: number;
-  userImage: any;
   name: string;
   score:number;
 };
