@@ -12,8 +12,8 @@ let emojiId;
 function isIn(ballPos, holePos) {
     const errorMargin = 0;
 
-    let lignPos1 = {x:holePos.x +22, y:holePos.y + 10}
-    let lignPos2 = {x:holePos.x -22, y:holePos.y - 10}
+    let lignPos1 = {x:holePos.x +20, y:holePos.y + 2}
+    let lignPos2 = {x:holePos.x -20, y:holePos.y - 2}
 
     // Check if ball's x-coordinate is within the line segment defined by lignPos1 and lignPos2
     const withinX = (lignPos1.x - errorMargin <= ballPos.x && ballPos.x <= lignPos2.x + errorMargin) || 
