@@ -18,7 +18,7 @@
     import Svg, { Line } from 'react-native-svg';
     import { Dimensions } from 'react-native';
 
-    let force = {x:0,y:0}
+    
     let canShoot = true;
 
     type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'ClassementGolf'>;
@@ -27,27 +27,42 @@
     const screenDiagonal = Math.hypot(width , height);
 
 
-    const Arrow = ({start, end, visible}) => {
+    const Arrow = ({ force, visible }) => {
         if (!visible) {
             return null;
         }
-        
-        const x2 = start.x - (end.x - start.x);
-        const y2 = start.y - (end.y - start.y)/2;
 
+        const forceInv = {x:-force.x, y:-force.y}
+    
+        // L'origine de la flèche est le point de départ de la balle
+        const origin = { x: width * 0.5, y: height * 0.7 };
+    
+        // La longueur de la flèche est proportionnelle à la magnitude du vecteur de force
+        const length = Math.sqrt(forceInv.x * forceInv.x + forceInv.y * forceInv.y);
+    
+        // L'angle de la flèche est déterminé par le vecteur de force
+        const angle = Math.atan2(forceInv.y, forceInv.x);
+    
+        // Calcule les coordonnées de fin de la flèche
+        const end = {
+            x: origin.x + length * Math.cos(angle),
+            y: origin.y + length * Math.sin(angle),
+        };
+    
         return (
             <Svg style={{ position: 'absolute', width: screenDiagonal, height: screenDiagonal }}>
                 <Line
-                    x1={width*0.5 + 1}
-                    y1={height*0.7}
-                    x2={x2}
-                    y2={y2 - 110}
+                    x1={origin.x}
+                    y1={origin.y}
+                    x2={end.x}
+                    y2={end.y}
                     stroke="red"
                     strokeWidth="1"
                 />
             </Svg>
         );
-    }
+    };
+    
 
     const Golf = () => {
         const [user, setUser] = useContext(UserContext)
@@ -57,9 +72,8 @@
         const [currentBestScore, setCurrentBestScore] = useState(0)
         const [bestScore, setBestScore] = useState(user.golfBestScore ? user.golfBestScore : 0)
         const [scale] = useState(new Animated.Value(0.1));
-        const [arrowStart, setArrowStart] = useState({x: 0, y: 0});
-        const [arrowEnd, setArrowEnd] = useState({x: 0, y: 0});
         const [arrowVisible, setArrowVisible] = useState(false);
+        const [force, setForce] = useState({ x: 0, y: 0 });
 
         const handleSetBestScore = async (score) => {
             setBestScore(score)
@@ -81,20 +95,18 @@
             PanResponder.create({
             onStartShouldSetPanResponder: () => canShoot,
             onPanResponderGrant: (_, gesture) => {
-                force = {x: 0, y: 0};
-                setArrowStart({x: gesture.x0, y: gesture.y0});
-                setArrowEnd({x: gesture.x0, y: gesture.y0});
+                setForce({ x: 0, y: 0 });
                 setArrowVisible(true);
                 setMenu(false);
             },
             onPanResponderMove: (_, gesture) => {
-                force = {x: gesture.dx, y: gesture.dy};
-                setArrowEnd({x: gesture.moveX, y: gesture.moveY});
+                setForce({ x: gesture.dx, y: gesture.dy });
             },
-            onPanResponderRelease: () => {
+            onPanResponderRelease: (_, gesture) => {
                 if(gameEngineRef.current) {
                     canShoot = false
-                    gameEngineRef.current.dispatch({ type: 'start', payload: force });
+                    console.log({ x: gesture.dx/10, y: Math.min(gesture.dy/10, 50) })
+                    gameEngineRef.current.dispatch({ type: 'start', payload: { x: gesture.dx/10, y: Math.min(gesture.dy/10, 50) } });
                 }
                 setArrowVisible(false);
             },
@@ -120,7 +132,7 @@
                 <Animated.Text style={[ styles.Points, {transform: [{ scale: scale }], color: menu? '#3489eb':'#bababa'},]}> {menu ? currentBestScore : currentScore} </Animated.Text>
 
                 
-                <Arrow start={arrowStart} end={arrowEnd} visible={arrowVisible}/>
+                <Arrow force={force} visible={arrowVisible}/>
 
                 <GameEngine
                 ref={gameEngineRef}
