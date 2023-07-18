@@ -7,8 +7,8 @@ import BackButton from "../../../components/Reusable/BackButton";
 import { Animated } from 'react-native';
 import Light from "./Components/Light";
 import Timer from "./perf-timer"
-import { UserContext } from "../../../UserContext";
-import { doc, updateDoc } from "firebase/firestore";
+import { ColocContext, UserContext } from "../../../UserContext";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { FB_DB } from "../../../firebaseconfig";
 import ScoreCard from "../../../components/MiniJeu/ScoreCard";
 import {Shadows} from './../../../constants/Shadow'
@@ -26,10 +26,40 @@ const Foot = () => {
     const [currentBestScore, setCurrentBestScore] = useState(0)
     const [bestScore, setBestScore] = useState(user.footBestScore ? user.footBestScore : 0)
     const [scale] = useState(new Animated.Value(0.1));
+    const [coloc, setColoc] = useContext(ColocContext)
+    const getBasketPointsColoc = () => {
+        var res = 0
+        for(var i=0; i<coloc.length; i++){
+            const basket = coloc[i].basketBestScore ? coloc[i].basketBestScore : 0
+            res = res + basket
+        }
+        return res
+    }
+    const getFootPointsColoc = () => {
+        var res = 0
+        for(var i=0; i<coloc.length; i++){
+            const foot = coloc[i].footBestScore ? coloc[i].footBestScore : 0
+            res = res + foot
+        }
+        return res
+    }
 
     const handleSetBestScore = async (score) => {
+        const newPoints = score - bestScore;
         setBestScore(score)
         await updateDoc(doc(FB_DB, 'Users', user.uuid), {footBestScore : score})
+        const basketPointsColoc = getBasketPointsColoc()
+        const footPointsColoc = getFootPointsColoc()
+        const res = await getDoc(doc(FB_DB, 'Classements', 'total'))
+        const oldScores = res.data().results
+        const index = oldScores.findIndex((elt) => elt.colocID == user.colocID)
+        if(index ==-1){
+            oldScores.push({colocID: user.colocID, basket: basketPointsColoc ,foot: footPointsColoc+newPoints ,nom: user.nomColoc})
+        }else{
+            oldScores[index] = {colocID: user.colocID, basket: basketPointsColoc ,foot: footPointsColoc+newPoints, nom: user.nomColoc}
+        }
+        await updateDoc(doc(FB_DB, 'Classements', 'total'), {results: oldScores})
+
     } 
     useEffect(() =>{
         setRunning(false)
