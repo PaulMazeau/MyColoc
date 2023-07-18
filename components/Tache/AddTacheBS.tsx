@@ -104,10 +104,9 @@ const AddTacheBS = () => {
 
   const renderParticipant = () => {
     return coloc.map((c) => {
-      const [selected, setSelected] = useState(null);
       return(
-      <TouchableOpacity key ={c.uuid} onPress = {() => {putInOrPutOut(c.uuid); setSelected(!selected)}}>
-      <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} selected={selected} />
+      <TouchableOpacity key ={c.uuid} onPress = {() => {putInOrPutOut(c.uuid)}}>
+      <ParticipantCard nom={c.nom} url={c.avatarUrl} key={c.uuid} selected={concerned.includes(c.uuid)} />
       </TouchableOpacity>)
   });}
 
