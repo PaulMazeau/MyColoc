@@ -96,8 +96,8 @@ const Physics = (entities, {events, time, dispatch}) => {
             }
             else{
                 force = {
-                    x: -event.payload.x/5, 
-                    y: -event.payload.y/10
+                    x: -event.payload.x, 
+                    y: -event.payload.y
                 };
             }
     
@@ -119,10 +119,10 @@ const Physics = (entities, {events, time, dispatch}) => {
 
     if(start){
         // Map the speed to the size using a linear scale
-        entities.GolfBall.size = minSize + (maxSize - minSize) * (speed / maxSpeed);
+        //entities.GolfBall.size = minSize + (maxSize - minSize) * (speed / maxSpeed);
             if(!isPoint){
                 if(isIn(entities.GolfBall.body.position, entities.Hole.position)){
-                    entities.GolfBall.size = 30;
+                    //entities.GolfBall.size = 30;
                     dispatch({ type: 'new-point'});
                     entities.emoji.image = emojiWin[Math.floor(Math.random() * emojiWin.length)];
                     entities.emoji.position = {x:entities.Hole.position.x, y: entities.Hole.position.y};
@@ -147,7 +147,7 @@ const Physics = (entities, {events, time, dispatch}) => {
        
         Matter.Body.setVelocity(entities.GolfBall.body, {x:0, y:0})
         Matter.Body.setPosition(entities.GolfBall.body, {x:width*0.5, y:height*0.7})
-        entities.GolfBall.size = 30;
+        //entities.GolfBall.size = 30;
         start=false;
         isFalling = false;
         isPoint = false;
