@@ -32,7 +32,7 @@
             return null;
         }
 
-        const forceInv = {x:-force.x, y:-force.y}
+        const forceInv = {x:-force.x/5, y:-force.y/5}
     
         // L'origine de la flèche est le point de départ de la balle
         const origin = { x: width * 0.5, y: height * 0.7 };
@@ -90,7 +90,7 @@
         }, [currentScore, scale]);
 
         
-        
+        const maxForce = 20;
         const panResponder = useRef(
             PanResponder.create({
             onStartShouldSetPanResponder: () => canShoot,
@@ -100,13 +100,35 @@
                 setMenu(false);
             },
             onPanResponderMove: (_, gesture) => {
-                setForce({ x: gesture.dx, y: gesture.dy });
+                let normalizedForce = {
+                    x: gesture.dx ,
+                    y: gesture.dy ,
+                };
+                setForce(normalizedForce);
             },
             onPanResponderRelease: (_, gesture) => {
                 if(gameEngineRef.current) {
                     canShoot = false
-                    console.log({ x: gesture.dx/10, y: Math.min(gesture.dy/10, 50) })
-                    gameEngineRef.current.dispatch({ type: 'start', payload: { x: gesture.dx/10, y: Math.min(gesture.dy/10, 50) } });
+
+                    let forceMagnitude = Math.sqrt(gesture.dx/10 * gesture.dx/10 + gesture.dy/10 * gesture.dy/10);
+                    // Si la magnitude de la force est supérieure à maxForce, nous la limitons
+                    if (forceMagnitude > maxForce) {
+                    // Normalisation du vecteur de force
+                    let normalizedForce = {
+                        x: gesture.dx/10 / forceMagnitude,
+                        y: gesture.dy/10 / forceMagnitude,
+                    };
+
+                    // Ajustement de la force à la force maximale tout en maintenant la direction
+                    setForce({
+                        x: normalizedForce.x * maxForce,
+                        y: normalizedForce.y * maxForce,
+                    }) 
+                    gameEngineRef.current.dispatch({ type: 'start', payload: {x: normalizedForce.x * maxForce,y: normalizedForce.y * maxForce,} });
+                    }
+                    else{
+                        gameEngineRef.current.dispatch({ type: 'start', payload: { x: gesture.dx/10, y: gesture.dy/10 } });
+                    }
                 }
                 setArrowVisible(false);
             },
