@@ -93,7 +93,7 @@ const ClassementBasketBall = () => {
                 <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../assets/images/BasketBall.png')}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true} imageCorner={require('./../../assets/images/BasketBall.png')}/>
+                <ClassementCardScrollable scores={scoresNational} name={"Toutes les colocs"} isScrollable={true} imageCorner={require('./../../assets/images/BasketBall.png')}/>
             </View>
         </View>
       </SafeAreaView>
