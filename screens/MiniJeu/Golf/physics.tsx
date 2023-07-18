@@ -46,7 +46,6 @@ const emoji = EmojiEntity({x:0,y:0}, 50, null);
 const { width, height } = Dimensions.get('window');
 
 let holeDirection = 1; // Initial direction (1 for right, -1 for left)
-const holeSpeed = 0.25; // Speed of the hole's movement
 const holeLimitRight = width - 50; // Limit of hole's right movement
 const holeLimitLeft = 50; // Limit of hole's left movement
 
@@ -161,7 +160,6 @@ const Physics = (entities, {events, time, dispatch}) => {
         isFalling = false;
         isPoint = false;
         currentPoint = 0;
-        previousPoint = 0;
         playSound('Laser');
         dispatch({ type: 'game-over' })
         
