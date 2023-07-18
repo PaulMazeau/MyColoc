@@ -4,7 +4,6 @@ import EmojiEntity from './Components/Emoji';
 import { loadSounds, playSound } from './SoundManager';
 
 let start = false;
-let isFalling = false;
 let isPoint = false;
 let currentPoint = 0;
 let isEmojiVisible = false;
@@ -135,7 +134,6 @@ const Physics = (entities, {events, time, dispatch}) => {
                     Matter.Body.setVelocity(entities.GolfBall.body, {x:0, y:0})
                     Matter.Body.setPosition(entities.GolfBall.body, {x:width*0.5, y:height*0.7})
                     start=false;
-                    isFalling = false;
                     isPoint = false;
                     dispatch({type: 'new-shoot'})
                 }
@@ -157,7 +155,6 @@ const Physics = (entities, {events, time, dispatch}) => {
         Matter.Body.setPosition(entities.GolfBall.body, {x:width*0.5, y:height*0.7})
         //entities.GolfBall.size = 30;
         start=false;
-        isFalling = false;
         isPoint = false;
         currentPoint = 0;
         playSound('Laser');
