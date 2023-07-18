@@ -106,7 +106,7 @@ export default function MiniJeu() {
                 <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} scoreTotal={totalScore}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardGap bestNational={bestNational} name={"National"} scoreColoc={totalScore}/>
+                <ClassementCardGap bestNational={bestNational} name={"Toutes les colocs"} scoreColoc={totalScore}/>
             </View>
         </View>
       </SafeAreaView>

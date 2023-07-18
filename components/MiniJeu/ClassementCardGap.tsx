@@ -93,18 +93,18 @@ const styles = StyleSheet.create({
     },
 
     text1:{
-        marginTop:50,
+        marginTop:20,
         color : "white",
         fontWeight: '600',
         fontSize: 20,
-        height:'100%',
+        flex:1
     },
 
     lign:{
         justifyContent:'space-between',
         alignItems:'center',
         flexDirection:'row',
-        width:'100%'
+        width:'100%',
     },
 
     Image:{
