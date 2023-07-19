@@ -47,7 +47,7 @@ const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal, imageCorner 
 
   const content = () => {
     return (
-      <>
+      <View style={{marginBottom:15}}>
         <View style={styles.lign}>
         <Text style={styles.text1}>{name}</Text>
         <Image source={imageCorner} style={styles.Image}/>
@@ -67,7 +67,7 @@ const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal, imageCorner 
           <UserBubble name={scores[2].name} userImage={scores[2].userImage} size={40}/>
         </View>
         {renderScoreLines(scores)}
-      </>
+      </View>
     );
   };
 
