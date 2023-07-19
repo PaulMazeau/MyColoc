@@ -66,10 +66,10 @@ export default function MiniJeu() {
     rObj['position'] = index +1
     rObj['userImage'] = {uri: c.avatarUrl}
     rObj['name'] = c.nom
-    rObj['score'] = c.footBestScore+c.basketBestScore
+    rObj['score'] = c.footBestScore+c.basketBestScore+c.golfBestScore
     return rObj
   }) 
-  const totalScoreArray = colocFormated.map((c)=>c.footBestScore+c.basketBestScore)
+  const totalScoreArray = colocFormated.map((c)=>c.footBestScore+c.basketBestScore+c.golfBestScore)
   const totalScore = totalScoreArray.reduce((a, b)=>a+b, 0)
   useEffect(()=>{
     const getClassement = async () => {
