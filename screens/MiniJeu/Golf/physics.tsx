@@ -86,6 +86,15 @@ const Physics = (entities, {events, time, dispatch}) => {
 
     moveHole(entities.Hole);
 
+    let wall = entities.MiddleWall
+
+    if(currentPoint >=10 ) {
+        Matter.Body.setPosition(wall.body, {
+            x: Dimensions.get('window').width / 2, 
+            y: Dimensions.get('window').height / 4,
+        });
+    }
+    
 
     let engine = entities.physics.engine;
     entities.emoji = emoji;
