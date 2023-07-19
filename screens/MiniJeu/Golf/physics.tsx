@@ -12,8 +12,8 @@ let emojiId;
 function isIn(ballPos, holePos) {
     const errorMargin = 0;
 
-    let lignPos1 = {x:holePos.x +18, y:holePos.y + 5}
-    let lignPos2 = {x:holePos.x -18, y:holePos.y - 5}
+    let lignPos1 = {x:holePos.x +18, y:holePos.y + 10}
+    let lignPos2 = {x:holePos.x -18, y:holePos.y - 10}
 
     // Check if ball's x-coordinate is within the line segment defined by lignPos1 and lignPos2
     const withinX = (lignPos1.x - errorMargin <= ballPos.x && ballPos.x <= lignPos2.x + errorMargin) || 
@@ -49,14 +49,21 @@ const holeLimitRight = width - 50; // Limit of hole's right movement
 const holeLimitLeft = 50; // Limit of hole's left movement
 
 function moveHole(holeEntity) {
-    let baseSpeed = 0.25; // Base speed
-
-
-    let adjustedMultiplier = (currentPoint % 10) +1; 
+    let baseSpeed = 0.5; // Base speed
+    
+    let newCurrentPoint
+    if(currentPoint <= 10){
+        newCurrentPoint = currentPoint - 3
+    }
+    else{
+        newCurrentPoint = currentPoint
+    }
+    
+    let adjustedMultiplier = (newCurrentPoint % 10) +1; 
 
     let adjustedSpeed = baseSpeed * (adjustedMultiplier/2.5); // Adjusted speed
     
-    if (currentPoint >= 3) {
+    if (newCurrentPoint >= 0) {
         let holePosition = holeEntity.position.x;
 
         // Change direction if the hole has reached the left or right limit
