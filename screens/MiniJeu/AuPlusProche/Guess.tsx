@@ -2,14 +2,14 @@ import React from "react";
 import { View, Image, StyleSheet, ImageBackground, Text,  KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { main } from '../../constants/Colors';
-import QuestionNumber from "../../components/MiniJeu/QuestionNumber";
-import TimeLeft from "./TimeLeft";
-import { MiniJeuStackParams } from '../../App';
+import { main } from '../../../constants/Colors';
+import QuestionNumber from "../../../components/MiniJeu/QuestionNumber";
+import TimeLeft from "../TimeLeft";
+import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
-import ButtonColor from './../../components/Reusable/ButtonColor'
+import ButtonColor from '../../../components/Reusable/ButtonColor'
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');

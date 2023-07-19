@@ -30,22 +30,21 @@ import { User, onAuthStateChanged } from 'firebase/auth';
 import { FB_AUTH, FB_DB } from './firebaseconfig';
 import { QuerySnapshot, collection, doc, getDoc, onSnapshot, query, where } from 'firebase/firestore';
 import NoColoc from './screens/NoColoc';
-import AuPlusProcheWait from './screens/MiniJeu/AuPlusProcheWait';
+import AuPlusProcheWait from './screens/MiniJeu/AuPlusProche/AuPlusProcheWait';
 import Basket from './screens/MiniJeu/BasketBall/Basket';
 import Golf from './screens/MiniJeu/Golf/Golf';
-import ClassementGolf from './screens/MiniJeu/ClassementGolf';
-import ClassementBasketBall from './screens/MiniJeu/ClassementBasketBall';
-import ClassementFootBall from './screens/MiniJeu/ClassementFootBall';
+import ClassementGolf from './screens/MiniJeu/Golf/ClassementGolf';
+import ClassementBasketBall from './screens/MiniJeu/BasketBall/ClassementBasketBall';
+import ClassementFootBall from './screens/MiniJeu/FootBall/ClassementFootBall';
 import Foot from './screens/MiniJeu/FootBall/Foot';
-import Guess from './screens/MiniJeu/Guess';
-import IncognitoSetUp from './screens/MiniJeu/IncognitoSetUp';
-import Mot from './screens/MiniJeu/Mot';
-import RevealRole from './screens/MiniJeu/RevealRole';
-import Result from './screens/MiniJeu/Result';
-import PassPhone from './screens/MiniJeu/PassPhone';
-import Vote from './screens/MiniJeu/Vote';
+import Guess from './screens/MiniJeu/AuPlusProche/Guess';
+import IncognitoSetUp from './screens/MiniJeu/Incognito/IncognitoSetUp';
+import Mot from './screens/MiniJeu/Incognito/Mot';
+import RevealRole from './screens/MiniJeu/Incognito/RevealRole';
+import PassPhone from './screens/MiniJeu/Incognito/PassPhone';
+import Vote from './screens/MiniJeu/Incognito/Vote';
 import { GameStateProvider } from "./screens/MiniJeu/GameStateContext";
-import Answer from './screens/MiniJeu/Answer';
+import Answer from './screens/MiniJeu/AuPlusProche/Answer';
 import Classement from './screens/MiniJeu/Classement';
 import ColocationSettingsScreen from './screens/ColocationSettings';
 import AvatarSettings from './screens/AvatarSettings';
@@ -75,7 +74,6 @@ export type RootStackParams = {
   Answer: undefined;
   IncognitoSetUp: undefined;
   PassPhone: undefined;
-  Result: undefined;
   Foot: undefined;
   ClassementFootBall: undefined;
   Basket: undefined;
@@ -137,7 +135,6 @@ export type MiniJeuStackParams = {
   IncognitoSetUp: { fromRevealRole?: boolean };
   PassPhone: {
     gameState:any[]};
-  Result: undefined;
   Foot: undefined;
   ClassementFootBall: undefined;
   Basket: undefined;
@@ -325,7 +322,6 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="Vote" component={Vote} />
       <MiniJeuStack.Screen name="Mot" component={Mot} />
       <MiniJeuStack.Screen name="RevealRole" component={RevealRole} />
-      <MiniJeuStack.Screen name="Result" component={Result} />
       <MiniJeuStack.Screen name="Foot" component={Foot} />
       <MiniJeuStack.Screen name="ClassementFootBall" component={ClassementFootBall} />
       <MiniJeuStack.Screen name="Basket" component={Basket} />

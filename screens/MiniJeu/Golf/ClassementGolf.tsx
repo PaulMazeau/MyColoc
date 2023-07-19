@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, Touchable} from 'react-native';
-import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard';
+import ClassementCardScrollable from '../../../components/MiniJeu/ClassementCard';
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import BackIcon from '../../assets/icons/BackIcon'
-import ClassementCardPodium from '../../components/MiniJeu/ClassementCardPodium';
+import BackIcon from '../../../assets/icons/BackIcon'
+import ClassementCardPodium from '../../../components/MiniJeu/ClassementCardPodium';
 import { useNavigation } from '@react-navigation/native';
-import { ColocContext, UserContext } from '../../UserContext';
+import { ColocContext, UserContext } from '../../../UserContext';
 import { doc, getDoc } from 'firebase/firestore';
-import { FB_DB } from '../../firebaseconfig';
+import { FB_DB } from '../../../firebaseconfig';
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -27,44 +27,46 @@ const windowWidth = Dimensions.get('window').width;
 //     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
 // ];
 
-// const scoresNational = [
-//     { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
-//     { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno', score:1800 },
-//     { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-// ];
+const scoresNational = [
+    { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
+    { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno', score:1800 },
+    { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+    { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+    { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+    { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+    { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+    { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+];
 
 
-const ClassementBasketBall = () => {
+const Classement = () => {
     const navigation = useNavigation();
     const [coloc, setColoc] = useContext(ColocContext);
     const [user, setUser] = useContext(UserContext);
     const [scoresNational, setScoresNational] = useState([])
-    const colocFormated = coloc.map((c)=> {if(c.basketBestScore){return c}else{
+    const colocFormated = coloc.map((c)=> {if(c.golfBestScore){return c}else{
       var rObj = c
-      rObj.basketBestScore = 0
+      rObj.golfBestScore = 0
       return rObj
     }})
-    colocFormated.sort((c1, c2)=> c2.basketBestScore - c1.basketBestScore)
+    colocFormated.sort((c1, c2)=> c2.golfBestScore - c1.golfBestScore)
     const scores = colocFormated.map((c, index)=>{
       var rObj = {}
       rObj['position'] = index +1
       rObj['userImage'] = {uri: c.avatarUrl}
       rObj['name'] = c.nom
-      rObj['score'] = c.basketBestScore
+      rObj['score'] = c.golfBestScore
       return rObj
     }) 
+
     useEffect(()=>{
       const getClassement = async () => {
         const data  = await getDoc(doc(FB_DB, 'Classements', 'total'))
+        //console.log(data.data())
         var bestNationalSetter = data.data().results.map((r)=>{
           var rObj = {}
           rObj['name'] = r.nom
-          rObj['score'] = r.basket 
+          rObj['score'] = r.golf 
           return rObj
         })
         bestNationalSetter.sort((a, b)=> b.score - a.score)
@@ -90,10 +92,10 @@ const ClassementBasketBall = () => {
                 <Text style={styles.text}>Classement</Text>
             </TouchableOpacity>
             <View style={styles.Classement1}>
-                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../assets/images/BasketBall.png')}/>
+                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../assets/images/GolfBall.png')}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardScrollable scores={scoresNational} name={"Toutes les colocs"} isScrollable={true} imageCorner={require('./../../assets/images/BasketBall.png')}/>
+                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true} imageCorner={require('./../../assets/images/GolfBall.png')}/>
             </View>
         </View>
       </SafeAreaView>
@@ -154,4 +156,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ClassementBasketBall;
+export default Classement;

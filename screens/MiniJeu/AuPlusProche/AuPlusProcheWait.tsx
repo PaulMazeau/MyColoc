@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
-import Regles from './../../components/MiniJeu/Regles';
+import Regles from '../../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import WaitingCard from "../../components/MiniJeu/WaitingCard";
-import { main } from '../../constants/Colors';
-import { MiniJeuStackParams } from '../../App';
+import WaitingCard from "../../../components/MiniJeu/WaitingCard";
+import { main } from '../../../constants/Colors';
+import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
-import Button from "../../components/Reusable/ButtonColor";
-import BackButton from "../../components/Reusable/BackButton";
+import Button from "../../../components/Reusable/ButtonColor";
+import BackButton from "../../../components/Reusable/BackButton";
 import { doc, getDoc } from "firebase/firestore";
-import { FB_DB } from "../../firebaseconfig";
+import { FB_DB } from "../../../firebaseconfig";
 import { useContentWidth } from "react-native-render-html";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../../UserContext";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');

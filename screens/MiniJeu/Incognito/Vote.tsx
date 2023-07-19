@@ -2,18 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, BackHandler, Alert } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { main } from '../../constants/Colors';
+import { main } from '../../../constants/Colors';
 import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MiniJeuStackParams } from "../../App";
-import VoteCard from "../../components/MiniJeu/VoteCard";
-import Button from "../../components/Reusable/ButtonColor";
+import { MiniJeuStackParams } from "../../../App";
+import VoteCard from "../../../components/MiniJeu/VoteCard";
+import Button from "../../../components/Reusable/ButtonColor";
 import { useNavigation } from "@react-navigation/native";
-import { GameStateContext } from './GameStateContext';
+import { GameStateContext } from '../GameStateContext';
 import RevealRole from "./RevealRole";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../../UserContext";
 
-const Space_Background=require('../../assets/images/Space_Background.png');
-const Logo =require('../../assets/images/Logo_Minijeu.png');
+const Space_Background=require('../../../assets/images/Space_Background.png');
+const Logo =require('../../../assets/images/Logo_Minijeu.png');
 
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'RevealRole'>;

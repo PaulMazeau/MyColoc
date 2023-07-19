@@ -1,23 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Alert } from "react-native";
-import Regles from '../../components/MiniJeu/Regles';
+import Regles from '../../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { main } from '../../constants/Colors';
-import { MiniJeuStackParams } from '../../App';
+import { main } from '../../../constants/Colors';
+import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
-import BackButton from "../../components/Reusable/BackButton";
-import PlayersCard from "../../components/MiniJeu/PlayersCard";
-import { GameStateContext } from './GameStateContext';
+import BackButton from "../../../components/Reusable/BackButton";
+import PlayersCard from "../../../components/MiniJeu/PlayersCard";
+import { GameStateContext } from '../GameStateContext';
 import { wordPairs } from './IncognitoWords';
 
 
 
 
 
-const Space_Background=require('../../assets/images/Space_Background.png');
-const Logo =require('../../assets/images/Logo_Minijeu.png');
+const Space_Background=require('../../../assets/images/Space_Background.png');
+const Logo =require('../../../assets/images/Logo_Minijeu.png');
 
 
 

@@ -2,18 +2,18 @@ import React, { useContext, useEffect } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions, BackHandler } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { main } from '../../constants/Colors';
-import { MiniJeuStackParams } from '../../App';
+import { main } from '../../../constants/Colors';
+import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
-import Button from "../../components/Reusable/ButtonColor";
+import Button from "../../../components/Reusable/ButtonColor";
 
 import { useNavigation } from "@react-navigation/native";
 import PassPhone from "./PassPhone";
-import { GameStateContext } from "./GameStateContext";
+import { GameStateContext } from "../GameStateContext";
 
-const Space_Background=require('../../assets/images/Space_Background.png');
-const Logo =require('../../assets/images/Logo_Minijeu.png');
-const Card =require('../../assets/images/Card.png');
+const Space_Background=require('../../../assets/images/Space_Background.png');
+const Logo =require('../../../assets/images/Logo_Minijeu.png');
+const Card =require('../../../assets/images/Card.png');
 const windowHeight = Dimensions.get('window').height;
 
 type Props = NativeStackScreenProps<MiniJeuStackParams, 'Mot'>;
