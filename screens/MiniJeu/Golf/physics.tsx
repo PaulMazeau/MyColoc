@@ -60,8 +60,17 @@ function moveHole(holeEntity) {
     }
     
     let adjustedMultiplier = (newCurrentPoint % 10) +1; 
+    let adjustedSpeed;
 
-    let adjustedSpeed = baseSpeed * (adjustedMultiplier/2.5); // Adjusted speed
+
+
+    if(newCurrentPoint>=20){
+        adjustedSpeed = baseSpeed*10/2.5
+    }
+    else{
+        adjustedSpeed = baseSpeed * (adjustedMultiplier/2.5); // Adjusted speed
+    }
+
     
     if (newCurrentPoint >= 0) {
         let holePosition = holeEntity.position.x;
@@ -78,6 +87,7 @@ function moveHole(holeEntity) {
         holeEntity.position.x = holePosition;
     }
 }
+
 
 
 
