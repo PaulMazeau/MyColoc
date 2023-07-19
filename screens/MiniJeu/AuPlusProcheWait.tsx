@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
 import Regles from './../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -10,6 +10,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import Button from "../../components/Reusable/ButtonColor";
 import BackButton from "../../components/Reusable/BackButton";
+import { doc, getDoc } from "firebase/firestore";
+import { FB_DB } from "../../firebaseconfig";
+import { useContentWidth } from "react-native-render-html";
+import { UserContext } from "../../UserContext";
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -20,7 +24,19 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Guess'>;
 const AuPlusProcheWait = () => {
     const navigation = useNavigation<navigationProp>();
     const [userIsOwner, setUserIsOwner] = useState(true);
-
+    const [refresh, setRefresh] = useState(0)
+    const [user, setUser] = useContext(UserContext)
+    const [salonExists, setSalonExists] = useState(false)
+    useEffect(()=>{
+        const getSalon = async () => {
+            const salon = await getDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Salon', 'salon'))
+            console.log(salon.exists())
+            if(salon.exists()){
+                setSalonExists(true)
+            }
+        }
+        getSalon()
+    }, [refresh])
     return (
         <ImageBackground 
         source={Space_Background} 
@@ -41,9 +57,9 @@ const AuPlusProcheWait = () => {
                 <Button text={'Créer un salon'} colorText={'white'} colorBackGround={'blue'} onPress={() => {}}/>
             </View>
             <View style={styles.container}>
-                <WaitingCard userIsOwner={userIsOwner} onPress={() => 
+                {salonExists ? <WaitingCard userIsOwner={userIsOwner} onPress={() => 
                     {userIsOwner? navigation.navigate('Guess') : navigation.navigate('Guess')}
-                }/>
+                }/> :  <TouchableOpacity onPress={()=>{setRefresh(refresh+1)}}><Text style={{color : 'red'}}>Tu ne vois pas de salon mais tu devrais ? Clique pour rafraîchir</Text></TouchableOpacity>}
                 <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
             </View>
         </View>
