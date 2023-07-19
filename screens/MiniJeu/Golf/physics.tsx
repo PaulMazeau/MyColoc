@@ -95,6 +95,7 @@ const Physics = (entities, {events, time, dispatch}) => {
         });
     }
     
+    
 
     let engine = entities.physics.engine;
     entities.emoji = emoji;

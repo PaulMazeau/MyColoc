@@ -38,7 +38,7 @@ export default (initialForce) => {
         renderer: <Hole position={{x: width * 0.5, y: height * 0.15}}/>
     };
 
-    let wall = MiddleWall(world, 'grey', 50);
+    let wall = MiddleWall(world, 'grey', 35);
     
     return {
         physics: { engine, world },
