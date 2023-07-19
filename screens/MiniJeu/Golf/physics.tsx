@@ -52,7 +52,7 @@ function moveHole(holeEntity) {
     let baseSpeed = 0.5; // Base speed
     
     let newCurrentPoint
-    if(currentPoint <= 10){
+    if(currentPoint < 10){
         newCurrentPoint = currentPoint - 3
     }
     else{
