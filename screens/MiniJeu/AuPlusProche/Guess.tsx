@@ -11,10 +11,10 @@ import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
 import ButtonColor from '../../../components/Reusable/ButtonColor'
 
-const Space_Background=require('../../assets/images/Space_Background.png');
-const Logo =require('../../assets/images/Logo_Minijeu.png');
-const LogoBlackWhite =require('../../assets/images/Logo_Minijeu_BlackWhite.png');
-const Visual =require('../../assets/images/ImageDemo.png');
+const Space_Background=require('../../../assets/images/Space_Background.png');
+const Logo =require('../../../assets/images/Logo_Minijeu.png');
+const LogoBlackWhite =require('../../../assets/images/Logo_Minijeu_BlackWhite.png');
+const Visual =require('../../../assets/images/ImageDemo.png');
 
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Answer'>;

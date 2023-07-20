@@ -11,8 +11,8 @@ import { ColocContext, UserContext } from '../../../UserContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { FB_DB } from '../../../firebaseconfig';
 
-const Space_Background=require('../../assets/images/Space_Background.png');
-const Logo =require('../../assets/images/Logo_Minijeu.png');
+const Space_Background=require('../../../assets/images/Space_Background.png');
+const Logo =require('../../../assets/images/Logo_Minijeu.png');
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -27,16 +27,16 @@ const windowWidth = Dimensions.get('window').width;
 //     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
 // ];
 
-const scoresNational = [
-    { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
-    { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno', score:1800 },
-    { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-    { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-];
+// const scoresNational = [
+//     { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
+//     { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno', score:1800 },
+//     { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+//     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
+// ];
 
 
 const Classement = () => {
@@ -92,10 +92,10 @@ const Classement = () => {
                 <Text style={styles.text}>Classement</Text>
             </TouchableOpacity>
             <View style={styles.Classement1}>
-                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../assets/images/GolfBall.png')}/>
+                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../../assets/images/GolfBall.png')}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true} imageCorner={require('./../../assets/images/GolfBall.png')}/>
+                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true} imageCorner={require('./../../../assets/images/GolfBall.png')}/>
             </View>
         </View>
       </SafeAreaView>

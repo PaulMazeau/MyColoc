@@ -11,8 +11,8 @@ import { ColocContext, UserContext } from '../../../UserContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { FB_DB } from '../../../firebaseconfig';
 
-const Space_Background=require('../../assets/images/Space_Background.png');
-const Logo =require('../../assets/images/Logo_Minijeu.png');
+const Space_Background=require('../../../assets/images/Space_Background.png');
+const Logo =require('../../../assets/images/Logo_Minijeu.png');
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -91,10 +91,10 @@ const Classement = () => {
                 <Text style={styles.text}>Classement</Text>
             </TouchableOpacity>
             <View style={styles.Classement1}>
-                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../assets/images/FootBall.png')}/>
+                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../../assets/images/FootBall.png')}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true} imageCorner={require('./../../assets/images/FootBall.png')}/>
+                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true} imageCorner={require('./../../../assets/images/FootBall.png')}/>
             </View>
         </View>
       </SafeAreaView>

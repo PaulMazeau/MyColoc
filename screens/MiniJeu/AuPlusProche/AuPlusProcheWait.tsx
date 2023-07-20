@@ -15,8 +15,8 @@ import { FB_DB } from "../../../firebaseconfig";
 import { useContentWidth } from "react-native-render-html";
 import { UserContext } from "../../../UserContext";
 
-const Space_Background=require('../../assets/images/Space_Background.png');
-const Logo =require('../../assets/images/Logo_Minijeu.png');
+const Space_Background=require('../../../assets/images/Space_Background.png');
+const Logo =require('../../../assets/images/Logo_Minijeu.png');
 
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Guess'>;
