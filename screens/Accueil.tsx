@@ -108,9 +108,7 @@ const AccueilScreen = () => {
             <BoutonMiniJeu/>
           </View>
           <Text style={styles.TitreCategorie1}>Ta prochaine Tâche</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Tache')}>
           {renderNextTache()}
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
