@@ -60,15 +60,18 @@ export default function MiniJeu() {
     return rObj
   }
 })
-  colocFormated.sort((c1, c2)=> c2.footBestScore+c2.footBestScore - c1.footBestScore - c1.basketBestScore)
-  const scores = colocFormated.map((c, index)=>{
-    var rObj = {}
-    rObj['position'] = index +1
-    rObj['userImage'] = {uri: c.avatarUrl}
-    rObj['name'] = c.nom
-    rObj['score'] = c.footBestScore+c.basketBestScore+c.golfBestScore
-    return rObj
-  }) 
+colocFormated.sort((c1, c2) => 
+((c2.footBestScore || 0) + (c2.basketBestScore || 0) + (c2.golfBestScore || 0)) - 
+((c1.footBestScore || 0) + (c1.basketBestScore || 0) + (c1.golfBestScore || 0))
+);
+const scores = colocFormated.map((c, index)=>{
+var rObj = {}
+rObj['position'] = index + 1
+rObj['userImage'] = {uri: c.avatarUrl}
+rObj['name'] = c.nom
+rObj['score'] = (c.footBestScore || 0) + (c.basketBestScore || 0) + (c.golfBestScore || 0)
+return rObj
+});
   const totalScoreArray = colocFormated.map((c)=>c.footBestScore+c.basketBestScore+c.golfBestScore)
   const totalScore = totalScoreArray.reduce((a, b)=>a+b, 0)
   useEffect(()=>{
