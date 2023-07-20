@@ -69,7 +69,7 @@ const Classement = () => {
           rObj['name'] = r.nom
           rObj['score'] = r.golf 
           // Si le nom de la coloc actuelle correspond, on enregistre le score
-          if(r.nom === user.nomColoc){
+          if(r.colocID === user.colocID){
             setScoresColoc({
               position: 0, // Cette valeur sera mise à jour plus tard
               name: r.nom,

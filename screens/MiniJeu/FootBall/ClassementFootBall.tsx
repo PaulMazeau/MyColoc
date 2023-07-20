@@ -87,7 +87,7 @@ const Classement = () => {
           rObj['score']=r.score; 
 
           // Si le nom de la coloc actuelle correspond, on met à jour la position
-          if(r.name === user.nomColoc){
+          if(r.colocID === user.colocID){
               setScoresColoc(currentScores => ({
                   ...currentScores,
                   position: index + 1,
