@@ -25,7 +25,7 @@ import { NavBarStyle } from './constants/NavBar';
 import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
 
 //Import du contexte
-import { UserContext, CourseContext, DepenseContext, ColocContext} from "./UserContext";
+import { UserContext, CourseContext, DepenseContext, ColocContext, AuPlusProcheContext} from "./UserContext";
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FB_AUTH, FB_DB } from './firebaseconfig';
 import { QuerySnapshot, collection, doc, getDoc, onSnapshot, query, where } from 'firebase/firestore';
@@ -311,7 +311,9 @@ const DepenseScreenStack = () => {
 
 // Pile de navigation pour l'écran MiniJeu
 const MiniJeuScreenStack = () => {
+  const [data, setData] = useState(null)
   return (
+    <AuPlusProcheContext.Provider value ={[data, setData]}>
     <GameStateProvider>
     <MiniJeuStack.Navigator initialRouteName="MiniJeu" screenOptions={{ headerShown: false }}>
       <MiniJeuStack.Screen name="MiniJeu" component={MiniJeu} />
@@ -333,6 +335,7 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="AuPlusProcheSalonWait" component={AuPlusProcheSalonWait} />
     </MiniJeuStack.Navigator>
     </GameStateProvider>
+    </AuPlusProcheContext.Provider>
   );
 };
 
