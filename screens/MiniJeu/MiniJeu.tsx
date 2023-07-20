@@ -1,20 +1,20 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, TouchableOpacity} from 'react-native';
-import ClassementCardScrollable from '../components/MiniJeu/ClassementCard';
-import ClassementCardPodium from '../components/MiniJeu/ClassementCardPodium'
-import {MiniJeuColor} from '../constants/Colors';
+import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard';
+import ClassementCardPodium from '../../components/MiniJeu/ClassementCardPodium'
+import {MiniJeuColor} from '../../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Carrousel from '../components/MiniJeu/Carousel';
+import Carrousel from '../../components/MiniJeu/Carousel';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MiniJeuStackParams } from '../App';
+import { MiniJeuStackParams } from '../../App';
 import { useNavigation } from '@react-navigation/native';
 
-import BackButton from '../components/Reusable/BackButton';
-import { ColocContext, UserContext } from '../UserContext';
+import BackButton from '../../components/Reusable/BackButton';
+import { ColocContext, UserContext } from '../../UserContext';
 
-const Space_Background=require('../assets/images/Space_Background.png');
-const Logo =require('../assets/images/Logo_Minijeu.png');
+const Space_Background=require('../../assets/images/Space_Background.png');
+const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'>;

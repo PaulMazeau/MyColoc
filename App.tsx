@@ -12,7 +12,7 @@ import DepenseScreen from './screens/Depense';
 import ListeDeCourseScreen from './screens/ListeDeCourse';
 import LoginScreen from './screens/LogIn';
 import SignUpScreen from './screens/SignUp';
-import MiniJeu from './screens/MiniJeu';
+import MiniJeu from './screens/MiniJeu/MiniJeu';
 
 // Import des icônes
 import AccueilIcon from './assets/icons/AccueilIcon';
