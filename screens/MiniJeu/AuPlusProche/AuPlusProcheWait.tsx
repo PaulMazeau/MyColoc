@@ -59,7 +59,7 @@ const AuPlusProcheWait = () => {
             <View style={styles.container}>
                 {salonExists ? <WaitingCard userIsOwner={userIsOwner} onPress={() => 
                     {userIsOwner? navigation.navigate('Guess') : navigation.navigate('Guess')}
-                }/> :  <TouchableOpacity onPress={()=>{setRefresh(refresh+1)}}><Text style={{color : 'red'}}>Tu ne vois pas de salon mais tu devrais ? Clique pour rafraîchir</Text></TouchableOpacity>}
+                }/> :  <TouchableOpacity onPress={()=>{navigation.navigate('AuPlusProcheSalonWait')}}><Text style={{color : 'red'}}>Tu ne vois pas de salon mais tu devrais ? Clique pour rafraîchir</Text></TouchableOpacity>}
                 <Regles text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt"/>
             </View>
         </View>

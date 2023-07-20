@@ -31,6 +31,7 @@ import { FB_AUTH, FB_DB } from './firebaseconfig';
 import { QuerySnapshot, collection, doc, getDoc, onSnapshot, query, where } from 'firebase/firestore';
 import NoColoc from './screens/NoColoc';
 import AuPlusProcheWait from './screens/MiniJeu/AuPlusProche/AuPlusProcheWait';
+import AuPlusProcheSalonWait from './screens/MiniJeu/AuPlusProche/AuPlusProcheSalonWait';
 import Basket from './screens/MiniJeu/BasketBall/Basket';
 import Golf from './screens/MiniJeu/Golf/Golf';
 import ClassementGolf from './screens/MiniJeu/Golf/ClassementGolf';
@@ -127,6 +128,7 @@ export type MiniJeuStackParams = {
   BoutonMiniJeu: undefined,
   MiniJeu: undefined;
   AuPlusProcheWait: undefined;
+  AuPlusProcheSalonWait : undefined;
   Vote: undefined;
   RevealRole:{
     selectedPlayer:any};
@@ -328,6 +330,7 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="ClassementBasketBall" component={ClassementBasketBall} />
       <MiniJeuStack.Screen name="Golf" component={Golf} />
       <MiniJeuStack.Screen name="ClassementGolf" component={ClassementGolf} />
+      <MiniJeuStack.Screen name="AuPlusProcheSalonWait" component={AuPlusProcheSalonWait} />
     </MiniJeuStack.Navigator>
     </GameStateProvider>
   );
