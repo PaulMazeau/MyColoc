@@ -22,9 +22,10 @@ type ScoreBoardProps = {
   bestNational: ScoreType[];
   name?: string;
   scoreColoc: ScoreType;
+  imageCorner?: any;
 };
 
-const ScoreBoardScrollable = ({ bestNational, name, scoreColoc}: ScoreBoardProps) => {
+const ScoreBoardScrollable = ({ bestNational, name, scoreColoc, imageCorner}: ScoreBoardProps) => {
     const renderScoreLines = (bestNational: ScoreType[]) => {
         return bestNational.map((score, index) => (
             <React.Fragment key={index}>
@@ -40,6 +41,7 @@ const ScoreBoardScrollable = ({ bestNational, name, scoreColoc}: ScoreBoardProps
       <View style={{alignItems:'center'}}>
         <View style={styles.lign}>
             <Text style={styles.text1}>{name}</Text>
+            <Image source={imageCorner} style={styles.Image}/>
         </View>
         {renderScoreLines(bestNational)}
         <View style={[styles.separator, {marginBottom:10}]}/>

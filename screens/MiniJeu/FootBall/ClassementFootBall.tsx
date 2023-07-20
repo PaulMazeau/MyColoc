@@ -120,7 +120,7 @@ const Classement = () => {
                 <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../../assets/images/FootBall.png')}/>
             </View>
             <View style={styles.Classement2}>
-              <ClassementCardGap bestNational={scoresNational} name='Toutes les colocs' scoreColoc={scoresColoc}/>
+              <ClassementCardGap bestNational={scoresNational} name='Toutes les colocs' scoreColoc={scoresColoc} imageCorner={require('./../../../assets/images/FootBall.png')}/>
             </View>
         </View>
       </SafeAreaView>
