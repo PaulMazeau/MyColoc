@@ -9,18 +9,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 export default function AuPlusProcheSalonWait() {
+    const navigation = useNavigation()
     const [user, setUser] = useContext(UserContext)
     const [coloc, setColoc] = useContext(ColocContext)
     const [appData, setAppData] = useContext(AuPlusProcheContext)
-    console.log(appData)
-    const [snap, setSnap] = useState(null)
-    useEffect(()=>{
-        const subscriber = onSnapshot(doc(FB_DB, 'Colocs/'+user.colocID+'/Salon', 'salon'), (docSnap) => {setSnap(docSnap)})
-        return () => {subscriber()}
-      }, [])
-    useEffect(()=>{
-        
-    }, [snap])
+    
     
   return (
     <SafeAreaView>

@@ -311,7 +311,19 @@ const DepenseScreenStack = () => {
 
 // Pile de navigation pour l'écran MiniJeu
 const MiniJeuScreenStack = () => {
+  const [user, setUser] = useContext(UserContext)
   const [data, setData] = useState(null)
+  const [snap, setSnap] = useState(null)
+  useEffect(()=>{
+    const subscriber = onSnapshot(doc(FB_DB, 'Colocs/'+user.colocID+'/Salon', 'salon'), (docSnap) => {if(docSnap.exists()){setSnap(docSnap) }else{setSnap(null);setData(null)}})
+    return () => {subscriber()}
+  }, [])
+  useEffect(()=>{
+    if(snap){
+      if(snap.exists()){
+          setData(snap.data())}
+    }
+  }, [snap])
   return (
     <AuPlusProcheContext.Provider value ={[data, setData]}>
     <GameStateProvider>
