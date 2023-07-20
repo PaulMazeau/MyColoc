@@ -47,7 +47,7 @@ const ScoreBoardScrollable = ({ bestNational, name, scoreColoc}: ScoreBoardProps
         <View style={styles.whiteDot}/>
         <View style={styles.whiteDot}/>
         <View style={styles.separator}/>
-        <ScoreLigne position={240} userImage={require('./../../assets/images/house.png')} name={scoreColoc.name} score={scoreColoc.score}/>
+        <ScoreLigne position={scoreColoc.position} userImage={require('./../../assets/images/house.png')} name={scoreColoc.name} score={scoreColoc.score}/>
       </View>
     );
 

@@ -45,21 +45,26 @@ export default function MiniJeu() {
   const [user, setUser] = useContext(UserContext)
   const [coloc, setColoc] = useContext(ColocContext);
   const [bestNational, setBestNational] = useState([])
-  const colocFormated = coloc.map((c)=> {if(c.footBestScore && c.basketBestScore){return c}else if(c.footBestScore && !c.basketBestScore){
-    var rObj = c
-    rObj.basketBestScore = 0
-    return rObj
-  }else if(!c.footBestScore && c.basketBestScore){
-    var rObj = c
-    rObj.footBestScore = 0
-    return rObj
-  }else{
-    var rObj = c
-    rObj.footBestScore = 0
-    rObj.basketBestScore = 0
-    return rObj
-  }
-})
+  const [scoresColoc, setScoresColoc] = useState({})
+  const colocFormated = coloc.map((c) => {
+    // Créer une copie de l'objet coloc
+    var rObj = { ...c };
+    
+    // Vérifier et remplir les scores manquants pour foot, basket et golf
+    if (!rObj.footBestScore) {
+      rObj.footBestScore = 0;
+    }
+  
+    if (!rObj.basketBestScore) {
+      rObj.basketBestScore = 0;
+    }
+  
+    if (!rObj.golfBestScore) {
+      rObj.golfBestScore = 0;
+    }
+  
+    return rObj;
+  });
 colocFormated.sort((c1, c2) => 
 ((c2.footBestScore || 0) + (c2.basketBestScore || 0) + (c2.golfBestScore || 0)) - 
 ((c1.footBestScore || 0) + (c1.basketBestScore || 0) + (c1.golfBestScore || 0))
@@ -80,11 +85,34 @@ return rObj
       var bestNationalSetter = data.data().results.map((r)=>{
         var rObj = {}
         rObj['name'] = r.nom
-        rObj['score'] = r.basket + r.foot
-        return rObj
+        rObj['score'] = (r.basket || 0) + (r.foot || 0) + (r.golf || 0)
+        // Si le nom de la coloc actuelle correspond, on enregistre le score
+        if(r.nom === user.nomColoc){
+          setScoresColoc({
+            position: 0, // Cette valeur sera mise à jour plus tard
+            name: r.nom,
+            score: (r.basket || 0) + (r.foot || 0) + (r.golf || 0),
+          });
+          }
+          return rObj
+        })
+        bestNationalSetter.sort((a, b)=> b.score - a.score)
+        bestNationalSetter = bestNationalSetter.map((r, index)=>{
+          var rObj = {}; 
+          rObj['position'] = index+1; 
+          rObj['name']=r.name; 
+          rObj['score']=r.score; 
+
+          // Si le nom de la coloc actuelle correspond, on met à jour la position
+          if(r.name === user.nomColoc){
+              setScoresColoc(currentScores => ({
+                  ...currentScores,
+                  position: index + 1,
+              }));
+          }
+
+          return rObj
       })
-      bestNationalSetter.sort((a, b)=> b.score - a.score)
-      bestNationalSetter = bestNationalSetter.map((r, index)=>{var rObj = {}; rObj['position'] = index+1; rObj['name']=r.name; rObj['score']=r.score; return rObj})
       setBestNational(bestNationalSetter)
     }
     getClassement()
@@ -109,7 +137,7 @@ return rObj
                 <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} scoreTotal={totalScore}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardGap bestNational={bestNational} name={"Toutes les colocs"} scoreColoc={totalScore}/>
+                <ClassementCardGap bestNational={bestNational} name={"Toutes les colocs"} scoreColoc={scoresColoc}/>
             </View>
         </View>
       </SafeAreaView>

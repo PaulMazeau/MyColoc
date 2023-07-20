@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, Touchable} from 'react-native';
-import ClassementCardScrollable from '../../../components/MiniJeu/ClassementCard';
+import ClassementCardGap from '../../../components/MiniJeu/ClassementCardGap';
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -44,6 +44,7 @@ const Classement = () => {
     const [coloc, setColoc] = useContext(ColocContext);
     const [user, setUser] = useContext(UserContext);
     const [scoresNational, setScoresNational] = useState([])
+    const [scoresColoc, setScoresColoc] = useState({})
     const colocFormated = coloc.map((c)=> {if(c.golfBestScore){return c}else{
       var rObj = c
       rObj.golfBestScore = 0
@@ -67,10 +68,33 @@ const Classement = () => {
           var rObj = {}
           rObj['name'] = r.nom
           rObj['score'] = r.golf 
-          return rObj
+          // Si le nom de la coloc actuelle correspond, on enregistre le score
+          if(r.nom === user.nomColoc){
+            setScoresColoc({
+              position: 0, // Cette valeur sera mise à jour plus tard
+              name: r.nom,
+              score: r.golf,
+            });
+            }
+            return rObj
+          })
+          bestNationalSetter.sort((a, b)=> b.score - a.score)
+          bestNationalSetter = bestNationalSetter.map((r, index)=>{
+            var rObj = {}; 
+            rObj['position'] = index+1; 
+            rObj['name']=r.name; 
+            rObj['score']=r.score; 
+  
+            // Si le nom de la coloc actuelle correspond, on met à jour la position
+            if(r.name === user.nomColoc){
+                setScoresColoc(currentScores => ({
+                    ...currentScores,
+                    position: index + 1,
+                }));
+            }
+  
+            return rObj
         })
-        bestNationalSetter.sort((a, b)=> b.score - a.score)
-        bestNationalSetter = bestNationalSetter.map((r, index)=>{var rObj = {}; rObj['position'] = index+1; rObj['name']=r.name; rObj['score']=r.score; return rObj})
         setScoresNational(bestNationalSetter)
       }
       getClassement()
@@ -95,7 +119,7 @@ const Classement = () => {
                 <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} imageCorner={require('./../../../assets/images/GolfBall.png')}/>
             </View>
             <View style={styles.Classement2}>
-                <ClassementCardScrollable scores={scoresNational} name={"National"} isScrollable={true} imageCorner={require('./../../../assets/images/GolfBall.png')}/>
+              <ClassementCardGap bestNational={scoresNational} name='Toutes les colocs' scoreColoc={scoresColoc}/>
             </View>
         </View>
       </SafeAreaView>
