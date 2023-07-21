@@ -45,7 +45,8 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
   const nextOne = coloc.find(u => u.uuid === props.tache.nextOne)
   const freq = recurrenceOptions.find(rec => rec.value === props.tache.recur)
   const participants = coloc.filter(c => props.tache.concerned.includes(c.uuid) )
-
+  const { height } = Dimensions.get('window');
+  const shouldHideButton = height <= 667;
   const CustomBackgroundComponent = () => <View />;
   const renderParticipant = () => {
     if (participants){
@@ -96,10 +97,11 @@ const InfoBottomSheet = React.forwardRef<BottomSheetModalMethods, InfoTacheBSPro
               {renderParticipant()}
             </ScrollView>
         </View>
-
+      {!shouldHideButton && (
         <View style={{marginTop:10}}>
           <Button text='Supprimer la tâche' colorBackGround='#fa1e1e' colorText='white' onPress={() => props.onDelete()}/>
         </View>
+      )}
       </View>
     </BottomSheetModal>
   );
