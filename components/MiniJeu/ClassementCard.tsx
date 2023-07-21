@@ -49,8 +49,12 @@ const ScoreBoardScrollable = ({ scores, name, isScrollable, imageCorner }: Score
       </>
     );
 
+    const globalStyle = {
+        flex: isScrollable ? 0 : 1
+    };
+
     return(
-        <View style={styles.global}>
+        <View style={globalStyle}>
             <LinearGradient colors={[MiniJeuColor.VioletGradientColor1, MiniJeuColor.VioletGradientColor2]} style={styles.backgroundGradient}>
               {isScrollable ? <ScrollView showsVerticalScrollIndicator={false} >{content}</ScrollView> : content}
             </LinearGradient>
@@ -59,9 +63,6 @@ const ScoreBoardScrollable = ({ scores, name, isScrollable, imageCorner }: Score
 };
 
 const styles = StyleSheet.create({
-    global:{
-        flex:1
-    },
 
     backgroundGradient:{
         borderRadius: 10,
