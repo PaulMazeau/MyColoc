@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Modal } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Modal, ActivityIndicator } from "react-native";
 import Regles from '../../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -10,10 +10,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import Button from "../../../components/Reusable/ButtonColor";
 import BackButton from "../../../components/Reusable/BackButton";
-import { doc, getDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { FB_DB } from "../../../firebaseconfig";
 import { useContentWidth } from "react-native-render-html";
-import { AuPlusProcheContext, UserContext } from "../../../UserContext";
+import { AuPlusProcheContext, ColocContext, UserContext } from "../../../UserContext";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
@@ -23,12 +23,55 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Guess'>;
 
 const AuPlusProcheWait = () => {
     const navigation = useNavigation<navigationProp>();
-    const [userIsOwner, setUserIsOwner] = useState(true);
     const [refresh, setRefresh] = useState(0)
     const [user, setUser] = useContext(UserContext)
+    const [coloc, setColoc] = useContext(ColocContext)
     const [salon, setSalon] = useContext(AuPlusProcheContext)
     const [modalVisible, setModalVisible] = useState(false);
-    
+    const [loading, setLoading] = useState(false);
+    const handleCreateSalon = async ()=>{
+        try {
+            setLoading(true)
+            const entry = {
+                started: false,
+                participants: [user.uuid],
+                questionUid: '1',
+                points : [],
+                owner: user.uuid
+            } 
+            await setDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Salon', 'salon'), entry)
+        } catch (error) {
+            alert(error.message)
+        }finally{
+            setLoading(false)
+            setModalVisible(false)
+        }
+    }
+    const handleJoinSalon = async () => {
+        try {
+            setLoading(true)
+            await updateDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Salon', 'salon'), {participants: arrayUnion(user.uuid)})
+        } catch (error) {
+            alert(error.message)
+        }finally{setLoading(false)}
+    }
+    const handleStartSalon = async () => {
+        try {
+            setLoading(true)
+            await updateDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Salon', 'salon'), {started: true})
+        } catch (error) {
+            alert(error.message)
+        }finally{setLoading(false)}
+    }
+
+    const handleLeaveSalon = async () => {
+        try {
+           setLoading(true) 
+           await updateDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Salon', 'salon'), {participants: arrayRemove(user.uuid)})
+        } catch (error) {
+            alert(error.message)
+        }finally{setLoading(false)}
+    }
     if(!salon){
         return (
             <ImageBackground 
@@ -51,7 +94,8 @@ const AuPlusProcheWait = () => {
                     <Modal visible={modalVisible} animationType="slide">
                         <SafeAreaView style={styles.container}>
                             <Text style={styles.title}>Creer un salon ?</Text>
-                            <Button text={'Oui'} onPress={()=>{setModalVisible(false)}} colorBackGround={'blue'} colorText={'white'}/>
+                            {loading ? <ActivityIndicator size='large'/> : <Button text={'Oui'} onPress={()=>{handleCreateSalon()}} colorBackGround={'blue'} colorText={'white'}/>}
+                            <Button text={'Non'} onPress={()=>{setModalVisible(false)}} colorBackGround={'red'} colorText={'white'}/>
                         </SafeAreaView>
                     </Modal>
                 </View>
@@ -66,13 +110,42 @@ const AuPlusProcheWait = () => {
             </SafeAreaView>
         </ImageBackground>
     )}
-    else{
+    const dataParticipants = coloc.filter(c=> salon.participants.includes(c.uuid))
+    const dataOwner = coloc.find(c => c.uuid == salon.owner)
+    const userIsIn = salon.participants.includes(user.uuid)
+    const userIsOwner = salon.owner == user.uuid 
+    const renderButtonSafely = () => {
+        if(userIsOwner){
+            return(
+                <>
+                {loading ? <ActivityIndicator size='large'/> :<Button text={'Démarrer la partie'} onPress={()=>{handleStartSalon()}} colorBackGround={'red'} colorText={'white'}/>}
+                </>
+            )
+        }
+        if(userIsIn){
+            return(
+                <>
+                <Text>Demande à {dataOwner.nom} pour démarrer la partie !</Text>
+                {loading ? <ActivityIndicator size='large'/> :<Button text={'Quitter la partie'} onPress={()=>{handleLeaveSalon()}} colorBackGround={'red'} colorText={'white'}/>}
+                </>
+            )
+        }
         return(
-            <SafeAreaView>
-                <Text>Il existe un Salon. Le rejoindre OU re créer une nouvelle partie</Text>
-            </SafeAreaView>
+            <>
+            {loading ? <ActivityIndicator size='large'/> :<Button text={'Rejoindre la partie'} onPress={()=>{handleJoinSalon()}} colorBackGround={'red'} colorText={'white'}/>}
+            </>
         )
     }
+    return(
+        <SafeAreaView>
+            <Text>Il existe un salon. Les participants sont:</Text>
+            {dataParticipants.map(c=>{return(
+                <Text key={c.uuid}>{c.nom}</Text>
+            )})}
+            {renderButtonSafely()}
+        </SafeAreaView>
+    )
+    
 
 };
 
