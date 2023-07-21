@@ -16,6 +16,9 @@ interface InfoDepenseBSProps {
 
 const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSProps>((props, ref) => {
   
+  const { height } = Dimensions.get('window');
+  const shouldHideButton = height <= 667;
+
     const backdropComponent = useCallback(
     (props) => (
       <BottomSheetBackdrop
@@ -81,9 +84,11 @@ const InfoDepenseBS = React.forwardRef<BottomSheetModalMethods, InfoDepenseBSPro
               {renderParticipant()}
             </ScrollView>
         </View>
-        <View style={{marginTop:10}}>
-          <Button text='Supprimer la transaction' colorBackGround='#fa1e1e' colorText='white' onPress={() => props.onDelete()}/>
-        </View>
+        {!shouldHideButton && (
+          <View style={{marginTop:10}}>
+            <Button text='Supprimer la transaction' colorBackGround='#fa1e1e' colorText='white' onPress={() => props.onDelete()}/>
+          </View>
+        )}
         </View>
    
     </BottomSheetModal>
