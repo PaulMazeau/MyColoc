@@ -31,7 +31,7 @@ const Guess = ({image, question}: Props) => {
                 <TimeLeft number={30}/>
             </View>
             <View style={styles.Question}>
-                <Text style={styles.text}>Quelle est la distance Terre-Lune</Text>
+                <Text style={styles.text}>{question}</Text>
             </View>
             <View style={{width:'100%', height:'100%',alignItems:'center'}}>
             <View style={styles.inputContainer}>
