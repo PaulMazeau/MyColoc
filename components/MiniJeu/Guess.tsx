@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text,  KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -16,19 +16,24 @@ const LogoBlackWhite =require('./../../assets/images/Logo_Minijeu_BlackWhite.png
 
 type Props = {
     image:any;
-    question: string
+    question: string;
+    answer: any;
+    timeLeft: number;
+    numberOfQuestion: any;
+    currQuestion: any;
   };
 
-const Guess = ({image, question}: Props) => {
-  
+const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestion}: Props) => {
+    const [reponse, setReponse] = useState('')
+    const [buttonPressed, setButtonPressed] = useState(false)
     return (
         <View style={{width:'100%', flex:1}}>
             <View style={styles.Logo}>
-                <Image source={image} style={styles.Image} />
+                <Image source={{uri : image}} style={styles.Image} />
             </View>
             <View style={styles.Lign}>
-                <QuestionNumber number={2} total={10}/>
-                <TimeLeft number={30}/>
+                <QuestionNumber number={currQuestion+1} total={numberOfQuestion}/>
+                <TimeLeft number={timeLeft-10}/>
             </View>
             <View style={styles.Question}>
                 <Text style={styles.text}>{question}</Text>
@@ -44,11 +49,12 @@ const Guess = ({image, question}: Props) => {
                     placeholder="Ecris ta réponse ici..."
                     placeholderTextColor="#B7B7B7"
                     textAlignVertical="top"
+                    onChangeText={(e)=>{setReponse(e)}}
                 />
                 </ImageBackground>
             </View>
             <View style={styles.Button}>
-            <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {navigation.navigate('Answer')}}/>
+           {buttonPressed ? <Text>Attends {timeLeft-10} secondes pour voir la réponse</Text>:<ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {answer(reponse);setButtonPressed(true)}}/>}
             </View>
             </View>
         </View>
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        color: main.LightWhite,
+        color: 'black',
         fontWeight: '600',
         fontSize: 20,
     },

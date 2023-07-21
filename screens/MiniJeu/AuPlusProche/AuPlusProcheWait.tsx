@@ -14,6 +14,8 @@ import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebas
 import { FB_DB } from "../../../firebaseconfig";
 import { useContentWidth } from "react-native-render-html";
 import { AuPlusProcheContext, ColocContext, UserContext } from "../../../UserContext";
+import Answer from "../../../components/MiniJeu/Answer";
+import AuprocheGame from "../../../components/MiniJeu/AuprocheGame";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
@@ -29,6 +31,7 @@ const AuPlusProcheWait = () => {
     const [salon, setSalon] = useContext(AuPlusProcheContext)
     const [modalVisible, setModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
+
     const handleCreateSalon = async ()=>{
         try {
             setLoading(true)
@@ -111,10 +114,10 @@ const AuPlusProcheWait = () => {
         </ImageBackground>
     )}
     const dataParticipants = coloc.filter(c=> salon.participants.includes(c.uuid))
-    const dataOwner = coloc.find(c => c.uuid == salon.owner)
     const userIsIn = salon.participants.includes(user.uuid)
-    const userIsOwner = salon.owner == user.uuid 
     const renderButtonSafely = () => {
+        const dataOwner = coloc.find(c => c.uuid == salon.owner)
+        const userIsOwner = salon.owner == user.uuid 
         if(userIsOwner){
             return(
                 <>
@@ -136,6 +139,7 @@ const AuPlusProcheWait = () => {
             </>
         )
     }
+    if(salon && salon.started == false){
     return(
         <SafeAreaView>
             <Text>Il existe un salon. Les participants sont:</Text>
@@ -144,6 +148,17 @@ const AuPlusProcheWait = () => {
             )})}
             {renderButtonSafely()}
         </SafeAreaView>
+    )}
+    //lorsque salon est démarré
+    if(!userIsIn && salon.started){
+        return(
+            <SafeAreaView>
+                <Text>GAME EN COURS, ATTENDS POUR REJOINDRE</Text>
+            </SafeAreaView>
+        )
+    }
+    return(
+        <AuprocheGame />
     )
     
 

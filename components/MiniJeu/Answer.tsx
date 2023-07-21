@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import { main } from '../../constants/Colors';
 import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard'
 
@@ -18,37 +18,35 @@ const scores = [
     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
 ];
 
-const Answer  = () => {
+const Answer  = ({reponse, timeLeft, goodAnswer, lastQuestion}) => {
   
     return (
+        <SafeAreaView style={styles.global} >
       <View style={{width:'100%', flex:1, alignItems:'center'}}>
             <View style={styles.podium}>
                 <ImageBackground 
                 source={Podium} 
                 resizeMode="stretch"
                 style={styles.podiumImage}
-                >
+                >   
                     <Text style={styles.text1}>La bonne</Text>
                     <Text style={styles.text2}>réponse est</Text>
-                    <Text style={styles.text3}>300 000 km</Text>
+                    <Text style={styles.text3}>{reponse}</Text>
+                    {goodAnswer ?  <Text style={styles.text5}>Tu as vu juste !</Text> : <Text style={styles.text5}>Tu as pas vu juste !</Text>}
                 </ImageBackground>
             </View>
-
-            <View style={styles.classement}>
-                <ClassementCardScrollable scores={scores} isScrollable={true}/>
-            </View>
-            
             <View style={styles.brick}>
                 <ImageBackground 
                 source={Brick} 
                 resizeMode="stretch"
                 style={styles.brickImage}
                 >
-                    <Text style={styles.text4}>Prochaine question dans</Text>
-                    <Text style={styles.text5}>20:00s</Text>
+                    {lastQuestion ? <Text style={styles.text4}>Les résultats s'afficheront dans {timeLeft}secondes</Text> :<><Text style={styles.text4}>Prochaine question dans</Text>
+                    <Text style={styles.text5}>{timeLeft}s</Text></>}
                 </ImageBackground>
             </View>
       </View>
+      </SafeAreaView>
     )
   
 }
