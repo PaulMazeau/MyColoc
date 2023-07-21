@@ -9,7 +9,7 @@ import Button from "../../../components/Reusable/ButtonColor";
 
 import { useNavigation } from "@react-navigation/native";
 import PassPhone from "./PassPhone";
-import { GameStateContext } from "../GameStateContext";
+import { GameStateContext } from "./GameStateContext";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
