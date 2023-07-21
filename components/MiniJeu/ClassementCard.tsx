@@ -42,7 +42,7 @@ const ScoreBoardScrollable = ({ scores, name, isScrollable, imageCorner }: Score
       <>
         <View style={styles.lign}>
         {name && <Text style={styles.text1}>{name}</Text>}
-        <Image source={imageCorner} style={styles.Image}/>
+        {imageCorner && <Image source={imageCorner} style={styles.Image}/>}
         </View>
         
         {renderScoreLines(scores)}
