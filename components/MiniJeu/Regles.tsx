@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
 
     image:{
         height:80, 
-        width:70, 
+        width:100, 
         overflow:'hidden',
         top:-16,
-        left:240,
+        left:230,
         position:'absolute'
     }
 });
