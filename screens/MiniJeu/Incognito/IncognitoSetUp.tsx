@@ -9,7 +9,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import BackButton from "../../../components/Reusable/BackButton";
 import PlayersCard from "../../../components/MiniJeu/PlayersCard";
-import { GameStateContext } from '../GameStateContext';
+import { GameStateContext } from './GameStateContext';
 import { wordPairs } from './IncognitoWords';
 
 
@@ -80,7 +80,9 @@ const IncognitoSetUp = () => {
                     :
                     assignRoles()
                     }}/>
-                <Regles text="Tous les joueurs obtiennent un mot identique, sauf un ! Démasquez l'Incognito en donnant chacun votre tour un indice sur votre mot, puis votez. L'Incognito gagne s'il survit et qu'il ne reste que 2 joueurs."/>
+                <Regles text1="Tous les joueurs obtiennent un mot identique, sauf un ! Démasquez l'Incognito en donnant chacun votre tour un indice sur votre mot, puis"
+                        text2="votez. L'Incognito gagne s'il survit et qu'il ne reste que 2 joueurs."
+                        image={require('./../../../assets/images/IncognitoIconCrop.png')}/>
             </View>
         </View>
         </SafeAreaView>

@@ -43,7 +43,7 @@ import Mot from './screens/MiniJeu/Incognito/Mot';
 import RevealRole from './screens/MiniJeu/Incognito/RevealRole';
 import PassPhone from './screens/MiniJeu/Incognito/PassPhone';
 import Vote from './screens/MiniJeu/Incognito/Vote';
-import { GameStateProvider } from "./screens/MiniJeu/GameStateContext";
+import { GameStateProvider } from "./screens/MiniJeu/Incognito/GameStateContext";
 import Answer from './screens/MiniJeu/AuPlusProche/Answer';
 import Classement from './screens/MiniJeu/Classement';
 import ColocationSettingsScreen from './screens/ColocationSettings';

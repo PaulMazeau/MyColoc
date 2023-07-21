@@ -8,7 +8,7 @@ import { MiniJeuStackParams } from "../../../App";
 import VoteCard from "../../../components/MiniJeu/VoteCard";
 import Button from "../../../components/Reusable/ButtonColor";
 import { useNavigation } from "@react-navigation/native";
-import { GameStateContext } from '../GameStateContext';
+import { GameStateContext } from './GameStateContext';
 import RevealRole from "./RevealRole";
 import { UserContext } from "../../../UserContext";
 

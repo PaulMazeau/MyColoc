@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { main } from '../../../constants/Colors';
 import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
-import { GameStateContext } from '../GameStateContext';
+import { GameStateContext } from './GameStateContext';
 
 import { useNavigation } from "@react-navigation/native";
 import Button from "../../../components/Reusable/ButtonColor";

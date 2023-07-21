@@ -7,7 +7,7 @@ import { main } from '../../../constants/Colors';
 import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
-import { GameStateContext } from "../GameStateContext";
+import { GameStateContext } from "./GameStateContext";
 import { BackHandler } from 'react-native';
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
