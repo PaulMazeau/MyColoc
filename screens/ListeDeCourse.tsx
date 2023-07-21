@@ -63,10 +63,6 @@ const ListeDeCourse = ({route, navigation}: Props) => {
       }).catch((error)=>{alert(error.message)})
     }
   }
-
-  
-  
-  
   
   return  (
     <KeyboardAvoidingView
@@ -129,6 +125,7 @@ const styles = StyleSheet.create({
     marginHorizontal: "5%",
     borderRadius: 10,
     paddingHorizontal: 10,
+    paddingTop: 10,
   },
   listContainer: {
     flex: 1,
