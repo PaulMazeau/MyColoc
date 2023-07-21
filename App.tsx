@@ -25,12 +25,13 @@ import { NavBarStyle } from './constants/NavBar';
 import BoutonMiniJeu from './components/Accueil/BoutonMiniJeux';
 
 //Import du contexte
-import { UserContext, CourseContext, DepenseContext, ColocContext} from "./UserContext";
+import { UserContext, CourseContext, DepenseContext, ColocContext, AuPlusProcheContext} from "./UserContext";
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FB_AUTH, FB_DB } from './firebaseconfig';
 import { QuerySnapshot, collection, doc, getDoc, onSnapshot, query, where } from 'firebase/firestore';
 import NoColoc from './screens/NoColoc';
 import AuPlusProcheWait from './screens/MiniJeu/AuPlusProche/AuPlusProcheWait';
+import AuPlusProcheSalonWait from './screens/MiniJeu/AuPlusProche/AuPlusProcheSalonWait';
 import Basket from './screens/MiniJeu/BasketBall/Basket';
 import Golf from './screens/MiniJeu/Golf/Golf';
 import ClassementGolf from './screens/MiniJeu/Golf/ClassementGolf';
@@ -127,6 +128,7 @@ export type MiniJeuStackParams = {
   BoutonMiniJeu: undefined,
   MiniJeu: undefined;
   AuPlusProcheWait: undefined;
+  AuPlusProcheSalonWait : undefined;
   Vote: undefined;
   RevealRole:{
     selectedPlayer:any};
@@ -309,7 +311,21 @@ const DepenseScreenStack = () => {
 
 // Pile de navigation pour l'écran MiniJeu
 const MiniJeuScreenStack = () => {
+  const [user, setUser] = useContext(UserContext)
+  const [data, setData] = useState(null)
+  const [snap, setSnap] = useState(null)
+  useEffect(()=>{
+    const subscriber = onSnapshot(doc(FB_DB, 'Colocs/'+user.colocID+'/Salon', 'salon'), (docSnap) => {if(docSnap.exists()){setSnap(docSnap) }else{setSnap(null);setData(null)}})
+    return () => {subscriber()}
+  }, [])
+  useEffect(()=>{
+    if(snap){
+      if(snap.exists()){
+          setData(snap.data())}
+    }
+  }, [snap])
   return (
+    <AuPlusProcheContext.Provider value ={[data, setData]}>
     <GameStateProvider>
     <MiniJeuStack.Navigator initialRouteName="MiniJeu" screenOptions={{ headerShown: false }}>
       <MiniJeuStack.Screen name="MiniJeu" component={MiniJeu} />
@@ -328,8 +344,10 @@ const MiniJeuScreenStack = () => {
       <MiniJeuStack.Screen name="ClassementBasketBall" component={ClassementBasketBall} />
       <MiniJeuStack.Screen name="Golf" component={Golf} />
       <MiniJeuStack.Screen name="ClassementGolf" component={ClassementGolf} />
+      <MiniJeuStack.Screen name="AuPlusProcheSalonWait" component={AuPlusProcheSalonWait} />
     </MiniJeuStack.Navigator>
     </GameStateProvider>
+    </AuPlusProcheContext.Provider>
   );
 };
 
