@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
   },
   activeTabButtonText: {
     color: 'white',
-
   },
 });
 

@@ -17,29 +17,6 @@ const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 const windowWidth = Dimensions.get('window').width;
 
-
-// const scores = [
-//     { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800},
-//     { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'Bruno', score:1800 },
-//     { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-//     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:'Julie', score:1800 },
-// ];
-
-// const bestNational = [
-//   { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:'Zacoloc', score:1800 },
-//   { position: 2, userImage: require('../../assets/images/profilIcon.png'), name:'trucloc', score:1800 },
-//   { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:'trucloc', score:1800 },
-//   { position: 4, userImage: require('../../assets/images/profilIcon.png'), name:'trucloc', score:1800 },
-//   { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:'trucloc', score:1800 },
-// ];
-
-// const scoreColoc = { position: 240, userImage: require('../../assets/images/profilIcon2.png'), name:'Zacoloc', score:1800 }
-
-
 export default function MiniJeu() {
   const navigation = useNavigation();
   const [user, setUser] = useContext(UserContext)

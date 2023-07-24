@@ -4,7 +4,7 @@ import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MiniJeuStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../components/Navigation/MiniJeuStack';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from "react-native-gesture-handler";
 
