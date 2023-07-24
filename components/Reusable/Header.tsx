@@ -5,7 +5,7 @@ import Settings from '../../assets/icons/Settings.svg';
 import { useNavigation } from '@react-navigation/native';
 import { UserContext } from '../../UserContext';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParams, SettingsStackParams } from '../../App';
+import { RootStackParams } from '../../App';
 
 type RootStackNavigationProp = NativeStackNavigationProp<RootStackParams, 'SettingsStack'>;
 

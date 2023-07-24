@@ -3,7 +3,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar'
 import React, { useContext, useEffect, useState } from 'react'
 import { Alert, FlatList, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import { SettingsStackParams } from '../App';
 import BlueGradient from '../components/Reusable/BlueGradient'
 import Button from '../components/Reusable/ButtonColor';
 import { FB_DB, FB_STORE } from '../firebaseconfig';
@@ -34,7 +33,7 @@ const AvatarSettings: React.FC = (Props) => {
       await updateDoc(doc(FB_DB, "Users", user.uuid), {avatarUrl: selectedImage});
     }
     const navigation = useNavigation();
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState<string | null>(user.avatarUrl);
 
     const renderItem = ({ item }: { item }) => (
       <View style={styles.item}>
