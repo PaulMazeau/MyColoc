@@ -4,10 +4,11 @@ import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MiniJeuStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../components/Navigation/MiniJeuStack';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from "react-native-gesture-handler";
 import UserBubble from "./UserBubble";
+import Score from "./Score";
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -50,17 +51,15 @@ const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal, imageCorner 
       <View style={{marginBottom:15}}>
         <View style={styles.lign}>
         <Text style={styles.text1}>{name}</Text>
-        <Image source={imageCorner} style={styles.Image}/>
-        </View>
-        
         {
           scoreTotal==null?
           <View/>
           :
           <View style={styles.lign1}>
-          <Text style={styles.text2}>Score total :</Text>
-          <Text style={styles.text2}>{scoreTotal}</Text>
-        </View>}
+            <Score score={scoreTotal} color={'white'}/>
+          </View>
+        }
+        </View>
         <View style={styles.lign2}>
           <UserBubble name={scores[1].name} userImage={scores[1].userImage} size={40}/>
           <UserBubble name={scores[0].name} userImage={scores[0].userImage} size={80}/>
@@ -120,9 +119,9 @@ const styles = StyleSheet.create({
 
   lign:{
     justifyContent:'space-between',
-    alignItems:'center',
+    alignItems:'flex-end',
     flexDirection:'row',
-    height:'10%',
+    marginBottom: 24,
   },
 
   lign1:{

@@ -37,7 +37,7 @@ const ScoreLigne: React.FC<UserProps> = ({ position, userImage, name, score, isL
             <View style={styles.firstColumn}>
                 <ImageBackground source={imageSource} style={isLighten?styles.MedailleLighten:null}>
                     <View style={styles.Medaille}>
-                        <Text>{positionString}</Text>
+                        <Text style={{color: 'white', fontWeight:'700'}}>{positionString}</Text>
                     </View>
                 </ImageBackground>
                 <View style={styles.ImageContainer}>
@@ -46,23 +46,10 @@ const ScoreLigne: React.FC<UserProps> = ({ position, userImage, name, score, isL
                 </View>
                 <Text style={[styles.text1, {color: textColor}]}> {name} </Text>
             </View>
-
             <Score score={score} color={couleur} borderWidth={isLighten?0.5:0}/>
         </View>
     );
 };
-
-function getImageSource(position: number): string | undefined {
-    if (position === 1) {
-      return MedailleOr;
-    } else if (position === 2) {
-      return MedailleArgent;
-    } else if (position === 3) {
-      return MedailleBronze;
-    }
-  
-    return undefined;
-  }
   
 
 const styles = StyleSheet.create({

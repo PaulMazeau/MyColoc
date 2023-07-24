@@ -10,6 +10,7 @@ import BackIcon from '../../assets/icons/BackIcon'
 import { ColocContext, UserContext } from '../../UserContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
+import { ScoreType } from '../../components/MiniJeu/ClassementCardGap';
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -19,10 +20,19 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function MiniJeu() {
   const navigation = useNavigation();
+  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const [user, setUser] = useContext(UserContext)
   const [coloc, setColoc] = useContext(ColocContext);
   const [bestNational, setBestNational] = useState([])
-  const [scoresColoc, setScoresColoc] = useState({})
+  const [scoresColoc, setScoresColoc] = useState<ScoreType>({
+    position: 0,
+    name: "",
+    score: 0,
+  });
+  const handleTabPress = (index: number) => {
+    setSelectedTabIndex(index);
+  };
+
   const colocFormated = coloc.map((c) => {
     // Créer une copie de l'objet coloc
     var rObj = { ...c };
@@ -110,12 +120,47 @@ return rObj
                 <BackIcon color="white" size={28}/>
                 <Text style={styles.text}>Classement</Text>
             </TouchableOpacity>
-            <View style={styles.Classement1}>
-                <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} scoreTotal={totalScore}/>
-            </View>
-            <View style={styles.Classement2}>
-                <ClassementCardGap bestNational={bestNational} name={"Toutes les colocs"} scoreColoc={scoresColoc}/>
-            </View>
+            <View style={styles.segmentedControl}>
+        <TouchableOpacity
+          style={[
+            styles.tabButton,
+            selectedTabIndex === 0 && styles.activeTabButton,
+          ]}
+          onPress={() => handleTabPress(0)}
+        >
+          <Text
+            style={[
+              styles.tabButtonText,
+              selectedTabIndex === 0 && styles.activeTabButtonText,
+            ]}
+          >
+            Classement local
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.tabButton,
+            selectedTabIndex === 1 && styles.activeTabButton,
+          ]}
+          onPress={() => handleTabPress(1)}
+        >
+          <Text
+            style={[
+              styles.tabButtonText,
+              selectedTabIndex === 1 && styles.activeTabButtonText,
+            ]}
+          >
+            Classement national
+          </Text>
+        </TouchableOpacity>
+      </View>
+      {selectedTabIndex === 0 ? (
+        <ClassementCardPodium scores={scores} name={user.nomColoc} isScrollable={true} scoreTotal={totalScore}/>
+
+      ) : (
+        <ClassementCardGap bestNational={bestNational} name={"Toutes les colocs"} scoreColoc={scoresColoc}/>
+
+      )}
         </View>
       </SafeAreaView>
     </ImageBackground>
@@ -144,15 +189,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    Classement1:{
-        flex : 0.57,
-        marginBottom:20
-    },
-
-    Classement2:{
-        flex : 0.4
-    },
-
   text:{
     color : "white",
     fontWeight: '600',
@@ -165,13 +201,38 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
 
-  container:{
-    justifyContent: 'center',
-    alignItems:'center',
-    width:windowWidth,
-  },
-
   logo:{
     margin:10
-  }
+  },
+
+  segmentedControl: {
+    flexDirection: 'row',
+    marginHorizontal: 16,
+    marginBottom: 12,
+    borderRadius: 8,
+    backgroundColor: '#222531',
+    height:40,
+  },
+
+  tabButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 5,
+    margin: 4,
+    paddingHorizontal: 28
+  },
+
+  activeTabButton: {
+    backgroundColor: '#5368F9',
+    borderRadius: 4,
+  },
+  tabButtonText: {
+    color: '#8E8E93',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  activeTabButtonText: {
+    color: 'white',
+  },
 });
