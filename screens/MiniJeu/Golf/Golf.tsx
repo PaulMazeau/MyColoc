@@ -202,7 +202,7 @@
 
 
                 <View {...panResponder.panHandlers} style={{flex:1}}>
-                <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {menu ? 'Current Best' : ''} </Animated.Text>
+                <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {menu ? 'Score' : ''} </Animated.Text>
                 <Animated.Text style={[ styles.Points, {transform: [{ scale: scale }], color: menu? '#3489eb':'#bababa'},]}> {menu ? currentBestScore : currentScore} </Animated.Text>
 
                 
