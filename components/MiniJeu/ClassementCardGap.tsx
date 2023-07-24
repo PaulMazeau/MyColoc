@@ -4,7 +4,7 @@ import { MiniJeuColor } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import ScoreLigne from './ScoreLigne';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MiniJeuStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../components/Navigation/MiniJeuStack';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -12,7 +12,7 @@ const windowWidth = Dimensions.get('window').width;
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Classement'>;
 
-type ScoreType = {
+export type ScoreType = {
   position: number;
   name: string;
   score:number;
@@ -35,8 +35,6 @@ const ScoreBoardScrollable = ({ bestNational, name, scoreColoc, imageCorner}: Sc
         ));
     };
 
-    const navigation = useNavigation<navigationProp>();
-
     const content = (
       <View style={{alignItems:'center'}}>
         <View style={styles.lign}>
@@ -44,12 +42,6 @@ const ScoreBoardScrollable = ({ bestNational, name, scoreColoc, imageCorner}: Sc
             <Image source={imageCorner} style={styles.Image}/>
         </View>
         {renderScoreLines(bestNational)}
-        <View style={[styles.separator, {marginBottom:10}]}/>
-        <View style={styles.whiteDot}/>
-        <View style={styles.whiteDot}/>
-        <View style={styles.whiteDot}/>
-        <View style={styles.separator}/>
-        <ScoreLigne position={scoreColoc.position} userImage={require('./../../assets/images/house.png')} name={scoreColoc.name} score={scoreColoc.score}/>
       </View>
     );
 

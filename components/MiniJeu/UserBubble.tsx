@@ -19,7 +19,7 @@ const UserBubble: React.FC<UserProps> = ({ name, userImage, size }) => {
       <View style={[styles.ImageContainer, imageContainerStyle]}>
         <Image source={userImage} style={styles.Image}/>
       </View>
-      <Text>{name}</Text>
+      <Text style={{color: 'white', marginTop: 8}}>{name}</Text>
     </View>
   );
 };

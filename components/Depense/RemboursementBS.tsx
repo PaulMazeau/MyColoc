@@ -5,7 +5,7 @@ import Remboursement from '../../assets/icons/Remboursement.svg'
 import { Shadows } from '../../constants/Shadow';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
-import { UserContext } from '../../UserContext';
+import { RemboursementLoadingContext, UserContext } from '../../UserContext';
 import { ScrollView } from 'react-native-gesture-handler';
 
 type RemboursementBSProps = {
@@ -17,10 +17,9 @@ type RemboursementBSProps = {
 
 
 const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref) => {
-    const [loading, setLoading] = useState(false);
+    const { setLoading } = useContext(RemboursementLoadingContext);
     const [user, setUser] = useContext(UserContext)
     const handleRemboursement = async () => {
-    if(!loading){
         setLoading(true)
         const entry = {
             timestamp: serverTimestamp(),
@@ -30,9 +29,18 @@ const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref)
             desc:'Remboursement',
             concerned: [props.deveur.uuid, props.receveur.uuid]
         }
-        await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Transactions'), entry).then(()=>{setLoading(false)}).catch((e)=>{alert(e.message); setLoading(false)})
+        await addDoc(collection(FB_DB, 'Colocs/'+user.colocID+'/Transactions'), entry)
+            .then(()=>{
+                setTimeout(() => {
+                    setLoading(false)
+                }, 3000); // Attend 3 secondes avant d'appeler setLoading(false)
+            })
+            .catch((e)=>{
+                alert(e.message);
+                setLoading(false)
+            })
     }
-    }
+    
  
     const BackdropComponent = useCallback((props) => {
         return (
@@ -78,7 +86,7 @@ const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref)
                     </View>
                 </View>
                 <View style={styles.bottomSection}>
-                    <Text style={styles.montantRemboursement}>{props.montant.toFixed(2)}</Text>
+                    <Text style={styles.montantRemboursement}>{props.montant.toFixed(2)}€</Text>
                     <View style={styles.boutonStack}>
                         <TouchableOpacity style={styles.boutonRembourser} onPress={() => {props.onDismiss(); handleRemboursement(); }}>
                             <Text style={styles.boutonTextRembourser}>Rembourser</Text>

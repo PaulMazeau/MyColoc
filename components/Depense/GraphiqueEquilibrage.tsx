@@ -9,9 +9,9 @@ const barWidth = screenWidth * 0.40;
 
 const GraphiqueEquilibrage = () => {
   const [coloc, setColoc] = useContext(ColocContext);
-  const onlyZeros = (array) => {
-    for(var i=0; i<array.length; ++i){
-      if(array[i].solde !== 0){
+  const onlyZeros = (arr) => {
+    for(var i=0; i<arr.length; ++i){
+      if(arr[i].value !== 0){
         return false
       }
     }
@@ -57,14 +57,7 @@ const GraphiqueEquilibrage = () => {
   return (
     <View style={styles.container}>
 
-      {onlyZeros(coloc) ? emptyGraph(): data.map((item, index) => {
-        // const animatedStyle = useAnimatedStyle(() => {
-        //   const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
-        //   return {
-        //     width: animation.value * (itemWidth / barWidth), //reglage la taille des bars par rapport aux valeurs
-        //     backgroundColor: item.value >= 0 ? 'green' : 'red',
-        //   };
-        // });
+      {onlyZeros(unsortedData) ? emptyGraph() : data.map((item, index) => {
         const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
         const animatedStyle = {
           width: 150 * (itemWidth / barWidth), //reglage la taille des bars par rapport aux valeurs

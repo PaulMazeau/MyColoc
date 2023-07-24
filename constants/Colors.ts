@@ -7,8 +7,8 @@ export const main = {
 
 export const MiniJeuColor = {
   TextColor1: "#978AF1",
-  VioletGradientColor1:'#A094F8',
-  VioletGradientColor2:'#8373E2',
+  VioletGradientColor1:'#5368F9',
+  VioletGradientColor2:'#566BF9',
   RedGradientColor1:'#EC6262',
   RedGradientColor2:'#D04445',
   OrangeGradientColor1:'#F3B168',

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, ScrollView, TouchableOpacity, Button} from 'react-native';
 import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard';
 import ClassementCardPodium from '../../components/MiniJeu/ClassementCardPodium'
 import {MiniJeuColor} from '../../constants/Colors';
@@ -79,7 +79,7 @@ const scores = colocFormated.map((c, index)=>{
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.topLign}>
           <TouchableOpacity style={styles.quitter} onPress={() => navigation.goBack()}>
-              <BackButton/>
+              <BackButton color={"#5368F9"}/>
           </TouchableOpacity>
           <View style={styles.logo}>
             <Image source={Logo} />
@@ -90,7 +90,7 @@ const scores = colocFormated.map((c, index)=>{
 
           <View style={styles.containerTitle}>
             <Text style={styles.text}>Classement</Text>
-            <TouchableOpacity onPress={() => {navigation.navigate('Classement')}} style={styles.button}>
+            <TouchableOpacity  onPress={() => {navigation.navigate('Classement')}} style={styles.Button}>
               <Text style={styles.VoirTout}>Voir tout</Text>
             </TouchableOpacity>
           </View>
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
 
   quitter: {
-    backgroundColor: 'white',
+    backgroundColor: '#222531',
     height: 30,
     paddingRight: 4,
     borderRadius: 30,
@@ -163,12 +163,22 @@ const styles = StyleSheet.create({
   containerTitle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     width: "90%", 
     marginHorizontal: "5%",
   },
 
+  Button: {
+    backgroundColor: '#5368F9',
+    height: 'auto', 
+    padding: 8,
+    justifyContent: 'center', 
+    alignItems: 'center',
+    borderRadius: 100
+  },
+
   VoirTout: {
     color: 'white',
-    fontSize: 12
+    fontSize: 12,
   }
 });
