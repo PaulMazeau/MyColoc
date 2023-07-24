@@ -15,6 +15,7 @@ type RemboursementBSProps = {
     montant: any;
   };
 
+
 const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref) => {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useContext(UserContext)
@@ -79,7 +80,7 @@ const RemboursementBS = React.forwardRef<any, RemboursementBSProps>((props, ref)
                 <View style={styles.bottomSection}>
                     <Text style={styles.montantRemboursement}>{props.montant.toFixed(2)}</Text>
                     <View style={styles.boutonStack}>
-                        <TouchableOpacity style={styles.boutonRembourser} onPress={() => {props.onDismiss(); handleRemboursement()}}>
+                        <TouchableOpacity style={styles.boutonRembourser} onPress={() => {props.onDismiss(); handleRemboursement(); }}>
                             <Text style={styles.boutonTextRembourser}>Rembourser</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.boutonAnnuler} onPress={() => props.onDismiss()}>

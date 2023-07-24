@@ -7,7 +7,7 @@ import React, { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Carrousel from '../../components/MiniJeu/Carousel';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MiniJeuStackParams } from '../../App';
+import { MiniJeuStackParams } from '../../components/Navigation/MiniJeuStack';
 import { useNavigation } from '@react-navigation/native';
 
 import BackButton from '../../components/Reusable/BackButton';
@@ -87,12 +87,15 @@ const scores = colocFormated.map((c, index)=>{
           </View>
           
           <Carrousel gameCardData={gameCardData}/>
-          <Text style={styles.text}>Total Classement</Text>
-          <View style={{flex:1}}>
-            <TouchableOpacity onPress={() => {navigation.navigate('Classement')}}>
-              <ClassementCardScrollable scores={scores} isScrollable={false} name={user.nomColoc}/>
+
+          <View style={styles.containerTitle}>
+            <Text style={styles.text}>Classement</Text>
+            <TouchableOpacity onPress={() => {navigation.navigate('Classement')}} style={styles.button}>
+              <Text style={styles.VoirTout}>Voir tout</Text>
             </TouchableOpacity>
           </View>
+
+          <ClassementCardScrollable scores={scores} isScrollable={false} name={user.nomColoc}/>
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
@@ -120,8 +123,6 @@ const styles = StyleSheet.create({
     color : "white",
     fontWeight: '600',
     fontSize: 20,
-    marginLeft:40,
-    width:windowWidth,
     marginVertical: 12
   },
 
@@ -150,9 +151,24 @@ const styles = StyleSheet.create({
     position:'absolute',
     left:0
   },
-  
-  TextQuitter: {
-    fontWeight: '700',
-    color: '#001355'
+
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'white',
+    backgroundColor: 'transparent',
+  },
+
+  containerTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: "90%", 
+    marginHorizontal: "5%",
+  },
+
+  VoirTout: {
+    color: 'white',
+    fontSize: 12
   }
 });
