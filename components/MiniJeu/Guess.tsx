@@ -1,50 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, StyleSheet, ImageBackground, Text,  KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { main } from '../../../constants/Colors';
-import QuestionNumber from "../../../components/MiniJeu/QuestionNumber";
-import TimeLeft from "../../../components/MiniJeu/TimeLeft";
-import { MiniJeuStackParams } from '../../../App';
+import { main } from './../../constants/Colors';
+import QuestionNumber from "../../components/MiniJeu/QuestionNumber";
+import TimeLeft from "./TimeLeft";
+import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
-import ButtonColor from '../../../components/Reusable/ButtonColor'
-
-const Space_Background=require('../../../assets/images/Space_Background.png');
-const Logo =require('../../../assets/images/Logo_Minijeu.png');
-const LogoBlackWhite =require('../../../assets/images/Logo_Minijeu_BlackWhite.png');
-const Visual =require('../../../assets/images/ImageDemo.png');
+import ButtonColor from '../../components/Reusable/ButtonColor'
 
 
-type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Answer'>;
+const LogoBlackWhite =require('./../../assets/images/Logo_Minijeu_BlackWhite.png');
 
-const Guess = () => {
-    const navigation = useNavigation<navigationProp>();
+type Props = {
+    image:any;
+    question: string;
+    answer: any;
+    timeLeft: number;
+    numberOfQuestion: any;
+    currQuestion: any;
+  };
+
+const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestion}: Props) => {
+    const [reponse, setReponse] = useState('')
+    const [buttonPressed, setButtonPressed] = useState(false)
     return (
-        <KeyboardAvoidingView behavior={"height"} style={{flex: 1}}>
-            <ScrollView contentContainerStyle={{flexGrow: 1}}>
-                <ImageBackground 
-                source={Space_Background} 
-                resizeMode="cover"
-                style={styles.imageBackground}
-                >
-                <SafeAreaView style={styles.global} >
-                <StatusBar style="light" />
-        <View style={styles.global}>
+        <View style={{width:'100%', flex:1}}>
             <View style={styles.Logo}>
-                <Image source={Logo} />
-            </View>
-            <View style={styles.Logo}>
-                <Image source={Visual} style={styles.Image} />
+                <Image source={{uri : image}} style={styles.Image} />
             </View>
             <View style={styles.Lign}>
-                <QuestionNumber number={2} total={10}/>
-                <TimeLeft number={30}/>
+                <QuestionNumber number={currQuestion+1} total={numberOfQuestion}/>
+                <TimeLeft number={timeLeft-10}/>
             </View>
             <View style={styles.Question}>
-                <Text style={styles.text}>Quelle est la distance Terre-Lune</Text>
+                <Text style={styles.text}>{question}</Text>
             </View>
+            <View style={{width:'100%', height:'100%',alignItems:'center'}}>
             <View style={styles.inputContainer}>
                 <ImageBackground 
                 source={LogoBlackWhite} 
@@ -55,19 +49,18 @@ const Guess = () => {
                     placeholder="Ecris ta réponse ici..."
                     placeholderTextColor="#B7B7B7"
                     textAlignVertical="top"
+                    onChangeText={(e)=>{setReponse(e)}}
                 />
                 </ImageBackground>
             </View>
             <View style={styles.Button}>
-            <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {navigation.navigate('Answer')}}/>
+           {buttonPressed ? <Text>Attends {timeLeft-10} secondes pour voir la réponse</Text>:<ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {answer(reponse);setButtonPressed(true)}}/>}
+            </View>
             </View>
         </View>
-        </SafeAreaView>
-              </ImageBackground>
-            </ScrollView>
-        </KeyboardAvoidingView>
     );
-};
+  
+}
 
 const styles = StyleSheet.create({
     global: {
@@ -95,7 +88,8 @@ const styles = StyleSheet.create({
         height:'20%',
         backgroundColor:main.BgColor,
         borderRadius:10,
-        marginTop:15
+        marginTop:15,
+        justifyContent:'center',
     },
 
     blackWhiteBg:{
@@ -118,7 +112,7 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        color: main.LightWhite,
+        color: 'black',
         fontWeight: '600',
         fontSize: 20,
     },
@@ -131,7 +125,7 @@ const styles = StyleSheet.create({
     },
 
     Logo:{
-        margin:10
+        alignItems:'center'
     },
 
     LogoBlackWhite:{
@@ -145,7 +139,7 @@ const styles = StyleSheet.create({
 
     Button:{
         width:'90%',
-        marginTop:20
+        marginTop:20,
     },
 
     Lign:{
@@ -159,4 +153,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Guess;
+export default Guess
