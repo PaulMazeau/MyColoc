@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Modal, ActivityIndicator } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Modal, ActivityIndicator, Alert } from "react-native";
 import Regles from '../../../components/MiniJeu/Regles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import WaitingCard from "../../../components/MiniJeu/WaitingCard";
 import { main } from '../../../constants/Colors';
-import { MiniJeuStackParams } from '../../../App';
+import { MiniJeuStackParams } from '../../../components/Navigation/MiniJeuStack';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import Button from "../../../components/Reusable/ButtonColor";
@@ -25,7 +25,6 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Guess'>;
 
 const AuPlusProcheWait = () => {
     const navigation = useNavigation<navigationProp>();
-    const [refresh, setRefresh] = useState(0)
     const [user, setUser] = useContext(UserContext)
     const [coloc, setColoc] = useContext(ColocContext)
     const [salon, setSalon] = useContext(AuPlusProcheContext)
@@ -75,6 +74,27 @@ const AuPlusProcheWait = () => {
             alert(error.message)
         }finally{setLoading(false)}
     }
+    const handleReplaceSalonChecker = () => {
+        Alert.alert('Nouveau salon', "Creer un nouveau salon supprimera l'existant. Êtes-vous sur ?",
+        [{text :'Oui', onPress : (()=>{handleReplaceSalon()})}, {text:'Non'}])
+    }
+    const handleReplaceSalon = async () => {
+        try {
+            setLoading(true)
+            const entry = {
+                started: false,
+                participants: [user.uuid],
+                questionUid: '1',
+                points : [],
+                owner: user.uuid
+            } 
+            await setDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Salon', 'salon'), entry)
+        } catch (error) {
+            alert(error.message)
+        }finally{
+            setLoading(false)
+        }
+    }
     if(!salon){
         return (
             <ImageBackground 
@@ -122,6 +142,7 @@ const AuPlusProcheWait = () => {
             return(
                 <>
                 {loading ? <ActivityIndicator size='large'/> :<Button text={'Démarrer la partie'} onPress={()=>{handleStartSalon()}} colorBackGround={'red'} colorText={'white'}/>}
+                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'red'} colorText={'white'}/>}
                 </>
             )
         }
@@ -130,12 +151,14 @@ const AuPlusProcheWait = () => {
                 <>
                 <Text>Demande à {dataOwner.nom} pour démarrer la partie !</Text>
                 {loading ? <ActivityIndicator size='large'/> :<Button text={'Quitter la partie'} onPress={()=>{handleLeaveSalon()}} colorBackGround={'red'} colorText={'white'}/>}
+                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'red'} colorText={'white'}/>}
                 </>
             )
         }
         return(
             <>
             {loading ? <ActivityIndicator size='large'/> :<Button text={'Rejoindre la partie'} onPress={()=>{handleJoinSalon()}} colorBackGround={'red'} colorText={'white'}/>}
+            {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'red'} colorText={'white'}/>}
             </>
         )
     }
