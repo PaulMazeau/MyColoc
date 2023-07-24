@@ -15,7 +15,7 @@
     import { useNavigation } from "@react-navigation/native";
     import { NativeStackNavigationProp } from '@react-navigation/native-stack';
     import { MiniJeuStackParams } from '../../../App';
-    import Svg, { Line } from 'react-native-svg';
+    import { Svg, Line, Polygon } from 'react-native-svg';
     import { Dimensions } from 'react-native';
 
     
@@ -31,7 +31,7 @@
         if (!visible) {
             return null;
         }
-
+    
         const forceInv = {x:-force.x/5, y:-force.y/5}
     
         // L'origine de la flèche est le point de départ de la balle
@@ -49,6 +49,14 @@
             y: origin.y + length * Math.sin(angle),
         };
     
+        // Définit la taille et l'orientation du triangle
+        const triangleSize = 10;
+        const trianglePoints = [
+            `${end.x},${end.y}`,
+            `${end.x - triangleSize * Math.cos(angle + Math.PI / 6)},${end.y - triangleSize * Math.sin(angle + Math.PI / 6)}`,
+            `${end.x - triangleSize * Math.cos(angle - Math.PI / 6)},${end.y - triangleSize * Math.sin(angle - Math.PI / 6)}`
+        ].join(' ');
+    
         return (
             <Svg style={{ position: 'absolute', width: screenDiagonal, height: screenDiagonal }}>
                 <Line
@@ -59,9 +67,14 @@
                     stroke="red"
                     strokeWidth="1"
                 />
+                <Polygon
+                    points={trianglePoints}
+                    fill="red"
+                />
             </Svg>
         );
     };
+
     
 
     const Golf = () => {
