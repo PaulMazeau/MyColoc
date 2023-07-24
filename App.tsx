@@ -1,33 +1,20 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, {useState, useEffect} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { Dimensions, Keyboard, Platform } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Import des écrans & component
-import TacheScreen from './screens/Tache';
-import AccueilStackComponent from './components/Navigation/AccueilStack';
-import CourseStackComponent, { CourseStackParams } from './components/Navigation/CourseStack';
-import DepenseStackComponent from './components/Navigation/DepenseStack';
-import SettingsStackComponent, { SettingsStackParams } from './components/Navigation/SettingsStack';
 import AuthStackComponent from './components/Navigation/AuthStack';
 import NoColocStackComponent from './components/Navigation/NoColocStack';
-import MiniJeuStackComponent from './components/Navigation/MiniJeuStack';
 
 // Import des icônes
-import AccueilIcon from './assets/icons/AccueilIcon';
-import TacheIcon from './assets/icons/TacheIcon';
-import CourseIcon from './assets/icons/CourseIcon';
-import DepenseIcon from './assets/icons/DepenseIcon';
 
 //Import du contexte
-import { UserContext, ColocContext} from "./UserContext";
+import { UserContext} from "./UserContext";
 import { onAuthStateChanged } from 'firebase/auth';
 import { FB_AUTH, FB_DB } from './firebaseconfig';
-import { collection, doc, onSnapshot, query, where } from 'firebase/firestore';
-import RootStackComponent, { RootStackParams } from './components/Navigation/RootStack';
+import { doc, onSnapshot } from 'firebase/firestore';
+import RootStackComponent from './components/Navigation/RootStack';
 
 
 // Fonction principale de l'application
