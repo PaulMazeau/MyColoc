@@ -41,7 +41,13 @@ export default function AuprocheGame() {
           clearInterval(intervalId); // Clean up the interval when the component unmounts
         };
       }, [seconds]);
-
+    const computePoint = (userRes, actualRes) => {
+        if(!userRes){
+            return 0
+        }
+        const distance = Math.abs(userRes-actualRes)
+        return 10*(1-distance/Math.max(userRes, actualRes))
+    }
     const handleAnswer = (data) => {
        if(data == questions[currQuestion].reponse){
             setPoints((prev)=>(prev+1))
