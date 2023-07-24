@@ -22,10 +22,7 @@ const BoutonMiniJeu = () => {
           imageStyle={{ borderRadius: 10 }}
         >
           <View style={styles.container}>
-            <View>
               <Text style={styles.titre}> Mini jeu</Text>
-              <Text style={styles.texte}> Disponible</Text>
-            </View>
           </View>
         </ImageBackground>
       </TouchableOpacity>
