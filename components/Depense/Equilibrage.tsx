@@ -3,7 +3,7 @@ import { StyleSheet, Text, ScrollView, View, Image } from 'react-native'
 import GraphiqueEquilibrage from './GraphiqueEquilibrage';
 import EquilibrageCard from './EquilibrageCard';
 import AddDepenseBS from './AddDepenseBS';
-import { ColocContext } from '../../UserContext';
+import { ColocContext, RemboursementLoadingContext } from '../../UserContext';
 import { main } from '../../constants/Colors';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 
@@ -29,19 +29,19 @@ const MyLoader = () => {
 
 export default function Equilibrage() {
     const [coloc, setColoc] = useContext(ColocContext);
-    const [loading, setLoading] = useState(false);  // Ajoutez cet état
-      
+    const { setLoading } = useContext(RemboursementLoadingContext);
 
-     // Ajoutez cette fonction pour être appelée lorsque vous ajoutez une dépense
-     const handleAddDepense = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000);
+    const handleAddDepense = () => {
+      setLoading(true);
+      setTimeout(() => {
+          setLoading(false);
+      }, 3000);
     };
 
-    if(loading){
-        return(
+    const { loading } = useContext(RemboursementLoadingContext);
+
+    if(loading) {
+        return (
           <View>
             {MyLoader()}
           </View>

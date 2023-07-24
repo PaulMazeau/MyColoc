@@ -58,13 +58,6 @@ const GraphiqueEquilibrage = () => {
     <View style={styles.container}>
 
       {onlyZeros(coloc) ? emptyGraph(): data.map((item, index) => {
-        // const animatedStyle = useAnimatedStyle(() => {
-        //   const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
-        //   return {
-        //     width: animation.value * (itemWidth / barWidth), //reglage la taille des bars par rapport aux valeurs
-        //     backgroundColor: item.value >= 0 ? 'green' : 'red',
-        //   };
-        // });
         const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
         const animatedStyle = {
           width: 150 * (itemWidth / barWidth), //reglage la taille des bars par rapport aux valeurs
