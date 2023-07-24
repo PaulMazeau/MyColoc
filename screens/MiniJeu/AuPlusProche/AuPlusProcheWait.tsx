@@ -157,11 +157,9 @@ const AuPlusProcheWait = () => {
             </SafeAreaView>
         )
     }
-  
     return(
         <AuprocheGame />
     )
-    
 
 };
 
