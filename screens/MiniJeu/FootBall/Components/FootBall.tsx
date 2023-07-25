@@ -21,7 +21,6 @@ const FootBall = props => {
             width: radius * 2,
             height: radius * 2,
             borderRadius: radius,
-            backgroundColor:'green'
         }}>
             <Image
             style={{
