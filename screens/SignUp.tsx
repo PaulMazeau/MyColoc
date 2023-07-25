@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator,
 import BlueGradient from '../components/Reusable/BlueGradient';
 import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AuthStackParams } from '../App';
+import { AuthStackParams } from '../components/Navigation/AuthStack';
 import { StatusBar } from 'expo-status-bar';
 import { useContext, useState } from 'react';
 import { createUserWithEmailAndPassword} from 'firebase/auth';
@@ -10,13 +10,11 @@ import { FB_AUTH, FB_DB } from '../firebaseconfig';
 import {setDoc, doc, collection, getDoc} from 'firebase/firestore'
 import { UserContext } from '../UserContext';
 import * as Haptics from 'expo-haptics';
+import BackButton from '../components/Reusable/BackButton';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'SignUp'>;
 
 export default function SignUpScreen({navigation}: Props) {
-  const handleButtonPress = (message: string) => {
-    console.log(message);
-  };
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const [username, setUsername] = useState('');
@@ -54,7 +52,8 @@ export default function SignUpScreen({navigation}: Props) {
           <Text style={styles.PasdeCompte}>Se connecter</Text>
         </TouchableOpacity>
         <View style={styles.Title}>
-          <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => handleButtonPress('prout')}>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.goBack()}>
+            <BackButton color="white"/>
             <Text style={styles.screenTitle}>S'inscrire</Text>
           </TouchableOpacity>
         </View>
@@ -87,7 +86,7 @@ export default function SignUpScreen({navigation}: Props) {
           value={pwd}
           onChangeText={(text) => setPwd(text)}
         />
-        <TouchableOpacity onPress={() => handleButtonPress('true')}>
+        <TouchableOpacity onPress={() => console.log('true')}>
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>

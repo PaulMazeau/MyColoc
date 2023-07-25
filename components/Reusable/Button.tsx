@@ -1,18 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, Linking } from 'react-native';
 
 interface ButtonProps {
   title: string;
-  onPress: () => void;
+  onPress?: () => void;
+  url?: string;
   backgroundColor?: string;
   borderColor?: string;
   borderWidth?: number;
   color?: string;
 }
 
-const CustomButton = ({ title, onPress, backgroundColor = '#172ACE', borderColor = '#000000', borderWidth = 0, color='white' }: ButtonProps) => {
+const CustomButton = ({ title, onPress, url, backgroundColor = '#172ACE', borderColor = '#000000', borderWidth = 0, color='white' }: ButtonProps) => {
+  
+  const handlePress = () => {
+    if (url) {
+      Linking.openURL(url);
+    } else if (onPress) {
+      onPress();
+    }
+  }
+
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.button, { backgroundColor, borderColor, borderWidth }]}>
+    <TouchableOpacity onPress={handlePress} style={[styles.button, { backgroundColor, borderColor, borderWidth }]}>
       <Text style={[styles.buttonText, {color}]}>{title}</Text>
     </TouchableOpacity>
   );

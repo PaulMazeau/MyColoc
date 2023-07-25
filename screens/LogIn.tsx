@@ -2,13 +2,14 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator,
 import BlueGradient from '../components/Reusable/BlueGradient';
 import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AuthStackParams } from '../App';
+import { AuthStackParams } from '../components/Navigation/AuthStack';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { FB_AUTH } from '../firebaseconfig';
 import { set } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
+import BackButton from '../components/Reusable/BackButton';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'Login'>;
 
@@ -33,7 +34,8 @@ export default function LoginScreen({navigation}: Props) {
           <Text style={styles.PasdeCompte}>S'inscrire</Text>
         </TouchableOpacity>
         <View style={styles.Title}>
-          <TouchableOpacity>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <BackButton color="white"/>
             <Text style={styles.screenTitle}>Se Connecter</Text>
           </TouchableOpacity>
         </View>
