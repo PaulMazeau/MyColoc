@@ -64,8 +64,6 @@ const IncognitoSetUp = () => {
 
     
     return (
-        <KeyboardAvoidingView behavior={"height"} style={{flex: 1}}>
-            <ScrollView contentContainerStyle={{flexGrow: 1}}>
                 <ImageBackground 
                 source={Space_Background} 
                 resizeMode="cover"
@@ -77,39 +75,24 @@ const IncognitoSetUp = () => {
             <View style={styles.Logo}>
                 <Image source={Logo} />
             </View>
-            {/* <Guess image={require('./../../../assets/images/ImageDemo.png')} question="Qu'elle est la distance Terre-Lune ?"/> */}
-            <Answer/>
-            {/* <View style={styles.Logo}>
-                <Image source={require('./../../../assets/images/ImageDemo.png')} style={styles.Image} />
+            <View style={styles.title}>
+                <BackButton color="white"/>
+                <Text style={styles.text}>Incognito</Text>
             </View>
-            <View style={styles.Lign}>
-                <QuestionNumber number={2} total={10}/>
-                <TimeLeft number={30}/>
+            <View style={styles.container}>
+                <PlayersCard selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} onPress={() => {
+                    selectedPlayers.length<=2? 
+                    Alert.alert("Il manque des joueurs","Sélectionne au moins trois joueurs !")
+                    :
+                    assignRoles()
+                    }}/>
+                <Regles text1="Tous les joueurs obtiennent un mot identique, sauf un ! Démasquez l'Incognito en donnant chacun votre tour un indice sur votre mot, puis"
+                text2="votez. L'Incognito gagne s'il survit et qu'il ne reste que 2 joueurs."
+                image={require('./../../../assets/images/IncognitoIconCrop.png')}/>
             </View>
-            <View style={styles.Question}>
-                <Text style={styles.text}>Quelle est la distance Terre-Lune</Text>
-            </View>
-            <View style={styles.inputContainer}>
-                <ImageBackground 
-                source={LogoBlackWhite} 
-                resizeMode='contain'
-                style={styles.LogoBlackWhite}>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder="Ecris ta réponse ici..."
-                    placeholderTextColor="#B7B7B7"
-                    textAlignVertical="top"
-                />
-                </ImageBackground>
-            </View>
-            <View style={styles.Button}>
-            <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {navigation.navigate('Answer')}}/>
-            </View> */}
         </View>
         </SafeAreaView>
               </ImageBackground>
-            </ScrollView>
-        </KeyboardAvoidingView>
     );
 };
 
@@ -125,6 +108,15 @@ const styles = StyleSheet.create({
         flex:1,
         paddingBottom:20,
         paddingTop:20
+    },
+
+    title:{
+        justifyContent:'flex-start',
+        alignItems:'center',
+        flexDirection:'row',
+        width:'100%',
+        paddingLeft:20,
+        marginTop:20
     },
 
     Question:{
