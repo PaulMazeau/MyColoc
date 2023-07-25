@@ -6,6 +6,7 @@ import CustomButton from '../components/Reusable/Button'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { AuthStackParams } from '../components/Navigation/AuthStack'
 import * as Haptics from 'expo-haptics';
+import { StatusBar } from 'expo-status-bar'
 
 type Props = NativeStackScreenProps<AuthStackParams, 'FirstPage'>;
 const Logo = require('../assets/images/Icon_Blanc.png');
@@ -13,6 +14,7 @@ const Logo = require('../assets/images/Icon_Blanc.png');
 const FirstPage = ({navigation}: Props) => {
   return (
     <View>
+      <StatusBar style="light"/>
       <BlueGradient height={0.6}/>
         <View style={styles.appartementContainer}>
           <Image source={Logo} style={styles.AppartementImage}/>

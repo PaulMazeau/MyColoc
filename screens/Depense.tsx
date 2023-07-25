@@ -8,6 +8,7 @@ import ListeTransaction from '../components/Depense/ListeTransaction';
 import { DocumentData, QuerySnapshot, collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { FB_DB } from '../firebaseconfig';
 import { DepenseContext, UserContext } from '../UserContext';
+import { StatusBar } from 'expo-status-bar';
 
 
 export default function DepenseScreen() {
@@ -37,6 +38,7 @@ export default function DepenseScreen() {
   return (
     <View style={styles.container}>
       <Header/>
+      <StatusBar style="dark"/>
       <ScreenTitle title="Gestion des dépenses"/>
       <View style={styles.segmentedControl}>
         <TouchableOpacity

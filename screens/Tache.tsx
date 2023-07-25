@@ -9,6 +9,7 @@ import { collection, query, where, onSnapshot, orderBy, QuerySnapshot, Query } f
 import { UserContext } from '../UserContext';
 import { FB_DB } from '../firebaseconfig';
 import * as Notifications from 'expo-notifications'
+import { StatusBar } from 'expo-status-bar';
 
 const TacheScreen = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -70,6 +71,7 @@ const TacheScreen = () => {
   return (
     <View style={styles.container}>
       <Header />
+      <StatusBar style="dark"/>
       <ScreenTitle title="Tâche à faire" />
       <View style={styles.segmentedControl}>
         <TouchableOpacity

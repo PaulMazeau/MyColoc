@@ -18,6 +18,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 const Appartement = require('../assets/images/Appartement.png');
 type RootStackNavigationProp = NativeStackNavigationProp<RootStackParams, 'SettingsStack'>;
 
@@ -88,6 +89,7 @@ const AccueilScreen = () => {
   
   return (
     <View style={styles.container}>
+      <StatusBar style="dark"/>
       <BlueGradient />
       <GetNotificationPermission/>
       {avatar()}
