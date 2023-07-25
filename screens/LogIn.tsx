@@ -18,12 +18,52 @@ export default function LoginScreen({navigation}: Props) {
   const [pwd, setPwd] = useState('');
   const [loading, setLoading] = useState(false);
   const signIn = async () => {
+    if(email === ""){
+      Alert.alert('',"Rentre un e-mail !");
+      return;
+    }
+    if(!email.includes('@') || !email.includes('.')) {
+      Alert.alert('',"L'adresse e-mail n'est pas valide !");
+      return;
+    }
+    if(pwd === ""){
+      Alert.alert('',"Rentre un mot de passe !");
+      return;
+    }
     setLoading(true);
-    signInWithEmailAndPassword(FB_AUTH, email, pwd).then(()=>{setLoading(false);Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);}).catch((error) => {alert(error.message); setLoading(false)});
+    signInWithEmailAndPassword(FB_AUTH, email, pwd)
+      .then(()=>{
+        setLoading(false);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      })
+      .catch((error) => {
+        setLoading(false);
+        switch (error.code) {
+          case 'auth/wrong-password':
+            Alert.alert('', "Le mot de passe est incorrect.");
+            break;
+          case 'auth/user-not-found':
+            Alert.alert('', "Il n'y a pas d'utilisateur correspondant à cet e-mail.");
+            break;
+          default:
+            Alert.alert('', error.message);
+        }
+      });
   }
-
+  
+  
   const handleForgottenPwd = () => {
-    sendPasswordResetEmail(FB_AUTH, email).then(()=>Alert.alert('','check t mail')).catch((error) => alert(error.message))
+    if(email === ""){
+      Alert.alert('',"Rentre un e-mail pour réinitialiser le mot de passe !");
+      return;
+    }
+    if(!email.includes('@') || !email.includes('.')) {
+      Alert.alert('',"L'adresse e-mail n'est pas valide !");
+      return;
+    }
+    sendPasswordResetEmail(FB_AUTH, email)
+      .then(()=>Alert.alert('','Regarde tes Emails'))
+      .catch((error) => alert(error.message));
   }
   return (
     <View style={styles.container}>

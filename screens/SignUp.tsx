@@ -20,11 +20,27 @@ export default function SignUpScreen({navigation}: Props) {
   const [username, setUsername] = useState('');
   const [user, setUser] = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const signUp = async () => {
-    if(username==""){
-      Alert.alert('',"Rentre un nom d'utilisateur !");
+    const signUp = async () => {
+      if(username === ""){
+        Alert.alert('',"Rentre un nom d'utilisateur !");
         return
-    }
+      }
+      if(email === ""){
+        Alert.alert('',"Rentre un e-mail !");
+        return
+      }
+      if(!email.includes('@') || !email.includes('.')) {
+        Alert.alert('',"L'adresse e-mail n'est pas valide !");
+        return
+      }
+      if(pwd === ""){
+        Alert.alert('',"Rentre un mot de passe !");
+        return
+      }
+      if(pwd.length < 6){
+        Alert.alert('',"Le mot de passe doit avoir au moins 6 caractères !");
+        return
+      }
     setLoading(true)
     createUserWithEmailAndPassword(FB_AUTH, email, pwd).then(function(userCred) {
         // get user data from the auth trigger
