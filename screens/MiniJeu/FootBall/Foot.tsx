@@ -115,7 +115,7 @@ const Foot = () => {
             {currentScore >= 10 && <Light speed={Math.min(2,(currentScore/40))} rightOrLeft={false}/>}
             {currentScore >= 20 && <Light speed={Math.min(2,(currentScore/40))} rightOrLeft={true}/>}
 
-            <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {!running ? 'Current Best' : ''} </Animated.Text>
+            <Animated.Text style={[ styles.text, {transform: [{ scale: scale }],},]}> {!running ? 'Score' : ''} </Animated.Text>
             <Animated.Text style={[ styles.Points, {transform: [{ scale: scale }], color: !running? '#3489eb':'#bababa'},]}> {!running ? currentBestScore : currentScore} </Animated.Text>
 
            
