@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator,
 import BlueGradient from '../components/Reusable/BlueGradient';
 import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AuthStackParams } from '../App';
+import { AuthStackParams } from '../components/Navigation/AuthStack';
 import { StatusBar } from 'expo-status-bar';
 import { useContext, useState } from 'react';
 import { createUserWithEmailAndPassword} from 'firebase/auth';
@@ -10,23 +10,37 @@ import { FB_AUTH, FB_DB } from '../firebaseconfig';
 import {setDoc, doc, collection, getDoc} from 'firebase/firestore'
 import { UserContext } from '../UserContext';
 import * as Haptics from 'expo-haptics';
+import BackButton from '../components/Reusable/BackButton';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'SignUp'>;
 
 export default function SignUpScreen({navigation}: Props) {
-  const handleButtonPress = (message: string) => {
-    console.log(message);
-  };
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const [username, setUsername] = useState('');
   const [user, setUser] = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const signUp = async () => {
-    if(username==""){
-      Alert.alert('',"Rentre un nom d'utilisateur !");
+    const signUp = async () => {
+      if(username === ""){
+        Alert.alert('',"Rentre un nom d'utilisateur !");
         return
-    }
+      }
+      if(email === ""){
+        Alert.alert('',"Rentre un e-mail !");
+        return
+      }
+      if(!email.includes('@') || !email.includes('.')) {
+        Alert.alert('',"L'adresse e-mail n'est pas valide !");
+        return
+      }
+      if(pwd === ""){
+        Alert.alert('',"Rentre un mot de passe !");
+        return
+      }
+      if(pwd.length < 6){
+        Alert.alert('',"Le mot de passe doit avoir au moins 6 caractères !");
+        return
+      }
     setLoading(true)
     createUserWithEmailAndPassword(FB_AUTH, email, pwd).then(function(userCred) {
         // get user data from the auth trigger
@@ -54,7 +68,8 @@ export default function SignUpScreen({navigation}: Props) {
           <Text style={styles.PasdeCompte}>Se connecter</Text>
         </TouchableOpacity>
         <View style={styles.Title}>
-          <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => handleButtonPress('prout')}>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.goBack()}>
+            <BackButton color="white"/>
             <Text style={styles.screenTitle}>S'inscrire</Text>
           </TouchableOpacity>
         </View>
@@ -87,7 +102,7 @@ export default function SignUpScreen({navigation}: Props) {
           value={pwd}
           onChangeText={(text) => setPwd(text)}
         />
-        <TouchableOpacity onPress={() => handleButtonPress('true')}>
+        <TouchableOpacity onPress={() => console.log('true')}>
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>

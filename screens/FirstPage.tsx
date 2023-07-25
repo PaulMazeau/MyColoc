@@ -4,7 +4,7 @@ import BlueGradient from '../components/Reusable/BlueGradient'
 import Button from '../components/Reusable/ButtonColor'
 import CustomButton from '../components/Reusable/Button'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { AuthStackParams } from '../App'
+import { AuthStackParams } from '../components/Navigation/AuthStack'
 import * as Haptics from 'expo-haptics';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'FirstPage'>;
@@ -19,6 +19,14 @@ const FirstPage = ({navigation}: Props) => {
           <Text style={styles.title}>Bievenue sur MyColoc</Text>
           <Text style={styles.subTitle}>Fini les frictions entre colocataires!</Text>
         </View>
+
+          <CustomButton 
+          title="Tu n'as pas encore de colocation" 
+          onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}}
+          gradientColors={['#7700FF', '#4F3CFF']}
+          gradientDirection={{ start: { x: 1, y: 1 }, end: { x: 0.8, y: 0 } }}
+          url="https://www.coloc.fr"
+        />
           <CustomButton 
             title={'S\'inscrire'}  
             onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);navigation.navigate('SignUp')}}

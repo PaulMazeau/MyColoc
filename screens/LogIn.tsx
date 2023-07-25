@@ -2,13 +2,14 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator,
 import BlueGradient from '../components/Reusable/BlueGradient';
 import CustomButton from '../components/Reusable/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AuthStackParams } from '../App';
+import { AuthStackParams } from '../components/Navigation/AuthStack';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { FB_AUTH } from '../firebaseconfig';
 import { set } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
+import BackButton from '../components/Reusable/BackButton';
 
 type Props = NativeStackScreenProps<AuthStackParams, 'Login'>;
 
@@ -17,12 +18,52 @@ export default function LoginScreen({navigation}: Props) {
   const [pwd, setPwd] = useState('');
   const [loading, setLoading] = useState(false);
   const signIn = async () => {
+    if(email === ""){
+      Alert.alert('',"Rentre un e-mail !");
+      return;
+    }
+    if(!email.includes('@') || !email.includes('.')) {
+      Alert.alert('',"L'adresse e-mail n'est pas valide !");
+      return;
+    }
+    if(pwd === ""){
+      Alert.alert('',"Rentre un mot de passe !");
+      return;
+    }
     setLoading(true);
-    signInWithEmailAndPassword(FB_AUTH, email, pwd).then(()=>{setLoading(false);Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);}).catch((error) => {alert(error.message); setLoading(false)});
+    signInWithEmailAndPassword(FB_AUTH, email, pwd)
+      .then(()=>{
+        setLoading(false);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      })
+      .catch((error) => {
+        setLoading(false);
+        switch (error.code) {
+          case 'auth/wrong-password':
+            Alert.alert('', "Le mot de passe est incorrect.");
+            break;
+          case 'auth/user-not-found':
+            Alert.alert('', "Il n'y a pas d'utilisateur correspondant à cet e-mail.");
+            break;
+          default:
+            Alert.alert('', error.message);
+        }
+      });
   }
-
+  
+  
   const handleForgottenPwd = () => {
-    sendPasswordResetEmail(FB_AUTH, email).then(()=>Alert.alert('','check t mail')).catch((error) => alert(error.message))
+    if(email === ""){
+      Alert.alert('',"Rentre un e-mail pour réinitialiser le mot de passe !");
+      return;
+    }
+    if(!email.includes('@') || !email.includes('.')) {
+      Alert.alert('',"L'adresse e-mail n'est pas valide !");
+      return;
+    }
+    sendPasswordResetEmail(FB_AUTH, email)
+      .then(()=>Alert.alert('','Regarde tes Emails'))
+      .catch((error) => alert(error.message));
   }
   return (
     <View style={styles.container}>
@@ -33,7 +74,8 @@ export default function LoginScreen({navigation}: Props) {
           <Text style={styles.PasdeCompte}>S'inscrire</Text>
         </TouchableOpacity>
         <View style={styles.Title}>
-          <TouchableOpacity>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <BackButton color="white"/>
             <Text style={styles.screenTitle}>Se Connecter</Text>
           </TouchableOpacity>
         </View>

@@ -12,7 +12,6 @@ import Button from "../../../components/Reusable/ButtonColor";
 import BackButton from "../../../components/Reusable/BackButton";
 import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { FB_DB } from "../../../firebaseconfig";
-import { useContentWidth } from "react-native-render-html";
 import { AuPlusProcheContext, ColocContext, UserContext } from "../../../UserContext";
 import Answer from "../../../components/MiniJeu/Answer";
 import AuprocheGame from "../../../components/MiniJeu/AuprocheGame";
@@ -141,8 +140,8 @@ const AuPlusProcheWait = () => {
         if(userIsOwner){
             return(
                 <>
-                {loading ? <ActivityIndicator size='large'/> :<Button text={'Démarrer la partie'} onPress={()=>{handleStartSalon()}} colorBackGround={'red'} colorText={'white'}/>}
-                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'red'} colorText={'white'}/>}
+                {loading ? <ActivityIndicator size='large'/> :<Button text={'Démarrer la partie'} onPress={()=>{handleStartSalon()}} colorBackGround={'blue'} colorText={'white'}/>}
+                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'blue'} colorText={'white'}/>}
                 </>
             )
         }
@@ -150,34 +149,73 @@ const AuPlusProcheWait = () => {
             return(
                 <>
                 <Text>Demande à {dataOwner.nom} pour démarrer la partie !</Text>
-                {loading ? <ActivityIndicator size='large'/> :<Button text={'Quitter la partie'} onPress={()=>{handleLeaveSalon()}} colorBackGround={'red'} colorText={'white'}/>}
-                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'red'} colorText={'white'}/>}
+                {loading ? <ActivityIndicator size='large'/> :<Button text={'Quitter la partie'} onPress={()=>{handleLeaveSalon()}} colorBackGround={'blue'} colorText={'white'}/>}
+                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'blue'} colorText={'white'}/>}
                 </>
             )
         }
         return(
             <>
-            {loading ? <ActivityIndicator size='large'/> :<Button text={'Rejoindre la partie'} onPress={()=>{handleJoinSalon()}} colorBackGround={'red'} colorText={'white'}/>}
-            {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'red'} colorText={'white'}/>}
+            {loading ? <ActivityIndicator size='large'/> :<Button text={'Rejoindre la partie'} onPress={()=>{handleJoinSalon()}} colorBackGround={'blue'} colorText={'white'}/>}
+            {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'blue'} colorText={'white'}/>}
             </>
         )
     }
     if(salon && salon.started == false){
     return(
-        <SafeAreaView>
-            <Text>Il existe un salon. Les participants sont:</Text>
-            {dataParticipants.map(c=>{return(
-                <Text key={c.uuid}>{c.nom}</Text>
-            )})}
-            {renderButtonSafely()}
+        <ImageBackground 
+        source={Space_Background} 
+        resizeMode="cover"
+        style={styles.imageBackground}
+      >
+        <SafeAreaView style={styles.global} edges={['top']}>
+          <View style={styles.topLign}>
+            <TouchableOpacity style={styles.quitter} onPress={() => navigation.goBack()}>
+              <BackButton color={"#5368F9"}/>
+            </TouchableOpacity>
+            <View style={styles.logo}>
+              <Image source={Logo} />
+            </View>
+          </View>
+          <View style={styles.WaitingGroup}>
+          <Text>Il existe un salon. Les participants sont:</Text>
+          {dataParticipants.map(c => {
+            return (
+              <View style={styles.participantContainer} key={c.uuid}>
+                <Image 
+                  source={{ uri: c.avatarUrl }} 
+                  style={styles.avatar} 
+                />
+                <Text style={styles.participant}>{c.nom}</Text>
+              </View>
+            );
+          })}
+          </View>
+          {renderButtonSafely()}
         </SafeAreaView>
+      </ImageBackground>
+           
     )}
     //lorsque salon est démarré
     if(!userIsIn && salon.started){
         return(
-            <SafeAreaView>
-                <Text>GAME EN COURS, ATTENDS POUR REJOINDRE</Text>
+            <ImageBackground 
+            source={Space_Background} 
+            resizeMode="cover"
+            style={styles.imageBackground}
+            >
+            <SafeAreaView style={styles.global} edges={['top']}>
+                <View style={styles.topLign}>
+                    <TouchableOpacity style={styles.quitter} onPress={() => navigation.goBack()}>
+                        <BackButton color={"#5368F9"}/>
+                    </TouchableOpacity>
+                    <View style={styles.logo}>
+                        <Image source={Logo} />
+                    </View>
+                </View>
+                <Text style={{color: 'white'}}>Une partie est en cour, attends la fin avant de pourvoir rejoindre</Text>
             </SafeAreaView>
+            </ImageBackground>
         )
     }
     return(
@@ -190,8 +228,12 @@ const styles = StyleSheet.create({
     global: {
         flex:1,
         width:'100%',
-        alignItems:'center'
     },
+    topLign:{
+        flexDirection:'row',
+        justifyContent : 'center',
+        width:'100%'
+      },
 
     title:{
         flexDirection:'row',
@@ -232,8 +274,43 @@ const styles = StyleSheet.create({
     },
 
     logo:{
-        margin:10
-    }
+        margin:10,
+        alignItems: 'center'
+    },
+
+    quitter: {
+        backgroundColor: '#222531',
+        height: 30,
+        paddingRight: 4,
+        borderRadius: 30,
+        width: 30,
+        justifyContent:'center',
+        alignItems:'center',
+        marginLeft:10,
+        marginTop:25,
+        position:'absolute',
+        left:0
+      },
+      participantContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+      },
+      avatar: {
+        width: 40, 
+        height: 40, 
+        borderRadius: 20,
+        marginRight: 10, 
+      },
+      participant: {
+        fontSize: 16,
+      },
+      WaitingGroup: {
+          marginHorizontal: '5%',
+          backgroundColor: 'white',
+          borderRadius: 12,
+          padding: 12,
+      }
 });
 
 export default AuPlusProcheWait;

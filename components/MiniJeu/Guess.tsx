@@ -33,7 +33,7 @@ const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestio
             </View>
             <View style={styles.Lign}>
                 <QuestionNumber number={currQuestion+1} total={numberOfQuestion}/>
-                <TimeLeft number={timeLeft-10}/>
+                <TimeLeft number={timeLeft-5}/>
             </View>
             <View style={styles.Question}>
                 <Text style={styles.text}>{question}</Text>
@@ -54,7 +54,7 @@ const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestio
                 </ImageBackground>
             </View>
             <View style={styles.Button}>
-           {buttonPressed ? <Text>Attends {timeLeft-10} secondes pour voir la réponse</Text>:<ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {answer(reponse);setButtonPressed(true)}}/>}
+           {buttonPressed ? <Text>Attends {timeLeft-5} secondes pour voir la réponse</Text>:<ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {answer(reponse);setButtonPressed(true)}}/>}
             </View>
             </View>
         </View>

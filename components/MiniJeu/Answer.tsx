@@ -18,7 +18,7 @@ const scores = [
     { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
 ];
 
-const Answer  = ({reponse, timeLeft, goodAnswer, lastQuestion}) => {
+const Answer  = ({reponse, timeLeft, goodAnswer, lastQuestion, points}) => {
   
     return (
         <SafeAreaView style={styles.global} >
@@ -32,7 +32,7 @@ const Answer  = ({reponse, timeLeft, goodAnswer, lastQuestion}) => {
                     <Text style={styles.text1}>La bonne</Text>
                     <Text style={styles.text2}>réponse est</Text>
                     <Text style={styles.text3}>{reponse}</Text>
-                    {goodAnswer ?  <Text style={styles.text5}>Tu as vu juste !</Text> : <Text style={styles.text5}>Tu as pas vu juste !</Text>}
+                    {goodAnswer ?  <Text style={styles.text5}>Tu as vu juste !{points} points gagnés</Text> : <Text style={styles.text5}>Tu as pas vu juste ! {points}points gagnés</Text>}
                 </ImageBackground>
             </View>
             <View style={styles.brick}>

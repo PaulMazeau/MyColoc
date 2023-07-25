@@ -57,7 +57,7 @@ const GraphiqueEquilibrage = () => {
   return (
     <View style={styles.container}>
 
-      {onlyZeros(unsortedData) ? emptyGraph() : data.map((item, index) => {
+      {onlyZeros(unsortedData) ? emptyGraph() : data.filter(item => item.value !== 0).map((item, index) => {
         const itemWidth = barWidth * (Math.abs(item.value) / maxVal);
         const animatedStyle = {
           width: 150 * (itemWidth / barWidth), //reglage la taille des bars par rapport aux valeurs
