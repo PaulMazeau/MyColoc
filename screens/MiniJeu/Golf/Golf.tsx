@@ -27,34 +27,49 @@
     const screenDiagonal = Math.hypot(width , height);
 
 
-    const Arrow = ({ force, visible }) => {
+    const Arrow = ({ force, visible, maxForce = 80 }) => {  
         if (!visible) {
             return null;
         }
     
         const forceInv = {x:-force.x/5, y:-force.y/5}
     
-        // L'origine de la flèche est le point de départ de la balle
         const origin = { x: width * 0.5, y: height * 0.7 };
     
-        // La longueur de la flèche est proportionnelle à la magnitude du vecteur de force
         const length = Math.sqrt(forceInv.x * forceInv.x + forceInv.y * forceInv.y);
     
-        // L'angle de la flèche est déterminé par le vecteur de force
-        const angle = Math.atan2(forceInv.y, forceInv.x);
+        const normalizedLength = Math.max(Math.min(length / maxForce, 1), 0);  
     
-        // Calcule les coordonnées de fin de la flèche
-        const end = {
-            x: origin.x + length * Math.cos(angle),
-            y: origin.y + length * Math.sin(angle),
+        const getColor = (percentage) => {
+            let red, green;
+    
+            if (percentage <= 0.6) { // De vert à jaune
+                red = percentage * 2 * 235;  // 235 au lieu de 255
+                green = 235;  // 235 au lieu de 255
+            } else { // De jaune à rouge
+                red = 235;  // 235 au lieu de 255
+                green = 235 - ((percentage - 0.6) * 2 * 235);  // 235 au lieu de 255
+            }
+    
+            return `rgb(${Math.round(red)}, ${Math.round(green)}, 0)`;
         };
     
-        // Définit la taille et l'orientation du triangle
-        const triangleSize = 10;
+        const color = getColor(normalizedLength);
+    
+        const angle = Math.atan2(forceInv.y, forceInv.x);
+    
+        const end = {
+            x: origin.x + normalizedLength *80 * Math.cos(angle),
+            y: origin.y + normalizedLength *80 * Math.sin(angle),
+        };
+    
+        // Change the triangle size with the normalizedLength
+        const triangleSize = 5 + 10 * normalizedLength; // Minimum size is 10, increases with force
+    
         const trianglePoints = [
-            `${end.x},${end.y}`,
-            `${end.x - triangleSize * Math.cos(angle + Math.PI / 6)},${end.y - triangleSize * Math.sin(angle + Math.PI / 6)}`,
-            `${end.x - triangleSize * Math.cos(angle - Math.PI / 6)},${end.y - triangleSize * Math.sin(angle - Math.PI / 6)}`
+            `${end.x},${end.y -5}`,
+            `${end.x - triangleSize * Math.cos(angle + Math.PI / 6)},${end.y - 5 - triangleSize * Math.sin(angle + Math.PI / 6)}`,
+            `${end.x - triangleSize * Math.cos(angle - Math.PI / 6)},${end.y - 5 - triangleSize * Math.sin(angle - Math.PI / 6)}`
         ].join(' ');
     
         return (
@@ -64,16 +79,19 @@
                     y1={origin.y}
                     x2={end.x}
                     y2={end.y}
-                    stroke="red"
-                    strokeWidth="1"
+                    stroke={color}
+                    strokeWidth={`${1 + normalizedLength * 1.5}`} // Line width increases with force
                 />
                 <Polygon
                     points={trianglePoints}
-                    fill="red"
+                    fill={color}
                 />
             </Svg>
         );
     };
+    
+    
+    
 
     
 
