@@ -5,7 +5,6 @@ import { StatusBar } from 'expo-status-bar';
 import { main } from './../../constants/Colors';
 import QuestionNumber from "../../components/MiniJeu/QuestionNumber";
 import TimeLeft from "./TimeLeft";
-import { MiniJeuStackParams } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
@@ -13,6 +12,8 @@ import ButtonColor from '../../components/Reusable/ButtonColor'
 
 
 const LogoBlackWhite =require('./../../assets/images/Logo_Minijeu_BlackWhite.png');
+const Space_Background=require('../../assets/images/Space_Background.png');
+const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 type Props = {
     image:any;
@@ -27,6 +28,17 @@ const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestio
     const [reponse, setReponse] = useState('')
     const [buttonPressed, setButtonPressed] = useState(false)
     return (
+        <ImageBackground 
+        source={Space_Background} 
+        resizeMode="cover"
+        style={styles.imageBackground}
+        >
+        <SafeAreaView style={styles.global} edges={['top']} >
+        <StatusBar style="light" />
+        <View style={styles.global}>
+            <View style={styles.logo}>
+                <Image source={Logo} />
+            </View>
         <View style={{width:'100%', flex:1}}>
             <View style={styles.Logo}>
                 <Image source={{uri : image}} style={styles.Image} />
@@ -58,6 +70,9 @@ const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestio
             </View>
             </View>
         </View>
+        </View>
+        </SafeAreaView>
+        </ImageBackground>
     );
   
 }
@@ -82,6 +97,10 @@ const styles = StyleSheet.create({
         paddingLeft:20,
         marginTop:20
     },
+
+    logo:{
+        margin:10
+      },
 
     inputContainer:{
         width:'90%',
@@ -112,7 +131,7 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        color: 'black',
+        color: 'white',
         fontWeight: '600',
         fontSize: 20,
     },
@@ -129,16 +148,17 @@ const styles = StyleSheet.create({
     },
 
     LogoBlackWhite:{
-        flex:1,
+        flex: .7,
     },
 
     Image:{
         width:350,
         height:300,
+        borderRadius: 12
     },
 
     Button:{
-        width:'90%',
+        width:'100%',
         marginTop:20,
     },
 
