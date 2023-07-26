@@ -102,7 +102,8 @@ export default function LoginScreen({navigation}: Props) {
           <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
         </TouchableOpacity>
       </View>
-      {loading ? <ActivityIndicator size='large' style={styles.activityIndicator}/>:<CustomButton title="Se connecter" onPress={() => signIn()} />}
+      {loading ? <ActivityIndicator size='large' style={styles.activityIndicator}/>:<CustomButton gradientColors={['#7700FF', '#4F3CFF']}
+          gradientDirection={{ start: { x: 1, y: 1 }, end: { x: 0.8, y: 0 } }} title="Se connecter" onPress={() => signIn()} />}
     </View>
   );
 }
