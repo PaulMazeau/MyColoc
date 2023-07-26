@@ -6,7 +6,7 @@ import { LinearGradient }  from 'expo-linear-gradient';
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MiniJeuStackParams } from '../../App';
+import { MiniJeuStackParams } from "../Navigation/MiniJeuStack";
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -30,11 +30,9 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, c
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.text}>{gameTitle}</Text>
             {scoreUser==null?
-            <View/>
+             <View/>
             :
-            <TouchableOpacity onPress={() => navigation.navigate('Classement'+gameTitle)}>
               <Score score={scoreUser} color={"white"}/>
-            </TouchableOpacity>
             }
           </View>
           

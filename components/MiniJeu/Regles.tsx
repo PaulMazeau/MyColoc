@@ -2,32 +2,21 @@ import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import { main } from '../../constants/Colors';
 
-interface ScoreProps {
-    text1: string;
-    text2: string;
-    image: any;
-}
-
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Regles: React.FC<ScoreProps> = ({ text1, text2, image }) => {
-
+const Regles = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Règles du jeu :</Text>
-            <Text style={styles.text}>{text1}</Text>
-            <View style={styles.line}>
-                <Text style={styles.text}>{text2}</Text>
-                <Image source={image} style={styles.image}/>
-            </View>
+            <Text style={styles.text}>Tous les joueurs obtiennent un mot identique, sauf un ! Démasquez l'Incognito en donnant chacun votre tour un indice sur votre mot, puis votez. L'Incognito gagne s'il survit et qu'il ne reste que 2 joueurs.</Text>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 40,
+        borderRadius: 12,
         width : windowWidth*0.9,
         height: windowHeight*0.2,
         padding: 10,
@@ -35,7 +24,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'center',
         flexDirection: 'column',
-        backgroundColor:'#62C435'
+        backgroundColor:'red'
     },
 
     text: {

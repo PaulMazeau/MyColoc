@@ -15,6 +15,7 @@ import { FB_DB } from "../../../firebaseconfig";
 import { AuPlusProcheContext, ColocContext, UserContext } from "../../../UserContext";
 import Answer from "../../../components/MiniJeu/Answer";
 import AuprocheGame from "../../../components/MiniJeu/AuprocheGame";
+import FloatingAvatar from "./FloatingAvatar";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
@@ -140,8 +141,8 @@ const AuPlusProcheWait = () => {
         if(userIsOwner){
             return(
                 <>
-                {loading ? <ActivityIndicator size='large'/> :<Button text={'Démarrer la partie'} onPress={()=>{handleStartSalon()}} colorBackGround={'blue'} colorText={'white'}/>}
-                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'blue'} colorText={'white'}/>}
+                {loading ? <ActivityIndicator size='large'/> :<Button text={'Démarrer la partie'} onPress={()=>{handleStartSalon()}} colorBackGround={'#5368F9'} colorText={'white'}/>}
+                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'#5368F9'} colorText={'white'}/>}
                 </>
             )
         }
@@ -149,15 +150,15 @@ const AuPlusProcheWait = () => {
             return(
                 <>
                 <Text>Demande à {dataOwner.nom} pour démarrer la partie !</Text>
-                {loading ? <ActivityIndicator size='large'/> :<Button text={'Quitter la partie'} onPress={()=>{handleLeaveSalon()}} colorBackGround={'blue'} colorText={'white'}/>}
-                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'blue'} colorText={'white'}/>}
+                {loading ? <ActivityIndicator size='large'/> :<Button text={'Quitter la partie'} onPress={()=>{handleLeaveSalon()}} colorBackGround={'#5368F9'} colorText={'white'}/>}
+                {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'#5368F9'} colorText={'white'}/>}
                 </>
             )
         }
         return(
             <>
-            {loading ? <ActivityIndicator size='large'/> :<Button text={'Rejoindre la partie'} onPress={()=>{handleJoinSalon()}} colorBackGround={'blue'} colorText={'white'}/>}
-            {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'blue'} colorText={'white'}/>}
+            {loading ? <ActivityIndicator size='large'/> :<Button text={'Rejoindre la partie'} onPress={()=>{handleJoinSalon()}} colorBackGround={'#5368F9'} colorText={'white'}/>}
+            {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'#5368F9'} colorText={'white'}/>}
             </>
         )
     }
@@ -178,19 +179,16 @@ const AuPlusProcheWait = () => {
             </View>
           </View>
           <View style={styles.WaitingGroup}>
-          <Text>Il existe un salon. Les participants sont:</Text>
           {dataParticipants.map(c => {
             return (
-              <View style={styles.participantContainer} key={c.uuid}>
-                <Image 
-                  source={{ uri: c.avatarUrl }} 
-                  style={styles.avatar} 
-                />
-                <Text style={styles.participant}>{c.nom}</Text>
-              </View>
+                <FloatingAvatar key={c.uuid} url={c.avatarUrl} />
             );
-          })}
-          </View>
+            })}
+            </View>
+            <View style={styles.TitleSalon}>
+            <Text style={styles.SalonTextStyle}>Bienvenue dans le salon</Text>
+            <Text style={styles.participant}>Tu vas retrouver ici tout les participants de ta partie. Le propriétaire lancera quand tout le monde sera là.</Text>
+            </View>
           {renderButtonSafely()}
         </SafeAreaView>
       </ImageBackground>
@@ -303,13 +301,30 @@ const styles = StyleSheet.create({
         marginRight: 10, 
       },
       participant: {
+        color: 'white',
         fontSize: 16,
+        textAlign: 'center',
+        fontWeight: '500'
       },
       WaitingGroup: {
+          flexDirection:'row',
           marginHorizontal: '5%',
-          backgroundColor: 'white',
           borderRadius: 12,
           padding: 12,
+          marginBottom: 24,
+      },
+      SalonTextStyle: {
+        fontSize: 20,
+        fontWeight: '700',
+        marginBottom: 10,
+        color: 'white',
+        textAlign: 'center',
+        marginTop: 70
+      },
+      TitleSalon: {
+          width: '90%',
+          marginHorizontal: '5%',
+          marginBottom: 12
       }
 });
 

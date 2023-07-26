@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, FlatList, Button } from "react-native";
 import { main } from '../../constants/Colors';
-import Button from '../Reusable/ButtonColor';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import { ColocContext, UserContext } from '../../UserContext';
 import AddPlayerBS from './AddPlayerBS';
@@ -98,7 +97,7 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
             ListHeaderComponent={
               <View style={styles.lign}>
                   <Text style={styles.text}>Qui joue ?</Text>
-                  <Button text='Commencer' colorBackGround='#62C435' colorText='white' onPress={() => {onPress()}} height={40}/>
+                  <Button title='Commencer' onPress={() => {onPress()}}/>
               </View>
             }
             numColumns={3}
