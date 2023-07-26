@@ -81,10 +81,6 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
           </TouchableOpacity>
       );
     };
-  
-    
-
-  
 
     return (
       <View style={styles.global}>
@@ -97,7 +93,9 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
             ListHeaderComponent={
               <View style={styles.lign}>
                   <Text style={styles.text}>Qui joue ?</Text>
-                  <Button title='Commencer' onPress={() => {onPress()}}/>
+                  <TouchableOpacity style={styles.buttonStyle} onPress={() => {onPress()}}>
+                      <Text style={styles.buttonTextStyle}>Commencer</Text>
+                  </TouchableOpacity>
               </View>
             }
             numColumns={3}
@@ -138,25 +136,26 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       paddingHorizontal:10,
       backgroundColor:'white',
-      paddingBottom:15
     },
 
     player: {
       alignItems: 'center',
       margin: 6
     },
-
-    ImageContainer: {
-      height: 90,
-      width: 90,
-      borderRadius: 4
-    },
-
-    Image: {
-      height: '100%',
-      width: '100%',
+    buttonStyle: {
+      backgroundColor: '#172ACE',
+      padding: 10,
       borderRadius: 5,
-    },
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 120, 
+      height: 40, 
+  },
+  
+  buttonTextStyle: {
+      color: 'white',
+      fontSize: 14,
+  },
 });
 
 export default PlayersCard

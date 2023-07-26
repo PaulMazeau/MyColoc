@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, Alert, } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, Alert, TouchableOpacity, } from "react-native";
 import Regles from "../../../components/MiniJeu/Regles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -39,8 +39,6 @@ const IncognitoSetUp = () => {
     }));
 
     setGameState(newGameState);
-
-    // Navigate to the new screen with the new game state
     navigation.navigate("PassPhone", { gameState: newGameState });
   };
 
@@ -52,14 +50,14 @@ const IncognitoSetUp = () => {
     >
       <SafeAreaView style={styles.global}>
         <StatusBar style="light" />
-        <View style={styles.global}>
           <View style={styles.Logo}>
             <Image source={Logo} />
           </View>
-          <View style={styles.title}>
+          <TouchableOpacity style={styles.title} onPress={() => navigation.goBack()}>
             <BackButton color="white" />
             <Text style={styles.text}>Incognito</Text>
-          </View>
+          </TouchableOpacity>
+
           <View style={styles.container}>
             <PlayersCard
               selectedPlayers={selectedPlayers}
@@ -75,7 +73,6 @@ const IncognitoSetUp = () => {
             />
             <Regles />
           </View>
-        </View>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -86,7 +83,6 @@ const styles = StyleSheet.create({
         flex:1,
         width:'90%',
         alignItems:'center',
-        marginHorizontal: '5%'
     },
 
     container:{
@@ -96,11 +92,12 @@ const styles = StyleSheet.create({
         paddingTop:20
     },
 
-    title:{   
+    title:{ 
         alignItems:'center',
         flexDirection:'row',
         width:'100%',
         marginTop:20,
+  
     },
 
     Question:{

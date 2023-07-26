@@ -3,12 +3,11 @@ import { View, Image, StyleSheet, ImageBackground, Text, Dimensions, BackHandler
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../../constants/Colors';
-import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { GameStateContext } from './GameStateContext';
-
 import { useNavigation } from "@react-navigation/native";
 import Button from "../../../components/Reusable/ButtonColor";
+import { MiniJeuStackParams } from "../../../components/Navigation/MiniJeuStack";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
@@ -59,7 +58,7 @@ const PassPhone = ({route}: Props) => {
                 <View style={styles.containerText}>
                     <Text style={styles.text1}>Passe le téléphone à {playerInfo.player.name}, son môt va être dévoilé</Text>
                 </View>
-                <Button text="Réveler le mot" colorBackGround={main.MainColor} colorText="white" onPress={() => {navigation.navigate('Mot', {playerInfo, updatedGameState})}}/>
+                <Button text="Dévoiler le mot" colorBackGround={main.MainColor} colorText="white" onPress={() => {navigation.navigate('Mot', {playerInfo, updatedGameState})}}/>
             </View>
         </View>
         </SafeAreaView>
@@ -76,6 +75,7 @@ const styles = StyleSheet.create({
 
     container:{
         justifyContent:'space-between',
+        width: '100%',
         flex:1,
         paddingBottom:40,
         paddingTop:20,
@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     },
 
     containerText:{
-        
         flex:1,
         height:'100%',
         alignItems:'center',

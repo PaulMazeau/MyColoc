@@ -8,11 +8,11 @@ import { main } from '../constants/Colors';
 import { Shadows } from '../constants/Shadow';
 import BackIcon from '../components/Reusable/BackButton';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../App';
 import ScreenTitle from '../components/Reusable/ScreenTitle';
 import { CourseContext, UserContext } from '../UserContext';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { FB_APP, FB_DB } from '../firebaseconfig';
+import { RootStackParams } from '../components/Navigation/RootStack';
 
 // Définition du type des propriétés pour le composant ListeDeCourseScreen
 type Props = NativeStackScreenProps<RootStackParams, 'ListeDeCourse'>;

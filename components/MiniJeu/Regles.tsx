@@ -20,11 +20,9 @@ const styles = StyleSheet.create({
         width : windowWidth*0.9,
         height: windowHeight*0.2,
         padding: 10,
-        paddingBottom:15,
         alignItems: 'flex-start',
-        justifyContent: 'center',
         flexDirection: 'column',
-        backgroundColor:'red'
+        backgroundColor:'#5368F9'
     },
 
     text: {
@@ -39,21 +37,13 @@ const styles = StyleSheet.create({
         color: main.LightWhite,
         fontWeight: '600',
         fontSize: 20,
+        marginBottom: 12,
     },
 
     line:{
         flexDirection:'row',
         width:"70%"
     },
-
-    image:{
-        height:80, 
-        width:100, 
-        overflow:'hidden',
-        top:-16,
-        left:230,
-        position:'absolute'
-    }
 });
 
 export default Regles;

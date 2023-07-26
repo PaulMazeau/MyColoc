@@ -40,43 +40,14 @@ const AddPlayerBS = ({ addPlayer }) => {
   const [title, setTitle] = useState(null);
   const [avatar, setAvatar] = useState(null);
 
-  //Decommenter + Remplacer categoriList par imageData pour avoir la liste d'avatar online 
-//   const [emoji, setEmoji] = useState(null);
-//   const [user, setUser] = useContext(UserContext);
-//   useEffect(() => {
-//     const avatarListRef = ref(FB_STORE, 'AvatarsCompress/');
-//     list(avatarListRef).then((res => {
-//       res.items.forEach((item) => {
-//         getDownloadURL(item).then((url) => {setUrls((prev) => [...prev, url])})
-//       })
-//     }))
-//   }, [])
-
-//   const [urls, setUrls] = useState([]) 
-//   const imageData = urls.map((url, index)=>{
-//     var rObj = {}
-//     rObj['id'] = index
-//     rObj['uri'] = url
-//     return rObj
-//   })
-
-
   // Référence à la bottom sheet modal
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-
-  // Fonction pour fermer la bottom sheet modal
-  const addListeDeCourse = () => {
-    bottomSheetRef.current?.close();
-  };
 
   // Fonction pour ouvrir la bottom sheet modal
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
   };
 
-  const closeBottomSheet = () => {
-    bottomSheetRef.current?.close();
-  };
   
   const handleAddPlayer = async () => {
     if(title.length == 0){Alert.alert('','Entrez un nom')}
@@ -92,7 +63,7 @@ const AddPlayerBS = ({ addPlayer }) => {
 
   const renderCat = () => {
     return(
-      categorieList.map((c, index) => {
+      categorieList.map((c) => {
         return(
           <TouchableOpacity onPress={() => {setAvatar(c.emojiUrl)}} key={c.emojiUrl}>
             <Image source={{uri: c.emojiUrl, cache:'force-cache'}} style={(avatar===c.emojiUrl)?styles.ImageSelected:styles.ImageDeselected}/>
@@ -118,12 +89,12 @@ const AddPlayerBS = ({ addPlayer }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() =>{ Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); openBottomSheet() }} style={styles.addButton}>
-        <AddButton />
+        <Text style={styles.addButtonText}>Ajouter un joueur externe</Text>
       </TouchableOpacity>
 
       <BottomSheetModal
         ref={bottomSheetRef}
-        snapPoints={['65%']}
+        snapPoints={['55%']}
         index={0}
         backdropComponent={renderBackdrop}
       >
@@ -171,6 +142,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   addButton: {
+    width: '100%',
+    backgroundColor: '#172ACE',
+    borderRadius: 8,
   },
   contentContainer: {
     backgroundColor: 'white',
@@ -243,6 +217,10 @@ const styles = StyleSheet.create({
     marginHorizontal:5,
     borderColor:'blue',
     borderWidth:1
+  },
+  addButtonText: {
+    color: 'white',
+    fontSize: 16
   }
 });
 
