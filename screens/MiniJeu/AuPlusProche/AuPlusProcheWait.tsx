@@ -19,7 +19,7 @@ import FloatingAvatar from "./FloatingAvatar";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
-
+const Sablier = require('../../../assets/images/Sablier.png')
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Guess'>;
 
@@ -211,7 +211,10 @@ const AuPlusProcheWait = () => {
                         <Image source={Logo} />
                     </View>
                 </View>
-                <Text style={{color: 'white'}}>Une partie est en cour, attends la fin avant de pourvoir rejoindre</Text>
+                <View style={styles.WaitingGame}>
+                    <Image source={Sablier} style={styles.WaitingGameImage}/>
+                    <Text style={styles.WaitingGameText}>Une partie est en cour, attends la fin avant de pourvoir rejoindre.</Text>
+                </View>
             </SafeAreaView>
             </ImageBackground>
         )
@@ -325,6 +328,23 @@ const styles = StyleSheet.create({
           width: '90%',
           marginHorizontal: '5%',
           marginBottom: 12
+      },
+      WaitingGame: {
+        width: '90%',
+        backgroundColor: '#5368F9',
+        marginHorizontal: '5%',
+        borderRadius: 12,
+        padding: 20,
+      },
+      WaitingGameText: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: '700'
+      },
+      WaitingGameImage: {
+        width: '100%',
+        height: 310,
       }
 });
 
