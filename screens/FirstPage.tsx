@@ -64,7 +64,7 @@ subTitle: {
     fontSize: 16,
 },
 decoBouton: {
-  marginTop: 80,
+  marginTop: 90,
 },
 textDecoBouton: {
   textDecorationLine: 'underline',

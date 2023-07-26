@@ -9,6 +9,9 @@ import Guess from './Guess'
 import Answer from './Answer'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { StatusBar } from 'expo-status-bar'
+import Classement from '../../screens/MiniJeu/FootBall/ClassementFootBall'
+import Button from '../Reusable/ButtonColor'
+import Trophy from '../../assets/icons/Trophy.svg';
 
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
@@ -127,14 +130,31 @@ export default function AuprocheGame() {
                 <View style={styles.logo}>
                     <Image source={Logo} />
                 </View>
-                    {salon.points.map((c)=>{
-                        return(
-                        
-                            <Text key={c.uuid}  style={styles.text}>{dataParticipants.find((u)=>u.uuid==c.uuid).nom} : {c.point}</Text>
-                        
+                <View style={styles.title}>
+                    <Trophy/>
+                    <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold', marginLeft: 8, marginBottom: 20}}>Classement</Text>
+                </View>
+                <View style={styles.classement}>
+                    {salon.points.map((c, index) => {
+                        const user = dataParticipants.find((u) => u.uuid == c.uuid);
+                        return (
+                        <View key={c.uuid}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Image 
+                                source={{ uri: user.avatarUrl }} 
+                                style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} 
+                            />
+                            <Text style={styles.text}>{user.nom} : {c.point}</Text>
+                            </View>
+                            {index !== salon.points.length - 1 && 
+                            <View style={{ height: 1, backgroundColor: 'white', marginTop: 2, marginBottom: 2 }} />
+                            }
+                        </View>
                         )
                     })}
-        <TouchableOpacity onPress={()=>{handleStartNewGame()}}><Text style={styles.text}>Commencer une nouvelle partie...</Text></TouchableOpacity>
+                </View>
+
+        <Button text={'Commencer une nouvelle partie'} onPress={()=>{handleStartNewGame()}} colorBackGround={'#5368F9'} colorText={'white'}/>
    </SafeAreaView>
    </ImageBackground>
     
@@ -145,7 +165,7 @@ const styles = StyleSheet.create({
     global: {
         flex:1,
         width:'100%',
-        alignItems:'center'
+   
     },
 
     imageBackground: {
@@ -156,10 +176,30 @@ const styles = StyleSheet.create({
     },
 
     logo:{
-        margin:10
+        margin:10,
+        alignItems:'center'
       },
 
+    title: {
+        flexDirection: 'row',
+        marginHorizontal: '5%',
+        width: '90%',
+      
+    },
+
     text: {
-        color: 'white'
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+
+    classement: {
+        marginHorizontal: '5%',
+        width: '90%',
+        height: 'auto',
+        backgroundColor: '#5368F9',
+        borderRadius: 12,
+        padding: 12,
+        marginBottom: 20
     }
 })
