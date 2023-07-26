@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import BlueGradient from '../components/Reusable/BlueGradient'
 import Button from '../components/Reusable/ButtonColor'
@@ -21,14 +21,6 @@ const FirstPage = ({navigation}: Props) => {
           <Text style={styles.title}>Bievenue sur MyColoc</Text>
           <Text style={styles.subTitle}>Fini les frictions entre colocataires!</Text>
         </View>
-
-          <CustomButton 
-          title="Tu n'as pas encore de colocation" 
-          onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}}
-          gradientColors={['#7700FF', '#4F3CFF']}
-          gradientDirection={{ start: { x: 1, y: 1 }, end: { x: 0.8, y: 0 } }}
-          url="https://www.coloc.fr"
-        />
           <CustomButton 
             title={'S\'inscrire'}  
             onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);navigation.navigate('SignUp')}}
@@ -43,6 +35,7 @@ const FirstPage = ({navigation}: Props) => {
             color='#172ACE'
             onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);navigation.navigate('Login')}}
           />
+        <TouchableOpacity style={styles.decoBouton} onPress={() => { Linking.openURL("https://www.coloc.fr");}}><Text style={styles.textDecoBouton}>Tu n'as pas de colocation ?</Text></TouchableOpacity>
     </View>
   )
 }
@@ -69,6 +62,14 @@ subTitle: {
     color: 'white',
     textAlign: 'center',
     fontSize: 16,
+},
+decoBouton: {
+  marginTop: 80,
+},
+textDecoBouton: {
+  textDecorationLine: 'underline',
+  textAlign: 'center',
+  fontSize: 16,
 },
 
 })

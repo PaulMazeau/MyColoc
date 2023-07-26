@@ -74,7 +74,7 @@ export default function LoginScreen({navigation}: Props) {
           <Text style={styles.PasdeCompte}>S'inscrire</Text>
         </TouchableOpacity>
         <View style={styles.Title}>
-          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.goBack()}>
             <BackButton color="white"/>
             <Text style={styles.screenTitle}>Se Connecter</Text>
           </TouchableOpacity>
