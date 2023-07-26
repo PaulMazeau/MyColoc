@@ -213,7 +213,8 @@ const AuPlusProcheWait = () => {
                 </View>
                 <View style={styles.WaitingGame}>
                     <Image source={Sablier} style={styles.WaitingGameImage}/>
-                    <Text style={styles.WaitingGameText}>Une partie est en cour, attends la fin avant de pourvoir rejoindre.</Text>
+                    <Text style={styles.WaitingGameText}>Une partie est en cours, attends la fin avant de pourvoir rejoindre.</Text>
+                    {loading ?  <ActivityIndicator size='large'/>:<Button text={'Creer un nouveau salon'} onPress={()=>{handleReplaceSalonChecker()}} colorBackGround={'#5368F9'} colorText={'white'}/>}
                 </View>
             </SafeAreaView>
             </ImageBackground>
