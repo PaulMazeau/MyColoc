@@ -66,7 +66,13 @@ const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestio
                 </ImageBackground>
             </View>
             <View style={styles.Button}>
-           {buttonPressed ? <Text>Attends {timeLeft-5} secondes pour voir la réponse</Text>:<ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {answer(reponse);setButtonPressed(true)}}/>}
+            {buttonPressed ? 
+                <View style={styles.Wait}>
+                <Text style={{color: 'white'}}>Attends {timeLeft-5} secondes pour voir la réponse</Text>
+                </View>
+                :
+                <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {answer(reponse);setButtonPressed(true)}}/>
+            }
             </View>
             </View>
         </View>
@@ -170,6 +176,18 @@ const styles = StyleSheet.create({
         paddingLeft:20,
         paddingRight:20,
         marginTop:20
+    },
+
+    Wait: {
+        backgroundColor: "#172ACE",
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 48,
+        marginBottom: 12,
+        paddingHorizontal:10,
+        width: '90%',
+        marginHorizontal: '5%'
     }
 });
 
