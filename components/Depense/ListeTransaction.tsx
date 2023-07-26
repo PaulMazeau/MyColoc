@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Animated, Image } from 'react-native';
 import TransactionCard from './TransactionCard';
 import * as Crypto from 'expo-crypto';
@@ -6,6 +6,7 @@ import { DepenseContext } from '../../UserContext';
 import AddDepenseBS from './AddDepenseBS';
 import { main } from '../../constants/Colors';
 import ContentLoader, { Rect } from 'react-content-loader/native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const MyLoader = () => (
     <View style={{marginHorizontal: 20}}>
@@ -32,8 +33,11 @@ const MyLoader = () => (
 export default function ListeTransaction() {
   const [transac, setTransac] = useContext(DepenseContext)
   const [loading, setLoading] = useState(false);  // Ajoutez cet état
-      
-
+  const [transacToRender, setTransacToRender]  = useState([])   
+  const [numberToRender, setNumberToRender] = useState(10)
+  useEffect(()=>{
+    setTransacToRender(transac.slice(0, numberToRender))
+  }, [numberToRender])
   // Ajoutez cette fonction pour être appelée lorsque vous ajoutez une dépense
   const handleAddDepense = () => {
      setLoading(true);
@@ -55,12 +59,15 @@ export default function ListeTransaction() {
   const renderTransaction = () => {
    
       if(transac){
-      if(transac.length == 0){return(emptyTransaction())}
+      if(transacToRender.length == 0){return(emptyTransaction())}
       else{
       return (
-        transac.map((t) => {
+        transacToRender.map((t, i) => {
           return(
+            <>
           <TransactionCard transac={t.data()} key={t.id}/>
+          {i==numberToRender-1 ? numberToRender == transac.length ? <></> : <TouchableOpacity style={styles.afficherPlus} onPress={()=>{setNumberToRender(transac.length)}}><Text style={styles.textAfficherPlus}>Afficher tout</Text></TouchableOpacity> : <></>}
+          </>
           )
         })
       )};
@@ -115,4 +122,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     letterSpacing: -0.6,
   },
+  afficherPlus: {
+    width: '90%',
+    marginHorizontal: '5%',
+    borderRadius: 10,
+    marginBottom: 12,
+},
+textAfficherPlus: {
+  fontWeight: '600',
+  fontSize: 19,
+}
 });
