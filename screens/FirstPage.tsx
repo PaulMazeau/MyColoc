@@ -32,6 +32,8 @@ const FirstPage = ({navigation}: Props) => {
           <CustomButton 
             title={'S\'inscrire'}  
             onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);navigation.navigate('SignUp')}}
+            gradientColors={['#7700FF', '#4F3CFF']}
+            gradientDirection={{ start: { x: 1, y: 1 }, end: { x: 0.8, y: 0 } }}
           />
           <CustomButton 
             title={'Se connecter'} 

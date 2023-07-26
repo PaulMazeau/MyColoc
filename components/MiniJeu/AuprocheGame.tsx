@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator, ImageBackground, StyleSheet, Image} from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { AuPlusProcheContext, ColocContext, UserContext } from '../../UserContext'
 import { SafeAreaSpacerView } from 'react-native-ui-lib'
@@ -8,6 +8,10 @@ import { FB_DB } from '../../firebaseconfig'
 import Guess from './Guess'
 import Answer from './Answer'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { StatusBar } from 'expo-status-bar'
+
+const Space_Background=require('../../assets/images/Space_Background.png');
+const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 export default function AuprocheGame() {
     const [points, setPoints] = useState(0)
@@ -113,16 +117,49 @@ export default function AuprocheGame() {
     const dataParticipants = coloc.filter(c=> salon.participants.includes(c.uuid))
 
   return (
-  
-   <SafeAreaView>{salon.points.map((c)=>{
-    return(
-      
-        <Text key={c.uuid}>{dataParticipants.find((u)=>u.uuid==c.uuid).nom} : {c.point}</Text>
-       
-    )
-   })}
-   <TouchableOpacity onPress={()=>{handleStartNewGame()}}><Text>Commencer une nouvelle partie...</Text></TouchableOpacity>
+    <ImageBackground 
+       source={Space_Background} 
+       resizeMode="cover"
+       style={styles.imageBackground}
+    >
+        <SafeAreaView style={styles.global} edges={['top']} >
+            <StatusBar style="light" />
+                <View style={styles.logo}>
+                    <Image source={Logo} />
+                </View>
+                    {salon.points.map((c)=>{
+                        return(
+                        
+                            <Text key={c.uuid}  style={styles.text}>{dataParticipants.find((u)=>u.uuid==c.uuid).nom} : {c.point}</Text>
+                        
+                        )
+                    })}
+        <TouchableOpacity onPress={()=>{handleStartNewGame()}}><Text style={styles.text}>Commencer une nouvelle partie...</Text></TouchableOpacity>
    </SafeAreaView>
+   </ImageBackground>
     
   )
 }
+
+const styles = StyleSheet.create({
+    global: {
+        flex:1,
+        width:'100%',
+        alignItems:'center'
+    },
+
+    imageBackground: {
+        flex: 1,             
+        width: '100%',       
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    logo:{
+        margin:10
+      },
+
+    text: {
+        color: 'white'
+    }
+})

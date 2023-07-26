@@ -1,52 +1,47 @@
 import React from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, SafeAreaView } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text } from "react-native";
 import { main } from '../../constants/Colors';
-import ClassementCardScrollable from '../../components/MiniJeu/ClassementCard'
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { LinearGradient } from "expo-linear-gradient";
 
-const Podium =require('../../assets/images/Podium.png');
-const Brick =require('../../assets/images/Brick.png');
-
-//Tableau de scores de la partie AuPlusProche en cours 
-const scores = [
-    { position: 1, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
-    { position: 2, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
-    { position: 3, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
-    { position: 4, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
-    { position: 5, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
-    { position: 6, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
-    { position: 7, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
-    { position: 8, userImage: require('../../assets/images/profilIcon2.png'), name:"Marie", score:10 },
-];
+const Space_Background=require('../../assets/images/Space_Background.png');
+const Logo =require('../../assets/images/Logo_Minijeu.png');
 
 const Answer  = ({reponse, timeLeft, goodAnswer, lastQuestion, points}) => {
   
     return (
-        <SafeAreaView style={styles.global} >
-      <View style={{width:'100%', flex:1, alignItems:'center'}}>
-            <View style={styles.podium}>
-                <ImageBackground 
-                source={Podium} 
-                resizeMode="stretch"
-                style={styles.podiumImage}
-                >   
-                    <Text style={styles.text1}>La bonne</Text>
-                    <Text style={styles.text2}>réponse est</Text>
-                    <Text style={styles.text3}>{reponse}</Text>
-                    {goodAnswer ?  <Text style={styles.text5}>Tu as vu juste !{points} points gagnés</Text> : <Text style={styles.text5}>Tu as pas vu juste ! {points}points gagnés</Text>}
-                </ImageBackground>
-            </View>
+        <ImageBackground 
+            source={Space_Background} 
+            resizeMode="cover"
+            style={styles.imageBackground}
+        >
+        <SafeAreaView style={styles.global} edges={['top']} >
+            <StatusBar style="light"/>
+                <View style={styles.logo}>
+                    <Image source={Logo} />
+                </View>
+                <View style={styles.podium}>
+                    <LinearGradient
+                        colors={['#5368F9', '#43348A']}
+                        style={styles.linearGradient}
+                    />
+                    <Text style={styles.text}>La bonne réponse est : {'\n'} {reponse}</Text>
+                    <Text style={styles.text}>
+                        {goodAnswer ? `Tu as vu juste! ${points} points gagnés` : `Tu n'as pas vu juste ! ${'\n'}Tu as ${points} points gagnés`}
+                    </Text>
+                </View>
+
             <View style={styles.brick}>
-                <ImageBackground 
-                source={Brick} 
-                resizeMode="stretch"
-                style={styles.brickImage}
-                >
-                    {lastQuestion ? <Text style={styles.text4}>Les résultats s'afficheront dans {timeLeft}secondes</Text> :<><Text style={styles.text4}>Prochaine question dans</Text>
-                    <Text style={styles.text5}>{timeLeft}s</Text></>}
-                </ImageBackground>
+                <LinearGradient
+                        colors={['#EC6262', '#D04445']}
+                        style={styles.linearGradient}
+                    />
+                    {lastQuestion ? <Text style={styles.text}>Les résultats s'afficheront dans {timeLeft}secondes</Text> :<><Text style={styles.text}>Prochaine question dans :</Text>
+                    <Text style={styles.text}>{timeLeft}s</Text></>}
             </View>
-      </View>
       </SafeAreaView>
+      </ImageBackground>
     )
   
 }
@@ -54,93 +49,9 @@ const Answer  = ({reponse, timeLeft, goodAnswer, lastQuestion, points}) => {
 const styles = StyleSheet.create({
     global: {
         flex:1,
-        width:'100%',
-        alignItems:'center',
-
-    },
-
-    classement:{
-        height:'40%',
-        paddingBottom:20,
-        paddingTop:30,
-    },
-
-    podium:{
-        marginTop:20,
-        width:"80%",
-        height:"20%"
-    },
-
-    podiumImage:{
-        height:'100%',
-        width:'100%',
-        justifyContent:'space-between',
-        alignItems:'center',
-    },
-
-    brick:{
-        width:"80%",
-        height:"15%",
-        marginTop:10
-    },
-
-    brickImage:{
-        height:'100%',
-        width:'100%',
-        justifyContent:'space-between',
-        alignItems:'center',
-    },
-
-    inputContainer:{
         width:'90%',
-        height:'20%',
-        backgroundColor:main.BgColor,
-        borderRadius:10,
-        marginTop:15
-    },
-
-    textInput:{
-        backgroundColor:'rgba(237, 240, 250, 0.85)',
-        borderRadius:10,
-        padding:10,
-        alignItems:'flex-start',
-        flex:1,
-        marginLeft:8,
-        fontSize :17
-    },
-
-    text1: {
-        color: main.LightWhite,
-        fontWeight: '600',
-        fontSize: 20,
-        marginTop:5
-    },
-
-    text2: {
-        color: main.LightWhite,
-        fontWeight: '600',
-        fontSize: 27,
-    },
-
-    text3: {
-        color: main.LightWhite,
-        fontWeight: '600',
-        fontSize: 40,
-        marginBottom:10
-    },
-
-    text4: {
-        color: main.LightWhite,
-        fontWeight: '600',
-        fontSize: 20,
-        marginTop:20
-    },
-
-    text5: {
-        color: main.LightWhite,
-        fontWeight: '600',
-        fontSize: 40,
-        marginBottom:10
+        marginHorizontal: '5%',
+        alignItems:'center',
     },
 
     imageBackground: {
@@ -150,29 +61,39 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    Logo:{
+    podium:{
+        width: '100%',
+        marginTop:20,
+        padding: 12,
+        height: 200,
+    },
+
+    linearGradient: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: '100%',
+        borderRadius: 12,
+    },
+
+    brick:{
+        width: '100%',
+        height: 120,
+        padding: 12,
+    },
+
+    text: {
+        color: main.LightWhite,
+        fontWeight: '600',
+        fontSize: 20,
+        marginTop:5
+    },
+
+    logo:{
         margin:10
-    },
+      },
 
-    Image:{
-        width:350,
-        height:300,
-    },
-
-    Button:{
-        width:'90%',
-        marginTop:20
-    },
-
-    Lign:{
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-        width:'100%',
-        paddingLeft:20,
-        paddingRight:20,
-        marginTop:20
-    }
 });
 
 export default Answer
