@@ -38,14 +38,15 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
     }));
 
     //Permet de reveler le bouton addPlayer
-    data.push({
-      id: "buttonAdd",
-    });
+    // data.push({
+    //   id: "buttonAdd",
+    // });
 
     const players = [...extraData, ...data];
 
 
     const handlePress = (player) => {
+      console.log(player.id);
       if (player.id === "buttonAdd") return;
       if(0 < Number(player.id) && Number(player.id) < 1){
         setExtraPlayer(extraPlayer.filter(p => p.id !== player.id));
@@ -101,11 +102,12 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
               </View>
             }
             ListFooterComponent={
-              <TouchableOpacity style={styles.buttonContainer}  onPress={() => console.log('hahahah')}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Ajouter un joueur</Text>
-                </View>
-              </TouchableOpacity>
+              // <TouchableOpacity style={styles.buttonContainer}  onPress={() => console.log('hahahah')}>
+              //   <View style={styles.button}>
+              //     <Text style={styles.buttonText}>Ajouter un joueur</Text>
+              //   </View>
+              // </TouchableOpacity>
+              <AddPlayerBS addPlayer={addPlayer}/>
             }
             numColumns={3}
             columnWrapperStyle={{justifyContent:'space-around'}}
