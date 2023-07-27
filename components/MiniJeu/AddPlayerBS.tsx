@@ -48,13 +48,17 @@ const AddPlayerBS = ({ addPlayer }) => {
     bottomSheetRef.current?.present();
   };
 
-  
+  const closeBottomSheet = () => {
+    bottomSheetRef.current?.close();
+  };
+
   const handleAddPlayer = async () => {
     if(title.length == 0){Alert.alert('','Entrez un nom')}
     else{
       addPlayer({ name: title, photo: avatar }); // utilisez la fonction addPlayer pour ajouter un nouveau joueur
       setTitle(null);
       setAvatar(null);
+      closeBottomSheet();
     } 
   }
 
@@ -137,14 +141,18 @@ const AddPlayerBS = ({ addPlayer }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width:90,
+    marginTop:20,
+    marginBottom:20,
     justifyContent:'center',
     alignItems:'center',
   },
   addButton: {
     width: '100%',
+    height:50,
     backgroundColor: '#172ACE',
     borderRadius: 8,
+    justifyContent:'center',
+    alignItems:'center'
   },
   contentContainer: {
     backgroundColor: 'white',
