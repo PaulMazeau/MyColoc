@@ -4,17 +4,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../../constants/Colors';
 import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MiniJeuStackParams } from "../../../App";
 import VoteCard from "../../../components/MiniJeu/VoteCard";
 import Button from "../../../components/Reusable/ButtonColor";
 import { useNavigation } from "@react-navigation/native";
 import { GameStateContext } from './GameStateContext';
 import RevealRole from "./RevealRole";
 import { UserContext } from "../../../UserContext";
+import { MiniJeuStackParams } from "../../../components/Navigation/MiniJeuStack";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
-
+const Megaphone = require('../../../assets/images/megaphone.png')
 
 type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'RevealRole'>;
 
@@ -88,11 +88,19 @@ const Vote = () => {
                 <Image source={Logo} />
             </View>
             <View style={styles.container}>
-                <Text style={styles.text1}>Énoncez chacun un indice puis désignez quelqu'un à éliminier</Text>
+                <View style={styles.consigne}>
+                    <ImageBackground 
+                    source={Megaphone} 
+                    resizeMode="contain"
+                    style={styles.imageBackground}
+                    >
+                        <Text style={styles.text1}>Énoncez chacun un indice puis désignez quelqu'un à éliminier</Text>
+                    </ImageBackground>
+                </View>
                 <View style={styles.voteCard}>
                     <VoteCard data={data} selectedPlayer={selectedPlayer} onPress={setSelectedPlayer} />
                 </View>
-                <Button text="Voter" colorBackGround={main.MainColor} colorText="white" onPress={() => handleVote()}/>
+                <Button text="Voter" colorBackGround={"#3B41F1"} colorText="white" onPress={() => handleVote()}/>
             </View>
         </View>
         </SafeAreaView>
@@ -139,7 +147,6 @@ const styles = StyleSheet.create({
         color: main.LightWhite,
         fontWeight: '600',
         fontSize: 20,
-        marginTop:5
     },
 
     text2: {
@@ -178,7 +185,17 @@ const styles = StyleSheet.create({
         paddingLeft:20,
         paddingRight:20,
         marginTop:20
-    }
+    },
+
+    consigne: {
+        backgroundColor: '#3B41F1',
+        height: 200,
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    
 });
 
 export default Vote;

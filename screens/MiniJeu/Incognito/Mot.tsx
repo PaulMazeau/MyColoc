@@ -3,13 +3,13 @@ import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimen
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../../constants/Colors';
-import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import Button from "../../../components/Reusable/ButtonColor";
 
 import { useNavigation } from "@react-navigation/native";
 import PassPhone from "./PassPhone";
 import { GameStateContext } from "./GameStateContext";
+import { MiniJeuStackParams } from "../../../components/Navigation/MiniJeuStack";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
@@ -63,7 +63,7 @@ const Mot = ({route}: Props) => {
                         <Text style={styles.text2}>{playerInfo.mot}</Text>
                     </View>
                 </ImageBackground>
-                <Button text="Continuer" colorText="white" colorBackGround={main.MainColor} onPress={() => {(updatedGameState.length<= 0)? navigation.navigate('Vote'):navigation.navigate('PassPhone', {gameState})}}/>
+                <Button text="Continuer" colorText="white" colorBackGround={"#3B41F1"} onPress={() => {(updatedGameState.length<= 0)? navigation.navigate('Vote'):navigation.navigate('PassPhone', {gameState})}}/>
             </View>
         </View>
         </SafeAreaView>

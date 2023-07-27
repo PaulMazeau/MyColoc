@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, FlatList, Button } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity, FlatList } from "react-native";
 import { main } from '../../constants/Colors';
 import ParticipantCard from '../Reusable/ParticipantCard';
 import { ColocContext, UserContext } from '../../UserContext';
 import AddPlayerBS from './AddPlayerBS';
+import Button from '../Reusable/Button';
 
 
 // Définition du type de données
@@ -81,6 +82,7 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
           </TouchableOpacity>
       );
     };
+    
 
     return (
       <View style={styles.global}>
@@ -97,6 +99,13 @@ const PlayersCard = ({selectedPlayers, setSelectedPlayers, onPress}: Props) => {
                       <Text style={styles.buttonTextStyle}>Commencer</Text>
                   </TouchableOpacity>
               </View>
+            }
+            ListFooterComponent={
+              <TouchableOpacity style={styles.buttonContainer}  onPress={() => console.log('hahahah')}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Ajouter un joueur</Text>
+                </View>
+              </TouchableOpacity>
             }
             numColumns={3}
             columnWrapperStyle={{justifyContent:'space-around'}}
@@ -151,10 +160,27 @@ const styles = StyleSheet.create({
       width: 120, 
       height: 40, 
   },
-  
+
   buttonTextStyle: {
-      color: 'white',
-      fontSize: 14,
+    color: 'white'
+  },
+  
+  buttonContainer: {
+    borderRadius: 10,
+    width: '100%',
+    backgroundColor: "#172ACE", 
+    marginBottom: 12
+  },
+  button: {
+    padding: 10,
+    height: 48,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontWeight: '700',
+    color: 'white'
   },
 });
 

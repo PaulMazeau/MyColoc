@@ -1,14 +1,14 @@
 import React, {useContext, useEffect, useState} from "react";
-import { View, Image, StyleSheet, ImageBackground, Text, Dimensions } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text, Dimensions, TouchableOpacity } from "react-native";
 import Button from "../../../components/Reusable/ButtonColor";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../../constants/Colors';
-import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { GameStateContext } from "./GameStateContext";
 import { BackHandler } from 'react-native';
+import { MiniJeuStackParams } from "../../../components/Navigation/MiniJeuStack";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
@@ -99,8 +99,7 @@ const RevealRole = ({route}:Props) => {
         style={styles.imageBackground}
         >
         <SafeAreaView style={styles.global} >
-        <StatusBar style="light" />
-        <View style={styles.global}>
+        <StatusBar style="light"/>
             <View style={styles.logo}>
                 <Image source={Logo} />
             </View>
@@ -116,11 +115,10 @@ const RevealRole = ({route}:Props) => {
                 <Text style={styles.text2}>{isIncognito ? `${selectedPlayer.player.name} était l'incognito` : `${selectedPlayer.player.name} était un civil`}</Text>
                 {isWinner === 'Perdu' && <Text style={styles.text2}>{`${incognitoName} était l'incognito`}</Text>}
                 </View>
-                <Button text={"Continuer"} colorBackGround={"#3B41F1"} colorText={'white'} onPress={()=> {
-                    navigation.navigate(navigateTo)
-                    }}/>
+                <TouchableOpacity style={styles.buttonContinuer} onPress={()=> {navigation.navigate(navigateTo)}}>
+                    <Text style={styles.buttonText}>Continuer</Text>
+                </TouchableOpacity>
             </View>
-        </View>
         </SafeAreaView>
       </ImageBackground>
     );
@@ -129,12 +127,11 @@ const RevealRole = ({route}:Props) => {
 const styles = StyleSheet.create({
     global: {
         flex:1,
-        width:'100%',
         alignItems:'center',
     },
 
     container:{
-        justifyContent:'space-between',
+        justifyContent:'space-around',
         flex:1,
         paddingBottom:40,
     },
@@ -175,6 +172,21 @@ const styles = StyleSheet.create({
         borderRadius:10,
         justifyContent:'center',
         alignItems:'center',
+    },
+
+    buttonContinuer: {
+        backgroundColor: '#3B41F1',
+        borderRadius: 12,
+        padding: 10,
+        height: 48,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    buttonText: {
+        color: 'white',
+        fontWeight: '700',
+        fontSize: 20
     }
 });
 

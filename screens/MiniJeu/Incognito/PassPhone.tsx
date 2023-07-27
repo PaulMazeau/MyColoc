@@ -58,7 +58,7 @@ const PassPhone = ({route}: Props) => {
                 <View style={styles.containerText}>
                     <Text style={styles.text1}>Passe le téléphone à {playerInfo.player.name}, son môt va être dévoilé</Text>
                 </View>
-                <Button text="Dévoiler le mot" colorBackGround={main.MainColor} colorText="white" onPress={() => {navigation.navigate('Mot', {playerInfo, updatedGameState})}}/>
+                <Button text="Dévoiler le mot" colorBackGround={"#3B41F1"} colorText="white" onPress={() => {navigation.navigate('Mot', {playerInfo, updatedGameState})}}/>
             </View>
         </View>
         </SafeAreaView>
