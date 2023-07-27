@@ -3,10 +3,10 @@ import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from '../../../constants/Colors';
-import { MiniJeuStackParams } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import ClassementCardScrollable from '../../../components/MiniJeu/ClassementCard'
+import { MiniJeuStackParams } from "../../../components/Navigation/MiniJeuStack";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');

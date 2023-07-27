@@ -131,7 +131,7 @@ export default function AuprocheGame() {
                     <Image source={Logo} />
                 </View>
                 <View style={styles.title}>
-                    <Trophy/>
+                    <Trophy width={30} height={30} />
                     <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold', marginLeft: 8, marginBottom: 20}}>Classement</Text>
                 </View>
                 <View style={styles.classement}>
@@ -147,7 +147,7 @@ export default function AuprocheGame() {
                             <Text style={styles.text}>{user.nom} : {c.point}</Text>
                             </View>
                             {index !== salon.points.length - 1 && 
-                            <View style={{ height: 1, backgroundColor: 'white', marginTop: 2, marginBottom: 2 }} />
+                            <View style={{ height: 1, backgroundColor: 'white', marginVertical: 12 }} />
                             }
                         </View>
                         )
@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginHorizontal: '5%',
         width: '90%',
-      
     },
 
     text: {

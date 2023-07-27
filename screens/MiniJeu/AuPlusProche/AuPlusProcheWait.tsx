@@ -311,12 +311,14 @@ const styles = StyleSheet.create({
         fontWeight: '500'
       },
       WaitingGroup: {
-          flexDirection:'row',
-          marginHorizontal: '5%',
-          borderRadius: 12,
-          padding: 12,
-          marginBottom: 24,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginHorizontal: '5%',
+        borderRadius: 12,
+        padding: 12,
+        marginVertical: 24,
       },
+      
       SalonTextStyle: {
         fontSize: 20,
         fontWeight: '700',
