@@ -76,7 +76,7 @@ const scores = colocFormated.map((c, index)=>{
       <SafeAreaView style={styles.global} edges={['top']} >
         <StatusBar style="light" />
         
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
           <View style={styles.topLign}>
           <TouchableOpacity style={styles.quitter} onPress={() => navigation.goBack()}>
               <BackButton color={"#5368F9"}/>

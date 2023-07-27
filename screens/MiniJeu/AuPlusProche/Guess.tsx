@@ -22,65 +22,54 @@ type navigationProp = NativeStackNavigationProp<MiniJeuStackParams, 'Answer'>;
 const Guess = () => {
     const navigation = useNavigation<navigationProp>();
     return (
-        <KeyboardAvoidingView behavior={"height"} style={{flex: 1}}>
-            <ScrollView contentContainerStyle={{flexGrow: 1}}>
-                <ImageBackground 
-                source={Space_Background} 
-                resizeMode="cover"
-                style={styles.imageBackground}
-                >
-                <SafeAreaView style={styles.global} >
-                <StatusBar style="light" />
-        <View style={styles.global}>
-            <View style={styles.Logo}>
-                <Image source={Logo} />
-            </View>
-            <View style={styles.Logo}>
-                <Image source={Visual} style={styles.Image} />
-            </View>
-            <View style={styles.Lign}>
-                <QuestionNumber number={2} total={10}/>
-                <TimeLeft number={30}/>
-            </View>
-            <View style={styles.Question}>
-                <Text style={styles.text}>Quelle est la distance Terre-Lune</Text>
-            </View>
-            <View style={styles.inputContainer}>
-                <ImageBackground 
-                source={LogoBlackWhite} 
-                resizeMode='contain'
-                style={styles.LogoBlackWhite}>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder="Ecris ta réponse ici..."
-                    placeholderTextColor="#B7B7B7"
-                    textAlignVertical="top"
-                />
-                </ImageBackground>
-            </View>
-            <View style={styles.Button}>
-            <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {navigation.navigate('Answer')}}/>
-            </View>
-        </View>
-        </SafeAreaView>
-              </ImageBackground>
+        <ImageBackground 
+            source={Space_Background} 
+            resizeMode="cover"
+            style={styles.imageBackground}
+        >
+            <SafeAreaView style={styles.global} edges={['top']} >
+            <StatusBar style="light" />
+                <ScrollView>
+                        <View style={styles.Logo}>
+                            <Image source={Logo} />
+                        </View>
+                        <View style={styles.Logo}>
+                            <Image source={Visual} style={styles.Image} />
+                        </View>
+                        <View style={styles.Lign}>
+                            <QuestionNumber number={2} total={10}/>
+                            <TimeLeft number={30}/>
+                        </View>
+                        <View style={styles.Question}>
+                            <Text style={styles.text}>Quelle est la distance Terre-Lune</Text>
+                        </View>
+                        <View style={styles.inputContainer}>
+                            <ImageBackground 
+                            source={LogoBlackWhite} 
+                            resizeMode='contain'
+                            style={styles.LogoBlackWhite}>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Ecris ta réponse ici..."
+                                placeholderTextColor="#B7B7B7"
+                                textAlignVertical="top"
+                            />
+                            </ImageBackground>
+                        </View>
+                        <View style={styles.Button}>
+                        <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {navigation.navigate('Answer')}}/>
+                        </View>
             </ScrollView>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
+    </ImageBackground>
+            
     );
 };
 
 const styles = StyleSheet.create({
     global: {
-        flex:1,
         width:'100%',
         alignItems:'center'
-    },
-
-    container:{
-        justifyContent:'space-between',
-        flex:1,
-        paddingBottom:20,
-        paddingTop:20
     },
 
     Question:{
