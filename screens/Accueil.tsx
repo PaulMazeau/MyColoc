@@ -13,12 +13,12 @@ import { collection, getDocs, limit, orderBy, query, where } from 'firebase/fire
 import { FB_DB } from '../firebaseconfig';
 import GetNotificationPermission from '../GetNotificationPermission';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParams, SettingsStackParams } from '..//App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
+import { RootStackParams } from '../components/Navigation/RootStack';
 const Appartement = require('../assets/images/Appartement.png');
 type RootStackNavigationProp = NativeStackNavigationProp<RootStackParams, 'SettingsStack'>;
 

@@ -188,6 +188,7 @@ const AuPlusProcheWait = () => {
             <View style={styles.TitleSalon}>
             <Text style={styles.SalonTextStyle}>Bienvenue dans le salon</Text>
             <Text style={styles.participant}>Tu vas retrouver ici tout les participants de ta partie. Le propriétaire lancera quand tout le monde sera là.</Text>
+            <Regles regles="Tous les joueurs répondent à une question, il faut répondre avec un chiffre ou un nombre. Celui au plus proche gagne 1 point, si c'est la réponse exacte il gagne 2 points. Attention aux unités!" />
             </View>
           {renderButtonSafely()}
         </SafeAreaView>
@@ -296,12 +297,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
       },
+      
       participant: {
         color: 'white',
         fontSize: 16,
         textAlign: 'center',
-        fontWeight: '500'
+        fontWeight: '500',
+        marginBottom: 12
       },
+
       WaitingGroup: {
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -322,7 +326,8 @@ const styles = StyleSheet.create({
       TitleSalon: {
           width: '90%',
           marginHorizontal: '5%',
-          marginBottom: 12
+          marginBottom: 12,
+          alignItems: 'center'
       },
       WaitingGame: {
         width: '90%',

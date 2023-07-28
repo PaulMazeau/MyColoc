@@ -153,8 +153,9 @@ export default function AuprocheGame() {
                         )
                     })}
                 </View>
-
-        <Button text={'Commencer une nouvelle partie'} onPress={()=>{handleStartNewGame()}} colorBackGround={'#5368F9'} colorText={'white'}/>
+        <View style={{width: '90%', marginHorizontal: '5%'}}>
+            <Button text={'Commencer une nouvelle partie'} onPress={()=>{handleStartNewGame()}} colorBackGround={'#5368F9'} colorText={'white'}/>
+        </View>
    </SafeAreaView>
    </ImageBackground>
     

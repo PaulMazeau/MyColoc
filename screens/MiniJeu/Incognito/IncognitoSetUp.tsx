@@ -71,7 +71,7 @@ const IncognitoSetUp = () => {
                   : assignRoles();
               }}
             />
-            <Regles />
+          <Regles regles="Tous les joueurs obtiennent un mot identique, sauf un ! Démasquez l'Incognito en donnant chacun votre tour un indice sur votre mot, puis votez. L'Incognito gagne s'il survit et qu'il ne reste que 2 joueurs." />
           </View>
       </SafeAreaView>
     </ImageBackground>

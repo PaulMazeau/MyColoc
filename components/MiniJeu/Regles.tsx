@@ -5,11 +5,11 @@ import { main } from '../../constants/Colors';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Regles = () => {
+const Regles = (props) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Règles du jeu :</Text>
-            <Text style={styles.text}>Tous les joueurs obtiennent un mot identique, sauf un ! Démasquez l'Incognito en donnant chacun votre tour un indice sur votre mot, puis votez. L'Incognito gagne s'il survit et qu'il ne reste que 2 joueurs.</Text>
+            <Text style={styles.text}>{props.regles}</Text>
         </View>
     );
 };
