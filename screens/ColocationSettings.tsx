@@ -10,9 +10,9 @@
   import { FB_AUTH, FB_DB } from '../firebaseconfig';
   import { ColocContext, UserContext } from '../UserContext';
   import { NativeStackScreenProps } from '@react-navigation/native-stack';
-  import { SettingsStackParams } from '../App';
   import { arrayRemove, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
   import { ScrollView } from 'react-native-gesture-handler';
+import { SettingsStackParams } from '../components/Navigation/SettingsStack';
 
   type Props = NativeStackScreenProps<SettingsStackParams, 'ColocationSettings'>;
 
@@ -84,7 +84,7 @@
       <StatusBar style="dark"/>
       <ScreenTitle title={'Settings'} shouldGoBack/>
       <View style={styles.body}>
-
+      
         <View style={styles.containerFlatList}>
           <View style={styles.flatlist}>
               <FlatList
@@ -96,16 +96,14 @@
               />
           </View>
         </View>
-        
-
-        
+        <ScrollView showsVerticalScrollIndicator={false}>
         <SettingsCard title="Changer d'avatar" onPress={() => navigation.navigate('AvatarSettings')} avatar={{uri: user.avatarUrl, cache:'force-cache'}} />
         <SettingsCard title="Code de la colocation" subtitle={user.colocID} onPress={async () => { await Clipboard.setStringAsync(user.colocID); Alert.alert('Succès', 'Le texte a été copié'); }} />
         <SettingsCard title="Contact :" subtitle="support@coloc.fr" onPress={async () => { await Clipboard.setStringAsync("support@coloc.fr"); Alert.alert('Succès', 'Le texte a été copié'); }} />
 
         <Button text={'Déconnexion'} colorBackGround={'#E40000'} colorText={'white'} onPress={() => {FB_AUTH.signOut(); setUser(null)}} />
         {loading ? <ActivityIndicator size= 'small'/>: <Button text={'Quitter la colocation'} colorBackGround={'#E40000'} colorText={'white'} onPress={() => handleLeaveColocSetup()} />}
-        
+        </ScrollView>
       </View>
       </SafeAreaView>
     )

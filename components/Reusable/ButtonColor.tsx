@@ -19,8 +19,7 @@ const Button = ({ text, colorBackGround, colorText, onPress, height }: ButtonPro
             height: height? height:48,
             marginBottom: 12,
             paddingHorizontal:10,
-            width: '90%',
-            marginHorizontal: '5%'
+            width: '100%',
         },
         text: {
             fontWeight: '600',

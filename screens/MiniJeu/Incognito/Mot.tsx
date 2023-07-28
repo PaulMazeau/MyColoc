@@ -52,7 +52,7 @@ const Mot = ({route}: Props) => {
             </View>
             <View style={styles.container}>
                 <View style={styles.title}>
-                    <Text style={styles.text1}>{playerInfo.player.name} ton mot est :</Text>
+                    <Text style={styles.text1}>{playerInfo.player.name}ton mot est :</Text>
                 </View>
                 <ImageBackground 
                 source={Card} 
@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
 
     container:{
         justifyContent:'space-between',
-        width:'80%',
+        width:'90%',
+        marginHorizontal: '5%',
         flex:1,
         paddingTop:20,
         paddingBottom:40
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     title:{
         justifyContent:'flex-start',
         width:'100%',
-        marginTop:80
+        marginBottom: 12
     },
 
     text1: {

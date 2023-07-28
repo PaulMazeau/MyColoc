@@ -229,7 +229,8 @@ const AuPlusProcheWait = () => {
 const styles = StyleSheet.create({
     global: {
         flex:1,
-        width:'100%',
+        width:'90%',
+        marginHorizontal: '5%',
     },
     topLign:{
         flexDirection:'row',
@@ -241,7 +242,6 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'flex-start',
         width:'100%',
-        marginLeft:20,
         alignItems:'center',
         marginTop:50,
     },
@@ -265,7 +265,6 @@ const styles = StyleSheet.create({
         color: main.LightWhite,
         fontWeight: '600',
         fontSize: 20,
-        marginLeft:10
     },
 
     imageBackground: {
@@ -288,7 +287,6 @@ const styles = StyleSheet.create({
         width: 30,
         justifyContent:'center',
         alignItems:'center',
-        marginLeft:10,
         marginTop:25,
         position:'absolute',
         left:0
@@ -297,12 +295,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
-      },
-      avatar: {
-        width: 40, 
-        height: 40, 
-        borderRadius: 20,
-        marginRight: 10, 
       },
       participant: {
         color: 'white',

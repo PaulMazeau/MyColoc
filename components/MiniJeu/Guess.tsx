@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, ImageBackground, Text,  KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { View, Image, StyleSheet, ImageBackground, Text,  KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { main } from './../../constants/Colors';
@@ -33,24 +33,28 @@ const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestio
         resizeMode="cover"
         style={styles.imageBackground}
         >
+
         <SafeAreaView style={styles.global} edges={['top']} >
         <StatusBar style="light" />
-        <View style={styles.global}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <ScrollView contentContainerStyle={{paddingBottom: 90}} showsVerticalScrollIndicator={false}>
+
             <View style={styles.logo}>
                 <Image source={Logo} />
             </View>
-        <View style={{width:'100%', flex:1}}>
-            <View style={styles.Logo}>
-                <Image source={{uri : image}} style={styles.Image} />
-            </View>
+        
+            <Image source={{uri : image}} style={styles.Image} />
+
             <View style={styles.Lign}>
                 <QuestionNumber number={currQuestion+1} total={numberOfQuestion}/>
                 <TimeLeft number={timeLeft-5}/>
             </View>
+
             <View style={styles.Question}>
                 <Text style={styles.text}>{question}</Text>
             </View>
-            <View style={{width:'100%', height:'100%',alignItems:'center'}}>
+
+            
             <View style={styles.inputContainer}>
                 <ImageBackground 
                 source={LogoBlackWhite} 
@@ -65,18 +69,21 @@ const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestio
                 />
                 </ImageBackground>
             </View>
+
             <View style={styles.Button}>
             {buttonPressed ? 
                 <View style={styles.Wait}>
                 <Text style={{color: 'white'}}>Attends {timeLeft-5} secondes pour voir la réponse</Text>
                 </View>
                 :
-                <ButtonColor colorBackGround={main.MainColor} colorText={main.LightWhite} text={'Soumettre ta réponse'} onPress={() => {answer(reponse);setButtonPressed(true)}}/>
-            }
+                <TouchableOpacity style={styles.Wait} onPress={() => {answer(reponse);setButtonPressed(true)}}>
+                <Text style={{color: 'white'}}>Soumettre ta réponse</Text>
+                </TouchableOpacity>
+           }
             </View>
-            </View>
-        </View>
-        </View>
+           
+        </ScrollView>
+        </KeyboardAvoidingView>
         </SafeAreaView>
         </ImageBackground>
     );
@@ -86,30 +93,21 @@ const Guess = ({image, question, answer, timeLeft, currQuestion, numberOfQuestio
 const styles = StyleSheet.create({
     global: {
         flex:1,
-        width:'100%',
-        alignItems:'center'
-    },
-
-    container:{
-        justifyContent:'space-between',
-        flex:1,
-        paddingBottom:20,
-        paddingTop:20
+        width: '90%',
+        marginHorizontal: '5%'
     },
 
     Question:{
         justifyContent:'flex-start',
-        width:'100%',
-        paddingLeft:20,
         marginTop:20
     },
 
     logo:{
-        margin:10
+        margin:10,
+        alignItems: 'center'
       },
 
     inputContainer:{
-        width:'90%',
         height:'20%',
         backgroundColor:main.BgColor,
         borderRadius:10,
@@ -144,13 +142,7 @@ const styles = StyleSheet.create({
 
     imageBackground: {
         flex: 1,             
-        width: '100%',       
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    Logo:{
-        alignItems:'center'
+        width: '100%', 
     },
 
     LogoBlackWhite:{
@@ -158,13 +150,11 @@ const styles = StyleSheet.create({
     },
 
     Image:{
-        width:350,
         height:300,
         borderRadius: 12
     },
 
     Button:{
-        width:'100%',
         marginTop:20,
     },
 
@@ -172,9 +162,6 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
-        width:'100%',
-        paddingLeft:20,
-        paddingRight:20,
         marginTop:20
     },
 
@@ -186,8 +173,6 @@ const styles = StyleSheet.create({
         height: 48,
         marginBottom: 12,
         paddingHorizontal:10,
-        width: '90%',
-        marginHorizontal: '5%'
     }
 });
 

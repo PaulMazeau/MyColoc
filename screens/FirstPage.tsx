@@ -1,7 +1,6 @@
 import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import BlueGradient from '../components/Reusable/BlueGradient'
-import Button from '../components/Reusable/ButtonColor'
 import CustomButton from '../components/Reusable/Button'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { AuthStackParams } from '../components/Navigation/AuthStack'
