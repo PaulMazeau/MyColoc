@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Animated, ActivityIndicator } from 'react-native';
 import { Shadows } from '../../constants/Shadow';
 import { ColocContext, DepenseContext, UserContext } from '../../UserContext';
@@ -7,7 +7,7 @@ import InfoDepenseBS from './InfoDepenseBS';
 import * as Haptics from 'expo-haptics';
 import { collection, deleteDoc, doc, getDocs, limit, query, where } from 'firebase/firestore';
 import { FB_DB } from '../../firebaseconfig';
-//props.transac est la transac a render
+//props.transac est la transac a render, props.id l'id
 const TransactionCard = (props) => {
   const [coloc, setColoc] = useContext(ColocContext);
   const [user, setUser] = useContext(UserContext);
@@ -28,10 +28,7 @@ const handleDismissPress = () => {
 
 const handleDelete = async () => {
   setLoading(true)
-  const q = query(collection(FB_DB, 'Colocs/'+user.colocID+'/Transactions'), where('timestamp', '==', props.transac.timestamp), limit(1))
-  const data = await getDocs(q)
-  const id = data.docs[0].id
-  deleteDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Transactions', id)).then(() => {setLoading(false)}).catch((err) => {alert(err.message); setLoading(false)})
+  deleteDoc(doc(FB_DB, 'Colocs/'+user.colocID+'/Transactions', props.id)).then(() => {setLoading(false)}).catch((err) => {alert(err.message); setLoading(false)})
   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
 }
 

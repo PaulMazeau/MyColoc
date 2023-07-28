@@ -35,9 +35,10 @@ export default function ListeTransaction() {
   const [loading, setLoading] = useState(false);  // Ajoutez cet état
   const [transacToRender, setTransacToRender]  = useState([])   
   const [numberToRender, setNumberToRender] = useState(10)
+
   useEffect(()=>{
     setTransacToRender(transac.slice(0, numberToRender))
-  }, [numberToRender])
+  }, [numberToRender, transac])
   // Ajoutez cette fonction pour être appelée lorsque vous ajoutez une dépense
   const handleAddDepense = () => {
      setLoading(true);
@@ -65,8 +66,8 @@ export default function ListeTransaction() {
         transacToRender.map((t, i) => {
           return(
             <>
-          <TransactionCard transac={t.data()} key={t.id}/>
-          {i==numberToRender-1 ? numberToRender == transac.length ? <></> : <TouchableOpacity style={styles.afficherPlus} onPress={()=>{setNumberToRender(transac.length)}}><Text style={styles.textAfficherPlus}>Afficher tout</Text></TouchableOpacity> : <></>}
+          <TransactionCard transac={t.data()} key={t.id} id={t.id}/>
+          {i==numberToRender-1 ? numberToRender == transac.length ? <></> : <TouchableOpacity key={i} style={styles.afficherPlus} onPress={()=>{setNumberToRender(transac.length)}}><Text style={styles.textAfficherPlus}>Afficher tout</Text></TouchableOpacity> : <></>}
           </>
           )
         })
