@@ -32,7 +32,9 @@ const GameCard: React.FC<GameCardProps> = ({ gameTitle, backgroundImageSource, c
             {scoreUser==null?
              <View/>
             :
-              <Score score={scoreUser} color={"white"}/>
+            <TouchableOpacity onPress={() => navigation.navigate('Classement'+gameTitle)}>
+            <Score score={scoreUser} color={"white"}/>
+            </TouchableOpacity>
             }
           </View>
           
