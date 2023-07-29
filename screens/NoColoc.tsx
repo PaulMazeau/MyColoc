@@ -1,5 +1,5 @@
     import React, {useContext, useState} from 'react'
-    import { StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native'
+    import { StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Dimensions } from 'react-native'
     import {UserContext} from '../UserContext'
     import { FB_AUTH, FB_DB } from '../firebaseconfig';
     import * as Crypto from 'expo-crypto';
@@ -8,6 +8,9 @@
     import BlueGradient from '../components/Reusable/BlueGradient';
     import { StatusBar } from 'expo-status-bar';
     import Button from '../components/Reusable/Button';
+
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
 
     export default function NoColoc() {
 
@@ -172,7 +175,14 @@
         marginBottom: 15,
     },
     decoBouton: {
-      marginBottom: 28
+      marginBottom: 28,
+      ...Platform.select({
+          android: {
+              position: 'absolute',
+              top: windowHeight,
+              width: "100%",
+          },
+      }),
     },
     textDecoBouton: {
       textDecorationLine: 'underline',
