@@ -8,7 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 const Space_Background=require('../../assets/images/Space_Background.png');
 const Logo =require('../../assets/images/Logo_Minijeu.png');
 
-const Answer  = ({reponse, timeLeft, goodAnswer, lastQuestion, points}) => {
+const Answer  = ({reponse, timeLeft, lastQuestion}) => {
   
     return (
         <ImageBackground 
@@ -28,7 +28,7 @@ const Answer  = ({reponse, timeLeft, goodAnswer, lastQuestion, points}) => {
                     />
                     <Text style={styles.text}>La bonne réponse est : {'\n'} {reponse}</Text>
                     <Text style={styles.text}>
-                        {goodAnswer ? `Tu as vu juste! ${points} points gagnés` : `Tu n'as pas vu juste ! ${'\n'}Tu as ${points} points gagnés`}
+                       {"TestTest"}
                     </Text>
                 </View>
 
