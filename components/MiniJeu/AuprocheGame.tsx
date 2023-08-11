@@ -151,7 +151,7 @@ export default function AuprocheGame() {
                                 style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} 
                             />
                             <Text style={styles.text}>{user.nom} : {c.point}</Text>
-                            {computePoints(c.uuid)}
+                            {computePoints()}
                             </View>
                             {index !== salon.points.length - 1 && 
                             <View style={{ height: 1, backgroundColor: 'white', marginVertical: 12 }} />
