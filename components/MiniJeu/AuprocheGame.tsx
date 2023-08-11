@@ -104,6 +104,22 @@ export default function AuprocheGame() {
     const dataParticipants = coloc.filter(c=> salon.participants.includes(c.uuid))
     const computePoints = () => {
         //logic pr compute points en fonctions des res des autres participants....
+        //réponse exacte : 2 pts, +plus proche: 1 point
+        const userPoints = 0// userPoints: {uuid: uuid, points: number}
+        const allAnswers = salon.points
+        for(var i=0; i<questions.length; i++){
+            const actualAnswer = questions[i].reponse
+            const allDistancesToActualAnswer = allAnswers.map((ans)=>{
+                var rObj = {}
+                rObj['uuid'] = ans.uuid
+                rObj['distance'] = Math.abs(Number(actualAnswer) - Number(ans.point[i]))
+                return rObj
+                })
+            //todo : a partir de ces distances on distribue les points.....
+            return(
+                <></>
+            )
+        }
     }
   return (
     <ImageBackground 
@@ -121,6 +137,10 @@ export default function AuprocheGame() {
                     <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold', marginLeft: 8, marginBottom: 20}}>Classement</Text>
                 </View>
                 <View style={styles.classement}>
+                    {/* salon.points:  [{
+                        uuid,
+                        point: [array réponse]
+                    }] */}
                     {salon.points.map((c, index) => {
                         const user = dataParticipants.find((u) => u.uuid == c.uuid);
                         return (
@@ -131,6 +151,7 @@ export default function AuprocheGame() {
                                 style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} 
                             />
                             <Text style={styles.text}>{user.nom} : {c.point}</Text>
+                            {computePoints(c.uuid)}
                             </View>
                             {index !== salon.points.length - 1 && 
                             <View style={{ height: 1, backgroundColor: 'white', marginVertical: 12 }} />
