@@ -27,9 +27,6 @@ const Answer  = ({reponse, timeLeft, lastQuestion}) => {
                         style={styles.linearGradient}
                     />
                     <Text style={styles.text}>La bonne réponse est : {'\n'} {reponse}</Text>
-                    <Text style={styles.text}>
-                       {"TestTest"}
-                    </Text>
                 </View>
 
             <View style={styles.brick}>
@@ -37,7 +34,7 @@ const Answer  = ({reponse, timeLeft, lastQuestion}) => {
                         colors={['#EC6262', '#D04445']}
                         style={styles.linearGradient}
                     />
-                    {lastQuestion ? <Text style={styles.text}>Les résultats s'afficheront dans {timeLeft}secondes</Text> :<><Text style={styles.text}>Prochaine question dans :</Text>
+                    {lastQuestion ? <Text style={styles.text}>Les résultats s'afficheront dans {timeLeft} secondes</Text> :<><Text style={styles.text}>Prochaine question dans :</Text>
                     <Text style={styles.text}>{timeLeft}s</Text></>}
             </View>
       </SafeAreaView>
