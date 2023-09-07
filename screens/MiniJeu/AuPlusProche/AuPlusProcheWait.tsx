@@ -16,6 +16,7 @@ import { AuPlusProcheContext, ColocContext, UserContext } from "../../../UserCon
 import Answer from "../../../components/MiniJeu/Answer";
 import AuprocheGame from "../../../components/MiniJeu/AuprocheGame";
 import FloatingAvatar from "./FloatingAvatar";
+import { BackgroundImage } from "react-native-elements/dist/config";
 
 const Space_Background=require('../../../assets/images/Space_Background.png');
 const Logo =require('../../../assets/images/Logo_Minijeu.png');
@@ -116,18 +117,17 @@ const AuPlusProcheWait = () => {
                     <Button text={'Créer un salon'} colorText={'white'} colorBackGround={'blue'} onPress={() => {setModalVisible(true)}}/>
                     <Modal visible={modalVisible} animationType="slide">
                         <SafeAreaView style={styles.container}>
+                        <ImageBackground 
+                            source={Space_Background} 
+                            resizeMode="cover"
+                            style={styles.imageBackground}
+                            >
                             <Text style={styles.title}>Creer un salon ?</Text>
-                            {loading ? <ActivityIndicator size='large'/> : <Button text={'Oui'} onPress={()=>{handleCreateSalon()}} colorBackGround={'blue'} colorText={'white'}/>}
-                            <Button text={'Non'} onPress={()=>{setModalVisible(false)}} colorBackGround={'red'} colorText={'white'}/>
+                                {loading ? <ActivityIndicator size='large'/> : <Button text={'Oui'} onPress={()=>{handleCreateSalon()}} colorBackGround={'blue'} colorText={'white'}/>}
+                                <Button text={'Non'} onPress={()=>{setModalVisible(false)}} colorBackGround={'red'} colorText={'white'}/>
+                            </ImageBackground>
                         </SafeAreaView>
                     </Modal>
-                </View>
-                <View style={styles.container}>
-                {/* <WaitingCard userIsOwner={userIsOwner} onPress={() => 
-                        {userIsOwner? navigation.navigate('Guess') : navigation.navigate('Guess')}
-                    }/>  */}
-                    <TouchableOpacity onPress={()=>{navigation.navigate('AuPlusProcheSalonWait')}}><Text style={{color : 'red'}}>Tu ne vois pas de salon mais tu devrais ? Clique pour rafraîchir</Text></TouchableOpacity>
-                
                 </View>
             </View>
             </SafeAreaView>
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
         width:'100%',
         alignItems:'center',
         marginTop:50,
+        color:'white'
     },
 
     container:{
