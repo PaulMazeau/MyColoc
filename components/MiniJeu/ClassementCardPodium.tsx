@@ -60,11 +60,14 @@ const ScoreBoardPodium = ({ scores, name, isScrollable, scoreTotal, imageCorner 
           </View>
         }
         </View>
-        <View style={styles.lign2}>
-          <UserBubble name={scores[1].name} userImage={scores[1].userImage} size={40}/>
-          <UserBubble name={scores[0].name} userImage={scores[0].userImage} size={80}/>
-          <UserBubble name={scores[2].name} userImage={scores[2].userImage} size={40}/>
-        </View>
+        { scores.length >= 3 && (
+          <View style={styles.lign2}>
+            <UserBubble name={scores[1].name} userImage={scores[1].userImage} size={40}/>
+            <UserBubble name={scores[0].name} userImage={scores[0].userImage} size={80}/>
+            <UserBubble name={scores[2].name} userImage={scores[2].userImage} size={40}/>
+          </View>
+        )}
+
         {renderScoreLines(scores)}
       </View>
     );

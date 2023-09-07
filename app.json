@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "MyColocv2",
-    "slug": "MyColocv2",
-    "version": "1.0.0",
+    "name": "MyColoc",
+    "slug": "Hestia",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "cover",
@@ -16,21 +16,21 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pabloprout.MyColocv2"
+      "bundleIdentifier": "com.Hestia.HestiaApp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.pabloprout.MyColocv2"
+      "package": "com.Hestia.HestiaApp"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "8dbcef21-2594-49b0-8188-354cc40a94d0"
+        "projectId": "a9d2f5f2-2c17-4b62-94d3-54c537109bc9"
       }
     }
   }

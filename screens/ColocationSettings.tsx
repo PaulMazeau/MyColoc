@@ -80,7 +80,7 @@ import { SettingsStackParams } from '../components/Navigation/SettingsStack';
         }
       }
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar style="dark"/>
       <ScreenTitle title={'Settings'} shouldGoBack/>
       <View style={styles.body}>
@@ -126,7 +126,7 @@ import { SettingsStackParams } from '../components/Navigation/SettingsStack';
       backgroundColor: '#172ACE',
       borderRadius: 10,
       padding:10,
-      height:windowHeight*0.5
+      maxHeight:windowHeight*0.5
     },
     colocataire: {
       alignItems: 'center',
